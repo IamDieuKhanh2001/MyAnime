@@ -5,7 +5,6 @@ export class AnimeDetail extends Component {
     render() {
         return (
             <div>
-                {/* Anime Section Begin */}
                 <section className="anime-details spad">
                     <div className="container">
                         <div className="anime__details__content">
