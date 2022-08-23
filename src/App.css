@@ -1,3 +1,6 @@
+
+@import url("./styles/plyr.css"); /* Using a url */
+
 .App {
   text-align: center;
 }

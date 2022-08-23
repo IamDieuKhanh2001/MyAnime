@@ -1,10 +1,14 @@
 import React, { Component } from 'react'
+import BreadcrumbOption from '../components/BreadcrumbOption'
 import Footer from '../components/Footer'
+import Header from '../components/Header'
 
 export class AnimeDetail extends Component {
     render() {
         return (
             <div>
+                <Header />
+                <BreadcrumbOption />
                 <section className="anime-details spad">
                     <div className="container">
                         <div className="anime__details__content">
@@ -31,7 +35,7 @@ export class AnimeDetail extends Component {
                                             </div>
                                             <span>1.029 Votes</span>
                                         </div>
-                                        <p>Every human inhabiting the world of Alcia is branded by a “Count” or a number written on
+                                        <p className="anime__details__description">Every human inhabiting the world of Alcia is branded by a “Count” or a number written on
                                             their body. For Hina’s mother, her total drops to 0 and she’s pulled into the Abyss,
                                             never to be seen again. But her mother’s last words send Hina on a quest to find a
                                             legendary hero from the Waste War - the fabled Ace!</p>
@@ -57,7 +61,7 @@ export class AnimeDetail extends Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="anime__details__btn">
+                                        <div className="anime__details__btn d-flex flex-row">
                                             <a href="#" className="follow-btn"><i className="fa fa-heart-o" /> Follow</a>
                                             <a href="#" className="watch-btn"><span>Watch Now</span> <i className="fa fa-angle-right" /></a>
                                         </div>
@@ -168,7 +172,6 @@ export class AnimeDetail extends Component {
                         </div>
                     </div>
                 </section>
-                {/* Anime Section End */}
                 <Footer />
             </div>
         )

@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import Slider from './Slider'
 
-class Content extends Component {
+class ContentIndex extends Component {
   render() {
     return (
       <div>
         <Slider /> 
-        {/* Product Section Begin */}
         <section className="product spad">
           <div className="container">
             <div className="row">
@@ -567,5 +566,5 @@ class Content extends Component {
   }
 }
 
-export default Content
+export default ContentIndex
 
