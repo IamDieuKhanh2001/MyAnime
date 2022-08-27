@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, {useState, useEffect} from 'react'
 import axios from 'axios';
 import Footer from '../components/Footer'
 import Header from '../components/Header'
@@ -7,9 +7,9 @@ function Login() {
 
     return (
         <div>
-            <Header />
+            <Header/>
             {/* Normal Breadcrumb Begin */}
-            <section className="normal-breadcrumb set-bg" style={{ backgroundImage: "url('img/normal-breadcrumb.jpg')" }}>
+            <section className="normal-breadcrumb set-bg" style={{backgroundImage: "url('img/normal-breadcrumb.jpg')"}}>
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-12 text-center">
@@ -30,12 +30,12 @@ function Login() {
                                 <h3>Login</h3>
                                 <form action="#">
                                     <div className="input__item">
-                                        <input type="text" placeholder="Email address" />
-                                        <span className="icon_mail" />
+                                        <input type="text" placeholder="Email address"/>
+                                        <span className="icon_mail"/>
                                     </div>
                                     <div className="input__item">
-                                        <input type="text" placeholder="Password" />
-                                        <span className="icon_lock" />
+                                        <input type="text" placeholder="Password"/>
+                                        <span className="icon_lock"/>
                                     </div>
                                     <div className='d-flex flex-row'>
                                         <button type="submit" className="site-btn">Login Now</button>
@@ -58,10 +58,13 @@ function Login() {
                                 <div className="login__social__links">
                                     <span>or</span>
                                     <ul>
-                                        <li><a href="#" className="facebook"><i className="fa fa-facebook" /> Sign in With
+                                        <li><a href="#" className="facebook"><i className="fa fa-facebook"/> Sign in
+                                            With
                                             Facebook</a></li>
-                                        <li><a href="#" className="google"><i className="fa fa-google" /> Sign in With Google</a></li>
-                                        <li><a href="#" className="twitter"><i className="fa fa-twitter" /> Sign in With Twitter</a>
+                                        <li><a href="#" className="google"><i className="fa fa-google"/> Sign in With
+                                            Google</a></li>
+                                        <li><a href="#" className="twitter"><i className="fa fa-twitter"/> Sign in With
+                                            Twitter</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -71,7 +74,7 @@ function Login() {
                 </div>
             </section>
 
-            <Footer />
+            <Footer/>
         </div>
     )
 }

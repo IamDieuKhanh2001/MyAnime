@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import BreadcrumbOption from '../components/BreadcrumbOption'
 import Header from '../components/Header'
 
@@ -6,17 +6,17 @@ class AnimeWatching extends Component {
     render() {
         return (
             <React.Fragment>
-                <Header />
-                <BreadcrumbOption />
+                <Header/>
+                <BreadcrumbOption/>
                 <section className="anime-details spad">
                     <div className="container">
                         <div className="row">
                             <div className="col-lg-12">
                                 <div className="anime__video__player">
                                     <video id="player" playsInline controls poster='./videos/anime-watch.jpg'>
-                                        <source src="videos/1.mp4" type="video/mp4" />
+                                        <source src="videos/1.mp4" type="video/mp4"/>
                                         {/* Captions are optional */}
-                                        <track kind="captions" label="English captions" src="#" srcLang="en" default />
+                                        <track kind="captions" label="English captions" src="#" srcLang="en" default/>
                                     </video>
                                 </div>
                                 <div className="anime__details__episodes">
@@ -53,17 +53,18 @@ class AnimeWatching extends Component {
                                     </div>
                                     <div className="anime__review__item">
                                         <div className="anime__review__item__pic">
-                                            <img src="img/anime/review-1.jpg" alt />
+                                            <img src="img/anime/review-1.jpg" alt/>
                                         </div>
                                         <div className="anime__review__item__text">
                                             <h6>Chris Curry - <span>1 Hour ago</span></h6>
-                                            <p>whachikan Just noticed that someone categorized this as belonging to the genre
+                                            <p>whachikan Just noticed that someone categorized this as belonging to the
+                                                genre
                                                 "demons" LOL</p>
                                         </div>
                                     </div>
                                     <div className="anime__review__item">
                                         <div className="anime__review__item__pic">
-                                            <img src="img/anime/review-2.jpg" alt='true' />
+                                            <img src="img/anime/review-2.jpg" alt='true'/>
                                         </div>
                                         <div className="anime__review__item__text">
                                             <h6>Lewis Mann - <span>5 Hour ago</span></h6>
@@ -72,7 +73,7 @@ class AnimeWatching extends Component {
                                     </div>
                                     <div className="anime__review__item">
                                         <div className="anime__review__item__pic">
-                                            <img src="img/anime/review-3.jpg" alt='true' />
+                                            <img src="img/anime/review-3.jpg" alt='true'/>
                                         </div>
                                         <div className="anime__review__item__text">
                                             <h6>Louis Tyler - <span>20 Hour ago</span></h6>
@@ -81,17 +82,18 @@ class AnimeWatching extends Component {
                                     </div>
                                     <div className="anime__review__item">
                                         <div className="anime__review__item__pic">
-                                            <img src="img/anime/review-4.jpg" alt='true' />
+                                            <img src="img/anime/review-4.jpg" alt='true'/>
                                         </div>
                                         <div className="anime__review__item__text">
                                             <h6>Chris Curry - <span>1 Hour ago</span></h6>
-                                            <p>whachikan Just noticed that someone categorized this as belonging to the genre
+                                            <p>whachikan Just noticed that someone categorized this as belonging to the
+                                                genre
                                                 "demons" LOL</p>
                                         </div>
                                     </div>
                                     <div className="anime__review__item">
                                         <div className="anime__review__item__pic">
-                                            <img src="img/anime/review-5.jpg" alt='true' />
+                                            <img src="img/anime/review-5.jpg" alt='true'/>
                                         </div>
                                         <div className="anime__review__item__text">
                                             <h6>Lewis Mann - <span>5 Hour ago</span></h6>
@@ -100,7 +102,7 @@ class AnimeWatching extends Component {
                                     </div>
                                     <div className="anime__review__item">
                                         <div className="anime__review__item__pic">
-                                            <img src="img/anime/review-6.jpg" alt='true' />
+                                            <img src="img/anime/review-6.jpg" alt='true'/>
                                         </div>
                                         <div className="anime__review__item__text">
                                             <h6>Louis Tyler - <span>20 Hour ago</span></h6>
@@ -113,8 +115,8 @@ class AnimeWatching extends Component {
                                         <h5>Your Comment</h5>
                                     </div>
                                     <form action="#">
-                                        <textarea placeholder="Your Comment" defaultValue={""} />
-                                        <button type="submit"><i className="fa fa-location-arrow" /> Review</button>
+                                        <textarea placeholder="Your Comment" defaultValue={""}/>
+                                        <button type="submit"><i className="fa fa-location-arrow"/> Review</button>
                                     </form>
                                 </div>
                             </div>

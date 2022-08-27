@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 
 class Footer extends Component {
     render() {
@@ -6,13 +6,13 @@ class Footer extends Component {
             <footer className='footer'>
                 <div>
                     <div className="page-up">
-                        <a href="#" id="scrollToTopButton"><span className="arrow_carrot-up" /></a>
+                        <a href="#" id="scrollToTopButton"><span className="arrow_carrot-up"/></a>
                     </div>
                     <div className="container">
                         <div className="row">
                             <div className="col-lg-3">
                                 <div className="footer__logo">
-                                    <a href="./index.html"><img src="img/logo.png" alt /></a>
+                                    <a href="./index.html"><img src="img/logo.png" alt/></a>
                                 </div>
                             </div>
                             <div className="col-lg-6">
@@ -26,7 +26,7 @@ class Footer extends Component {
                                 </div>
                             </div>
                             <div className="col-lg-3">
-                                <p>   
+                                <p>
                                     Copyright © All rights reserved
                                 </p>
                             </div>
