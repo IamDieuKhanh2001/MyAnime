@@ -7,6 +7,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import AnimeDetail from './pages/AnimeDetail';
 import AnimeWatching from './pages/AnimeWatching';
+import TestVideo from './pages/TestVideo';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
                     <Route path="/register" element={<Signup/>}/>
                     <Route path="/anime-detail" element={<AnimeDetail/>}/>
                     <Route path="/anime-watching" element={<AnimeWatching/>}/>
+                    <Route path="/test" element={<TestVideo/>}/>
                 </Routes>
             </Router>
 
