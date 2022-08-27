@@ -2,18 +2,21 @@ import React from 'react'
 import ReactPlayer from 'react-player'
 
 function TestVideo() {
-    let videoSrc = "https://res.cloudinary.com/dpxgtmzld/video/upload/v1661586067/MyAnimeProject_TLCN/test/video2.mp4"
+    let videoSrc = "https://res.cloudinary.com/dpxgtmzld/video/upload/v1661585857/MyAnimeProject_TLCN/test/video1.mp4"
     const playerRef = React.useRef();
     const [isPlaying, setIsPlaying] = React.useState(true);
     const [isReady, setIsReady] = React.useState(false);
 
     const onReady = React.useCallback(() => {
         if (!isReady) {
-          const timeToStart =  0;
+          const timeToStart =  50;
           playerRef.current.seekTo(timeToStart, "seconds");
           setIsReady(true);
         }
       }, [isReady]);
+      const onEnd = React.useCallback(() => {
+        console.log("Ended");
+      });
     return (
         <div>
             <ReactPlayer
@@ -24,6 +27,7 @@ function TestVideo() {
                 volume={1}
                 light="./videos/anime-watch.jpg"
                 onReady={onReady}
+                onEnded={onEnd}
             />
         </div>
     )
