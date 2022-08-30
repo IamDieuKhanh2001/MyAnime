@@ -1,0 +1,24 @@
+.signUpThirdParty {
+  margin: 12px 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+
+  .btn.btn-primary.facebook {
+    background-color: #4267b2;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  .btn.btn-primary.google {
+    background-color: #db4437;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  .btn {
+    width: 100%;
+  }
+}

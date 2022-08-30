@@ -1,0 +1,32 @@
+@import "../../../style/_variable.scss";
+.footer {
+  background: $footer-color;
+  font-family: "Oswald", sans-serif;
+}
+
+.footer__logo {
+  padding: 20px 0 17px;
+
+  a {
+    display: inline-block;
+  }
+}
+.footer__right {
+  text-align: right;
+  padding: 20px 0 15px;
+
+  a {
+    display: inline-block;
+    font-size: 18px;
+    color: $white-color;
+    margin-right: 30px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.slicknav_menu {
+  display: none;
+}

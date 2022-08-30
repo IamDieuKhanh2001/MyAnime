@@ -1,0 +1,28 @@
+@import "../../../style/variable";
+
+.anime-details {
+  .anime__video__player {
+    margin-bottom: 70px;
+    text-align: center;
+  }
+
+  .anime__details__episodes {
+    margin-bottom: 35px;
+    a {
+      display: inline-block;
+      font-size: 15px;
+      color: $white-color;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 10px 20px;
+      border-radius: 4px;
+      margin-right: 15px;
+      margin-bottom: 20px;
+      transition: (all, 0.3s);
+
+      &:hover {
+        color: $black-color;
+        background: $white-color;
+      }
+    }
+  }
+}
