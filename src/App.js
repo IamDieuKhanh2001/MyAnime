@@ -13,6 +13,7 @@ import AnimeWatching from "./components/pages/AnimeWatching/AnimeWatching";
 import Blog from "./components/pages/Blog/Blog";
 import BlogDetail from "./components/pages/Blog/BlogDetail/BlogDetail";
 import SignUp from "./components/pages/SignUp/SignUp";
+import Profile from "./components/pages/Profile/Profile";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route exact path="/" element={<Home />} />
           <Route exact path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<Profile/>} />
           <Route path="/login/:preRoute" element={<Login />} />
           <Route path="*" element={<Navigate to="/" />} />
           <Route path="/category" element={<Category />} />

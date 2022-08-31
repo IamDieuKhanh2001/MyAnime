@@ -71,11 +71,15 @@ export default function Header() {
                     id="dropdown-basic"
                   ></Dropdown.Toggle>
                   <Dropdown.Menu className="bg-danger">
-                    <Dropdown.Item onClick={() => navigate("/")}>
+                    <Dropdown.Item onClick={() => navigate("/profile")}>
                       My Profile
                     </Dropdown.Item>
-                    <Dropdown.Item onClick={() => navigate("/signup")}>Sign Up</Dropdown.Item>
-                    <Dropdown.Item onClick={() => navigate("/login")}>Log In</Dropdown.Item>
+                    <Dropdown.Item onClick={() => navigate("/signup")}>
+                      Sign Up
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={() => navigate("/login")}>
+                      Log In
+                    </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
               </a>
