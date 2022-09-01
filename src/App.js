@@ -14,6 +14,7 @@ import Blog from "./components/pages/Blog/Blog";
 import BlogDetail from "./components/pages/Blog/BlogDetail/BlogDetail";
 import SignUp from "./components/pages/SignUp/SignUp";
 import Profile from "./components/pages/Profile/Profile";
+import Admin from './components/pages/Admin/Admin';
 
 function App() {
   return (
@@ -32,6 +33,13 @@ function App() {
           <Route path="/watching" element={<AnimeWatching />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog-detail" element={<BlogDetail />} />
+          <Route path="/admin" element={<Admin/>}>
+            {/* <Route index element={<AdminDashBoard />} />
+            <Route path="categories" element={<AdminCategory />} />
+            <Route path="products" element={<AdminProduct />} />
+            <Route path="customers" element={<AdminCustomer />} />
+            <Route path="orders" element={<AdminOrder />} /> */}
+          </Route>
         </Routes>
       </Router>
     </>
