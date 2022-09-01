@@ -5,6 +5,13 @@
   font-family: "Oswald", sans-serif;
   .img-account-profile {
     height: 10rem;
+    width: 10.5rem;
+  }
+  .custom-file-upload {
+    cursor: pointer;
+  }
+  .imageBtn {
+    display: none;
   }
   .rounded-circle {
     border-radius: 50% !important;
@@ -41,5 +48,9 @@
     appearance: none;
     border-radius: 0.35rem;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+  .error {
+    font-size: 10px;
+    color: red;
   }
 }
