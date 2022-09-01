@@ -1,12 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Product.scss";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ProductSection from "./ProductSection/ProductSection";
+import { APIGetProducts } from './../../../api/axios/productAPI';
+import { productsActions } from './../../../api/redux/slices/productSlice';
 
 export default function Product() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const product = useSelector((state) => state.products.list);
+  const loadProduct = async () => {
+    console.log("Calling api get product");
+    const resGetProduct = await APIGetProducts();
+    if (resGetProduct?.status === 200) {
+      const updateListAction = productsActions.updateList(resGetProduct.data);
+      dispatch(updateListAction);
+    }
+  };
+
+  useEffect(() => {
+    loadProduct();
+  }, []);
+
   return (
     <div className="products">
       <div className="product spad">
