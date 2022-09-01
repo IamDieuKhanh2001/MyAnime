@@ -1,32 +1,151 @@
 @import "../../../style/_variable.scss";
-.footer {
+footer {
   background: $footer-color;
   font-family: "Oswald", sans-serif;
+  padding: 50px 0;
+  cursor: pointer;
 }
 
-.footer__logo {
-  padding: 20px 0 17px;
+footer .top .title {
+  color: white;
+  font-size: 80%;
+  margin-bottom: 10px;
+}
 
-  a {
-    display: inline-block;
+footer .top .col__left span {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: #949494;
+  transition: all 0.2s;
+  line-height: 2.3;
+  text-decoration: none;
+}
+
+footer .top .col__left span:hover {
+  color: white;
+}
+
+footer .top .col__center .col-12,
+footer .top .col__right .col-12 {
+  margin-bottom: 15px;
+  padding: 0;
+}
+
+footer .top .col__center a,
+footer .top .col__right a {
+  text-decoration: none;
+  color: #000;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+footer .top .col__center img,
+footer .top .col__right img {
+  background-color: white;
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  margin-right: 15px;
+}
+
+footer .top .col__center img:hover,
+footer .top .col__right img:hover {
+  opacity: 0.7;
+}
+
+footer .top .col__right {
+  text-align: center;
+}
+
+footer .top .col__right img {
+  background-color: transparent;
+  height: 30px;
+  width: auto;
+  margin: 5px;
+  border-radius: 0;
+}
+
+footer hr {
+  border-top: 1px solid #4a4a4a;
+}
+
+footer .bottom .imgFooter {
+  padding: 0;
+}
+
+footer .bottom .imgFooter img {
+  display: block;
+}
+
+footer .bottom .zionIcon {
+  border-radius: 8px;
+  width: 80px;
+  height: auto;
+}
+
+footer .bottom .info p {
+  color: white;
+  display: block;
+  line-height: 1.8;
+  font-size: 12px;
+  font-weight: 400;
+  margin-bottom: 0;
+}
+
+footer .bottom .info ul {
+  list-style-type: none;
+}
+
+footer .bottom .info ul li {
+  color: #949494;
+  display: block;
+  line-height: 1.8;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+footer .bottom .info ul span {
+  color: #fb4226;
+  text-decoration: none;
+}
+
+footer .bottom .boCongThuongIcon {
+  width: 130px;
+}
+
+@media screen and (max-width: 991px) {
+  .hideOnMobile {
+    display: none !important;
+  }
+  .top a {
+    display: inline-block !important;
+  }
+  .bottom .info {
+    text-align: center;
+  }
+  .bottom .imgFooter {
+    padding: 0 15px !important;
   }
 }
-.footer__right {
-  text-align: right;
-  padding: 20px 0 15px;
 
-  a {
-    display: inline-block;
-    font-size: 18px;
-    color: $white-color;
-    margin-right: 30px;
-
-    &:last-child {
-      margin-right: 0;
-    }
+@media screen and (max-width: 767px) {
+  .row {
+    text-align: center;
+  }
+  .bottom .imgFooter {
+    display: flex;
+    justify-content: center !important;
+    align-items: center;
+  }
+  .bottom .zionIcon {
+    margin-bottom: 20px;
   }
 }
 
-.slicknav_menu {
-  display: none;
+@media screen and (max-width: 575px) {
+  footer {
+    padding-bottom: 70px;
+  }
 }
+
