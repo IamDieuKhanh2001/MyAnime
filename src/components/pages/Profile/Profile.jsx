@@ -11,26 +11,19 @@ export default function Profile() {
   const [previewImg, setPreviewImg] = useState(
     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
   );
-  const phoneRegExp =
-    /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
   const initialValues = {
-    username: "",
+    //username: "",
     fullName: "",
-    phone: "",
     email: "",
     birthday: "",
     avatar: "",
   };
 
   const validationSchema = Yup.object().shape({
-    username: Yup.string().max(50, "Up to 50 characters").required("Empty"),
+    //username: Yup.string().max(50, "Up to 50 characters").required("Empty"),
     fullName: Yup.string().max(50, "Up to 50 characters").required("Empty"),
     birthday: Yup.string().required("Empty"),
-    phone: Yup.string()
-      .matches(phoneRegExp, "Invalid phone number")
-      .required("Empty")
-      .max(10, "Up to 10 characters"),
     email: Yup.string().email("Invalid email").required("Empty"),
     avatar: Yup.mixed(),
   });
@@ -106,12 +99,8 @@ export default function Profile() {
                             type="text"
                             name="username"
                             placeholder="Enter your username"
+                            value="Anime Website"
                           />
-                          <span className="error">
-                            {errors.username && touched.username && (
-                              <div>{errors.username}</div>
-                            )}
-                          </span>
                         </div>
                         <div className="mb-3">
                           <label className="small mb-1" htmlFor="inputFullname">
@@ -151,45 +140,25 @@ export default function Profile() {
                             )}
                           </span>
                         </div>
-                        <div className="row gx-3 mb-3">
-                          <div className="col-md-6">
-                            <label className="small mb-1" htmlFor="inputPhone">
-                              Phone number
-                            </label>
-                            <Field
-                              className="form-control"
-                              id="inputPhone"
-                              name="phone"
-                              type="tel"
-                              placeholder="Enter your phone number"
-                            />
-                            <span className="error">
-                              {errors.phone && touched.phone && (
-                                <div>{errors.phone}</div>
-                              )}
-                            </span>
-                          </div>
-                          <div className="col-md-6">
-                            <label
-                              className="small mb-1"
-                              htmlFor="inputBirthday"
-                            >
-                              Birthday
-                            </label>
-                            <Field
-                              className="form-control"
-                              id="inputBirthday"
-                              type="date"
-                              name="birthday"
-                              placeholder="Enter your birthday"
-                            />
-                            <span className="error">
-                              {errors.birthday && touched.birthday && (
-                                <div>{errors.birthday}</div>
-                              )}
-                            </span>
-                          </div>
+
+                        <div className="mb-3">
+                          <label className="small mb-1" htmlFor="inputBirthday">
+                            Birthday
+                          </label>
+                          <Field
+                            className="form-control"
+                            id="inputBirthday"
+                            type="date"
+                            name="birthday"
+                            placeholder="Enter your birthday"
+                          />
+                          <span className="error">
+                            {errors.birthday && touched.birthday && (
+                              <div>{errors.birthday}</div>
+                            )}
+                          </span>
                         </div>
+
                         <button className="btn btn-danger px-4" type="submit">
                           {isSubmitting ? (
                             <PuffLoader color="#ffffff" size={30} />
