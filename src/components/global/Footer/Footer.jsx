@@ -15,14 +15,14 @@ export default function Footer() {
                 <span>FAQ</span>
                 <span>Brand Guidelines</span>
               </div>
-              <div className="col-lg-6 col-sm-12">
-                <span>Thỏa thuận sử dụng</span>
-                <span>Chính sách bảo mật</span>
+              <div className="col-lg-6 col-sm-12 hideOnMobile">
+                <span>Terms Of Use</span>
+                <span>Privacy Policy</span>
               </div>
             </div>
           </div>
           <div className="col__center col-md-4 col-sm-12 hideOnMobile">
-            <p className="title">NHÀ TÀI TRỢ</p>
+            <p className="title">SPONSORS</p>
             <div className="col-12">
               <a href="https://www.cgv.vn/" title="CGV">
                 <img src="/img/cgv.png" alt="cgv" />
@@ -123,8 +123,8 @@ export default function Footer() {
                   />
                 </a>
               </div>
-              <div className="col-md-6 col-sm-12 textCenter">
-                <p className="title hideOnMobile">SOCIAL</p>
+              <div className="col-md-6 col-sm-12 textCenter hideOnMobile">
+                <p className="title">SOCIAL MEDIA</p>
                 <a
                   href="https://www.facebook.com/tix.vn/"
                   title="Facebook social"
@@ -142,7 +142,7 @@ export default function Footer() {
             </div>
           </div>
         </div>
-        <hr className="my-4" />
+        <hr className="my-4 hideOnMobile" />
         <div className="row bottom">
           <div className="col-12 col-md-1 imgFooter">
             <img
@@ -160,12 +160,12 @@ export default function Footer() {
                 Thủ Đức, Thành phố Hồ Chí Minh, Việt Nam.
               </li>
               <li>
-                Giấy chứng nhận đăng ký kinh doanh số: 0101659783,
+                Giấy chứng nhận đăng ký kinh doanh số: 0101659783
                 <br />
                 Đăng ký thay đổi lần thứ 30, ngày 01 tháng 09 năm 2022 do Sở kế
-                hoạch và đầu tư Thành phố Hồ Chí Minh cấp.
+                hoạch và đầu tư Thành phố Hồ Chí Minh cấp phép.
               </li>
-              <li>Số Điện Thoại (Hotline): 1900 545 436</li>
+              <li>Số Điện Thoại: 1900 545 436</li>
               <li>
                 Email: <span>support@anime.vn</span>
               </li>
