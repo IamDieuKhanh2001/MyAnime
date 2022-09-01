@@ -16,8 +16,7 @@ export default function Profile() {
 
   const initialValues = {
     username: "",
-    firstName: "",
-    lastName: "",
+    fullName: "",
     phone: "",
     email: "",
     birthday: "",
@@ -26,8 +25,7 @@ export default function Profile() {
 
   const validationSchema = Yup.object().shape({
     username: Yup.string().max(50, "Up to 50 characters").required("Empty"),
-    firstName: Yup.string().max(50, "Up to 50 characters").required("Empty"),
-    lastName: Yup.string().max(50, "Up to 50 characters").required("Empty"),
+    fullName: Yup.string().max(50, "Up to 50 characters").required("Empty"),
     birthday: Yup.string().required("Empty"),
     phone: Yup.string()
       .matches(phoneRegExp, "Invalid phone number")
@@ -115,48 +113,24 @@ export default function Profile() {
                             )}
                           </span>
                         </div>
-                        <div className="row gx-3 mb-3">
-                          <div className="col-md-6">
-                            <label
-                              className="small mb-1"
-                              htmlFor="inputFirstName"
-                            >
-                              First name
-                            </label>
-                            <Field
-                              className="form-control"
-                              id="inputFirstName"
-                              type="text"
-                              name="firstName"
-                              placeholder="Enter your first name"
-                            />
-                            <span className="error">
-                              {errors.firstName && touched.firstName && (
-                                <div>{errors.firstName}</div>
-                              )}
-                            </span>
-                          </div>
-                          <div className="col-md-6">
-                            <label
-                              className="small mb-1"
-                              htmlFor="inputLastName"
-                            >
-                              Last name
-                            </label>
-                            <Field
-                              className="form-control"
-                              id="inputLastName"
-                              type="text"
-                              name="lastName"
-                              placeholder="Enter your last name"
-                            />
-                            <span className="error">
-                              {errors.lastName && touched.lastName && (
-                                <div>{errors.lastName}</div>
-                              )}
-                            </span>
-                          </div>
+                        <div className="mb-3">
+                          <label className="small mb-1" htmlFor="inputFullname">
+                            Fullname
+                          </label>
+                          <Field
+                            className="form-control"
+                            id="inputFullname"
+                            type="text"
+                            name="fullName"
+                            placeholder="Enter your full name"
+                          />
+                          <span className="error">
+                            {errors.fullName && touched.fullName && (
+                              <div>{errors.fullName}</div>
+                            )}
+                          </span>
                         </div>
+
                         <div className="mb-3">
                           <label
                             className="small mb-1"
