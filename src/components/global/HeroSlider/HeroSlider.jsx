@@ -45,7 +45,7 @@ export default function HeroSlider() {
             <div
               className="hero__items set-bg"
               style={{
-                backgroundImage: `url("${product[0].image}")`,
+                backgroundImage: `url("./img/hero/hero-1.jpg")`,
               }}
             >
               <div className="row">
@@ -64,7 +64,7 @@ export default function HeroSlider() {
             <div
               className="hero__items set-bg"
               style={{
-                backgroundImage: `url("${product[1].image}")`,
+                backgroundImage: `url("./img/hero/hero-1.jpg")`,
               }}
             >
               <div className="row">
@@ -83,7 +83,7 @@ export default function HeroSlider() {
             <div
               className="hero__items set-bg"
               style={{
-                backgroundImage: `url("${product[2].image}")`,
+                backgroundImage: `url("./img/hero/hero-1.jpg")`,
               }}
             >
               <div className="row">

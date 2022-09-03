@@ -9,7 +9,9 @@ import { productsActions } from './../../../api/redux/slices/productSlice';
 export default function Product() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  
   const product = useSelector((state) => state.products.list);
+
   const loadProduct = async () => {
     console.log("Calling api get product");
     const resGetProduct = await APIGetProducts();

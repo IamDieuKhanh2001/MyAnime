@@ -13,12 +13,12 @@ export default function ProductSection({ data }) {
             backgroundImage: `url("${data.image}")`,
           }}
         >
-          <div className="ep">18 / 18</div>
+          <div className="ep">{data.currentNumberEpisode} / {data.totalEpisode}</div>
           <div className="comment">
-            <i className="fa fa-comments" /> 11
+            <i className="fa fa-comments" /> {data.commentTotal}
           </div>
           <div className="view">
-            <i className="fa fa-eye" /> 9141
+            <i className="fa fa-eye" /> {data.views}
           </div>
         </div>
         <div className="product__item__text">
@@ -27,7 +27,7 @@ export default function ProductSection({ data }) {
             <li>Movie</li>
           </ul>
           <h5>
-            <a href="#">{data.title}</a>
+            <a href="#">{data.seriesName}</a>
           </h5>
         </div>
       </div>
