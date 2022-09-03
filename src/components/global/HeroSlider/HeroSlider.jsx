@@ -45,14 +45,14 @@ export default function HeroSlider() {
             <div
               className="hero__items set-bg"
               style={{
-                backgroundImage: `url("./img/hero/hero-1.jpg")`,
+                backgroundImage: `url(${product[0].image})`,
               }}
             >
               <div className="row">
                 <div className="col-lg-6">
                   <div className="hero__text">
                     <div className="label">Adventure</div>
-                    <h2>{product[0].title}</h2>
+                    <h2>{product[0].seriesName}</h2>
                     <p>{product[0].description}</p>
                     <a onClick={() => navigate("/watching")}>
                       <span>Watch Now</span> <i className="fa fa-angle-right" />
@@ -64,14 +64,14 @@ export default function HeroSlider() {
             <div
               className="hero__items set-bg"
               style={{
-                backgroundImage: `url("./img/hero/hero-1.jpg")`,
+                backgroundImage: `url(${product[1].image})`,
               }}
             >
               <div className="row">
                 <div className="col-lg-6">
                   <div className="hero__text">
                     <div className="label">Adventure</div>
-                    <h2>{product[1].title}</h2>
+                    <h2>{product[1].seriesName}</h2>
                     <p>{product[1].description}</p>
                     <a onClick={() => navigate("/watching")}>
                       <span>Watch Now</span> <i className="fa fa-angle-right" />
@@ -83,14 +83,14 @@ export default function HeroSlider() {
             <div
               className="hero__items set-bg"
               style={{
-                backgroundImage: `url("./img/hero/hero-1.jpg")`,
+                backgroundImage: `url(${product[2].image})`,
               }}
             >
               <div className="row">
                 <div className="col-lg-6">
                   <div className="hero__text">
                     <div className="label">Adventure</div>
-                    <h2>{product[2].title}</h2>
+                    <h2>{product[2].seriesName}</h2>
                     <p>{product[2].description}</p>
                     <a onClick={() => navigate("/watching")}>
                       <span>Watch Now</span> <i className="fa fa-angle-right" />
