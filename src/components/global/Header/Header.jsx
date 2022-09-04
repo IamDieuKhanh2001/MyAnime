@@ -3,6 +3,7 @@ import "./Header.scss";
 import Dropdown from "react-bootstrap/Dropdown";
 import { useNavigate } from "react-router-dom";
 
+
 export default function Header() {
   const navigate = useNavigate();
   return (
@@ -12,7 +13,7 @@ export default function Header() {
           <div className="col-lg-2">
             <div className="header__logo">
               <a onClick={() => navigate("/")}>
-                <img src="img/logo.png" alt="true" />
+                <img src="/img/logo.png" alt="true" />
               </a>
             </div>
           </div>
