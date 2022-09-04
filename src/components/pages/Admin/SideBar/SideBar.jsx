@@ -10,10 +10,10 @@ export const sidebarNavItems = [
     section: "",
   },
   {
-    display: "Category",
+    display: "Series",
     icon: <i className="bx bx-category"></i>,
-    to: "categories",
-    section: "categories",
+    to: "series",
+    section: "series",
   },
   {
     display: "Movie",
@@ -22,10 +22,10 @@ export const sidebarNavItems = [
     section: "movies",
   },
   {
-    display: "User",
+    display: "Customer",
     icon: <i className="bx bx-group"></i>,
-    to: "users",
-    section: "users",
+    to: "customers",
+    section: "customers",
   },
   {
     display: "Log Out",

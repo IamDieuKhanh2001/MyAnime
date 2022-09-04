@@ -16,10 +16,10 @@ import Profile from "./components/pages/Profile/Profile";
 import Admin from "./components/pages/Admin/Admin";
 import Dashboard from "./components/pages/Admin/Dashboard/Dashboard";
 import Movie from "./components/pages/Admin/Movie/Movie";
-import User from "./components/pages/Admin/User/User";
-import Categories from "./components/pages/Admin/Categories/Categories";
 import ProductList from "./components/pages/ProductList/ProductList";
 import Category from "./components/pages/Category/Category";
+import Customer from "./components/pages/Admin/Customer/Customer";
+import Series from "./components/pages/Admin/Series/Series";
 
 function App() {
   return (
@@ -41,9 +41,9 @@ function App() {
           <Route path="/category" element={<Category />} />
           <Route path="/admin" element={<Admin />}>
             <Route index element={<Dashboard />} />
-            <Route path="categories" element={<Categories />} />
+            <Route path="series" element={<Series/>} />
             <Route path="movies" element={<Movie />} />
-            <Route path="users" element={<User />} />
+            <Route path="customers" element={<Customer/>} />
           </Route>
         </Routes>
       </Router>
