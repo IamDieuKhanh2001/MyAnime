@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
+import { APIGetCategoryOfSeriesById } from '../../../../api/axios/categoryAPI';
 
 function ProductDetail({ data }) {
     const navigate = useNavigate();
-
+   
     return (
         <div className="anime__details__content">
             <div className="row">
@@ -63,8 +64,10 @@ function ProductDetail({ data }) {
                                             <span>Date aired:</span> {data.dateAired}
                                         </li>
                                         <li>
-                                            <span>Genre:</span> Action, Adventure, Fantasy,
-                                            Magic
+                                            <span>Genre:</span> category
+                                            {/* {data.categoryList.map((category,index) => (
+                                                category.name
+                                            ))} */}
                                         </li>
                                     </ul>
                                 </div>

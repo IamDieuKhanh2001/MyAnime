@@ -20,10 +20,12 @@ export default function Product() {
       const updateListAction = productsActions.updateList(resGetProduct.data);
       dispatch(updateListAction);
     }
+    console.log(resGetProduct.data)
   };
 
   useEffect(() => {
     loadProduct();
+
   }, []);
 
   return (
@@ -41,10 +43,9 @@ export default function Product() {
                   </div>
                   <div className="col-lg-4 col-md-4 col-sm-4">
                     <div className="btn__all">
-                      <a href="" className="primary-btn">
+                      <a href="/series-list" className="primary-btn">
                         View All
                         <span
-                          onClick={() => navigate("/series-list")}
                           className="arrow_right"
                         />
                       </a>
@@ -55,6 +56,7 @@ export default function Product() {
                   {product.map((data, index) => (
                     <ProductSection data={data} key={index} />
                   ))}
+
                 </div>
               </div>
               <div className="recent__product">

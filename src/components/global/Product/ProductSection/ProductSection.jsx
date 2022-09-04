@@ -23,8 +23,7 @@ export default function ProductSection({ data }) {
         </div>
         <div className="product__item__text">
           <ul>
-            <li>Active</li>
-            <li>Movie</li>
+            {data.categoryList.map((category, index) => (<li key={index}>{category.name}</li>))}
           </ul>
           <h5>
             <a href="#">{data.seriesName}</a>

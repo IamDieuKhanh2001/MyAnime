@@ -3,6 +3,7 @@ import React from "react";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import Header from "../../global/Header/Header";
 import Footer from "../../global/Footer/Footer";
 import SignUpThirdParty from "../SignUp/SignUpThirdParty/SignUpThirdParty";
@@ -12,12 +13,10 @@ export default function Login() {
   const formik = useFormik({
     initialValues: {
       username: "",
-      email: "",
       password: "",
     },
     validationSchema: Yup.object({
       username: Yup.string().max(50, "Up to 50 characters").required("Empty"),
-      email: Yup.string().email("Invalid email").required("Empty"),
       password: Yup.string().required("Empty"),
     }),
   });

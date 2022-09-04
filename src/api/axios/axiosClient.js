@@ -2,7 +2,7 @@ import axios from "axios";
 import axiosRetry from "axios-retry";
 
 export const axiosClient = axios.create({
-  // baseURL: `https://630484fe0de3cd918b48948a.mockapi.io`,
+  // baseURL: `https://myanime-heroku.herokuapp.com`,
   baseURL: `http://localhost:8080`,
   // headers: {
   //   'content-type': 'application/json',
