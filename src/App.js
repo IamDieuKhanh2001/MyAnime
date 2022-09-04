@@ -13,8 +13,13 @@ import Blog from "./components/pages/Blog/Blog";
 import BlogDetail from "./components/pages/Blog/BlogDetail/BlogDetail";
 import SignUp from "./components/pages/SignUp/SignUp";
 import Profile from "./components/pages/Profile/Profile";
-import Admin from './components/pages/Admin/Admin';
+import Admin from "./components/pages/Admin/Admin";
+import Dashboard from "./components/pages/Admin/Dashboard/Dashboard";
+import Movie from "./components/pages/Admin/Movie/Movie";
+import User from "./components/pages/Admin/User/User";
+import Categories from "./components/pages/Admin/Categories/Categories";
 import ProductList from "./components/pages/ProductList/ProductList";
+import Category from "./components/pages/Category/Category";
 
 function App() {
   return (
@@ -25,7 +30,7 @@ function App() {
           <Route exact path="/" element={<Home />} />
           <Route exact path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/profile" element={<Profile/>} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/login/:preRoute" element={<Login />} />
           <Route path="*" element={<Navigate to="/" />} />
           <Route path="/series-list" element={<ProductList />} />
@@ -33,12 +38,12 @@ function App() {
           <Route path="/watching" element={<AnimeWatching />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog-detail" element={<BlogDetail />} />
-          <Route path="/admin" element={<Admin/>}>
-            {/* <Route index element={<AdminDashBoard />} />
-            <Route path="categories" element={<AdminCategory />} />
-            <Route path="products" element={<AdminProduct />} />
-            <Route path="customers" element={<AdminCustomer />} />
-            <Route path="orders" element={<AdminOrder />} /> */}
+          <Route path="/category" element={<Category />} />
+          <Route path="/admin" element={<Admin />}>
+            <Route index element={<Dashboard />} />
+            <Route path="categories" element={<Categories />} />
+            <Route path="movies" element={<Movie />} />
+            <Route path="users" element={<User />} />
           </Route>
         </Routes>
       </Router>
