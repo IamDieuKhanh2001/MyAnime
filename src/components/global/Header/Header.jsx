@@ -12,7 +12,7 @@ export default function Header() {
           <div className="col-lg-2">
             <div className="header__logo">
               <a onClick={() => navigate("/")}>
-                <img src="img/logo.png" alt="true" />
+                <img src="/img/logo.png" alt="true" />
               </a>
             </div>
           </div>

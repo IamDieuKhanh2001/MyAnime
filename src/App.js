@@ -29,7 +29,7 @@ function App() {
           <Route path="/login/:preRoute" element={<Login />} />
           <Route path="*" element={<Navigate to="/" />} />
           <Route path="/series-list" element={<ProductList />} />
-          <Route path="/details" element={<AnimeDetail />} />
+          <Route exact path="/details/:seriesId" element={<AnimeDetail />} />
           <Route path="/watching" element={<AnimeWatching />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog-detail" element={<BlogDetail />} />

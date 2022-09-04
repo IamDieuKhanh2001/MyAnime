@@ -22,7 +22,7 @@ export default function ProductSideBar() {
                     <div
                         onClick={() => navigate("/details")}
                         className="product__sidebar__view__item set-bg mix day years"
-                        style={{ backgroundImage: "url('img/sidebar/tv-1.jpg')" }}
+                        style={{ backgroundImage: "url('/img/sidebar/tv-1.jpg')" }}
                     >
                         <div className="ep">18 / ?</div>
                         <div className="view">
@@ -35,7 +35,7 @@ export default function ProductSideBar() {
                     <div
                         onClick={() => navigate("/details")}
                         className="product__sidebar__view__item set-bg mix month week"
-                        style={{ backgroundImage: "url('img/sidebar/tv-1.jpg')" }}
+                        style={{ backgroundImage: "url('/img/sidebar/tv-1.jpg')" }}
                     >
                         <div className="ep">18 / ?</div>
                         <div className="view">
@@ -57,7 +57,7 @@ export default function ProductSideBar() {
                     className="product__sidebar__comment__item"
                 >
                     <div className="product__sidebar__comment__item__pic">
-                        <img src="img/sidebar/comment-1.jpg" alt />
+                        <img src="/img/sidebar/comment-1.jpg" alt />
                     </div>
                     <div className="product__sidebar__comment__item__text">
                         <ul>
@@ -77,7 +77,7 @@ export default function ProductSideBar() {
                     className="product__sidebar__comment__item"
                 >
                     <div className="product__sidebar__comment__item__pic">
-                        <img src="img/sidebar/comment-2.jpg" alt />
+                        <img src="/img/sidebar/comment-2.jpg" alt />
                     </div>
                     <div className="product__sidebar__comment__item__text">
                         <ul>
@@ -97,7 +97,7 @@ export default function ProductSideBar() {
                     className="product__sidebar__comment__item"
                 >
                     <div className="product__sidebar__comment__item__pic">
-                        <img src="img/sidebar/comment-3.jpg" alt />
+                        <img src="/img/sidebar/comment-3.jpg" alt />
                     </div>
                     <div className="product__sidebar__comment__item__text">
                         <ul>
@@ -117,7 +117,7 @@ export default function ProductSideBar() {
                     className="product__sidebar__comment__item"
                 >
                     <div className="product__sidebar__comment__item__pic">
-                        <img src="img/sidebar/comment-4.jpg" alt />
+                        <img src="/img/sidebar/comment-4.jpg" alt />
                     </div>
                     <div className="product__sidebar__comment__item__text">
                         <ul>

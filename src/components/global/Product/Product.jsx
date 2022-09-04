@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Product.scss";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -41,10 +41,9 @@ export default function Product() {
                   </div>
                   <div className="col-lg-4 col-md-4 col-sm-4">
                     <div className="btn__all">
-                      <a href="#" className="primary-btn">
+                      <a href="/series-list" className="primary-btn">
                         View All{" "}
                         <span
-                          onClick={() => navigate("/category")}
                           className="arrow_right"
                         />
                       </a>
@@ -66,7 +65,7 @@ export default function Product() {
                   </div>
                   <div className="col-lg-4 col-md-4 col-sm-4">
                     <div className="btn__all">
-                      <a href="" className="primary-btn">
+                      <a className="primary-btn">
                         View All{" "}
                         <span
                           onClick={() => navigate("/category")}
