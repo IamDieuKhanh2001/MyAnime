@@ -41,7 +41,7 @@ export default function Product() {
                   </div>
                   <div className="col-lg-4 col-md-4 col-sm-4">
                     <div className="btn__all">
-                      <a href="#" className="primary-btn">
+                      <a href="" className="primary-btn">
                         View All
                         <span
                           onClick={() => navigate("/series-list")}
