@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
-import ProductSideBar from "../ProductSideBar/ProductSideBar";
+import React, { useEffect, useState } from 'react'
+import "./ProductPageable.scss";
+import ProductSideBar from '../ProductSideBar/ProductSideBar'
 import { useNavigate, Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -16,12 +17,14 @@ function ProductPageable({ productTitle }) {
   const [products, setProducts] = useState([]);
   const [totalProduct, setTotalProduct] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(false)
 
   const loadProduct = async () => {
+    setLoading(true);
     console.log("Calling api get product");
-    console.log(currentPage);
     const resGetProduct = await APIGetProducts(currentPage);
-    setProducts(resGetProduct.data);
+    setProducts(resGetProduct.data)
+    setLoading(false);
   };
 
   const loadTotalProduct = async () => {
@@ -74,41 +77,31 @@ function ProductPageable({ productTitle }) {
                 </div>
               </div>
               <div className="row">
-                {products.map((data, index) => (
-                  <ProductSection data={data} key={index} />
-                ))}
+                {loading ?
+                  (<div className='loading-animation col-12'>
+                    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/max_632/04de2e31234507.564a1d23645bf.gif" alt={true} />
+                  </div>) : (
+                    <React.Fragment>
+                      {products.map((data, index) => (
+                        <ProductSection data={data} key={index} />
+                      ))}
+                    </React.Fragment>)}
               </div>
             </div>
             <div className="product__pagination">
-              {renderedPagginationItem.map((item) =>
-                item === currentPage ? (
-                  <a
-                    key={item}
-                    className="current-page"
-                    onClick={() => {
-                      paginate(item);
-                    }}
-                  >
-                    {item}
-                  </a>
-                ) : (
-                  <a
-                    key={item}
-                    onClick={() => {
-                      paginate(item);
-                    }}
-                  >
-                    {item}
-                  </a>
-                )
-              )}
-              <a
-                onClick={() => {
-                  paginate(currentPage + 1);
-                }}
-              >
-                <i className="fa fa-angle-double-right" />
-              </a>
+              {renderedPagginationItem.map((item) => item === currentPage ? (
+                <a key={item} className="current-page" onClick={() => {
+                  paginate(item)
+                }}>{item}</a>
+              ) : (
+                <a key={item} onClick={() => {
+                  paginate(item)
+                }}>{item}</a>
+              ))
+              }
+              <a onClick={() => {
+                paginate(currentPage + 1)
+              }}><i className="fa fa-angle-double-right" /></a>
             </div>
           </div>
           <div className="col-lg-4 col-md-6 col-sm-8">
