@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import ProductSideBar from '../ProductSideBar/ProductSideBar'
+import React, { useEffect, useState } from "react";
+import ProductSideBar from "../ProductSideBar/ProductSideBar";
 import { useNavigate, Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { APIGetProducts, APIGetTotalProduct } from '../../../../api/axios/productAPI';
-import ProductSection from '../ProductSection/ProductSection';
+import {
+  APIGetProducts,
+  APIGetTotalProduct,
+} from "../../../../api/axios/productAPI";
+import ProductSection from "../ProductSection/ProductSection";
 import { useSearchParams } from "react-router-dom";
 
 function ProductPageable({ productTitle }) {
@@ -16,15 +19,15 @@ function ProductPageable({ productTitle }) {
 
   const loadProduct = async () => {
     console.log("Calling api get product");
-    console.log(currentPage)
+    console.log(currentPage);
     const resGetProduct = await APIGetProducts(currentPage);
-    setProducts(resGetProduct.data)
+    setProducts(resGetProduct.data);
   };
 
   const loadTotalProduct = async () => {
     console.log("Calling api get total product");
     const resGetTotalProduct = await APIGetTotalProduct();
-    setTotalProduct(resGetTotalProduct.data.totalSeries)
+    setTotalProduct(resGetTotalProduct.data.totalSeries);
   };
 
   useEffect(() => {
@@ -34,15 +37,15 @@ function ProductPageable({ productTitle }) {
 
   const renderedPagginationItem = [];
   const renderProductPagination = () => {
-    let totalPage = Math.ceil(totalProduct / 9)
+    let totalPage = Math.ceil(totalProduct / 9);
     for (let i = 1; i <= totalPage; i++) {
-      renderedPagginationItem.push(i)
+      renderedPagginationItem.push(i);
     }
-  }
+  };
 
   const paginate = (pageNumber) => {
-    setCurrentPage(pageNumber)
-  }
+    setCurrentPage(pageNumber);
+  };
 
   renderProductPagination();
   return (
@@ -77,19 +80,35 @@ function ProductPageable({ productTitle }) {
               </div>
             </div>
             <div className="product__pagination">
-              {renderedPagginationItem.map((item) => item === currentPage ? (
-                <a key={item} className="current-page" onClick={() => {
-                  paginate(item)
-                }}>{item}</a>
-              ) : (
-                <a key={item} onClick={() => {
-                  paginate(item)
-                }}>{item}</a>
-              ))
-              }
-              <a onClick={() => {
-                  paginate(currentPage + 1)
-                }}><i className="fa fa-angle-double-right" /></a>
+              {renderedPagginationItem.map((item) =>
+                item === currentPage ? (
+                  <a
+                    key={item}
+                    className="current-page"
+                    onClick={() => {
+                      paginate(item);
+                    }}
+                  >
+                    {item}
+                  </a>
+                ) : (
+                  <a
+                    key={item}
+                    onClick={() => {
+                      paginate(item);
+                    }}
+                  >
+                    {item}
+                  </a>
+                )
+              )}
+              <a
+                onClick={() => {
+                  paginate(currentPage + 1);
+                }}
+              >
+                <i className="fa fa-angle-double-right" />
+              </a>
             </div>
           </div>
           <div className="col-lg-4 col-md-6 col-sm-8">
@@ -98,7 +117,7 @@ function ProductPageable({ productTitle }) {
         </div>
       </div>
     </section>
-  )
+  );
 }
 
-export default ProductPageable
+export default ProductPageable;

@@ -3,8 +3,8 @@ import "./Product.scss";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ProductSection from "./ProductSection/ProductSection";
-import { APIGetProducts } from './../../../api/axios/productAPI';
-import { productsActions } from './../../../api/redux/slices/productSlice';
+import { APIGetProducts } from "./../../../api/axios/productAPI";
+import { productsActions } from "./../../../api/redux/slices/productSlice";
 import ProductSideBar from "./ProductSideBar/ProductSideBar";
 
 export default function Product() {
@@ -42,9 +42,9 @@ export default function Product() {
                   <div className="col-lg-4 col-md-4 col-sm-4">
                     <div className="btn__all">
                       <a href="#" className="primary-btn">
-                        View All{" "}
+                        View All
                         <span
-                          onClick={() => navigate("/category")}
+                          onClick={() => navigate("/series-list")}
                           className="arrow_right"
                         />
                       </a>
@@ -67,9 +67,9 @@ export default function Product() {
                   <div className="col-lg-4 col-md-4 col-sm-4">
                     <div className="btn__all">
                       <a href="" className="primary-btn">
-                        View All{" "}
+                        View All
                         <span
-                          onClick={() => navigate("/category")}
+                          onClick={() => navigate("/series-list")}
                           className="arrow_right"
                         />
                       </a>
@@ -92,9 +92,9 @@ export default function Product() {
                   <div className="col-lg-4 col-md-4 col-sm-4">
                     <div className="btn__all">
                       <a href="" className="primary-btn">
-                        View All{" "}
+                        View All
                         <span
-                          onClick={() => navigate("/category")}
+                          onClick={() => navigate("/series-list")}
                           className="arrow_right"
                         />
                       </a>

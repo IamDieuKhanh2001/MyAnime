@@ -19,6 +19,7 @@ import Movie from "./components/pages/Admin/Movie/Movie";
 import User from "./components/pages/Admin/User/User";
 import Categories from "./components/pages/Admin/Categories/Categories";
 import ProductList from "./components/pages/ProductList/ProductList";
+import Category from "./components/pages/Category/Category";
 
 function App() {
   return (
@@ -37,11 +38,12 @@ function App() {
           <Route path="/watching" element={<AnimeWatching />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog-detail" element={<BlogDetail />} />
+          <Route path="/category" element={<Category />} />
           <Route path="/admin" element={<Admin />}>
             <Route index element={<Dashboard />} />
-            <Route path="categories" element={<Categories/>} />
-            <Route path="movies" element={<Movie/>} />
-            <Route path="users" element={<User/>} />
+            <Route path="categories" element={<Categories />} />
+            <Route path="movies" element={<Movie />} />
+            <Route path="users" element={<User />} />
           </Route>
         </Routes>
       </Router>
