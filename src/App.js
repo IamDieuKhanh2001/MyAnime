@@ -7,7 +7,6 @@ import {
 import { Home } from "./components/pages/Home/Home";
 import Login from "./components/pages/Login/Login";
 // import { Social } from "./components/global/Social/Social";
-import Category from "./components/pages/Category/Category";
 import AnimeDetail from "./components/pages/AnimeDetail/AnimeDetail";
 import AnimeWatching from "./components/pages/AnimeWatching/AnimeWatching";
 import Blog from "./components/pages/Blog/Blog";
@@ -15,6 +14,7 @@ import BlogDetail from "./components/pages/Blog/BlogDetail/BlogDetail";
 import SignUp from "./components/pages/SignUp/SignUp";
 import Profile from "./components/pages/Profile/Profile";
 import Admin from './components/pages/Admin/Admin';
+import ProductList from "./components/pages/ProductList/ProductList";
 
 function App() {
   return (
@@ -28,7 +28,7 @@ function App() {
           <Route path="/profile" element={<Profile/>} />
           <Route path="/login/:preRoute" element={<Login />} />
           <Route path="*" element={<Navigate to="/" />} />
-          <Route path="/category" element={<Category />} />
+          <Route path="/series-list" element={<ProductList />} />
           <Route path="/details" element={<AnimeDetail />} />
           <Route path="/watching" element={<AnimeWatching />} />
           <Route path="/blog" element={<Blog />} />
