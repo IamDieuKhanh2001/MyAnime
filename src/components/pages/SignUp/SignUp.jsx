@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import SignUpThirdParty from "./SignUpThirdParty/SignUpThirdParty";
 import Header from "../../global/Header/Header";
 import Footer from "../../global/Footer/Footer";
+import { APIRegister } from "../../../api/axios/customerAPI";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -36,8 +37,10 @@ export default function SignUp() {
         })
         .required("Empty"),
     }),
-    onSubmit: values => {
-      console.log(values)
+    onSubmit: async values => {
+      const resRegister = await APIRegister(values.username, values.password)
+      console.log(resRegister)
+      navigate("/login");
     }
   });
 

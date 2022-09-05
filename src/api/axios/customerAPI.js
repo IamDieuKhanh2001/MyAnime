@@ -24,15 +24,14 @@ export const APIProfileUserLoging = () => {
     });
 };
 
-export const APIRegister = (password, username) => {
+export const APIRegister = (username, password) => {
     const url = "/register";
     const data = {
-      password,
-      username,
+        username,
+        password,
     };
     return axiosClient.post(url, data).catch((err) => {
-      console.log("Can't call API after 2 retries", err);
-      return err;
+        console.log("Can't call API after 2 retries", err);
+        return err;
     });
-  };
-  
+};
