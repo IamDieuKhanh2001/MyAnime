@@ -5,7 +5,6 @@ import { APIGetCategoryOfSeriesById } from '../../../../api/axios/categoryAPI';
 
 function ProductDetail({ data }) {
     const navigate = useNavigate();
-   
     return (
         <div className="anime__details__content">
             <div className="row">
@@ -64,9 +63,14 @@ function ProductDetail({ data }) {
                                             <span>Date aired:</span> {data.dateAired}
                                         </li>
                                         <li>
-                                            <span>Genre:</span> category
-                                            {/* {data.categoryList.map((category,index) => (
-                                                category.name
+                                            <span>Episodes:</span> {data.currentNumberEpisode}/{data.totalEpisode}
+                                        </li>
+                                        <li>
+                                            <span>Genre:</span> cate
+                                            {/* {categoryList.map((category, index) => (
+                                                <React.Fragment key={index}>
+                                                    {category.name},
+                                                </React.Fragment>
                                             ))} */}
                                         </li>
                                     </ul>
@@ -86,7 +90,7 @@ function ProductDetail({ data }) {
                                             <span>Quality:</span> HD
                                         </li>
                                         <li>
-                                            <span>Views:</span> 131,541
+                                            <span>Views:</span> {data.views}
                                         </li>
                                     </ul>
                                 </div>

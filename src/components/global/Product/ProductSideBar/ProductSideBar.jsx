@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import ProductSideBarItem from "./ProductSideBarItem";
 
 export default function ProductSideBar() {
   const navigate = useNavigate();
@@ -18,32 +19,9 @@ export default function ProductSideBar() {
           <li data-filter=".years">Years</li>
         </ul>
         <div className="filter__gallery">
-          <div
-            onClick={() => navigate("/details")}
-            className="product__sidebar__view__item set-bg mix day years"
-            style={{ backgroundImage: "url('img/sidebar/tv-1.jpg')" }}
-          >
-            <div className="ep">18 / ?</div>
-            <div className="view">
-              <i className="fa fa-eye" /> 9141
-            </div>
-            <h5>
-              <a href="">Boruto: Naruto next generations</a>
-            </h5>
-          </div>
-          <div
-            onClick={() => navigate("/details")}
-            className="product__sidebar__view__item set-bg mix month week"
-            style={{ backgroundImage: "url('img/sidebar/tv-1.jpg')" }}
-          >
-            <div className="ep">18 / ?</div>
-            <div className="view">
-              <i className="fa fa-eye" /> 9141
-            </div>
-            <h5>
-              <a href="">The Seven Deadly Sins: Wrath of the Gods</a>
-            </h5>
-          </div>
+          {/* <ProductSideBarItem />
+          <ProductSideBarItem />
+          <ProductSideBarItem /> */}
         </div>
       </div>
       <div className="product__sidebar__comment">

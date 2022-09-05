@@ -9,6 +9,7 @@ import {
 } from "../../../../api/axios/productAPI";
 import ProductSection from "../ProductSection/ProductSection";
 import { useSearchParams } from "react-router-dom";
+import LoadingAnimation from '../../LoadingAnimation/LoadingAnimation';
 
 function ProductPageable({ productTitle }) {
   const navigate = useNavigate();
@@ -78,9 +79,7 @@ function ProductPageable({ productTitle }) {
               </div>
               <div className="row">
                 {loading ?
-                  (<div className='loading-animation col-12'>
-                    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/max_632/04de2e31234507.564a1d23645bf.gif" alt={true} />
-                  </div>) : (
+                  (<LoadingAnimation />) : (
                     <React.Fragment>
                       {products.map((data, index) => (
                         <ProductSection data={data} key={index} />
