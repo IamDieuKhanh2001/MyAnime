@@ -1,7 +1,12 @@
 import React from 'react'
+import AddMovie from './AddMovie/AddMovie'
+import AllMovie from './AllMovie/AllMovie'
 
 export default function Movie() {
   return (
-    <div>Movie</div>
+    <div>
+     <AddMovie/>
+     <AllMovie/>
+    </div>
   )
 }

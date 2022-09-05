@@ -29,9 +29,9 @@ export default function MessageModal({ message, type, setModal }) {
 
   return (
     <div className="messageModal">
-      <div className="modal">
-        <div className="modalOverlay" onClick={() => setModal(false)}></div>
-        <div className="modalBody">
+      <div className="modalFormm d-flex align-items-center justify-content-center">
+        <div className="modalOverlay" ></div>
+        <div className="modalBody" onClick={() => setModal(false)}>
           <div className="message">{message}</div>
           <div className="type">{chooseType()}</div>
         </div>

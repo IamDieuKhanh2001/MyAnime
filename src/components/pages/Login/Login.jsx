@@ -11,8 +11,8 @@ import SignUpThirdParty from "../SignUp/SignUpThirdParty/SignUpThirdParty";
 import { APILogin, APIProfileUserLoging } from "../../../api/axios/customerAPI";
 import { userActions } from "../../../api/redux/slices/userSlice";
 import { useEffect } from "react";
-import MessageModal from "../../global/MessageModal/MessageModal";
 import { useState } from "react";
+import MessageModal from "./../../global/MessageModal/MessageModal";
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -29,38 +29,38 @@ export default function Login() {
       username: Yup.string().max(50, "Up to 50 characters").required("Empty"),
       password: Yup.string().required("Empty"),
     }),
-    onSubmit: async values => {
+    onSubmit: async ({ username, password }) => {
       // alert(JSON.stringify(values, null, 2));
-      console.log(values)
-      const resLogin = await APILogin(values.username, values.password)
-      console.log(resLogin)
+      //console.log(values);
+      const resLogin = await APILogin(username, password);
+      console.log(resLogin);
       if (resLogin.data) {
         window.sessionStorage.setItem("jwt", resLogin.data.jwt);
         window.sessionStorage.setItem("role", resLogin.data.authority);
         window.sessionStorage.setItem("username", resLogin.data.username);
         const resUserInfo = await APIProfileUserLoging();
-        console.log(resUserInfo)
+        console.log(resUserInfo);
         if (resUserInfo.data) {
           window.sessionStorage.setItem(
             "avatar",
             resUserInfo.data.avatar ||
-            "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+              "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
           );
           const updateUserInfo = userActions.updateUserInfo({
             username: resUserInfo.data.username,
             fullName: resUserInfo.data.fullName,
             email: resUserInfo.data.email,
             avatar: resUserInfo.data.avatar,
-            createAt: resUserInfo.data.createAt
+            createAt: resUserInfo.data.createAt,
           });
           dispatch(updateUserInfo);
           navigate("/");
         }
+      } else if (resLogin.response.status === 400) {
+        setModal(true);
+        console.log(resLogin.response.status);
       }
-      // if(resLogin.response.status === 400) {
-      //   setModal(true)
-      // }
-      // console.log(resLogin.response.status)
+      //console.log(resLogin.response.status);
     },
   });
 
@@ -94,6 +94,13 @@ export default function Login() {
       <div className="loginBody">
         <div className="container">
           <div className="wrapper">
+            {modal && (
+              <MessageModal
+                message={"Username or Password Invalid"}
+                type={"error"}
+                setModal={setModal}
+              />
+            )}
             <form className="loginForm" onSubmit={formik.handleSubmit}>
               <p className="title">LOG IN</p>
               <div className="form-group">

@@ -10,17 +10,18 @@ export const sidebarNavItems = [
     section: "",
   },
   {
-    display: "Series",
-    icon: <i className="bx bx-category"></i>,
-    to: "series",
-    section: "series",
-  },
-  {
     display: "Movie",
     icon: <i className="bx bx-film"></i>,
     to: "movies",
     section: "movies",
   },
+  {
+    display: "Series",
+    icon: <i className="bx bx-category"></i>,
+    to: "series",
+    section: "series",
+  },
+
   {
     display: "Customer",
     icon: <i className="bx bx-group"></i>,
