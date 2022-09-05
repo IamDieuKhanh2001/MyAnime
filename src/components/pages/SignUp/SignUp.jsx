@@ -15,24 +15,17 @@ export default function SignUp() {
   const formik = useFormik({
     initialValues: {
       username: "",
-      phone: "",
-      email: "",
       password: "",
       retypepassword: "",
     },
     validationSchema: Yup.object({
       username: Yup.string().max(50, "Up to 50 characters").required("Empty"),
-      phone: Yup.string()
-        .matches(phoneRegExp, "Invalid phone number")
-        .required("Empty")
-        .max(10, "Up to 10 characters"),
-      email: Yup.string().email("Invalid email").required("Empty"),
       password: Yup.string()
-        .required("Empty")
-        .matches(
-          /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
-          "Password must contain at least 8 characters, including 1 uppercase letter, 1 number and 1 special character"
-        ),
+        .required("Empty"),
+        // .matches(
+        //   /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
+        //   "Password must contain at least 8 characters, including 1 uppercase letter, 1 number and 1 special character"
+        // )
       retypepassword: Yup.string()
         .when("password", {
           is: (val) => (val && val.length > 0 ? true : false),
@@ -43,6 +36,9 @@ export default function SignUp() {
         })
         .required("Empty"),
     }),
+    onSubmit: values => {
+      console.log(values)
+    }
   });
 
   return (
@@ -65,38 +61,6 @@ export default function SignUp() {
                 <span className="error">
                   {formik.errors.username && formik.touched.username && (
                     <div>{formik.errors.username}</div>
-                  )}
-                </span>
-              </div>
-              <div className="form-group">
-                <input
-                  name="phone"
-                  type="text"
-                  className="form-control"
-                  id="phone"
-                  placeholder="Phone Number"
-                  value={formik.values.phone}
-                  onChange={formik.handleChange}
-                />
-                <span className="error">
-                  {formik.errors.phone && formik.touched.phone && (
-                    <div>{formik.errors.phone}</div>
-                  )}
-                </span>
-              </div>
-              <div className="form-group">
-                <input
-                  name="email"
-                  type="text"
-                  className="form-control"
-                  id="email"
-                  placeholder="Email"
-                  value={formik.values.email}
-                  onChange={formik.handleChange}
-                />
-                <span className="error">
-                  {formik.errors.email && formik.touched.email && (
-                    <div>{formik.errors.email}</div>
                   )}
                 </span>
               </div>

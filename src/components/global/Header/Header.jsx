@@ -2,10 +2,25 @@ import React from "react";
 import "./Header.scss";
 import Dropdown from "react-bootstrap/Dropdown";
 import { useNavigate } from "react-router-dom";
+import { userActions } from "../../../api/redux/slices/userSlice";
+import { useDispatch } from "react-redux";
 
 
 export default function Header() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const login = window.sessionStorage.getItem("jwt");
+  const username = window.sessionStorage.getItem("username");
+  const avatar = window.sessionStorage.getItem("avatar");
+
+  const handleLogout = () => {
+    window.sessionStorage.clear();
+    const logoutAction = userActions.resetUserInfo();
+    dispatch(logoutAction);
+    navigate("/login");
+  };
+
   return (
     <div className="header">
       <div className="container">
@@ -64,6 +79,7 @@ export default function Header() {
               <a href="#" className="search-switch searchIcon">
                 <span className="icon_search" />
               </a>
+
               <a className="myProfile">
                 <Dropdown>
                   <Dropdown.Toggle
@@ -72,15 +88,26 @@ export default function Header() {
                     id="dropdown-basic"
                   ></Dropdown.Toggle>
                   <Dropdown.Menu className="bg-danger">
-                    <Dropdown.Item onClick={() => navigate("/profile")}>
-                      My Profile
-                    </Dropdown.Item>
-                    <Dropdown.Item onClick={() => navigate("/signup")}>
-                      Sign Up
-                    </Dropdown.Item>
-                    <Dropdown.Item onClick={() => navigate("/login")}>
-                      Log In
-                    </Dropdown.Item>
+                    {login !== null ? (<React.Fragment>
+                      <Dropdown.Item onClick={() => navigate("/profile")}>
+                        <div className="headerUserAvatar d-flex ">
+                          {username}
+                          <div className="avatar">
+                            <img src={avatar} alt />
+                          </div>
+                        </div>
+                      </Dropdown.Item>
+                      <Dropdown.Item onClick={() => handleLogout()}>
+                        Log out
+                      </Dropdown.Item>
+                    </React.Fragment>) : (<React.Fragment>
+                      <Dropdown.Item onClick={() => navigate("/signup")}>
+                        Sign Up
+                      </Dropdown.Item>
+                      <Dropdown.Item onClick={() => navigate("/login")}>
+                        Log In
+                      </Dropdown.Item>
+                    </React.Fragment>)}
                   </Dropdown.Menu>
                 </Dropdown>
               </a>

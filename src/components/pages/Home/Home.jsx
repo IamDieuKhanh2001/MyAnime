@@ -5,6 +5,8 @@ import HeroSlider from "../../global/HeroSlider/HeroSlider";
 import Product from "../../global/Product/Product";
 
 export const Home = () => {
+  console.log(window.sessionStorage.getItem("jwt"))
+
   useEffect(() => {
     document.title = "Trang chủ";
     window.scrollTo(0, 0);
