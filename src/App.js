@@ -37,7 +37,7 @@ function App() {
           <Route path="*" element={<Navigate to="/" />} />
           <Route path="/series-list" element={<ProductList />} />
           <Route exact path="/details/:seriesId" element={<AnimeDetail />} />
-          <Route path="/watching" element={<AnimeWatching />} />
+          <Route path="/watching/:seriesId" element={<AnimeWatching />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog-detail" element={<BlogDetail />} />
           <Route path="/category" element={<Category />} />
@@ -47,6 +47,7 @@ function App() {
             <Route path="movies" element={<Movie />} />
             <Route path="customers" element={<Customer/>} />
           </Route>
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Router>
     </>

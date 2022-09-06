@@ -1,11 +1,59 @@
 import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
+import { APIGetEpisodeBySeriesId } from "../../../api/axios/episodeAPI";
+import { episodeActions } from "../../../api/redux/slices/episodeSlice";
 import BreadcrumbOption from "../../global/BreadcrumbOption/BreadcrumbOption";
 import Footer from "../../global/Footer/Footer";
 import Header from "../../global/Header/Header";
+import LoadingAnimation from "../../global/LoadingAnimation/LoadingAnimation";
+import { useDispatch, useSelector } from "react-redux";
 import "./AnimeWatching.scss";
 import Film from "./Film/Film";
+import { useLocation, useParams, useSearchParams } from "react-router-dom";
+import AnimeReview from "../../global/AnimeReview/AnimeReview";
+import { Alert, AlertTitle } from "@mui/material";
 
 export default function AnimeWatching() {
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const { seriesId } = useParams();
+  const [searchParams] = useSearchParams();
+
+  let episodeId = searchParams.get('episodeId');
+  const [episodeIdWatching, setEpisodeIdWatching] = useState(episodeId);
+
+  const [loading, setLoading] = useState(false)
+
+  const episodeList = useSelector((state) => state.episodes.list);
+  let epCurrent = {}
+  const loadEpisode = async () => {
+    setLoading(true)
+    console.log("Calling api get Episode");
+    const resGetEpisode = await APIGetEpisodeBySeriesId(seriesId);
+    if (resGetEpisode?.status === 200) {
+      const updateEpisodeListAction = episodeActions.updateList(resGetEpisode.data);
+      dispatch(updateEpisodeListAction);
+    }
+    setLoading(false)
+  };
+
+  useEffect(() => {
+    loadEpisode();
+    setEpisodeIdWatching(searchParams.get('episodeId'))
+  }, [episodeIdWatching]);
+
+  const getCurrentPathWithoutLastPart = () => {
+    return location.pathname.slice(0, location.pathname.lastIndexOf('/')) + "/" + seriesId
+  }
+
+  const getEpisode = () => {
+    epCurrent = episodeList.find(episode => episode.id === parseFloat(episodeIdWatching))
+    if (epCurrent === undefined) {
+      epCurrent = episodeList[0]
+    }
+    return epCurrent
+  }
   return (
     <div className="animeWatching">
       <Header />
@@ -13,131 +61,46 @@ export default function AnimeWatching() {
       <div className="anime-details spad">
         <div className="container">
           <div className="row">
-            <div className="col-lg-12">
-              <div className="anime__video__player">
-                <Film/>
-              </div>
-              <div className="anime__details__episodes">
-                <div className="section-title">
-                  <h5>List Name</h5>
+            {loading ? (<LoadingAnimation />) : (
+              <React.Fragment>
+                <div className="col-lg-12">
+                  <div className="anime__video__player">
+                    {episodeList.length !== 0 && <Film episodeWatching={getEpisode()} />}
+                  </div>
+                  <div className="anime__details__episodes">
+                    <div className="section-title">
+                      <h5>Current Episode Released</h5>
+                    </div>
+                    {episodeList.length === 0 &&
+                      (<Alert severity="info">
+                        <AlertTitle><strong>Đang cập nhật ...</strong></AlertTitle>
+                        Series này hiện đang cập nhật, Bạn quay lại sau nhé !!
+                      </Alert>)
+                    }
+                    {episodeList.map((episode, index) => (
+                      <a className="episode__active" href={getCurrentPathWithoutLastPart() + `?episodeId=${episode.id}`} key={index}>Ep {episode.title}</a>
+                    ))}
+                  </div>
                 </div>
-                <a href="#">Ep 01</a>
-                <a href="#">Ep 02</a>
-                <a href="#">Ep 03</a>
-                <a href="#">Ep 04</a>
-                <a href="#">Ep 05</a>
-                <a href="#">Ep 06</a>
-                <a href="#">Ep 07</a>
-                <a href="#">Ep 08</a>
-                <a href="#">Ep 09</a>
-                <a href="#">Ep 10</a>
-                <a href="#">Ep 11</a>
-                <a href="#">Ep 12</a>
-                <a href="#">Ep 13</a>
-                <a href="#">Ep 14</a>
-                <a href="#">Ep 15</a>
-                <a href="#">Ep 16</a>
-                <a href="#">Ep 17</a>
-                <a href="#">Ep 18</a>
-                <a href="#">Ep 19</a>
-              </div>
-            </div>
+              </React.Fragment>
+            )}
+
           </div>
           <div className="row">
-            <div className="col-lg-8">
-              <div className="anime__details__review">
+            <div className="col-lg-8 col-md-8">
+              <AnimeReview />
+            </div>
+            <div className="col-lg-4 col-md-4">
+              <div className="anime__details__sidebar">
                 <div className="section-title">
-                  <h5>Reviews</h5>
+                  <h5>You also love this</h5>
                 </div>
-                <div className="anime__review__item">
-                  <div className="anime__review__item__pic">
-                    <img src="img/anime/review-1.jpg" alt />
-                  </div>
-                  <div className="anime__review__item__text">
-                    <h6>
-                      Chris Curry - <span>1 Hour ago</span>
-                    </h6>
-                    <p>
-                      whachikan Just noticed that someone categorized this as
-                      belonging to the genre "demons" LOL
-                    </p>
-                  </div>
-                </div>
-                <div className="anime__review__item">
-                  <div className="anime__review__item__pic">
-                    <img src="img/anime/review-2.jpg" alt />
-                  </div>
-                  <div className="anime__review__item__text">
-                    <h6>
-                      Lewis Mann - <span>5 Hour ago</span>
-                    </h6>
-                    <p>Finally it came out ages ago</p>
-                  </div>
-                </div>
-                <div className="anime__review__item">
-                  <div className="anime__review__item__pic">
-                    <img src="img/anime/review-3.jpg" alt />
-                  </div>
-                  <div className="anime__review__item__text">
-                    <h6>
-                      Louis Tyler - <span>20 Hour ago</span>
-                    </h6>
-                    <p>Where is the episode 15 ? Slow update! Tch</p>
-                  </div>
-                </div>
-                <div className="anime__review__item">
-                  <div className="anime__review__item__pic">
-                    <img src="img/anime/review-4.jpg" alt />
-                  </div>
-                  <div className="anime__review__item__text">
-                    <h6>
-                      Chris Curry - <span>1 Hour ago</span>
-                    </h6>
-                    <p>
-                      whachikan Just noticed that someone categorized this as
-                      belonging to the genre "demons" LOL
-                    </p>
-                  </div>
-                </div>
-                <div className="anime__review__item">
-                  <div className="anime__review__item__pic">
-                    <img src="img/anime/review-5.jpg" alt />
-                  </div>
-                  <div className="anime__review__item__text">
-                    <h6>
-                      Lewis Mann - <span>5 Hour ago</span>
-                    </h6>
-                    <p>Finally it came out ages ago</p>
-                  </div>
-                </div>
-                <div className="anime__review__item">
-                  <div className="anime__review__item__pic">
-                    <img src="img/anime/review-6.jpg" alt />
-                  </div>
-                  <div className="anime__review__item__text">
-                    <h6>
-                      Louis Tyler - <span>20 Hour ago</span>
-                    </h6>
-                    <p>Where is the episode 15 ? Slow update! Tch</p>
-                  </div>
-                </div>
-              </div>
-              <div className="anime__details__form">
-                <div className="section-title">
-                  <h5>Your Comment</h5>
-                </div>
-                <form action="#">
-                  <textarea placeholder="Your Comment" defaultValue={""} />
-                  <button type="submit">
-                    <i className="fa fa-location-arrow" /> Review
-                  </button>
-                </form>
+
               </div>
             </div>
           </div>
         </div>
       </div>
-
       <Footer />
     </div>
   );
