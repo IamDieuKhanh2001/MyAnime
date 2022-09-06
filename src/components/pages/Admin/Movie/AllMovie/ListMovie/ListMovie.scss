@@ -1,0 +1,57 @@
+.titleList {
+  color: white;
+  padding-left: 25px;
+  font-weight: 700;
+  font-size: 25px;
+  font-family: "Oswald", sans-serif;
+  margin-bottom: 30px;
+}
+.allMovieLine {
+  display: block;
+  margin-bottom: 1rem;
+  .allMovieContent {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: center;
+    padding: 0 2rem;
+    text-align: left;
+    z-index: 99;
+    .deleteButton {
+      font-size: 1.6rem;
+      margin-right: 1rem;
+      color: #990000;
+      margin-left: -20px;
+      &:hover {
+        filter: brightness(105%);
+      }
+    }
+    .editButton {
+      font-size: 1.6rem;
+      color: #7df9ff;
+
+      &:hover {
+        filter: brightness(105%);
+      }
+    }
+    .movieItemImg {
+      width: 40px;
+      height: 50px;
+    }
+    .movieItemTitle {
+      color: white;
+      padding-left: 25px;
+      font-weight: 700;
+      font-size: 15px;
+      font-family: "Oswald", sans-serif;
+      margin-bottom: 20px;
+      flex: 3;
+    }
+
+    .movieItemStars {
+      flex: 2;
+      text-align: center;
+      margin-top: -10px;
+    }
+  }
+}

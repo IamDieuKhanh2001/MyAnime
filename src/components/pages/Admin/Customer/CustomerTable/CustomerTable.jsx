@@ -42,18 +42,12 @@ export default function CustomerTable() {
                           <a href="">trongkhanh@gmail.com</a>
                         </td>
                         <td style={{ width: "20%" }}>
-                          <a href="" className="table-link text-info">
-                            <span className="fa-stack">
-                              <i className="fa fa-square fa-stack-2x" />
-                              <i className="fa fa-pencil fa-stack-1x fa-inverse" />
-                            </span>
-                          </a>
-                          <a href="" className="table-link danger">
-                            <span className="fa-stack">
-                              <i className="fa fa-square fa-stack-2x" />
-                              <i className="fa fa-trash-o fa-stack-1x fa-inverse" />
-                            </span>
-                          </a>
+                          <button className="btn text-primary">
+                            <i className="bx bx-edit"></i>
+                          </button>
+                          <button className="btn text-danger">
+                            <i className="bx bx-trash"></i>
+                          </button>
                         </td>
                       </tr>
                       <tr>
@@ -72,18 +66,12 @@ export default function CustomerTable() {
                           <a href="">dieuquach@gmail.com</a>
                         </td>
                         <td style={{ width: "20%" }}>
-                          <a href="" className="table-link  text-info">
-                            <span className="fa-stack">
-                              <i className="fa fa-square fa-stack-2x" />
-                              <i className="fa fa-pencil fa-stack-1x fa-inverse" />
-                            </span>
-                          </a>
-                          <a href="" className="table-link danger">
-                            <span className="fa-stack">
-                              <i className="fa fa-square fa-stack-2x" />
-                              <i className="fa fa-trash-o fa-stack-1x fa-inverse" />
-                            </span>
-                          </a>
+                          <button className="btn text-primary">
+                            <i className="bx bx-edit"></i>
+                          </button>
+                          <button className="btn text-danger">
+                            <i className="bx bx-trash"></i>
+                          </button>
                         </td>
                       </tr>
                       <tr>
@@ -102,18 +90,12 @@ export default function CustomerTable() {
                           <a href="">trung@yahoo.com</a>
                         </td>
                         <td style={{ width: "20%" }}>
-                          <a href="" className="table-link  text-info">
-                            <span className="fa-stack">
-                              <i className="fa fa-square fa-stack-2x" />
-                              <i className="fa fa-pencil fa-stack-1x fa-inverse" />
-                            </span>
-                          </a>
-                          <a href="" className="table-link danger">
-                            <span className="fa-stack">
-                              <i className="fa fa-square fa-stack-2x" />
-                              <i className="fa fa-trash-o fa-stack-1x fa-inverse" />
-                            </span>
-                          </a>
+                          <button className="btn text-primary">
+                            <i className="bx bx-edit"></i>
+                          </button>
+                          <button className="btn text-danger">
+                            <i className="bx bx-trash"></i>
+                          </button>
                         </td>
                       </tr>
                     </tbody>
