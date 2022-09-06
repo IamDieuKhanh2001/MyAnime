@@ -2,15 +2,15 @@ import React from "react";
 import "./Blog.scss";
 import Header from "../../global/Header/Header";
 import Footer from "../../global/Footer/Footer";
-import BannerBlog from "./BannerBlog/BannerBlog";
 import { useNavigate } from "react-router-dom";
+import NormalBreadcrumb from "../../global/NormalBreadcrumb/NormalBreadcrumb";
 
 export default function Blog() {
   const navigate = useNavigate();
   return (
     <div className="blog">
       <Header />
-      <BannerBlog />
+      <NormalBreadcrumb title="Our Blog" description="Welcome to the official Anime blog."/>
       <div className="blog spad">
         <div className="container">
           <div className="row">

@@ -6,21 +6,25 @@ import ProductSection from "./ProductSection/ProductSection";
 import { APIGetProducts } from "./../../../api/axios/productAPI";
 import { productsActions } from "./../../../api/redux/slices/productSlice";
 import ProductSideBar from "./ProductSideBar/ProductSideBar";
+import LoadingAnimation from "../LoadingAnimation/LoadingAnimation";
 
 export default function Product() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false)
 
   const product = useSelector((state) => state.products.list);
 
   const loadProduct = async () => {
     console.log("Calling api get product");
+    setLoading(true)
     const resGetProduct = await APIGetProducts();
     if (resGetProduct?.status === 200) {
       const updateListAction = productsActions.updateList(resGetProduct.data);
       dispatch(updateListAction);
     }
     console.log(resGetProduct.data)
+    setLoading(false)
   };
 
   useEffect(() => {
@@ -53,10 +57,13 @@ export default function Product() {
                   </div>
                 </div>
                 <div className="row">
-                  {product.map((data, index) => (
-                    <ProductSection data={data} key={index} />
-                  ))}
-
+                  {loading ?
+                    (<LoadingAnimation />) : (
+                      <React.Fragment>
+                        {product.map((data, index) => (
+                          <ProductSection data={data} key={index} />
+                        ))}
+                      </React.Fragment>)}
                 </div>
               </div>
               <div className="recent__product">

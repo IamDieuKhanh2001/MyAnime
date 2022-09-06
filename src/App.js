@@ -28,10 +28,12 @@ function App() {
       <Router>
         <Routes>
           <Route exact path="/" element={<Home />} />
-          <Route exact path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/login/:preRoute" element={<Login />} />
+          {/* <Route path="/login2/:preRoute" element={<Login />} /> */}
+          {/* <Route exact path="/signup2" element={<SignUp />} /> */}
+          <Route path="/login" element={<Login />} />
+          <Route exact path="/signup" element={<SignUp />} />
           <Route path="*" element={<Navigate to="/" />} />
           <Route path="/series-list" element={<ProductList />} />
           <Route exact path="/details/:seriesId" element={<AnimeDetail />} />

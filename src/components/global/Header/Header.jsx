@@ -18,7 +18,7 @@ export default function Header() {
     window.sessionStorage.clear();
     const logoutAction = userActions.resetUserInfo();
     dispatch(logoutAction);
-    navigate("/login");
+    navigate("/login1");
   };
 
   return (

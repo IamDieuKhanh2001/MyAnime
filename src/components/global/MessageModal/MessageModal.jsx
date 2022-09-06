@@ -1,3 +1,4 @@
+import LoadingAnimation from "../LoadingAnimation/LoadingAnimation";
 import "./MessageModal.scss";
 
 export default function MessageModal({ message, type, setModal }) {
@@ -24,7 +25,15 @@ export default function MessageModal({ message, type, setModal }) {
           </div>
         </div>
       );
-    } else return <div>Lỗi type</div>;
+    } else if (type === "loading") {
+      return (
+        // <LoadingAnimation />
+        <div className='loading-animation col-12'>
+            <img src="https://i.kym-cdn.com/photos/images/original/000/633/501/8eb.gif" alt={true} />
+        </div>
+      );
+    }
+    else return <div>Lỗi type</div>;
   };
 
   return (
