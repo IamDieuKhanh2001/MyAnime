@@ -13,6 +13,9 @@ import Film from "./Film/Film";
 import { useLocation, useParams, useSearchParams } from "react-router-dom";
 import AnimeReview from "../../global/AnimeReview/AnimeReview";
 import { Alert, AlertTitle } from "@mui/material";
+import ProductDetailSideBar from "../../global/Product/ProductDetailSideBar/ProductDetailSideBar";
+import { APIGetCommentByEpisodeId } from "../../../api/axios/commentAPI";
+import { commentActions } from "../../../api/redux/slices/commentSlice";
 
 export default function AnimeWatching() {
   const dispatch = useDispatch();
@@ -23,37 +26,53 @@ export default function AnimeWatching() {
   let episodeId = searchParams.get('episodeId');
   const [episodeIdWatching, setEpisodeIdWatching] = useState(episodeId);
 
-  const [loading, setLoading] = useState(false)
+  const [episodeLoading, setEpisodeLoading] = useState(false)
+
+  const [commentLoading, setCommentLoading] = useState(false)
 
   const episodeList = useSelector((state) => state.episodes.list);
-  let epCurrent = {}
+
   const loadEpisode = async () => {
-    setLoading(true)
+    setEpisodeLoading(true)
     console.log("Calling api get Episode");
     const resGetEpisode = await APIGetEpisodeBySeriesId(seriesId);
     if (resGetEpisode?.status === 200) {
       const updateEpisodeListAction = episodeActions.updateList(resGetEpisode.data);
       dispatch(updateEpisodeListAction);
     }
-    setLoading(false)
+    setEpisodeLoading(false)
+  };
+  const getCurrentWatchingEpisode = () => {
+    let epCurrent = episodeList[0];
+    epCurrent =  episodeList.find(episode => episode.id === parseFloat(episodeIdWatching))
+    console.log(epCurrent)
+    return epCurrent
+  }
+  const loadCommentByEpisodeId = async () => {
+    setCommentLoading(true)
+    console.log("Calling api get comment");
+    const resGetCommentEpisode = await APIGetCommentByEpisodeId(getCurrentWatchingEpisode().id);
+    if (resGetCommentEpisode?.status === 200) {
+      const updateCommentListAction = commentActions.updateList(resGetCommentEpisode.data);
+      dispatch(updateCommentListAction);
+    }
+    setCommentLoading(false)
   };
 
-  useEffect(() => {
+  const newFunction = async () => {
     loadEpisode();
     setEpisodeIdWatching(searchParams.get('episodeId'))
+    await loadCommentByEpisodeId();
+  }
+
+  useEffect(() => {
+    newFunction()
   }, [episodeIdWatching]);
 
   const getCurrentPathWithoutLastPart = () => {
     return location.pathname.slice(0, location.pathname.lastIndexOf('/')) + "/" + seriesId
   }
 
-  const getEpisode = () => {
-    epCurrent = episodeList.find(episode => episode.id === parseFloat(episodeIdWatching))
-    if (epCurrent === undefined) {
-      epCurrent = episodeList[0]
-    }
-    return epCurrent
-  }
   return (
     <div className="animeWatching">
       <Header />
@@ -61,11 +80,11 @@ export default function AnimeWatching() {
       <div className="anime-details spad">
         <div className="container">
           <div className="row">
-            {loading ? (<LoadingAnimation />) : (
+            {episodeLoading ? (<LoadingAnimation />) : (
               <React.Fragment>
                 <div className="col-lg-12">
                   <div className="anime__video__player">
-                    {episodeList.length !== 0 && <Film episodeWatching={getEpisode()} />}
+                    {episodeList.length !== 0 && <Film episodeWatching={getCurrentWatchingEpisode()} />}
                   </div>
                   <div className="anime__details__episodes">
                     <div className="section-title">
@@ -91,12 +110,7 @@ export default function AnimeWatching() {
               <AnimeReview />
             </div>
             <div className="col-lg-4 col-md-4">
-              <div className="anime__details__sidebar">
-                <div className="section-title">
-                  <h5>You also love this</h5>
-                </div>
-
-              </div>
+              <ProductDetailSideBar />
             </div>
           </div>
         </div>

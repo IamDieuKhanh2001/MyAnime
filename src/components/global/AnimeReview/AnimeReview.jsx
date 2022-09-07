@@ -1,9 +1,9 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
 import ReviewItem from './ReviewItem/ReviewItem'
 
 function AnimeReview() {
   const jwtTokenLogin = window.sessionStorage.getItem("jwt");
-
   return (
     <React.Fragment>
       <div className="anime__details__review">

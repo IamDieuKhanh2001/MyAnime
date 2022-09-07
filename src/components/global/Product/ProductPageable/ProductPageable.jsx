@@ -10,12 +10,15 @@ import {
 import ProductSection from "../ProductSection/ProductSection";
 import { useSearchParams } from "react-router-dom";
 import LoadingAnimation from '../../LoadingAnimation/LoadingAnimation';
+import { productsActions } from '../../../../api/redux/slices/productSlice';
 
 function ProductPageable({ productTitle }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [products, setProducts] = useState([]);
+  const products = useSelector((state) => state.products.list);
+
+  // const [products, setProducts] = useState(productReduxList);
   const [totalProduct, setTotalProduct] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false)
@@ -24,7 +27,11 @@ function ProductPageable({ productTitle }) {
     setLoading(true);
     console.log("Calling api get product");
     const resGetProduct = await APIGetProducts(currentPage);
-    setProducts(resGetProduct.data)
+    // setProducts(resGetProduct.data)
+    if (resGetProduct?.status === 200) {
+      const updateListAction = productsActions.updateList(resGetProduct.data);
+      dispatch(updateListAction);
+    }
     setLoading(false);
   };
 

@@ -14,9 +14,8 @@ function ProductDetailSideBar() {
                 <h5>You also love this</h5>
             </div>
             {relateSeries.map((item, index) => (
-                <React.Fragment>
+                <React.Fragment key={index}>
                     <div
-                        key={index}
                         className="product__sidebar__view__item set-bg"
                         style={{
                             backgroundImage: `url("${item.image}")`,

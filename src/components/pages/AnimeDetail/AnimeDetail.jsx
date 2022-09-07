@@ -28,12 +28,14 @@ export default function AnimeDetail() {
     console.log("Calling api get product");
     const resGetProduct = await APIGetProductById(seriesId);
     setProduct(resGetProduct.data)
+    console.log(resGetProduct)
     setLoading(false);
   };
 
   const loadAllSeriesProductBySeriesId = async () => {
     console.log("Calling api get product series");
     const resGetRelateSeries = await APIGetAllSeriesProductById(seriesId);
+    console.log(resGetRelateSeries)
     if (resGetRelateSeries?.status === 200) {
       const updateListAction = productsActions.updateList(resGetRelateSeries.data);
       dispatch(updateListAction);
@@ -55,14 +57,12 @@ export default function AnimeDetail() {
     // setProduct(resGetProduct.data)
 
   }, []);
-
   return (
     <div className="animeDetail">
       <Header />
       <BreadcrumbOption />
       <div className="anime-details spad">
         <div className="container">
-        
           {loading ? (
             <LoadingAnimation />
           ) : (<React.Fragment>

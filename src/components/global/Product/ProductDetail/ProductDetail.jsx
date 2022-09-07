@@ -68,11 +68,11 @@ function ProductDetail({ data }) {
                                         </li>
                                         <li>
                                             <span>Genre:</span> cate
-                                            {/* {data.categoryList.map((category, index) => (
+                                            {/* {data.categoryList.length !== 0 && (data.categoryList.map((category, index) => (
                                                 <React.Fragment key={index}>
                                                     {category.name},
                                                 </React.Fragment>
-                                            ))} */}
+                                            )))} */}
                                         </li>
                                     </ul>
                                 </div>
