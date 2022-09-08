@@ -1,11 +1,23 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
-import { APIGetCategoryOfSeriesById } from '../../../../api/axios/categoryAPI';
 
 function ProductDetail({ data }) {
     const navigate = useNavigate();
+    const historyList = useSelector((state) => state.histories.list);
 
+    const handleNavigate = () => {        
+        let historySeriesLastExit = historyList.find(history => history.series_id === data.id)
+        let params;
+        console.log(historySeriesLastExit)
+        if(historySeriesLastExit) {
+            params = `?episodeId=${historySeriesLastExit.episode_id}&second=${historySeriesLastExit.lastSecond}`
+        } else {
+            params = `?episodeId=-1&second=0`
+        }
+        console.log(params)
+        navigate(`/watching/${data.id}${params}`)
+    }
     return (
         <div className="anime__details__content">
             <div className="row">
@@ -102,7 +114,7 @@ function ProductDetail({ data }) {
                                 <i className="fa fa-heart-o" /> Follow
                             </a>
                             <a
-                                onClick={() => navigate(`/watching/${data.id}?episodeId=${1}`)}
+                                onClick={() => handleNavigate()}
                                 className="watch-btn"
                             >
                                 <span>Watch Now</span> <i className="fa fa-angle-right" />

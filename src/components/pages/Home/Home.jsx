@@ -9,7 +9,7 @@ export const Home = () => {
 
   useEffect(() => {
     document.title = "Trang chủ";
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
   }, []);
 
   return (

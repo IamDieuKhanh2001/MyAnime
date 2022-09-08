@@ -79,6 +79,50 @@
         }
       }
 
+      .history-dropdown {
+        position: absolute;
+        left: 0;
+        top: 82px;
+        width: 350px;
+        background: $white-color;
+        text-align: left;
+        padding: 5px 0;
+        z-index: 9;
+        opacity: 0;
+        visibility: hidden;
+
+        li {
+          display: block;
+          margin-right: 0;
+
+          a {
+            font-size: 14px;
+            color: $heading-color;
+            font-weight: 500;
+            padding: 5px 20px;
+          }
+        }
+      }
+
+      &:hover {
+        a {
+          // background: $primary-color;
+          color: $primary-color;
+        }
+
+        .history-dropdown {
+          top: 62px;
+          opacity: 1;
+          visibility: visible;
+
+          li {
+            a {
+              background: transparent;
+            }
+          }
+        }
+      }
+
       a {
         font-size: 15px;
         color: #b7b7b7;

@@ -24,6 +24,12 @@ export default function AnimeWatching() {
   const [searchParams] = useSearchParams();
 
   let episodeId = searchParams.get('episodeId');
+  let lastSecondExit = searchParams.get('second')
+  if(lastSecondExit === null) {
+    lastSecondExit = 0
+  }
+  let epCurrent = {};
+
   const [episodeIdWatching, setEpisodeIdWatching] = useState(episodeId);
 
   const [episodeLoading, setEpisodeLoading] = useState(false)
@@ -43,9 +49,10 @@ export default function AnimeWatching() {
     setEpisodeLoading(false)
   };
   const getCurrentWatchingEpisode = () => {
-    let epCurrent = episodeList[0];
-    epCurrent =  episodeList.find(episode => episode.id === parseFloat(episodeIdWatching))
-    console.log(epCurrent)
+    epCurrent = episodeList.find(episode => episode.id === parseFloat(episodeIdWatching))
+    if (epCurrent === undefined) {
+      epCurrent = episodeList[0]
+    }
     return epCurrent
   }
   const loadCommentByEpisodeId = async () => {
@@ -59,14 +66,10 @@ export default function AnimeWatching() {
     setCommentLoading(false)
   };
 
-  const newFunction = async () => {
+  useEffect(() => {
     loadEpisode();
     setEpisodeIdWatching(searchParams.get('episodeId'))
-    await loadCommentByEpisodeId();
-  }
-
-  useEffect(() => {
-    newFunction()
+    // loadCommentByEpisodeId();
   }, [episodeIdWatching]);
 
   const getCurrentPathWithoutLastPart = () => {
@@ -84,7 +87,9 @@ export default function AnimeWatching() {
               <React.Fragment>
                 <div className="col-lg-12">
                   <div className="anime__video__player">
-                    {episodeList.length !== 0 && <Film episodeWatching={getCurrentWatchingEpisode()} />}
+                    {episodeList.length !== 0 && 
+                      <Film episodeWatching={getCurrentWatchingEpisode()} lastSecondExit={lastSecondExit} />
+                    }
                   </div>
                   <div className="anime__details__episodes">
                     <div className="section-title">

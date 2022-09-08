@@ -1,12 +1,30 @@
 import React from 'react'
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import ProductSideBarItem from '../ProductSideBar/ProductSideBarItem';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import { APIGetAllSeriesProductById } from '../../../../api/axios/productAPI';
+import { productsActions } from '../../../../api/redux/slices/productSlice';
 
 function ProductDetailSideBar() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const { seriesId } = useParams();
 
     const relateSeries = useSelector((state) => state.products.list);
+
+    const loadAllSeriesProductBySeriesId = async () => {
+        console.log("Calling api get product series");
+        const resGetRelateSeries = await APIGetAllSeriesProductById(seriesId);
+        if (resGetRelateSeries?.status === 200) {
+            const updateListAction = productsActions.updateList(resGetRelateSeries.data);
+            dispatch(updateListAction);
+        }
+    };
+
+    useEffect(() => {
+        loadAllSeriesProductBySeriesId()
+    }, [])
 
     return (
         <div className="anime__details__sidebar">

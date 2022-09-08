@@ -3,12 +3,21 @@ import "./Header.scss";
 import Dropdown from "react-bootstrap/Dropdown";
 import { useNavigate } from "react-router-dom";
 import { userActions } from "../../../api/redux/slices/userSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import HistoryItemDropdown from "./HistoryItemDropdown/HistoryItemDropdown";
+import { APIGetHistoriesSeriesUserLogging } from "../../../api/axios/historyWatchingAPI";
+import { useState } from "react";
+import { useEffect } from "react";
+import { HistoryActions } from "../../../api/redux/slices/HistoryWatchingSlice";
 
 
 export default function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const [loading, setLoading] = useState(false)
+
+  const historyList = useSelector((state) => state.histories.list);
 
   const login = window.sessionStorage.getItem("jwt");
   const username = window.sessionStorage.getItem("username");
@@ -20,6 +29,23 @@ export default function Header() {
     dispatch(logoutAction);
     navigate("/login1");
   };
+
+  const loadHistory = async () => {
+    console.log("Calling api get history");
+    setLoading(true)
+    const resGetHistory = await APIGetHistoriesSeriesUserLogging();
+    if (resGetHistory?.status === 200) {
+      const updateListAction = HistoryActions.updateList(resGetHistory.data);
+      dispatch(updateListAction);
+    }
+    console.log(resGetHistory.data)
+    setLoading(false)
+  };
+
+  useEffect(() => {
+    loadHistory();
+
+  }, []);
 
   return (
     <div className="header">
@@ -45,23 +71,30 @@ export default function Header() {
                     </a>
                     <ul className="dropdown">
                       <li>
-                        <a onClick={() => navigate("/category")}>Categories</a>
+                        Cate 1
                       </li>
-                      <li>
-                        <a onClick={() => navigate("/details")}>
-                          Anime Details
-                        </a>
-                      </li>
-                      <li>
-                        <a onClick={() => navigate("/watching")}>
-                          Anime Watching
-                        </a>
-                      </li>
-                      <li>
-                        <a onClick={() => navigate("/blog-detail")}>
-                          Blog Details
-                        </a>
-                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a onClick={() => navigate("/blog")}>
+                      History <span className="arrow_carrot-down" />
+                    </a>
+                    <ul className="history-dropdown">
+                      {login !== null ? (
+                        <React.Fragment>
+                          {historyList.map((history, index) => (
+                            <li>
+                              <HistoryItemDropdown data={history} key={index} />
+                            </li>
+                          ))}
+                        </React.Fragment>
+                      ) : (
+                        <p>Ban can login de xem duoc lich su</p>
+                      )}
+
+                      {/* <li>
+                        <HistoryItemDropdown />
+                      </li> */}
                     </ul>
                   </li>
                   <li>

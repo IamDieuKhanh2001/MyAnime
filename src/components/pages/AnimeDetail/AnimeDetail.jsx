@@ -20,9 +20,7 @@ export default function AnimeDetail() {
   const { seriesId } = useParams();
   const [product, setProduct] = useState({});
   const [loading, setLoading] = useState(false);
-  const relateSeries = useSelector((state) => state.products.list);
-
-
+  
   const loadProductById = async () => {
     setLoading(true);
     console.log("Calling api get product");
