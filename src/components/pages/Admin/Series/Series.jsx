@@ -1,7 +1,13 @@
-import React from 'react'
+import React from "react";
+import AddSeries from "./AddSeries/AddSeries";
+import AllSeries from "./AllSeries/AllSeries";
+
 
 export default function Series() {
   return (
-    <div>Series</div>
-  )
+    <div className="series">
+      <AddSeries />
+      <AllSeries/>
+    </div>
+  );
 }

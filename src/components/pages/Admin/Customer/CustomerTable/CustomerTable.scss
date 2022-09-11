@@ -18,15 +18,15 @@
   }
   .user-list tbody td .user-subhead {
     font-size: 0.875em;
-    font-style: italic;
+    //font-style: italic;
   }
   .user-list tbody td .user-link {
     display: block;
     font-size: 1em;
-    padding-top: 3px;
+    padding-top: 10px;
     margin-left: 60px;
   }
-  a {
+  .email, a {
     color: #fff;
     outline: none !important;
   }
@@ -57,7 +57,7 @@
     font-size: 0.875em;
     vertical-align: middle;
     border-top: 0.5px solid transparent;
-    padding: 12px 8px;
+    padding: 12px 8px 12px 12px;
   }
   a:hover {
     text-decoration: none;
