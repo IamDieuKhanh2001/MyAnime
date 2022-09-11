@@ -68,7 +68,7 @@ export default function AddSeries() {
                             id="inputName"
                             type="text"
                             name="name"
-                            placeholder="Enter your movie name"
+                            placeholder="Enter your series name"
                           />
                           <span className="error">
                             {errors.name && touched.name && (
