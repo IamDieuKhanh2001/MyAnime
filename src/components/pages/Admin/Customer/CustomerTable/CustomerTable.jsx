@@ -41,7 +41,7 @@ export default function CustomerTable() {
                         <td className="email">trongkhanh@gmail.com</td>
                         <td style={{ width: "20%" }}>
                           <button className="btn text-primary">
-                            <i className="bx bx-edit"></i>
+                            <i className="bx bx-block"></i>
                           </button>
                           <button className="btn text-danger">
                             <i className="bx bx-trash"></i>
@@ -63,7 +63,7 @@ export default function CustomerTable() {
                         <td className="email">trongkhanh@gmail.com</td>
                         <td style={{ width: "20%" }}>
                           <button className="btn text-primary">
-                            <i className="bx bx-edit"></i>
+                            <i className="bx bx-block"></i>
                           </button>
                           <button className="btn text-danger">
                             <i className="bx bx-trash"></i>
@@ -85,7 +85,7 @@ export default function CustomerTable() {
                         <td className="email">trongkhanh@gmail.com</td>
                         <td style={{ width: "20%" }}>
                           <button className="btn text-primary">
-                            <i className="bx bx-edit"></i>
+                            <i className="bx bx-block"></i>
                           </button>
                           <button className="btn text-danger">
                             <i className="bx bx-trash"></i>

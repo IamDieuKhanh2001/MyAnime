@@ -11,20 +11,20 @@ export default function AddSeries() {
 
   const initialValues = {
     name: "",
-    studioName: "",
+    movieName: "",
     description: "",
     poster: "",
     totalEp: "",
-    genres: "",
+    dateAired: "",
   };
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().max(50, "Up to 50 characters").required("Empty"),
-    studioName: Yup.string().max(50, "Up to 50 characters").required("Empty"),
+    movieName: Yup.string().max(50, "Up to 50 characters").required("Empty"),
     description: Yup.string().required("Empty"),
     poster: Yup.mixed(),
     totalEp: Yup.string().required("Empty"),
-    genres: Yup.string().required("Empty"),
+    dateAired: Yup.string().required("Empty"),
   });
 
   const imageHandler = (e, setFieldValue) => {
@@ -79,34 +79,16 @@ export default function AddSeries() {
                         <div className="mb-3">
                           <label
                             className="small mb-1"
-                            htmlFor="inputstudioName"
+                            htmlFor="inputmovieName"
                           >
-                            Studio Name
+                            Movie Name
                           </label>
                           <Field
                             className="form-control"
-                            id="inputstudioName"
+                            id="inputmovieName"
                             type="text"
-                            name="studioName"
-                            placeholder="Enter your studio name"
-                          />
-                          <span className="error">
-                            {errors.studioName && touched.studioName && (
-                              <div>{errors.studioName}</div>
-                            )}
-                          </span>
-                        </div>
-
-                        <div className="mb-3">
-                          <label className="small mb-1" htmlFor="inputGenres">
-                            Genres
-                          </label>
-                          <Field
-                            className="form-control"
-                            id="inputGenres"
-                            name="genres"
-                            placeholder="Enter your genres"
-                            type="text"
+                            name="movieName"
+                            placeholder="Enter your movie name"
                           />
                           {/* <option value="">Action</option> */}
                           {/* {genresList &&
@@ -116,12 +98,11 @@ export default function AddSeries() {
                               </option>
                             ))} */}
                           <span className="error">
-                            {errors.genres && touched.genres && (
-                              <div>{errors.genres}</div>
+                            {errors.movieName && touched.movieName && (
+                              <div>{errors.movieName}</div>
                             )}
                           </span>
                         </div>
-
                         <div className="mb-3">
                           <label className="small mb-1" htmlFor="inputTotalEp">
                             Total Eposide
@@ -136,6 +117,26 @@ export default function AddSeries() {
                           <span className="error">
                             {errors.totalEp && touched.totalEp && (
                               <div>{errors.totalEp}</div>
+                            )}
+                          </span>
+                        </div>
+                        <div className="mb-3">
+                          <label
+                            className="small mb-1"
+                            htmlFor="inputDateAired"
+                          >
+                            Date Aired
+                          </label>
+                          <Field
+                            className="form-control"
+                            id="inputDateAired"
+                            name="dateAired"
+                            placeholder="Enter your date aired"
+                            type="date"
+                          />
+                          <span className="error">
+                            {errors.dateAired && touched.dateAired && (
+                              <div>{errors.dateAired}</div>
                             )}
                           </span>
                         </div>

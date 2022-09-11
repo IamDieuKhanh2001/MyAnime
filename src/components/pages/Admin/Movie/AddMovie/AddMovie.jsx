@@ -12,31 +12,15 @@ export default function AddMovie() {
   const initialValues = {
     name: "",
     studioName: "",
-    description: "",
-    poster: "",
-    totalEp: "",
-    genres: "",
   };
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().max(50, "Up to 50 characters").required("Empty"),
     studioName: Yup.string().max(50, "Up to 50 characters").required("Empty"),
-    description: Yup.string().required("Empty"),
-    poster: Yup.mixed(),
-    totalEp: Yup.string().required("Empty"),
-    genres: Yup.string().required("Empty"),
+    
   });
 
-  const imageHandler = (e, setFieldValue) => {
-    if (e.target.files[0]) {
-      setFieldValue("avatar", e.target.files[0]);
-      const reader = new FileReader();
-      reader.addEventListener("load", () => {
-        setPreviewImg(reader.result);
-      });
-      reader.readAsDataURL(e.target.files[0]);
-    }
-  };
+  
 
   const onSubmit = async (fields) => {
     console.log(fields);
@@ -96,71 +80,6 @@ export default function AddMovie() {
                             )}
                           </span>
                         </div>
-
-                        <div className="mb-3">
-                          <label className="small mb-1" htmlFor="inputGenres">
-                            Genres
-                          </label>
-                          <Field
-                            className="form-control"
-                            id="inputGenres"
-                            name="genres"
-                            placeholder="Enter your genres"
-                            type="text"
-                          />
-                          {/* <option value="">Action</option> */}
-                          {/* {genresList &&
-                            genresList.map((data, index) => (
-                              <option value={data.id} key={index}>
-                                {data.name}
-                              </option>
-                            ))} */}
-                          <span className="error">
-                            {errors.genres && touched.genres && (
-                              <div>{errors.genres}</div>
-                            )}
-                          </span>
-                        </div>
-
-                        <div className="mb-3">
-                          <label className="small mb-1" htmlFor="inputTotalEp">
-                            Total Eposide
-                          </label>
-                          <Field
-                            className="form-control"
-                            id="inputTotalEp"
-                            type="text"
-                            name="totalEp"
-                            placeholder="Enter your total eposide"
-                          />
-                          <span className="error">
-                            {errors.totalEp && touched.totalEp && (
-                              <div>{errors.totalEp}</div>
-                            )}
-                          </span>
-                        </div>
-
-                        <div className="mb-3">
-                          <label
-                            className="small mb-1"
-                            htmlFor="inputDescription"
-                          >
-                            Description
-                          </label>
-                          <Field
-                            className="form-control"
-                            id="inputDescription"
-                            component="textarea"
-                            name="description"
-                            placeholder="Enter your description"
-                          />
-                          <span className="error">
-                            {errors.description && touched.description && (
-                              <div>{errors.description}</div>
-                            )}
-                          </span>
-                        </div>
-
                         <button className="btn btn-danger px-4" type="submit">
                           {isSubmitting && (
                             <span className="spinner-border spinner-border-sm mr-1"></span>
@@ -171,35 +90,7 @@ export default function AddMovie() {
                     </div>
                   </div>
                 </div>
-                <div className="col-xl-5">
-                  <div className="card mb-4 mb-xl-0">
-                    <div className="card-header">Poster</div>
-                    <div className="card-body text-center">
-                      <img
-                        className="img-account-poster mb-2"
-                        src={previewImg}
-                        alt="avatar"
-                        id="img"
-                      />
-                      <div className="small font-italic text-muted mb-4">
-                        JPG or PNG no larger than 5 MB
-                      </div>
-                      <label
-                        htmlFor="input"
-                        className="btn btn-danger custom-file-upload"
-                      >
-                        Upload
-                      </label>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        className="imageBtn"
-                        id="input"
-                        onChange={(e) => imageHandler(e, setFieldValue)}
-                      />
-                    </div>
-                  </div>
-                </div>
+               
               </div>
             </div>
           </Form>
