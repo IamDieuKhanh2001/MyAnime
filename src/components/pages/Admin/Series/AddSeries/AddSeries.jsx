@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./AddSeries.scss";
-import { Formik, Form, Field, FieldArray, ErrorMessage } from "formik";
+import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-import { PuffLoader } from "react-spinners/PuffLoader";
 
 export default function AddSeries() {
   const [previewImg, setPreviewImg] = useState(
@@ -83,16 +82,18 @@ export default function AddSeries() {
                           >
                             Movie Name
                           </label>
+
                           <Field
-                            className="form-control"
+                            className="form-control input select"
                             id="inputmovieName"
-                            type="text"
+                            //type="text"
                             name="movieName"
+                            as="select"
                             placeholder="Enter your movie name"
                           />
-                          {/* <option value="">Action</option> */}
-                          {/* {genresList &&
-                            genresList.map((data, index) => (
+                          {/* <option value="">Movie</option> */}
+                          {/* {movieList &&
+                            movieList.map((data, index) => (
                               <option value={data.id} key={index}>
                                 {data.name}
                               </option>
