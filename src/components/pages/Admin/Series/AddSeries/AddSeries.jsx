@@ -2,6 +2,17 @@ import React, { useEffect, useState } from "react";
 import "./AddSeries.scss";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
+import SelectField from "../CustomSeriesSelect/CustomSeriesSelect";
+
+const options = [
+  { value: "1", label: "The Walking Dead" },
+  { value: "2", label: "Superman" },
+  { value: "3", label: "Iron Man" },
+  { value: "4", label: "Black Panther" },
+  { value: "5", label: "Titanic" },
+  { value: "6", label: "Manchester United Legend" },
+  { value: "7", label: "Viva Ronaldo" },
+];
 
 export default function AddSeries() {
   const [previewImg, setPreviewImg] = useState(
@@ -19,7 +30,6 @@ export default function AddSeries() {
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().max(50, "Up to 50 characters").required("Empty"),
-    movieName: Yup.string().max(50, "Up to 50 characters").required("Empty"),
     description: Yup.string().required("Empty"),
     poster: Yup.mixed(),
     totalEp: Yup.string().required("Empty"),
@@ -41,10 +51,12 @@ export default function AddSeries() {
     console.log(fields);
   };
 
+  const [formValues, setFormValues] = useState(null);
+
   return (
     <div className="addSeries">
       <Formik
-        initialValues={initialValues}
+        initialValues={initialValues || formValues}
         validationSchema={validationSchema}
         onSubmit={onSubmit}
         enableReinitialize
@@ -84,20 +96,12 @@ export default function AddSeries() {
                           </label>
 
                           <Field
-                            className="form-control input select"
-                            id="inputmovieName"
-                            //type="text"
+                            component={SelectField}
                             name="movieName"
-                            as="select"
-                            placeholder="Enter your movie name"
+                            options={options}
                           />
-                          {/* <option value="">Movie</option> */}
-                          {/* {movieList &&
-                            movieList.map((data, index) => (
-                              <option value={data.id} key={index}>
-                                {data.name}
-                              </option>
-                            ))} */}
+
+                          
                           <span className="error">
                             {errors.movieName && touched.movieName && (
                               <div>{errors.movieName}</div>
