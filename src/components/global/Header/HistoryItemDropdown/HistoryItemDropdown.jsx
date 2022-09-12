@@ -5,13 +5,16 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
+import { useNavigate } from 'react-router-dom';
 
 function HistoryItemDropdown({ data }) {
+    const navigate = useNavigate();
+
     return (
-        <Card sx={{ display: 'flex' }} key={data.id}>
+        <Card onClick={() => navigate(`/details/${data.series_id}`)} sx={{ display: 'flex', alignItems: 'center' }} key={data.id}>
             <CardMedia
                 component="img"
-                sx={{ width: 151, height: 100 }}
+                sx={{ width: 151, height: 110 }}
                 image={data.image}
                 alt="series img"
             />

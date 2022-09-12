@@ -20,6 +20,7 @@ import ProductList from "./components/pages/ProductList/ProductList";
 import Category from "./components/pages/Category/Category";
 import Customer from "./components/pages/Admin/Customer/Customer";
 import Series from "./components/pages/Admin/Series/Series";
+import History from "./components/pages/History/History";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog-detail" element={<BlogDetail />} />
           <Route path="/category" element={<Category />} />
+          <Route path="/history" element={<History />} />
           <Route path="/admin" element={<Admin />}>
             <Route index element={<Dashboard />} />
             <Route path="series" element={<Series/>} />
