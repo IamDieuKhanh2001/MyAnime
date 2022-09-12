@@ -33,7 +33,6 @@ export default function AnimeDetail() {
   const loadAllSeriesProductBySeriesId = async () => {
     console.log("Calling api get product series");
     const resGetRelateSeries = await APIGetAllSeriesProductById(seriesId);
-    console.log(resGetRelateSeries)
     if (resGetRelateSeries?.status === 200) {
       const updateListAction = productsActions.updateList(resGetRelateSeries.data);
       dispatch(updateListAction);

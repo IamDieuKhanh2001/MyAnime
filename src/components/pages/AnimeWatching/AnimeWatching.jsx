@@ -102,7 +102,7 @@ export default function AnimeWatching() {
                       </Alert>)
                     }
                     {episodeList.map((episode, index) => (
-                      <a className="episode__active" href={getCurrentPathWithoutLastPart() + `?episodeId=${episode.id}`} key={index}>Ep {episode.title}</a>
+                      <a className={episode.id === getCurrentWatchingEpisode().id ? "episode__active" : ""} href={getCurrentPathWithoutLastPart() + `?episodeId=${episode.id}`} key={index}>Ep {episode.title}</a>
                     ))}
                   </div>
                 </div>

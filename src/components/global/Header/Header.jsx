@@ -9,6 +9,7 @@ import { APIGetHistoriesSeriesUserLogging } from "../../../api/axios/historyWatc
 import { useState } from "react";
 import { useEffect } from "react";
 import { HistoryActions } from "../../../api/redux/slices/HistoryWatchingSlice";
+import { Alert, Stack, Typography } from "@mui/material";
 
 
 export default function Header() {
@@ -38,7 +39,6 @@ export default function Header() {
       const updateListAction = HistoryActions.updateList(resGetHistory.data);
       dispatch(updateListAction);
     }
-    console.log(resGetHistory.data)
     setLoading(false)
   };
 
@@ -76,10 +76,13 @@ export default function Header() {
                     </ul>
                   </li>
                   <li>
-                    <a onClick={() => navigate("/blog")}>
+                    <a onClick={() => navigate("/")}>
                       History <span className="arrow_carrot-down" />
                     </a>
                     <ul className="history-dropdown">
+                      <Typography component="div" variant="h5">
+                        Danh sách đang xem
+                      </Typography>
                       {login !== null ? (
                         <React.Fragment>
                           {historyList.map((history, index) => (
@@ -87,9 +90,12 @@ export default function Header() {
                               <HistoryItemDropdown data={history} key={index} />
                             </li>
                           ))}
+                          <a onClick={() => navigate(`/history`)}>Xem tất cả</a>
                         </React.Fragment>
                       ) : (
-                        <p>Ban can login de xem duoc lich su</p>
+                        <Stack sx={{ width: '100%' }} spacing={2}>
+                          <Alert severity="error">Bạn cần đăng nhập để có thể sử dụng tính năng này!!</Alert>
+                        </Stack>
                       )}
 
                       {/* <li>
