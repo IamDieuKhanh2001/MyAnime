@@ -1,26 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./AddMovie.scss";
-import { Formik, Form, Field, FieldArray, ErrorMessage } from "formik";
+import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-import { PuffLoader } from "react-spinners/PuffLoader";
+import SelectField from "./../CustomSelect/CustomSelect";
+
+const options = [
+  { value: "action", label: "Action" },
+  { value: "comedy", label: "Comedy" },
+  { value: "thriller", label: "Thriller" },
+  { value: "adventure", label: "Adventure" },
+  { value: "horror", label: "Horror" },
+  { value: "romantic", label: "Romantic" },
+  { value: "animation", label: "Animation" },
+];
 
 export default function AddMovie() {
-  const [previewImg, setPreviewImg] = useState(
-    "https://cdn.pixabay.com/photo/2017/01/25/17/35/picture-2008484_960_720.png"
-  );
+  const [formValues, setFormValues] = useState(null);
 
   const initialValues = {
     name: "",
     studioName: "",
+    category: "",
   };
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().max(50, "Up to 50 characters").required("Empty"),
     studioName: Yup.string().max(50, "Up to 50 characters").required("Empty"),
-    
   });
-
-  
 
   const onSubmit = async (fields) => {
     console.log(fields);
@@ -29,7 +35,7 @@ export default function AddMovie() {
   return (
     <div className="addMovie">
       <Formik
-        initialValues={initialValues}
+        initialValues={initialValues || formValues}
         validationSchema={validationSchema}
         onSubmit={onSubmit}
         enableReinitialize
@@ -80,6 +86,18 @@ export default function AddMovie() {
                             )}
                           </span>
                         </div>
+
+                        <div className="mb-3">
+                          <label className="small mb-1" htmlFor="inputCategory">
+                            Category
+                          </label>
+
+                          <Field
+                            component={SelectField}
+                            name="category"
+                            options={options}
+                          />
+                        </div>
                         <button className="btn btn-danger px-4" type="submit">
                           {isSubmitting && (
                             <span className="spinner-border spinner-border-sm mr-1"></span>
@@ -90,7 +108,6 @@ export default function AddMovie() {
                     </div>
                   </div>
                 </div>
-               
               </div>
             </div>
           </Form>
