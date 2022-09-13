@@ -26,7 +26,6 @@ export default function AnimeDetail() {
     console.log("Calling api get product");
     const resGetProduct = await APIGetProductById(seriesId);
     setProduct(resGetProduct.data)
-    console.log(resGetProduct)
     setLoading(false);
   };
 

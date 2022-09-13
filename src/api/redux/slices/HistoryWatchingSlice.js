@@ -12,13 +12,7 @@ const initialState = {
       updateList: (state, actions) => {
         state.list = actions.payload;
       },
-      // updateHistoryItem: (state, actions) => {
-      //   console.log(actions.payload.id);
-      //   // let epHistoryCurrent = state.list.find(history => history.episode_id === parseFloat(actions.payload.id))
-      //   for (let history of state.list) {
-      //     console.log(history)
-      //   }
-      // },
+      clearUserHistory: () => initialState,
     },
   });
   

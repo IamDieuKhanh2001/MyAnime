@@ -10,6 +10,7 @@ import "./Film.scss";
 export default function Film({ episodeWatching, lastSecondExit }) {
   // const dispatch = useDispatch();
   // const historyList = useSelector((state) => state.histories.list);
+  const loginJwt = window.sessionStorage.getItem("jwt");
 
   const videoSrc = episodeWatching.resource
   // "https://res.cloudinary.com/dpxgtmzld/video/upload/v1661585857/MyAnimeProject_TLCN/test/video1.mp4";
@@ -20,11 +21,13 @@ export default function Film({ episodeWatching, lastSecondExit }) {
 
   const saveUserLoggingHistory = async () => {
     console.log("Calling api save history series");
-    const resHistorySave = await APIHistoriesSeriesUserLoggingSave(played, episodeWatching.id);
+      const resHistorySave = await APIHistoriesSeriesUserLoggingSave(played, episodeWatching.id);
   };
 
   const onPause = () => {
-    saveUserLoggingHistory()
+    if(loginJwt !== null) {
+      saveUserLoggingHistory()
+    }
   }
 
   const onReady = React.useCallback(() => { //Get to last second out in history
@@ -55,7 +58,7 @@ export default function Film({ episodeWatching, lastSecondExit }) {
         config={{ file: { attributes: { controlsList: 'nodownload' } } }} //disable download
         onContextMenu={e => e.preventDefault()} //disable right click on video
         controls={true}
-        volume={0}
+        volume={1}
         light="/videos/anime-watch.jpg"
         onReady={onReady}
         onEnded={onEnd}

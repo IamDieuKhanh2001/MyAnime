@@ -10,6 +10,18 @@ import { useNavigate } from 'react-router-dom';
 function HistoryItemDropdown({ data }) {
     const navigate = useNavigate();
 
+    const totalSeconds = data.lastSecond;
+
+    // 👇️ get number of full minutes
+    const minutes = Math.floor(totalSeconds / 60);
+    
+    // 👇️ get remainder of seconds
+    const seconds = totalSeconds % 60;
+    
+    function padTo2Digits(num) {
+      return num.toString().padStart(2, '0');
+    }
+
     return (
         <Card onClick={() => navigate(`/details/${data.series_id}`)} sx={{ display: 'flex', alignItems: 'center' }} key={data.id}>
             <CardMedia
@@ -24,7 +36,7 @@ function HistoryItemDropdown({ data }) {
                         {data.seriesName}
                     </Typography>
                     <Typography variant="subtitle1" color="text.secondary" component="div">
-                        Đã xem tới tập {data.episodeNumber} {data.lastSecond}s
+                        Last watched: Ep {data.episodeNumber} {padTo2Digits(minutes)}:{padTo2Digits(seconds)}
                     </Typography>
                     <Typography variant="subtitle1" color="text.secondary" component="div">
                         {data.createAt}

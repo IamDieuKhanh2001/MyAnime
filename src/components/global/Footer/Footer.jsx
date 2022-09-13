@@ -148,7 +148,7 @@ export default function Footer() {
             <img
               onClick={() => navigate("/")}
               className="zionIcon"
-              src="img/logo.png"
+              src="/img/logo.png"
               alt="zion"
             />
           </div>
@@ -160,14 +160,14 @@ export default function Footer() {
                 Thủ Đức, Thành phố Hồ Chí Minh, Việt Nam.
               </li>
               <li>
-                Giấy chứng nhận đăng ký kinh doanh số: 0101659783
+                Giấy chứng nhận đăng ký kinh doanh số: 0123456789
                 <br />
-                Đăng ký thay đổi lần thứ 30, ngày 01 tháng 09 năm 2022 do Sở kế
+                Đăng ký thay đổi lần thứ 00, ngày 00 tháng 00 năm 2022 do Sở kế
                 hoạch và đầu tư Thành phố Hồ Chí Minh cấp phép.
               </li>
-              <li>Số Điện Thoại: 1900 545 436</li>
+              <li>Số Điện Thoại: 1900 000 000</li>
               <li>
-                Email: <span>support@anime.vn</span>
+                Email: <span>support@myanime.vn</span>
               </li>
             </ul>
           </div>

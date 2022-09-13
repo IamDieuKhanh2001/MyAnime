@@ -4,12 +4,11 @@ import Dropdown from "react-bootstrap/Dropdown";
 import { useNavigate } from "react-router-dom";
 import { userActions } from "../../../api/redux/slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
-import HistoryItemDropdown from "./HistoryItemDropdown/HistoryItemDropdown";
 import { APIGetHistoriesSeriesUserLogging } from "../../../api/axios/historyWatchingAPI";
 import { useState } from "react";
 import { useEffect } from "react";
 import { HistoryActions } from "../../../api/redux/slices/HistoryWatchingSlice";
-import { Alert, Stack, Typography } from "@mui/material";
+import HistoryDropdown from "./HistoryDropdown/HistoryDropdown";
 
 
 export default function Header() {
@@ -17,6 +16,8 @@ export default function Header() {
   const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(false)
+  const [historyToday, setHistoryToday] = useState([])
+  const [historyEarlier, setHistoryEarlier] = useState([])
 
   const historyList = useSelector((state) => state.histories.list);
 
@@ -28,7 +29,9 @@ export default function Header() {
     window.sessionStorage.clear();
     const logoutAction = userActions.resetUserInfo();
     dispatch(logoutAction);
-    navigate("/login1");
+    const clearUserHistory = HistoryActions.clearUserHistory();
+    dispatch(clearUserHistory);
+    navigate("/login");
   };
 
   const loadHistory = async () => {
@@ -42,9 +45,30 @@ export default function Header() {
     setLoading(false)
   };
 
-  useEffect(() => {
-    loadHistory();
+  const sortHistory = () => {
+    let historyTodayList = []
+    let historyEarlierList = []
+    let currentDate = new Date()
+    currentDate.setHours(0, 0, 0, 0);
 
+    historyList.map((history) => {
+      const historyDate = new Date(history.createAt);
+      historyDate.setHours(0, 0, 0, 0);
+      if (historyDate.getTime() === currentDate.getTime()) {
+        historyTodayList.push(history)
+      } else {
+        historyEarlierList.push(history)
+      }
+    })
+    setHistoryToday(historyTodayList)
+    setHistoryEarlier(historyEarlierList)
+  }
+
+  useEffect(() => {
+    if (login !== null) {
+      loadHistory();
+    }
+    sortHistory()
   }, []);
 
   return (
@@ -76,32 +100,10 @@ export default function Header() {
                     </ul>
                   </li>
                   <li>
-                    <a onClick={() => navigate("/")}>
+                    <a onClick={() => navigate("/history")}>
                       History <span className="arrow_carrot-down" />
                     </a>
-                    <ul className="history-dropdown">
-                      <Typography component="div" variant="h5">
-                        Danh sách đang xem
-                      </Typography>
-                      {login !== null ? (
-                        <React.Fragment>
-                          {historyList.map((history, index) => (
-                            <li>
-                              <HistoryItemDropdown data={history} key={index} />
-                            </li>
-                          ))}
-                          <a onClick={() => navigate(`/history`)}>Xem tất cả</a>
-                        </React.Fragment>
-                      ) : (
-                        <Stack sx={{ width: '100%' }} spacing={2}>
-                          <Alert severity="error">Bạn cần đăng nhập để có thể sử dụng tính năng này!!</Alert>
-                        </Stack>
-                      )}
-
-                      {/* <li>
-                        <HistoryItemDropdown />
-                      </li> */}
-                    </ul>
+                    <HistoryDropdown historyToday={historyToday} historyEarlier={historyEarlier} />
                   </li>
                   <li>
                     <a onClick={() => navigate("/blog")}>Our Blog</a>

@@ -9,13 +9,11 @@ function ProductDetail({ data }) {
     const handleNavigate = () => {        
         let historySeriesLastExit = historyList.find(history => history.series_id === data.id)
         let params;
-        console.log(historySeriesLastExit)
         if(historySeriesLastExit) {
             params = `?episodeId=${historySeriesLastExit.episode_id}&second=${historySeriesLastExit.lastSecond}`
         } else {
             params = `?episodeId=-1&second=0`
         }
-        console.log(params)
         navigate(`/watching/${data.id}${params}`)
     }
     return (
