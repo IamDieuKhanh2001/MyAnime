@@ -3,7 +3,7 @@ import { Alert, Stack, Typography } from "@mui/material";
 import HistoryItemDropdown from "../HistoryItemDropdown/HistoryItemDropdown";
 import { useNavigate } from 'react-router-dom';
 
-function HistoryDropdown({historyToday, historyEarlier}) {
+function HistoryDropdown({ historyToday, historyEarlier }) {
     const navigate = useNavigate();
 
     const login = window.sessionStorage.getItem("jwt");
@@ -12,22 +12,32 @@ function HistoryDropdown({historyToday, historyEarlier}) {
         <ul className="history-dropdown">
             {login !== null ? (
                 <React.Fragment>
-                    <Typography component="div" variant="h6">
-                        Today
-                    </Typography>
-                    {historyToday.slice(0, 2).map((history, index) => (
-                        <li>
-                            <HistoryItemDropdown data={history} key={index} />
-                        </li>
-                    ))}
-                    <Typography component="div" variant="h6">
-                        Earlier
-                    </Typography>
-                    {historyEarlier.slice(0, 2).map((history, index) => (
-                        <li>
-                            <HistoryItemDropdown data={history} key={index} />
-                        </li>
-                    ))}
+                    {historyToday.length !== 0 &&
+                        (
+                            <React.Fragment>
+                                <Typography component="div" variant="h6">
+                                    Today
+                                </Typography>
+                                {historyToday.slice(0, 2).map((history, index) => (
+                                    <li>
+                                        <HistoryItemDropdown data={history} key={index} />
+                                    </li>
+                                ))}
+                            </React.Fragment>
+                        )
+                    }
+                    {historyEarlier.length !== 0 &&
+                        (<React.Fragment>
+                            <Typography component="div" variant="h6">
+                                Earlier
+                            </Typography>
+                            {historyEarlier.slice(0, 2).map((history, index) => (
+                                <li>
+                                    <HistoryItemDropdown data={history} key={index} />
+                                </li>
+                            ))}
+                        </React.Fragment>)
+                    }
                     <a onClick={() => navigate(`/history`)}>View all</a>
                 </React.Fragment>
             ) : (

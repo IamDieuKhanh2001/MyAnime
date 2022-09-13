@@ -6,9 +6,12 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 function HistoryItemDropdown({ data }) {
     const navigate = useNavigate();
+
+    const historyList = useSelector((state) => state.histories.list);
 
     const totalSeconds = data.lastSecond;
 
@@ -22,8 +25,13 @@ function HistoryItemDropdown({ data }) {
       return num.toString().padStart(2, '0');
     }
 
+    const handleNavigate = () => {        
+        let params;
+        params = `?episodeId=${data.episode_id}&second=${data.lastSecond}`
+        navigate(`/watching/${data.id}${params}`)
+    }
     return (
-        <Card onClick={() => navigate(`/details/${data.series_id}`)} sx={{ display: 'flex', alignItems: 'center' }} key={data.id}>
+        <Card onClick={() => handleNavigate()} sx={{ display: 'flex', alignItems: 'center' }} key={data.id}>
             <CardMedia
                 component="img"
                 sx={{ width: 151, height: 110 }}
