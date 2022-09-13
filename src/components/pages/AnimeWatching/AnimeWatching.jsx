@@ -16,6 +16,7 @@ import { Alert, AlertTitle } from "@mui/material";
 import ProductDetailSideBar from "../../global/Product/ProductDetailSideBar/ProductDetailSideBar";
 import { APIGetCommentByEpisodeId } from "../../../api/axios/commentAPI";
 import { commentActions } from "../../../api/redux/slices/commentSlice";
+import { axiosClient } from "../../../api/axios/axiosClient";
 
 export default function AnimeWatching() {
   const dispatch = useDispatch();
@@ -25,16 +26,14 @@ export default function AnimeWatching() {
 
   let episodeId = searchParams.get('episodeId');
   let lastSecondExit = searchParams.get('second')
-  if(lastSecondExit === null) {
+  if (lastSecondExit === null) {
     lastSecondExit = 0
   }
   let epCurrent = {};
 
   const [episodeIdWatching, setEpisodeIdWatching] = useState(episodeId);
 
-  const [episodeLoading, setEpisodeLoading] = useState(false)
-
-  const [commentLoading, setCommentLoading] = useState(false)
+  const [episodeLoading, setEpisodeLoading] = useState(true)
 
   const episodeList = useSelector((state) => state.episodes.list);
 
@@ -42,6 +41,7 @@ export default function AnimeWatching() {
     setEpisodeLoading(true)
     console.log("Calling api get Episode");
     const resGetEpisode = await APIGetEpisodeBySeriesId(seriesId);
+    console.log(resGetEpisode.data)
     if (resGetEpisode?.status === 200) {
       const updateEpisodeListAction = episodeActions.updateList(resGetEpisode.data);
       dispatch(updateEpisodeListAction);
@@ -55,26 +55,16 @@ export default function AnimeWatching() {
     }
     return epCurrent
   }
-  const loadCommentByEpisodeId = async () => {
-    setCommentLoading(true)
-    console.log("Calling api get comment");
-    const resGetCommentEpisode = await APIGetCommentByEpisodeId(getCurrentWatchingEpisode().id);
-    if (resGetCommentEpisode?.status === 200) {
-      const updateCommentListAction = commentActions.updateList(resGetCommentEpisode.data);
-      dispatch(updateCommentListAction);
-    }
-    setCommentLoading(false)
-  };
 
   useEffect(() => {
     loadEpisode();
     setEpisodeIdWatching(searchParams.get('episodeId'))
-    // loadCommentByEpisodeId();
   }, [episodeIdWatching]);
 
   const getCurrentPathWithoutLastPart = () => {
     return location.pathname.slice(0, location.pathname.lastIndexOf('/')) + "/" + seriesId
   }
+
 
   return (
     <div className="animeWatching">
@@ -87,7 +77,7 @@ export default function AnimeWatching() {
               <React.Fragment>
                 <div className="col-lg-12">
                   <div className="anime__video__player">
-                    {episodeList.length !== 0 && 
+                    {episodeList.length !== 0 &&
                       <Film episodeWatching={getCurrentWatchingEpisode()} lastSecondExit={lastSecondExit} />
                     }
                   </div>
@@ -101,9 +91,11 @@ export default function AnimeWatching() {
                         Series này hiện đang cập nhật, Bạn quay lại sau nhé !!
                       </Alert>)
                     }
-                    {episodeList.map((episode, index) => (
-                      <a className={episode.id === getCurrentWatchingEpisode().id ? "episode__active" : ""} href={getCurrentPathWithoutLastPart() + `?episodeId=${episode.id}`} key={index}>Ep {episode.title}</a>
-                    ))}
+                    {
+                      episodeList.map((episode, index) => (
+                        <a className={episode.id === getCurrentWatchingEpisode().id ? "episode__active" : ""} href={getCurrentPathWithoutLastPart() + `?episodeId=${episode.id}`} key={index}>Ep {episode.title}</a>
+                      ))
+                    }
                   </div>
                 </div>
               </React.Fragment>
@@ -112,7 +104,9 @@ export default function AnimeWatching() {
           </div>
           <div className="row">
             <div className="col-lg-8 col-md-8">
-              <AnimeReview />
+              {episodeLoading === false &&
+              (<AnimeReview episodeWatching={getCurrentWatchingEpisode()} />) }
+              
             </div>
             <div className="col-lg-4 col-md-4">
               <ProductDetailSideBar />

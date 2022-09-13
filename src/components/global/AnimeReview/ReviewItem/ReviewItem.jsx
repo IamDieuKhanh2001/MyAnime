@@ -1,18 +1,24 @@
 import React from 'react'
 
-function ReviewItem() {
+function ReviewItem({ data }) {
     return (
         <div className="anime__review__item">
-            <div className="anime__review__item__pic">
-                <img src="/img/anime/review-1.jpg" alt />
-            </div>
+            {data.avatar !== null ? (
+                <div className="anime__review__item__pic">
+                    <img src={`${data.avatar}`} alt={data.username} />
+                </div>
+            ) : (
+                // default username if avatar user is not set
+                <div className="anime__review__item__pic"> 
+                    <img src='	https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png' alt={data.username} />
+                </div>
+            )}
             <div className="anime__review__item__text">
                 <h6>
-                    Chris Curry - <span>1 Hour ago</span>
+                    {data.username} - <span>{data.createAt}</span>
                 </h6>
                 <p>
-                    whachikan Just noticed that someone categorized this as
-                    belonging to the genre "demons" LOL
+                    {data.content}
                 </p>
             </div>
         </div>

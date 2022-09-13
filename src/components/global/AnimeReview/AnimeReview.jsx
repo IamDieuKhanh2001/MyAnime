@@ -1,9 +1,37 @@
 import React from 'react'
-import { useSelector } from 'react-redux';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { APIGetCommentByEpisodeId } from '../../../api/axios/commentAPI';
+import { commentActions } from '../../../api/redux/slices/commentSlice';
 import ReviewItem from './ReviewItem/ReviewItem'
 
-function AnimeReview() {
+function AnimeReview({ episodeWatching }) {
+  const dispatch = useDispatch();
+
   const jwtTokenLogin = window.sessionStorage.getItem("jwt");
+
+  const [commentLoading, setCommentLoading] = useState(false)
+
+  const commentList = useSelector((state) => state.comments.list);
+
+  const loadCommentByEpisodeId = async () => {
+    setCommentLoading(true)
+    console.log("Calling api get comment");
+    const resGetCommentEpisode = await APIGetCommentByEpisodeId(episodeWatching.id);
+    console.log(resGetCommentEpisode)
+    console.log(resGetCommentEpisode.data)
+    if (resGetCommentEpisode?.status === 200) {
+      const updateCommentListAction = commentActions.updateList(resGetCommentEpisode.data);
+      dispatch(updateCommentListAction);
+    }
+    setCommentLoading(false)
+  };
+
+  useEffect(() => {
+    loadCommentByEpisodeId();
+  }, []);
+
   return (
     <React.Fragment>
       <div className="anime__details__review">
@@ -12,9 +40,10 @@ function AnimeReview() {
         </div>
         {jwtTokenLogin !== null ? (
           <React.Fragment>
-            <ReviewItem />
-            <ReviewItem />
-            <ReviewItem />
+            {commentList.map((comment, index) => (
+              <ReviewItem data={comment} />
+            ))}
+          
           </React.Fragment>
         ) : (
           <React.Fragment>
@@ -28,7 +57,7 @@ function AnimeReview() {
                 </h6>
                 <p>
                   Bạn cần phải đăng nhập để có thể xem được comment của series này!
-                  <br/>
+                  <br />
                   <a href='/login'>Nhấn vào đây để đăng nhập</a>
                 </p>
               </div>

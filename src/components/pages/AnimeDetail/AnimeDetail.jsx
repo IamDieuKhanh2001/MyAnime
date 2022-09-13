@@ -63,10 +63,10 @@ export default function AnimeDetail() {
             <LoadingAnimation />
           ) : (<React.Fragment>
             <ProductDetail data={product} />
-
+            
             <div className="row">
             <div className="col-lg-8 col-md-8">
-              <AnimeReview />
+              {/* <AnimeReview /> */}
             </div>
             <div className="col-lg-4 col-md-4">
               <ProductDetailSideBar />
