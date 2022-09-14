@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactTimeAgo from 'react-time-ago'
 
 function ReviewItem({ data }) {
     return (
@@ -8,14 +9,15 @@ function ReviewItem({ data }) {
                     <img src={`${data.avatar}`} alt={data.username} />
                 </div>
             ) : (
-                // default username if avatar user is not set
+                // default avatar if avatar user is not set
                 <div className="anime__review__item__pic"> 
-                    <img src='	https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png' alt={data.username} />
+                    <img src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png' 
+                    alt={data.username} />
                 </div>
             )}
             <div className="anime__review__item__text">
                 <h6>
-                    {data.username} - <span>{data.createAt}</span>
+                    {data.username} - <span><ReactTimeAgo date={data.createAt} /></span>
                 </h6>
                 <p>
                     {data.content}
