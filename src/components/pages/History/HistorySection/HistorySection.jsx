@@ -20,7 +20,7 @@ function HistorySection({ data }) {
     const handleNavigate = () => {        
         let params;
         params = `?episodeId=${data.episode_id}&second=${data.lastSecond}`
-        navigate(`/watching/${data.id}${params}`)
+        navigate(`/watching/${data.series_id}${params}`)
     }
 
     return (

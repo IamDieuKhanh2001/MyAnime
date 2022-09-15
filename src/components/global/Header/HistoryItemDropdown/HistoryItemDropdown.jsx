@@ -11,8 +11,6 @@ import { useSelector } from 'react-redux';
 function HistoryItemDropdown({ data }) {
     const navigate = useNavigate();
 
-    const historyList = useSelector((state) => state.histories.list);
-
     const totalSeconds = data.lastSecond;
 
     // 👇️ get number of full minutes
@@ -28,7 +26,7 @@ function HistoryItemDropdown({ data }) {
     const handleNavigate = () => {        
         let params;
         params = `?episodeId=${data.episode_id}&second=${data.lastSecond}`
-        navigate(`/watching/${data.id}${params}`)
+        navigate(`/watching/${data.series_id}${params}`)
     }
     return (
         <Card onClick={() => handleNavigate()} sx={{ display: 'flex', alignItems: 'center' }} key={data.id}>
