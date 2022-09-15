@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from "react";
 import { Field, Form, Formik, useFormik } from "formik";
 import * as Yup from "yup";
@@ -6,20 +6,25 @@ import PuffLoader from "react-spinners/PuffLoader";
 import { useDispatch, useSelector } from "react-redux";
 
 function UserInfoForm() {
-    const data = useSelector((state) => state.users);
-
     const [previewImg, setPreviewImg] = useState(
         "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
     );
+    const data = useSelector((state) => state.users);
+
+
+    useEffect(() => {
+        if (data.avatar) {
+            setPreviewImg(data.avatar);
+        }
+    }, [data]);
 
     const initialValues = {
-        //username: "",
-        // fullName: data.fullName !== undefined ? data.fullName : "",
-        // email: data.email ? data.email : "",
+        fullName: data.fullName !== undefined ? data.fullName : "",
+        email: data.email ? data.email : "",
         // avatar: data.avatar,
-        fullName: "",
-        email: "",
-        avatar: "",
+        // fullName: "",
+        // email: "",
+        // avatar: "",
     };
 
     const validationSchema = Yup.object().shape({
@@ -41,6 +46,7 @@ function UserInfoForm() {
             reader.readAsDataURL(e.target.files[0]);
         }
     };
+
     return (
         <React.Fragment>
             <Formik
@@ -91,12 +97,13 @@ function UserInfoForm() {
                                                     <label className="small mb-1" htmlFor="inputUsername">
                                                         Username
                                                     </label>
-                                                    <Field
+                                                    <input
                                                         className="form-control"
                                                         id="inputUsername"
                                                         type="text"
                                                         name="username"
-                                                        // value={data.username}
+                                                        value={data.username}
+                                                        readOnly={true}
                                                     />
                                                 </div>
                                                 <div className="mb-3">

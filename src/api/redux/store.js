@@ -5,6 +5,7 @@ import categorySeriesReducer from "../redux/slices/totalProductSlice"
 import episodesReducer from "../redux/slices/episodeSlice"
 import commentsReducer from "../redux/slices/commentSlice"
 import historyReducer from "../redux/slices/HistoryWatchingSlice"
+import userReducer from "../redux/slices/userSlice"
 
 const rootReducer = {
   products: productReducer,
@@ -13,6 +14,7 @@ const rootReducer = {
   episodes: episodesReducer,
   comments: commentsReducer,
   histories: historyReducer,
+  users: userReducer,
 };
 
 const store = configureStore({
