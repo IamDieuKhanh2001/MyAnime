@@ -42,7 +42,7 @@ function HistoryDropdown({ historyToday, historyEarlier }) {
                 </React.Fragment>
             ) : (
                 <Stack sx={{ width: '100%' }} spacing={2}>
-                    <Alert severity="error">Please login to use this feature!!</Alert>
+                    <Alert severity="error">Please login to use this feature!</Alert>
                 </Stack>
             )}
         </ul>
