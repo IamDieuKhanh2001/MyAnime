@@ -9,13 +9,10 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { HistoryActions } from "../../../api/redux/slices/HistoryWatchingSlice";
 import HistoryDropdown from "./HistoryDropdown/HistoryDropdown";
-<<<<<<< HEAD
 import CategoryDropdown from "./CategoryDropdown/CategoryDropdown";
 import { APIGetAllCategory } from "../../../api/axios/categoryAPI";
 import { categorySeriesActions } from "../../../api/redux/slices/categorySeriesSlice";
-=======
 import SearchOverlay from "./SearchOverlay/SearchOverlay";
->>>>>>> cdf38d3f46e40dd58c2b1ad0d9d226495ee3d28b
 
 export default function Header() {
   const navigate = useNavigate();
@@ -110,97 +107,7 @@ export default function Header() {
                   </li>
                   <li>
                     <a>Category</a>
-<<<<<<< HEAD
                     <CategoryDropdown />
-=======
-                    <ul className="dropdown">
-                      <li>
-                        <a class="sub-menu" href="/category">
-                          Action
-                        </a>
-                      </li>
-                      <li>
-                        <a class="sub-menu" href="/category">
-                          Adventure
-                        </a>
-                      </li>
-                      <li>
-                        <a class="sub-menu" href="/category">
-                          Comedy
-                        </a>
-                      </li>
-                      <li>
-                        <a class="sub-menu" href="/category">
-                          Cartoon
-                        </a>
-                      </li>
-                      <li>
-                        <a class="sub-menu" href="/category">
-                          Crime &amp; Gangster
-                        </a>
-                      </li>
-                      <li>
-                        <a class="sub-menu" href="/category">
-                          Drama
-                        </a>
-                      </li>
-                      <li>
-                        <a class="sub-menu" href="/category">
-                          Hisorical
-                        </a>
-                      </li>
-                      <li>
-                        <a class="sub-menu" href="/category">
-                          Horror
-                        </a>
-                      </li>
-                      <li>
-                        <a class="sub-menu" href="/category">
-                          Mucicals
-                        </a>
-                      </li>
-                      <li>
-                        <a class="sub-menu" href="/category">
-                          Science Fiction
-                        </a>
-                      </li>
-                      <li>
-                        <a class="sub-menu" href="/category">
-                          War
-                        </a>
-                      </li>
-                      <li>
-                        <a class="sub-menu" href="/category">
-                          Romance
-                        </a>
-                      </li>
-                      <li>
-                        <a class="sub-menu" href="/category">
-                          Tragedy
-                        </a>
-                      </li>
-                      <li>
-                        <a class="sub-menu" href="/category">
-                          Sitcom
-                        </a>
-                      </li>
-                      <li>
-                        <a class="sub-menu" href="/category">
-                          Documentary
-                        </a>
-                      </li>
-                      <li>
-                        <a class="sub-menu" href="/category">
-                          Westerns
-                        </a>
-                      </li>
-                      <li>
-                        <a class="sub-menu" href="/category">
-                          Game show
-                        </a>
-                      </li>
-                    </ul>
->>>>>>> cdf38d3f46e40dd58c2b1ad0d9d226495ee3d28b
                   </li>
                   <li>
                     <a onClick={() => navigate("/blog")}>Our Blog</a>
@@ -215,10 +122,6 @@ export default function Header() {
                       historyEarlier={historyEarlier}
                     />
                   </li>
-<<<<<<< HEAD
-
-=======
->>>>>>> cdf38d3f46e40dd58c2b1ad0d9d226495ee3d28b
                 </ul>
               </nav>
             </div>
