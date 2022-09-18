@@ -10,14 +10,13 @@ import { useEffect } from "react";
 import { HistoryActions } from "../../../api/redux/slices/HistoryWatchingSlice";
 import HistoryDropdown from "./HistoryDropdown/HistoryDropdown";
 
-
 export default function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [loading, setLoading] = useState(false)
-  const [historyToday, setHistoryToday] = useState([])
-  const [historyEarlier, setHistoryEarlier] = useState([])
+  const [loading, setLoading] = useState(false);
+  const [historyToday, setHistoryToday] = useState([]);
+  const [historyEarlier, setHistoryEarlier] = useState([]);
 
   const historyList = useSelector((state) => state.histories.list);
 
@@ -36,39 +35,39 @@ export default function Header() {
 
   const loadHistory = async () => {
     console.log("Calling api get history");
-    setLoading(true)
+    setLoading(true);
     const resGetHistory = await APIGetHistoriesSeriesUserLogging();
     if (resGetHistory?.status === 200) {
       const updateListAction = HistoryActions.updateList(resGetHistory.data);
       dispatch(updateListAction);
     }
-    setLoading(false)
+    setLoading(false);
   };
 
   const sortHistory = () => {
-    let historyTodayList = []
-    let historyEarlierList = []
-    let currentDate = new Date()
+    let historyTodayList = [];
+    let historyEarlierList = [];
+    let currentDate = new Date();
     currentDate.setHours(0, 0, 0, 0);
 
     historyList.map((history) => {
       const historyDate = new Date(history.createAt);
       historyDate.setHours(0, 0, 0, 0);
       if (historyDate.getTime() === currentDate.getTime()) {
-        historyTodayList.push(history)
+        historyTodayList.push(history);
       } else {
-        historyEarlierList.push(history)
+        historyEarlierList.push(history);
       }
-    })
-    setHistoryToday(historyTodayList)
-    setHistoryEarlier(historyEarlierList)
-  }
+    });
+    setHistoryToday(historyTodayList);
+    setHistoryEarlier(historyEarlierList);
+  };
 
   useEffect(() => {
     if (login !== null) {
       loadHistory();
     }
-    sortHistory()
+    sortHistory();
   }, []);
 
   return (
@@ -90,27 +89,112 @@ export default function Header() {
                     <a onClick={() => navigate("/")}>Homepage</a>
                   </li>
                   <li>
-                    <a>
-                      Categories <span className="arrow_carrot-down" />
-                    </a>
+                    <a>Category</a>
                     <ul className="dropdown">
                       <li>
-                        Cate 1
+                        <a class="sub-menu" href="/category">
+                        Action 
+                        </a>
                       </li>
+                      <li>
+                        <a class="sub-menu" href="/category">
+                        Adventure 
+                        </a>
+                      </li>
+                      <li>
+                        <a class="sub-menu" href="/category">
+                        Comedy
+                        </a>
+                      </li>
+                      <li>
+                        <a class="sub-menu" href="/category">
+                        Cartoon
+                        </a>
+                      </li>
+                      <li>
+                        <a class="sub-menu" href="/category">
+                        Crime &amp; Gangster 
+                        </a>
+                      </li>
+                      <li>
+                        <a class="sub-menu" href="/category">
+                        Drama
+                        </a>
+                      </li>
+                      <li>
+                        <a class="sub-menu" href="/category">
+                        Hisorical
+                        </a>
+                      </li>
+                      <li>
+                        <a class="sub-menu" href="/category">
+                        Horror
+                        </a>
+                      </li>
+                      <li>
+                        <a class="sub-menu" href="/category">
+                        Mucicals
+                        </a>
+                      </li>
+                      <li>
+                        <a class="sub-menu" href="/category">
+                        Science Fiction
+                        </a>
+                      </li>
+                      <li>
+                        <a class="sub-menu" href="/category">
+                        War
+                        </a>
+                      </li>
+                      <li>
+                        <a class="sub-menu" href="/category">
+                        Romance
+                        </a>
+                      </li>
+                      <li>
+                        <a class="sub-menu" href="/category">
+                        Tragedy
+                        </a>
+                      </li>
+                      <li>
+                        <a class="sub-menu" href="/category">
+                        Sitcom
+                        </a>
+                      </li>
+                      <li>
+                        <a class="sub-menu" href="/category">
+                        Documentary
+                        </a>
+                      </li>
+                      <li>
+                        <a class="sub-menu" href="/category">
+                        Westerns
+                        </a>
+                      </li>
+                      <li>
+                        <a class="sub-menu" href="/category">
+                          Game show
+                        </a>
+                      </li>
+                      
                     </ul>
-                  </li>
-                  <li>
-                    <a onClick={() => navigate("/history")}>
-                      History <span className="arrow_carrot-down" />
-                    </a>
-                    <HistoryDropdown historyToday={historyToday} historyEarlier={historyEarlier} />
                   </li>
                   <li>
                     <a onClick={() => navigate("/blog")}>Our Blog</a>
                   </li>
                   <li>
-                    <a onClick={() => navigate("/")}>Contacts</a>
+                    <a onClick={() => navigate("/")}>Contact</a>
                   </li>
+                  <li>
+                    <a onClick={() => navigate("/history")}>
+                      History
+                    </a>
+                    <HistoryDropdown
+                      historyToday={historyToday}
+                      historyEarlier={historyEarlier}
+                    />
+                  </li>
+                  
                 </ul>
               </nav>
             </div>
@@ -129,26 +213,30 @@ export default function Header() {
                     id="dropdown-basic"
                   ></Dropdown.Toggle>
                   <Dropdown.Menu className="bg-danger">
-                    {login !== null ? (<React.Fragment>
-                      <Dropdown.Item onClick={() => navigate("/profile")}>
-                        <div className="headerUserAvatar d-flex ">
-                          {username}
-                          <div className="avatar">
-                            <img src={avatar} alt />
+                    {login !== null ? (
+                      <React.Fragment>
+                        <Dropdown.Item onClick={() => navigate("/profile")}>
+                          <div className="headerUserAvatar d-flex ">
+                            {username}
+                            <div className="avatar">
+                              <img src={avatar} alt />
+                            </div>
                           </div>
-                        </div>
-                      </Dropdown.Item>
-                      <Dropdown.Item onClick={() => handleLogout()}>
-                        Log out
-                      </Dropdown.Item>
-                    </React.Fragment>) : (<React.Fragment>
-                      <Dropdown.Item onClick={() => navigate("/signup")}>
-                        Sign Up
-                      </Dropdown.Item>
-                      <Dropdown.Item onClick={() => navigate("/login")}>
-                        Log In
-                      </Dropdown.Item>
-                    </React.Fragment>)}
+                        </Dropdown.Item>
+                        <Dropdown.Item onClick={() => handleLogout()}>
+                          Log out
+                        </Dropdown.Item>
+                      </React.Fragment>
+                    ) : (
+                      <React.Fragment>
+                        <Dropdown.Item onClick={() => navigate("/signup")}>
+                          Sign Up
+                        </Dropdown.Item>
+                        <Dropdown.Item onClick={() => navigate("/login")}>
+                          Log In
+                        </Dropdown.Item>
+                      </React.Fragment>
+                    )}
                   </Dropdown.Menu>
                 </Dropdown>
               </a>
