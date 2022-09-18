@@ -41,12 +41,16 @@ function AnimeReview({ episodeWatching }) {
         <div className="section-title">
           <h5>Reviews</h5>
         </div>
-        {commentLoading ? (<LoadingAnimation />) :
-          (<React.Fragment>
-            {commentList.map((comment, index) => (
-              <ReviewItem data={comment} key={index} />
-            ))}
-          </React.Fragment>)}
+
+        {jwtTokenLogin !== null &&
+          (commentLoading ? (<LoadingAnimation />) : (
+            <React.Fragment>
+              {commentList.map((comment, index) => (
+                <ReviewItem data={comment} key={index} />
+              ))}
+            </React.Fragment>
+          ))
+        }
         {jwtTokenLogin === null && (
           <ReviewNotification />
         )}
