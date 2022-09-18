@@ -9,6 +9,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { HistoryActions } from "../../../api/redux/slices/HistoryWatchingSlice";
 import HistoryDropdown from "./HistoryDropdown/HistoryDropdown";
+import SearchOverlay from "./SearchOverlay/SearchOverlay";
 
 export default function Header() {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ export default function Header() {
   const [loading, setLoading] = useState(false);
   const [historyToday, setHistoryToday] = useState([]);
   const [historyEarlier, setHistoryEarlier] = useState([]);
+  
 
   const historyList = useSelector((state) => state.histories.list);
 
@@ -93,82 +95,82 @@ export default function Header() {
                     <ul className="dropdown">
                       <li>
                         <a class="sub-menu" href="/category">
-                        Action 
+                          Action
                         </a>
                       </li>
                       <li>
                         <a class="sub-menu" href="/category">
-                        Adventure 
+                          Adventure
                         </a>
                       </li>
                       <li>
                         <a class="sub-menu" href="/category">
-                        Comedy
+                          Comedy
                         </a>
                       </li>
                       <li>
                         <a class="sub-menu" href="/category">
-                        Cartoon
+                          Cartoon
                         </a>
                       </li>
                       <li>
                         <a class="sub-menu" href="/category">
-                        Crime &amp; Gangster 
+                          Crime &amp; Gangster
                         </a>
                       </li>
                       <li>
                         <a class="sub-menu" href="/category">
-                        Drama
+                          Drama
                         </a>
                       </li>
                       <li>
                         <a class="sub-menu" href="/category">
-                        Hisorical
+                          Hisorical
                         </a>
                       </li>
                       <li>
                         <a class="sub-menu" href="/category">
-                        Horror
+                          Horror
                         </a>
                       </li>
                       <li>
                         <a class="sub-menu" href="/category">
-                        Mucicals
+                          Mucicals
                         </a>
                       </li>
                       <li>
                         <a class="sub-menu" href="/category">
-                        Science Fiction
+                          Science Fiction
                         </a>
                       </li>
                       <li>
                         <a class="sub-menu" href="/category">
-                        War
+                          War
                         </a>
                       </li>
                       <li>
                         <a class="sub-menu" href="/category">
-                        Romance
+                          Romance
                         </a>
                       </li>
                       <li>
                         <a class="sub-menu" href="/category">
-                        Tragedy
+                          Tragedy
                         </a>
                       </li>
                       <li>
                         <a class="sub-menu" href="/category">
-                        Sitcom
+                          Sitcom
                         </a>
                       </li>
                       <li>
                         <a class="sub-menu" href="/category">
-                        Documentary
+                          Documentary
                         </a>
                       </li>
                       <li>
                         <a class="sub-menu" href="/category">
-                        Westerns
+                          Westerns
                         </a>
                       </li>
                       <li>
@@ -176,7 +178,6 @@ export default function Header() {
                           Game show
                         </a>
                       </li>
-                      
                     </ul>
                   </li>
                   <li>
@@ -186,23 +187,20 @@ export default function Header() {
                     <a onClick={() => navigate("/")}>Contact</a>
                   </li>
                   <li>
-                    <a onClick={() => navigate("/history")}>
-                      History
-                    </a>
+                    <a onClick={() => navigate("/history")}>History</a>
                     <HistoryDropdown
                       historyToday={historyToday}
                       historyEarlier={historyEarlier}
                     />
                   </li>
-                  
                 </ul>
               </nav>
             </div>
           </div>
           <div className="col-lg-2">
             <div className="header__right">
-              <a href="#" className="search-switch searchIcon">
-                <span className="icon_search" />
+              <a className="search-switch searchIcon">
+                <SearchOverlay/>
               </a>
 
               <a className="myProfile">
