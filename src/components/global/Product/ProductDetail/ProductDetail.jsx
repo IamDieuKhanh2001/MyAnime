@@ -6,10 +6,10 @@ function ProductDetail({ data }) {
     const navigate = useNavigate();
     const historyList = useSelector((state) => state.histories.list);
 
-    const handleNavigate = () => {        
+    const handleNavigate = () => {
         let historySeriesLastExit = historyList.find(history => history.series_id === data.id)
         let params;
-        if(historySeriesLastExit) {
+        if (historySeriesLastExit) {
             params = `?episodeId=${historySeriesLastExit.episode_id}&second=${historySeriesLastExit.lastSecond}`
         } else {
             params = `?episodeId=-1&second=0`
@@ -111,12 +111,21 @@ function ProductDetail({ data }) {
                             <a href="#" className="follow-btn">
                                 <i className="fa fa-heart-o" /> Follow
                             </a>
-                            <a
-                                onClick={() => handleNavigate()}
-                                className="watch-btn"
-                            >
-                                <span>Watch Now</span> <i className="fa fa-angle-right" />
-                            </a>
+                            {data.currentNumberEpisode !== 0 ? (
+                                <a
+                                    onClick={() => handleNavigate()}
+                                    className="watch-btn"
+                                >
+                                    <span>Watch Now</span> <i className="fa fa-angle-right" />
+                                </a>
+                            ) : (
+                                <a
+                                    className="watch-btn disabled"
+                                >
+                                    <span>Comming soon ...</span> <i className="fa fa-angle-right" />
+                                </a>
+                            )}
+
                         </div>
                     </div>
                 </div>

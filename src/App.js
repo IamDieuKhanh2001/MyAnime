@@ -41,7 +41,7 @@ function App() {
           <Route path="/watching/:seriesId" element={<AnimeWatching />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog-detail" element={<BlogDetail />} />
-          <Route path="/category" element={<Category />} />
+          <Route path="/category/:categoryId" element={<Category />} />
           <Route path="/history" element={<History />} />
           <Route path="/admin" element={<Admin />}>
             <Route index element={<Dashboard />} />

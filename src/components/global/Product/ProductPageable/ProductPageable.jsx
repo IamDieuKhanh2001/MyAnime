@@ -1,50 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import "./ProductPageable.scss";
 import ProductSideBar from '../ProductSideBar/ProductSideBar'
-import { useNavigate, Link, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  APIGetProducts,
-  APIGetTotalProduct,
-} from "../../../../api/axios/productAPI";
 import ProductSection from "../ProductSection/ProductSection";
-import { useSearchParams } from "react-router-dom";
 import LoadingAnimation from '../../LoadingAnimation/LoadingAnimation';
-import { productsActions } from '../../../../api/redux/slices/productSlice';
 
-function ProductPageable({ productTitle }) {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+function ProductPageable({ 
+  productTitle, 
+  totalProduct, 
+  currentPage,
+  setCurrentPage, 
+  loading, 
+  products }) {
 
-  const products = useSelector((state) => state.products.list);
-
-  // const [products, setProducts] = useState(productReduxList);
-  const [totalProduct, setTotalProduct] = useState(0);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [loading, setLoading] = useState(false)
-
-  const loadProduct = async () => {
-    setLoading(true);
-    console.log("Calling api get product");
-    const resGetProduct = await APIGetProducts(currentPage);
-    // setProducts(resGetProduct.data)
-    if (resGetProduct?.status === 200) {
-      const updateListAction = productsActions.updateList(resGetProduct.data);
-      dispatch(updateListAction);
-    }
-    setLoading(false);
-  };
-
-  const loadTotalProduct = async () => {
-    console.log("Calling api get total product");
-    const resGetTotalProduct = await APIGetTotalProduct();
-    setTotalProduct(resGetTotalProduct.data.totalSeries);
-  };
-
-  useEffect(() => {
-    loadTotalProduct();
-    loadProduct();
-  }, [currentPage]);
+  // useEffect(() => {
+  //   loadTotalProduct();
+  //   loadProduct();
+  // }, [currentPage]);
 
   const renderedPagginationItem = [];
   const renderProductPagination = () => {

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Alert, Stack, Typography } from "@mui/material";
-import HistoryItemDropdown from "../HistoryItemDropdown/HistoryItemDropdown";
+import HistoryItemDropdown from "./HistoryItemDropdown/HistoryItemDropdown";
 import { useNavigate } from 'react-router-dom';
 
 function HistoryDropdown({ historyToday, historyEarlier }) {

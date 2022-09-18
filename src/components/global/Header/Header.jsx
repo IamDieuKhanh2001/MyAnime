@@ -9,6 +9,9 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { HistoryActions } from "../../../api/redux/slices/HistoryWatchingSlice";
 import HistoryDropdown from "./HistoryDropdown/HistoryDropdown";
+import CategoryDropdown from "./CategoryDropdown/CategoryDropdown";
+import { APIGetAllCategory } from "../../../api/axios/categoryAPI";
+import { categorySeriesActions } from "../../../api/redux/slices/categorySeriesSlice";
 
 export default function Header() {
   const navigate = useNavigate();
@@ -63,11 +66,23 @@ export default function Header() {
     setHistoryEarlier(historyEarlierList);
   };
 
+  const loadCategory = async () => {
+    console.log("Calling api get category");
+    setLoading(true);
+    const resGetCategory = await APIGetAllCategory();
+    if (resGetCategory?.status === 200) {
+      const updateListAction = categorySeriesActions.updateList(resGetCategory.data);
+      dispatch(updateListAction);
+    }
+    setLoading(false);
+  };
+
   useEffect(() => {
     if (login !== null) {
       loadHistory();
+      sortHistory();
     }
-    sortHistory();
+    loadCategory();
   }, []);
 
   return (
@@ -90,94 +105,7 @@ export default function Header() {
                   </li>
                   <li>
                     <a>Category</a>
-                    <ul className="dropdown">
-                      <li>
-                        <a class="sub-menu" href="/category">
-                        Action 
-                        </a>
-                      </li>
-                      <li>
-                        <a class="sub-menu" href="/category">
-                        Adventure 
-                        </a>
-                      </li>
-                      <li>
-                        <a class="sub-menu" href="/category">
-                        Comedy
-                        </a>
-                      </li>
-                      <li>
-                        <a class="sub-menu" href="/category">
-                        Cartoon
-                        </a>
-                      </li>
-                      <li>
-                        <a class="sub-menu" href="/category">
-                        Crime &amp; Gangster 
-                        </a>
-                      </li>
-                      <li>
-                        <a class="sub-menu" href="/category">
-                        Drama
-                        </a>
-                      </li>
-                      <li>
-                        <a class="sub-menu" href="/category">
-                        Hisorical
-                        </a>
-                      </li>
-                      <li>
-                        <a class="sub-menu" href="/category">
-                        Horror
-                        </a>
-                      </li>
-                      <li>
-                        <a class="sub-menu" href="/category">
-                        Mucicals
-                        </a>
-                      </li>
-                      <li>
-                        <a class="sub-menu" href="/category">
-                        Science Fiction
-                        </a>
-                      </li>
-                      <li>
-                        <a class="sub-menu" href="/category">
-                        War
-                        </a>
-                      </li>
-                      <li>
-                        <a class="sub-menu" href="/category">
-                        Romance
-                        </a>
-                      </li>
-                      <li>
-                        <a class="sub-menu" href="/category">
-                        Tragedy
-                        </a>
-                      </li>
-                      <li>
-                        <a class="sub-menu" href="/category">
-                        Sitcom
-                        </a>
-                      </li>
-                      <li>
-                        <a class="sub-menu" href="/category">
-                        Documentary
-                        </a>
-                      </li>
-                      <li>
-                        <a class="sub-menu" href="/category">
-                        Westerns
-                        </a>
-                      </li>
-                      <li>
-                        <a class="sub-menu" href="/category">
-                          Game show
-                        </a>
-                      </li>
-                      
-                    </ul>
+                    <CategoryDropdown />
                   </li>
                   <li>
                     <a onClick={() => navigate("/blog")}>Our Blog</a>
@@ -194,7 +122,7 @@ export default function Header() {
                       historyEarlier={historyEarlier}
                     />
                   </li>
-                  
+
                 </ul>
               </nav>
             </div>

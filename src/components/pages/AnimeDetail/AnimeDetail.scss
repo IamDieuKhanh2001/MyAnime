@@ -156,6 +156,17 @@
       border-radius: 0 4px 4px 0;
     }
   }
+
+  .disabled {
+    span {
+      color: $white-color !important;
+      background: $para-color !important;
+    }
+    i {
+      color: $white-color !important;
+      background: $para-color !important;
+    }
+  }
 }
 
 .anime__details__review {
