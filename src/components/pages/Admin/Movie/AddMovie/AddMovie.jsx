@@ -1,22 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./AddMovie.scss";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import SelectField from "./../CustomSelect/CustomSelect";
-
-const options = [
-  { value: "action", label: "Action" },
-  { value: "comedy", label: "Comedy" },
-  { value: "thriller", label: "Thriller" },
-  { value: "adventure", label: "Adventure" },
-  { value: "horror", label: "Horror" },
-  { value: "romantic", label: "Romantic" },
-  { value: "animation", label: "Animation" },
-];
+import { useDispatch, useSelector } from "react-redux";
+import LoadingAnimation from "../../../../global/LoadingAnimation/LoadingAnimation";
+import { APIAddMovie, APIGetMovieCategories } from "../../../../../api/axios/adminAPI";
+import { toast } from "react-toastify";
+import { adminActions } from "../../../../../api/redux/slices/adminSlice";
+import _ from "lodash"
 
 export default function AddMovie() {
+  const [loadCategory, setLoadCategory] = useState()
   const [formValues, setFormValues] = useState(null);
-
+  const dispatch = useDispatch();
+  const categories = useSelector(state => state.admin.movieCategories)
+  let movies = useSelector(state => state.admin.movies)
+  let isInvalidAddMovie = useSelector(state => state.admin.isInvalidAddMovie)
   const initialValues = {
     name: "",
     studioName: "",
@@ -26,18 +26,48 @@ export default function AddMovie() {
   const validationSchema = Yup.object().shape({
     name: Yup.string().max(50, "Up to 50 characters").required("Empty"),
     studioName: Yup.string().max(50, "Up to 50 characters").required("Empty"),
+    category: Yup.array().max(3, "Max category is 3").required("Empty")
   });
 
-  const onSubmit = async (fields) => {
-    console.log(fields);
+  const onSubmit = async (fields,resetForm) => {
+    try{
+      const resAddMovie = await APIAddMovie({
+        title: fields.name,
+        studioName: fields.studioName
+      })
+      if (resAddMovie?.status === 200) {
+        movies = _.concat(movies, resAddMovie.data.data)
+        const updateMoviesAction = adminActions.updateMovies(movies)
+        dispatch(updateMoviesAction)
+        toast.success(`Add movie ${fields.name} success`)
+        resetForm()
+      }
+    }catch(e){
+      console.log(e)
+      toast.error(`Add movie fail`)
+    }
+    
   };
+
+  const loadCategories = async () => {
+    setLoadCategory(true)
+    const resGetCategory = await APIGetMovieCategories();
+    if (resGetCategory?.status === 200) {
+      const updateMovieCategoriesAction = adminActions.updateMovieCategories(resGetCategory.data)
+      dispatch(updateMovieCategoriesAction);
+    }
+    setLoadCategory(false)
+  }
+  useEffect(() => {
+    loadCategories()
+  }, [])
 
   return (
     <div className="addMovie">
       <Formik
         initialValues={initialValues || formValues}
         validationSchema={validationSchema}
-        onSubmit={onSubmit}
+        onSubmit={(values,{resetForm})=>onSubmit(values,resetForm)}
         enableReinitialize
       >
         {({ setFieldValue, errors, touched, isSubmitting }) => (
@@ -79,6 +109,7 @@ export default function AddMovie() {
                             type="text"
                             name="studioName"
                             placeholder="Enter your studio name"
+
                           />
                           <span className="error">
                             {errors.studioName && touched.studioName && (
@@ -91,14 +122,25 @@ export default function AddMovie() {
                           <label className="small mb-1" htmlFor="inputCategory">
                             Category
                           </label>
-
-                          <Field
-                            component={SelectField}
-                            name="category"
-                            options={options}
-                          />
+                          {
+                            loadCategory ? <LoadingAnimation /> : categories ? <Field
+                              component={SelectField}
+                              name="category"
+                              options={categories.map(category => {
+                                return ({
+                                  value: category.id,
+                                  label: category.name
+                                })
+                              })}
+                            /> : null
+                          }
+                          <span className="error" >
+                            {errors.category && touched.category && (
+                              <div style={{ marginTop: 10 }}>{errors.category}</div>
+                            )}
+                          </span>
                         </div>
-                        <button className="btn btn-danger px-4" type="submit">
+                        <button disabled={isInvalidAddMovie} className="btn btn-danger px-4" type="submit">
                           {isSubmitting && (
                             <span className="spinner-border spinner-border-sm mr-1"></span>
                           )}

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import "./AddSeries.scss";
+import "./UpdateSeries.scss";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import SelectField from "../CustomSeriesSelect/CustomSeriesSelect";
 import { useDispatch, useSelector } from "react-redux";
-import { APIAddMovieSeries, APIGetMovie } from "../../../../../api/axios/adminAPI";
+import { APIAddMovieSeries, APIGetMovie, APIUpdateMovie, APIUpdateMovieSeries } from "../../../../../api/axios/adminAPI";
 import { adminActions } from "../../../../../api/redux/slices/adminSlice";
 import LoadingAnimation from "../../../../global/LoadingAnimation/LoadingAnimation";
 import { toast } from "react-toastify";
@@ -12,28 +12,35 @@ import _ from "lodash";
 
 
 
-export default function AddSeries() {
+export default function UpdateSeries({series,hideDiaglogUpdate}) {
   const [loadingMovies, setLoadingMovies] = useState()
   const [uploadFile, setUploadFile] = useState()
   const [formValues, setFormValues] = useState(null);
   const [previewImg, setPreviewImg] = useState();
   const dispatch = useDispatch()
   const movies = useSelector(state => state.admin.movies)
-  let movieSeries= useSelector(state=>state.admin.movieSeries)
+  const seriesArray=useSelector(state=>state.admin.movieSeries)
+  const convertDateAired=(dateAired)=>{
+    let date=new Date(dateAired);
+    const year= date.getFullYear();
+    const month=date.getUTCMonth()+1;
+    const day=date.getDay();
+    console.log(year+"/"+month+"/"+day)
+    return new Date(year+"-"+month+"-"+day)
+  }
   const initialValues = {
-    name: "",
-    movieName: "",
-    description: "",
+    name: series?.name,
+    description: series?.description,
     poster: "",
-    totalEp: "",
-    dateAired: "",
+    movie: series?.movieData?.title,
+    totalEp: series?.totalEpisode,
+    dateAired: series.dateAired.split('T')[0]
   };
-
+  
   const validationSchema = Yup.object().shape({
     name: Yup.string().max(50, "Up to 50 characters").required("Empty"),
     description: Yup.string().required("Empty"),
     poster: Yup.mixed(),
-    movieName: Yup.object().required("Empty"),
     totalEp: Yup.string().required("Empty"),
     dateAired: Yup.string().required("Empty"),
   });
@@ -50,33 +57,33 @@ export default function AddSeries() {
     }
   };
 
-  const onSubmit = async (fields,resetForm) => {
+  const onSubmit = async (fields) => {
     try{
       console.log(fields);
       console.log(previewImg)
       let bodyFormData = new FormData()
       bodyFormData.append('model', JSON.stringify({
         description: fields.description,
-        dateAired: fields.dateAired,
+        dateAired: fields.dateAired.split('T')[0],
         name: fields.name,
         totalEpisode: fields.totalEp,
-        movieId: fields.movieName.value
       }))
       bodyFormData.append('sourceFile', uploadFile)
       console.log(bodyFormData)
-      const resAddMovieSeries = await APIAddMovieSeries(bodyFormData)
-      if(resAddMovieSeries.status===200){
-        toast.success(`Add movie series ${fields.name} success`)
-        movieSeries=_.concat(movieSeries,resAddMovieSeries.data.data)
-        dispatch(adminActions.updateMovieSeries(movieSeries));
-        console.log(resAddMovieSeries.data)
-        resetForm()
-        setPreviewImg(null)
-        setUploadFile(null)
+      const resUpdateMovieSeries = await APIUpdateMovieSeries(series.id,bodyFormData)
+      console.log(resUpdateMovieSeries)
+      if(resUpdateMovieSeries.status===200){
+        console.log(resUpdateMovieSeries.data.data)
+        const updateSeries = resUpdateMovieSeries.data.data
+        let index = _.findIndex(seriesArray, { id: series.id })
+        let temp = [...seriesArray];
+        temp[index] = updateSeries;
+        dispatch(adminActions.updateMovieSeries(temp))
+        toast.success(`Update movie series ${fields.name} success`)
+        hideDiaglogUpdate()
       }
     }catch(e){
-      console.log(e)
-      toast.error(`Add movie series fail`)
+      toast.error(`Update movie series fail`)
     }
   };
   const loadMovies = async () => {
@@ -87,29 +94,29 @@ export default function AddSeries() {
       const updateMoviesAction = adminActions.updateMovies(resGetMovies.data)
       dispatch(updateMoviesAction);
     }
-    console.log(resGetMovies.data)
     setLoadingMovies(false)
   }
   useEffect(() => {
     loadMovies()
+    setPreviewImg(series?.image)
   }, [])
 
 
   return (
-    <div className="addSeries">
+    <div className="updateSeries">
       <Formik
         initialValues={initialValues || formValues}
         validationSchema={validationSchema}
-        onSubmit={(values,{resetForm})=>onSubmit(values,resetForm)}
+        onSubmit={onSubmit}
         enableReinitialize
       >
         {({ setFieldValue, errors, touched, isSubmitting }) => (
           <Form>
-            <div className="container-xl px-4 mt-4">
+            <div className="updateMovieSeriesForm container-xl px-4 mt-4">
               <div className="row">
                 <div className="col-xl-7">
                   <div className="card mb-4">
-                    <div className="card-header">Add Series</div>
+                    <div style={{color:"red"}}>Update Series</div>
                     <div className="card-body">
                       <div className="addForm">
                         <div className="mb-3">
@@ -129,7 +136,24 @@ export default function AddSeries() {
                             )}
                           </span>
                         </div>
-                        {
+                        <div className="mb-3">
+                          <label className="small mb-1" htmlFor="inputName">
+                            Movie Name
+                          </label>
+                          <Field
+                            className="form-control"
+                            id="inputName"
+                            type="text"
+                            name="movie"
+                            disabled  
+                          />
+                          <span className="error">
+                            {errors.name && touched.name && (
+                              <div>{errors.name}</div>
+                            )}
+                          </span>
+                        </div>
+                        {/* {
                           loadingMovies ?
                             <LoadingAnimation />
                             : movies ?
@@ -158,7 +182,7 @@ export default function AddSeries() {
                                   )}
                                 </span>
                               </div> : null
-                        }
+                        } */}
 
                         <div className="mb-3">
                           <label className="small mb-1" htmlFor="inputTotalEp">
@@ -223,27 +247,25 @@ export default function AddSeries() {
                           {isSubmitting && (
                             <span className="spinner-border spinner-border-sm mr-1"></span>
                           )}
-                          Add
+                          Update
                         </button>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className="col-xl-5">
-                  <div className="card mb-4 mb-xl-0">
-                    <div className="card-header">Poster</div>
-                    <div className="card-body text-center">
+                <div className="card-body text-center">
                       <img
                         className="img-account-poster mb-2"
                         src={previewImg?previewImg:"https://cdn.pixabay.com/photo/2017/01/25/17/35/picture-2008484_960_720.png"}
                         alt="avatar"
-                        id="img"
+                        id="imgUpdate"
                       />
                       <div className="small font-italic text-muted mb-4">
                         JPG or PNG no larger than 5 MB
                       </div>
                       <label
-                        htmlFor="input"
+                        htmlFor="inputUpdate"
                         className="btn btn-danger custom-file-upload"
                       >
                         Upload
@@ -252,11 +274,10 @@ export default function AddSeries() {
                         type="file"
                         accept="image/*"
                         className="imageBtn"
-                        id="input"
+                        id="inputUpdate"
                         onChange={(e) => imageHandler(e, setFieldValue)}
                       />
                     </div>
-                  </div>
                 </div>
               </div>
             </div>

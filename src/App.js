@@ -21,6 +21,7 @@ import Category from "./components/pages/Category/Category";
 import Customer from "./components/pages/Admin/Customer/Customer";
 import Series from "./components/pages/Admin/Series/Series";
 import History from "./components/pages/History/History";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -52,6 +53,7 @@ function App() {
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Router>
+      <ToastContainer />
     </>
   );
 }
