@@ -6,7 +6,7 @@ function CategoryItemDropdown({ data }) {
     return (
         <React.Fragment>
             <li>
-                <a className="sub-menu" href={`/category/${data.id}`}>
+                <a key={data.id} className="sub-menu" href={`/category/${data.id}`}>
                     {data.name}
                 </a>
             </li>

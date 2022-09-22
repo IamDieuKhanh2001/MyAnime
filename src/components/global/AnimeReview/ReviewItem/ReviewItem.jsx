@@ -17,7 +17,7 @@ function ReviewItem({ data }) {
             )}
             <div className="anime__review__item__text">
                 <h6>
-                    {data.username} - <span><ReactTimeAgo date={data.createAt} /></span>
+                    {data.username} - <span><ReactTimeAgo date={Date.parse(data.createAt)} locale="en-US" /></span>
                 </h6>
                 <p>
                     {data.content}

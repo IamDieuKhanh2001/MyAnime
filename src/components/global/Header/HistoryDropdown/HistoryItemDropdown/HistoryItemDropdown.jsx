@@ -1,12 +1,10 @@
 import React from 'react'
-import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
 function HistoryItemDropdown({ data }) {
     const navigate = useNavigate();
@@ -29,7 +27,7 @@ function HistoryItemDropdown({ data }) {
         navigate(`/watching/${data.series_id}${params}`)
     }
     return (
-        <Card onClick={() => handleNavigate()} sx={{ display: 'flex', alignItems: 'center' }} key={data.id}>
+        <Card key={data.id} onClick={() => handleNavigate()} sx={{ display: 'flex', alignItems: 'center' }} >
             <CardMedia
                 component="img"
                 sx={{ width: 151, height: 110 }}

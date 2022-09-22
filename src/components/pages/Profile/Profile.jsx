@@ -22,7 +22,6 @@ export default function Profile() {
   const loadUserLogging = async () => {
     console.log("calling api my profile");
     const resUserInfo = await APIProfileUserLoging();
-    console.log(resUserInfo.data)
     if (resUserInfo.data) {
       const updateUserInfo = userActions.updateUserInfo({
         username: resUserInfo.data.username,
@@ -39,7 +38,7 @@ export default function Profile() {
   return (
     <div className="profile">
       <Header />
-      <UserInfoForm />
+      <UserInfoForm loadUserLogging={loadUserLogging} />
       <Footer />
     </div>
   );

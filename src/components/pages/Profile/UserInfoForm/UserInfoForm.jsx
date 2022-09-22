@@ -4,27 +4,29 @@ import { Field, Form, Formik, useFormik } from "formik";
 import * as Yup from "yup";
 import PuffLoader from "react-spinners/PuffLoader";
 import { useDispatch, useSelector } from "react-redux";
+import { APIChangeAvatar, APIUpdateInfoUserLogging } from '../../../../api/axios/customerAPI';
+import MessageModal from '../../../global/MessageModal/MessageModal';
+import VerifyEmailModal from '../../../global/VerifyEmailModal/VerifyEmailModal';
 
-function UserInfoForm() {
+function UserInfoForm({ loadUserLogging }) {
     const [previewImg, setPreviewImg] = useState(
         "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
     );
     const data = useSelector((state) => state.users);
-
+    const [modal, setModal] = useState(false);
+    const [updateMessage, setUpdateMessage] = useState("")
+    const [otpVerifyModal, setOtpVerifyModal] = useState(false);
 
     useEffect(() => {
         if (data.avatar) {
             setPreviewImg(data.avatar);
         }
+        console.log(data)
     }, [data]);
 
     const initialValues = {
         fullName: data.fullName !== undefined ? data.fullName : "",
-        email: data.email ? data.email : "",
-        // avatar: data.avatar,
-        // fullName: "",
-        // email: "",
-        // avatar: "",
+        email: data.email !== undefined ? data.email : "",
     };
 
     const validationSchema = Yup.object().shape({
@@ -34,28 +36,57 @@ function UserInfoForm() {
         avatar: Yup.mixed(),
     });
     const onSubmit = async (fields) => {
-        console.log(fields);
+        console.log("call api update info")
+        try {
+            const resUpdateUserInfo = await APIUpdateInfoUserLogging(fields.fullName, fields.email);
+            loadUserLogging()
+            setUpdateMessage(resUpdateUserInfo.data)
+            if (fields.email !== data.email) { //Changed email, get to OTP check
+                setUpdateMessage(resUpdateUserInfo.data)
+                setOtpVerifyModal(true)
+            }
+        } catch (responseException) { //400: user email has been used
+            setUpdateMessage(responseException.response.data)
+        }
+        setModal(true);
     };
-    const imageHandler = (e, setFieldValue) => {
+    const changeAvatar = (file) => {
+        const reschangeAvatar = APIChangeAvatar(file);
+    }
+    const imageHandler = async (e) => {
         if (e.target.files[0]) {
-            setFieldValue("avatar", e.target.files[0]);
+            console.log("call api upload avatar")
             const reader = new FileReader();
             reader.addEventListener("load", () => {
                 setPreviewImg(reader.result);
             });
             reader.readAsDataURL(e.target.files[0]);
+            changeAvatar(e.target.files[0])
+            loadUserLogging()
         }
     };
 
     return (
         <React.Fragment>
+            {otpVerifyModal && (
+                <VerifyEmailModal
+                    setOtpVerifyModal={setOtpVerifyModal}
+                />
+            )}
+            {modal && (
+                <MessageModal
+                    message={updateMessage}
+                    type={"success"}
+                    setModal={setModal}
+                />
+            )}
             <Formik
                 initialValues={initialValues}
                 validationSchema={validationSchema}
                 onSubmit={onSubmit}
-                enableReinitialize
+            // enableReinitialize
             >
-                {({ setFieldValue, errors, touched, isSubmitting }) => (
+                {({ errors, touched, isSubmitting }) => (
                     <Form>
                         <div className="container-xl px-4 mt-4">
                             <div className="row">
@@ -76,14 +107,14 @@ function UserInfoForm() {
                                                 htmlFor="input"
                                                 className="btn btn-danger custom-file-upload"
                                             >
-                                                Upload Image
+                                                Change Image
                                             </label>
                                             <input
                                                 type="file"
                                                 accept="image/*"
                                                 className="imageBtn"
                                                 id="input"
-                                                onChange={(e) => imageHandler(e, setFieldValue)}
+                                                onChange={(e) => imageHandler(e)}
                                             />
                                         </div>
                                     </div>
@@ -144,7 +175,6 @@ function UserInfoForm() {
                                                         )}
                                                     </span>
                                                 </div>
-
                                                 <button className="btn btn-danger px-4" type="submit">
                                                     {isSubmitting ? (
                                                         <PuffLoader color="#ffffff" size={30} />
@@ -158,10 +188,12 @@ function UserInfoForm() {
                                 </div>
                             </div>
                         </div>
+
                     </Form>
                 )}
             </Formik>
         </React.Fragment>
+
     )
 }
 
