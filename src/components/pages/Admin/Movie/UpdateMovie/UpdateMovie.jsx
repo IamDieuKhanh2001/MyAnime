@@ -9,6 +9,7 @@ import {
     APIAddMovie,
     APIGetMovieCategories,
     APIUpdateMovie,
+    APIUpdateMovieCategories,
 } from "../../../../../api/axios/adminAPI";
 import { toast } from "react-toastify";
 import { adminActions } from "../../../../../api/redux/slices/adminSlice";
@@ -53,8 +54,14 @@ export default function UpdateMovie({ movie, hideDiaglogUpdate }) {
                 studioName: fields.studioName,
                 id: movie.id,
             });
+            const categoryArray = [];
+            fields.category.map((c) => categoryArray.push(c.value));
+            const resUpdateCategory = await APIUpdateMovieCategories({
+                category: categoryArray,
+                id: movie.id,
+            });
+            console.log(resUpdateCategory);
             if (resUpdate?.status === 200) {
-                console.log(resUpdate);
                 const updatedMovie = resUpdate.data.data;
                 let index = _.findIndex(movies, { id: movie.id });
                 let temp = [...movies];
@@ -67,6 +74,7 @@ export default function UpdateMovie({ movie, hideDiaglogUpdate }) {
         } catch (e) {
             console.log(e);
         }
+        //console.log(fields);
     };
 
     const loadCategories = async () => {
