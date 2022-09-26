@@ -77,7 +77,7 @@ function ProductDetail({ data }) {
                                             <span>Episodes:</span> {data.currentNumberEpisode}/{data.totalEpisode}
                                         </li>
                                         <li>
-                                            <span>Genre:</span> cate
+                                            <span>Genre:</span>Live Action
                                             {/* {data.categoryList.length !== 0 && (data.categoryList.map((category, index) => (
                                                 <React.Fragment key={index}>
                                                     {category.name},

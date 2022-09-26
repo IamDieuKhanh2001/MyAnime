@@ -1,8 +1,8 @@
 import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
+    BrowserRouter as Router,
+    Routes,
+    Route,
+    Navigate,
 } from "react-router-dom";
 import { Home } from "./components/pages/Home/Home";
 import Login from "./components/pages/Login/Login";
@@ -22,40 +22,52 @@ import Customer from "./components/pages/Admin/Customer/Customer";
 import Series from "./components/pages/Admin/Series/Series";
 import History from "./components/pages/History/History";
 import { ToastContainer } from "react-toastify";
+import Episode from "./components/pages/Admin/Episode/Episode";
 
 function App() {
-  return (
-    <>
-      {/* <Social /> */}
-      <Router>
-        <Routes>
-          <Route exact path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/profile" element={<Profile />} />
-          {/* <Route path="/login2/:preRoute" element={<Login />} /> */}
-          {/* <Route exact path="/signup2" element={<SignUp />} /> */}
-          <Route path="/login" element={<Login />} />
-          <Route exact path="/signup" element={<SignUp />} />
-          <Route path="*" element={<Navigate to="/" />} />
-          <Route path="/series-list" element={<ProductList />} />
-          <Route exact path="/details/:seriesId" element={<AnimeDetail />} />
-          <Route path="/watching/:seriesId" element={<AnimeWatching />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/blog-detail" element={<BlogDetail />} />
-          <Route path="/category/:categoryId" element={<Category />} />
-          <Route path="/history" element={<History />} />
-          <Route path="/admin" element={<Admin />}>
-            <Route index element={<Dashboard />} />
-            <Route path="series" element={<Series/>} />
-            <Route path="movies" element={<Movie />} />
-            <Route path="customers" element={<Customer/>} />
-          </Route>
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
-      </Router>
-      <ToastContainer />
-    </>
-  );
+    return (
+        <>
+            {/* <Social /> */}
+            <Router>
+                <Routes>
+                    <Route exact path="/" element={<Home />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/profile" element={<Profile />} />
+                    {/* <Route path="/login2/:preRoute" element={<Login />} /> */}
+                    {/* <Route exact path="/signup2" element={<SignUp />} /> */}
+                    <Route path="/login" element={<Login />} />
+                    <Route exact path="/signup" element={<SignUp />} />
+                    <Route path="*" element={<Navigate to="/" />} />
+                    <Route path="/series-list" element={<ProductList />} />
+                    <Route
+                        exact
+                        path="/details/:seriesId"
+                        element={<AnimeDetail />}
+                    />
+                    <Route
+                        path="/watching/:seriesId"
+                        element={<AnimeWatching />}
+                    />
+                    <Route path="/blog" element={<Blog />} />
+                    <Route path="/blog-detail" element={<BlogDetail />} />
+                    <Route
+                        path="/category/:categoryId"
+                        element={<Category />}
+                    />
+                    <Route path="/history" element={<History />} />
+                    <Route path="/admin" element={<Admin />}>
+                        <Route index element={<Dashboard />} />
+                        <Route path="series" element={<Series />} />
+                        <Route path="movies" element={<Movie />} />
+                        <Route path="episodes" element={<Episode />} />
+                        <Route path="customers" element={<Customer />} />
+                    </Route>
+                    <Route path="*" element={<Navigate to="/" />} />
+                </Routes>
+            </Router>
+            <ToastContainer />
+        </>
+    );
 }
 
 export default App;
