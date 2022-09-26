@@ -26,7 +26,7 @@ export default function ProductSideBar() {
       </div>
       <div className="product__sidebar__comment">
         <div className="section-title">
-          <h5>New Comment</h5>
+          <h5>Top 10 most view</h5>
         </div>
         <div
           onClick={() => navigate("/details")}

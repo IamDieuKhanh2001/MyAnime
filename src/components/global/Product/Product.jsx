@@ -18,7 +18,7 @@ export default function Product() {
   const loadProduct = async () => {
     console.log("Calling api get product");
     setLoading(true)
-    const resGetProduct = await APIGetProducts();
+    const resGetProduct = await APIGetProducts(1);
     if (resGetProduct?.status === 200) {
       const updateListAction = productsActions.updateList(resGetProduct.data);
       dispatch(updateListAction);
