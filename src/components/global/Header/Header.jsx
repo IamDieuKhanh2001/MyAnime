@@ -186,25 +186,21 @@ export default function Header() {
                         </Dropdown.Item>
                         <Dropdown.Item className="d-flex justify-content-between" onClick={() => handleLogout()}>
                           <i class='bx bxs-log-out bx-sm'></i>
-                          Log out
+                          {t('header.profile_dropdown.logout')}
                         </Dropdown.Item>
                       </React.Fragment>
                     ) : (
                       <React.Fragment>
                         <Dropdown.Item className="d-flex justify-content-between" onClick={() => navigate("/signup")}>
                           <i class='bx bx-window-open bx-sm'></i>
-                          <div>Sign Up</div>
+                          {t('header.profile_dropdown.signup')}
                         </Dropdown.Item>
                         <Dropdown.Item className="d-flex justify-content-between" onClick={() => navigate("/login")}>
                           <i class='bx bxs-log-in bx-sm'></i>
-                          <div>Log In</div>
+                          {t('header.profile_dropdown.login')}
                         </Dropdown.Item>
                       </React.Fragment>
                     )}
-                    <Dropdown.Item className="d-flex justify-content-between" onClick={() => handleLogout()}>
-                      <i class='bx bx-globe bx-sm' ></i>
-                      Language
-                    </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
 

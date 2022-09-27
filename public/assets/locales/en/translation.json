@@ -3,7 +3,27 @@
     "home_page_li": "Homepage",
     "category_li": "Category",
     "our_blog_li": "Our Blog",
-    "history_li": "History"
+    "history_li": "History",
+    "profile_dropdown": {
+      "logout": "Log out",
+      "signup": "Sign Up",
+      "login": "Log In"
+    }
+  },
+  "footer": {
+    "faq": "FAQ",
+    "brand_guidelines": "Brand Guidelines",
+    "terms_of_use": "Terms Of Use",
+    "privacy_policy": "Privacy Policy",
+    "sponsors": "SPONSORS",
+    "mobile_app": "MOBILE APP",
+    "social_media": "SOCIAL MEDIA",
+    "info_title": "PRODUCTS OF THE GROUP OF STUDENTS OF HCMC University of Technology",
+    "info_address": "Address: 1 Vo Van Ngan Street, Linh Chieu Ward, Thu Duc City, HCM City, Viet Nam",
+    "info_business_registration_certificate_no": "Business Registration Certificate No 0123456789",
+    "info_change_at": "Registration for the 00th change, on 00 of January 2022 by the Department of Planning and Investment Planning and Investment Licensed by Ho Chi Minh City",
+    "info_phone": "Phone: ",
+    "info_email": "Email: "
   },
   "home": {
     "section_popular_show_title": "Popular shows",
@@ -28,6 +48,11 @@
       "with_facebook_li": "Sign in with Facebook",
       "with_google_li": "Sign in with Google",
       "with_twitter_li": "Sign in with Twitter"
+    },
+    "yup": {
+      "username_max_text": "Up to 50 characters",
+      "username_empty": "Empty Username!!",
+      "password_empty": "Empty password!!"
     }
   }
 }

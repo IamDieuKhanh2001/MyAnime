@@ -1,8 +1,10 @@
 import React from "react";
 import "./Footer.scss";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function Footer() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   return (
     <footer id="footer">
@@ -12,17 +14,17 @@ export default function Footer() {
             <p className="title hideOnMobile">ANIME</p>
             <div className="row">
               <div className="col-lg-6 hideOnMobile">
-                <span>FAQ</span>
-                <span>Brand Guidelines</span>
+                <span>{t("footer.faq")}</span>
+                <span>{t("footer.brand_guidelines")}</span>
               </div>
               <div className="col-lg-6 col-sm-12 hideOnMobile">
-                <span>Terms Of Use</span>
-                <span>Privacy Policy</span>
+                <span>{t("footer.terms_of_use")}</span>
+                <span>{t("footer.privacy_policy")}</span>
               </div>
             </div>
           </div>
           <div className="col__center col-md-4 col-sm-12 hideOnMobile">
-            <p className="title">SPONSORS</p>
+            <p className="title">{t("footer.sponsors")}</p>
             <div className="col-12">
               <a href="https://www.cgv.vn/" title="CGV">
                 <img src="/img/cgv.png" alt="cgv" />
@@ -101,7 +103,9 @@ export default function Footer() {
           <div className="col__right col-md-4 col-sm-12">
             <div className="row">
               <div className="col-md-6 col-sm-12 hideOnMobile">
-                <p className="title">MOBILE APP</p>
+                <p className="title">
+                  {t("footer.mobile_app")}
+                </p>
                 <a
                   href="https://apps.apple.com/vn/app/tix-%C4%91%E1%BA%B7t-v%C3%A9-nhanh-nh%E1%BA%A5t/id615186197"
                   title="Apple App"
@@ -124,7 +128,9 @@ export default function Footer() {
                 </a>
               </div>
               <div className="col-md-6 col-sm-12 textCenter hideOnMobile">
-                <p className="title">SOCIAL MEDIA</p>
+                <p className="title">
+                  {t("footer.social_media")}
+                </p>
                 <a
                   href="https://www.facebook.com/tix.vn/"
                   title="Facebook social"
@@ -153,21 +159,19 @@ export default function Footer() {
             />
           </div>
           <div className="col-12 col-md-9 info">
-            <p>SẢN PHẨM CỦA NHÓM SINH VIÊN ĐẠI HỌC SƯ PHẠM KỸ THUẬT TP.HCM</p>
+            <p>{t("footer.info_title")}</p>
             <ul>
               <li>
-                Địa chỉ: Số 1 Đường Võ Văn Ngân, Phường Linh Chiểu, Thành phố
-                Thủ Đức, Thành phố Hồ Chí Minh, Việt Nam.
+                {t("footer.info_address")}
               </li>
               <li>
-                Giấy chứng nhận đăng ký kinh doanh số: 0123456789
+                {t("footer.info_business_registration_certificate_no")} 0123456789
                 <br />
-                Đăng ký thay đổi lần thứ 00, ngày 00 tháng 00 năm 2022 do Sở kế
-                hoạch và đầu tư Thành phố Hồ Chí Minh cấp phép.
+                {t("footer.info_change_at")}
               </li>
-              <li>Số Điện Thoại: 1900 000 000</li>
+              <li>{t("footer.info_phone")} 1900 000 000</li>
               <li>
-                Email: <span>support@myanime.vn</span>
+                {t("footer.info_email")} <span>support@myanime.vn</span>
               </li>
             </ul>
           </div>

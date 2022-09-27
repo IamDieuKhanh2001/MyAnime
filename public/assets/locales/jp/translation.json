@@ -3,6 +3,56 @@
     "home_page_li": "ホームページ",
     "category_li": "カテゴリー",
     "our_blog_li": "僕たちのブログ",
-    "history_li": "れきし"
+    "history_li": "れきし",
+    "profile_dropdown": {
+      "logout": "ログアウトする",
+      "signup": "サインアップする",
+      "login": "ログインする"
+    }
+  },
+  "footer": {
+    "faq": "FAQ",
+    "brand_guidelines": "ブランドガイドライン",
+    "terms_of_use": "利用規約",
+    "privacy_policy": "プライバシーポリシー",
+    "sponsors": "スポンサー",
+    "mobile_app": "モバイルアプリ",
+    "social_media": "ソーシャルメディア",
+    "info_title": "この製品はホーチミン工科大学の学生グループを作った",
+    "info_address": "住所: 1 Vo Van Ngan 街, Linh Chieu 区, Thu Duc 街, ホーチミン街, ベトナム",
+    "info_business_registration_certificate_no": "事業者登録証明書番号 0123456789",
+    "info_change_at": "2022 年 1 月 00 日、ホーチミン市の認可を受けた計画投資計画投資局による 00 回目の変更の登録",
+    "info_phone": "電話: ",
+    "info_email": "Eメール: "
+  },
+  "home": {
+    "section_popular_show_title": "人気番組",
+    "btn_all_text": "すべて見る",
+    "section_recently_added_show_title": "さいきんついかされた番組",
+    "section_live_action_title": "ライブアクション"
+  },
+  "breadcrumb": {
+    "login": {
+      "title": "ログイン",
+      "description": "より良い経験を得るためにログインしてください。"
+    }
+  },
+  "login": {
+    "title": "ログイン",
+    "btn_login_now_text": "今すぐログイン",
+    "link_forgot_pw_text": "パスワードをわすれた？",
+    "login_register_title": "アカウントをもってない?",
+    "btn_register_now_text": "今すぐ登録",
+    "third_party": {
+      "or": "別",
+      "with_facebook_li": "Facebookでサインイン",
+      "with_google_li": "Googleでサインイン",
+      "with_twitter_li": "Twitterでサインイン"
+    },
+    "yup": {
+      "username_max_text": "50文字ください",
+      "username_empty": "ユーザー名があってない",
+      "password_empty": "パスワードがあってない"
+    }
   }
 }

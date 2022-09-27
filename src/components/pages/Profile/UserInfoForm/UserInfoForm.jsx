@@ -7,8 +7,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { APIChangeAvatar, APIUpdateInfoUserLogging } from '../../../../api/axios/customerAPI';
 import MessageModal from '../../../global/MessageModal/MessageModal';
 import VerifyEmailModal from '../../../global/VerifyEmailModal/VerifyEmailModal';
+import { useTranslation } from 'react-i18next';
 
 function UserInfoForm({ loadUserLogging }) {
+    const { t } = useTranslation();
     const [previewImg, setPreviewImg] = useState(
         "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
     );

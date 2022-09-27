@@ -28,8 +28,8 @@ function Login() {
             password: "",
         },
         validationSchema: Yup.object({
-            username: Yup.string().max(50, "Up to 50 characters").required("Empty Username!!"),
-            password: Yup.string().required("Empty password!!"),
+            username: Yup.string().max(50, t("login.yup.username_max_text")).required(t("login.yup.username_empty")),
+            password: Yup.string().required(t("login.yup.password_empty")),
         }),
         onSubmit: async ({ username, password }) => {
             setLoading(true)
@@ -69,7 +69,7 @@ function Login() {
     });
 
     useEffect(() => {
-        document.title = "Đăng nhập";
+        document.title = t("login.title");
         window.scrollTo(0, 0);
 
         if (window.sessionStorage.getItem("jwt")) {
