@@ -1,0 +1,14 @@
+{
+  "header": {
+    "home_page_li": "Trang chủ",
+    "category_li": "Thể loại",
+    "our_blog_li": "Blog",
+    "history_li": "Lịch sử"
+  },
+  "home": {
+    "section_popular_show_title": "Các chương trình nổi tiếng",
+    "btn_all_text": "Xem tất cả",
+    "section_recently_added_show_title": "Mới cập nhật",
+    "section_live_action_title": "Live Action"
+  }
+}

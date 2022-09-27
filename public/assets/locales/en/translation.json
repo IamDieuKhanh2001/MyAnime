@@ -1,0 +1,33 @@
+{
+  "header": {
+    "home_page_li": "Homepage",
+    "category_li": "Category",
+    "our_blog_li": "Our Blog",
+    "history_li": "History"
+  },
+  "home": {
+    "section_popular_show_title": "Popular shows",
+    "btn_all_text": "View All",
+    "section_recently_added_show_title": "Recently added shows",
+    "section_live_action_title": "Live Action"
+  },
+  "breadcrumb": {
+    "login": {
+      "title": "Login",
+      "description": "Please login for getting better experience."
+    }
+  },
+  "login": {
+    "title": "Login",
+    "btn_login_now_text": "Login Now",
+    "link_forgot_pw_text": "Forgot Your Password?",
+    "login_register_title": "Dont’t Have An Account?",
+    "btn_register_now_text": "Register Now",
+    "third_party": {
+      "or": "or",
+      "with_facebook_li": "Sign in with Facebook",
+      "with_google_li": "Sign in with Google",
+      "with_twitter_li": "Sign in with Twitter"
+    }
+  }
+}

@@ -13,10 +13,12 @@ import "./Login.scss"
 import MessageModal from '../../global/MessageModal/MessageModal';
 import { useEffect } from 'react';
 import LoginThirdParty from './LoginThirdParty/LoginThirdParty';
+import { useTranslation } from 'react-i18next';
 
 function Login() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     const [modal, setModal] = useState(false);
     const [loading, setLoading] = useState(false); //Loading when on submit loading call API
@@ -78,7 +80,9 @@ function Login() {
     return (
         <React.Fragment>
             <Header />
-            <NormalBreadcrumb title={"Login"} description={"Please login for getting better experience."} />
+            <NormalBreadcrumb
+                title={t("breadcrumb.login.title")}
+                description={t("breadcrumb.login.description")} />
             {/* Login Section Begin */}
             <section className="login spad">
                 <div className="container">
@@ -99,7 +103,7 @@ function Login() {
                     <div className="row">
                         <div className="col-lg-6">
                             <div className="login__form">
-                                <h3>Login</h3>
+                                <h3>{t("login.title")}</h3>
                                 <form onSubmit={formik.handleSubmit}>
                                     <div className="input__item">
                                         <input
@@ -128,17 +132,19 @@ function Login() {
                                     <span className="error">{formik.errors.password}</span>
 
                                     <div className='d-flex flex-row'>
-                                        <input type="submit" value="Login Now" className="site-btn mt-2" />
+                                        <input type="submit" value={t("login.btn_login_now_text")} className="site-btn mt-2" />
                                         {/* <button type="submit" className="site-btn">Login Now</button> */}
-                                        <a href="#" className="forget_pass">Forgot Your Password?</a>
+                                        <a href="#" className="forget_pass">
+                                            {t("login.link_forgot_pw_text")}
+                                        </a>
                                     </div>
                                 </form>
                             </div>
                         </div>
                         <div className="col-lg-6">
                             <div className="login__register">
-                                <h3>Dont’t Have An Account?</h3>
-                                <a href="/signup" className="primary-btn">Register Now</a>
+                                <h3>{t("login.login_register_title")}</h3>
+                                <a href="/signup" className="primary-btn">{t("login.btn_register_now_text")}</a>
                             </div>
                         </div>
                     </div>

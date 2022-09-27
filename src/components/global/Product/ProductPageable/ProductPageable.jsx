@@ -3,6 +3,7 @@ import "./ProductPageable.scss";
 import ProductSideBar from '../ProductSideBar/ProductSideBar'
 import ProductSection from "../ProductSection/ProductSection";
 import LoadingAnimation from '../../LoadingAnimation/LoadingAnimation';
+import { useTranslation } from 'react-i18next';
 
 function ProductPageable({ 
   productTitle, 
@@ -11,6 +12,7 @@ function ProductPageable({
   setCurrentPage, 
   loading, 
   products }) {
+    const { t } = useTranslation();
 
   // useEffect(() => {
   //   loadTotalProduct();
@@ -40,7 +42,9 @@ function ProductPageable({
                 <div className="row">
                   <div className="col-lg-8 col-md-8 col-sm-6">
                     <div className="section-title">
-                      <h4>{productTitle}</h4>
+                      <h4>
+                        {productTitle}
+                        </h4>
                     </div>
                   </div>
                   <div className="col-lg-4 col-md-4 col-sm-6">

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function NormalBreadcrumb({title, description}) {
+export default function NormalBreadcrumb({ title, description }) {
   return (
     <div className="bannerBlog">
       <div
@@ -12,7 +12,9 @@ export default function NormalBreadcrumb({title, description}) {
             <div className="col-lg-12 text-center">
               <div className="normal__breadcrumb__text">
                 <h2>{title}</h2>
-                <p>{description}</p>
+                <p>
+                  {description}
+                </p>
               </div>
             </div>
           </div>

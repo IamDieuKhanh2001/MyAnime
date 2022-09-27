@@ -13,15 +13,18 @@ import CategoryDropdown from "./CategoryDropdown/CategoryDropdown";
 import { APIGetAllCategory } from "../../../api/axios/categoryAPI";
 import { categorySeriesActions } from "../../../api/redux/slices/categorySeriesSlice";
 import SearchOverlay from "./SearchOverlay/SearchOverlay";
+import { useTranslation } from "react-i18next";
+import i18next from 'i18next';
 
 export default function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const [loading, setLoading] = useState(false);
   const [historyToday, setHistoryToday] = useState([]);
   const [historyEarlier, setHistoryEarlier] = useState([]);
-  
+
 
   const historyList = useSelector((state) => state.histories.list);
 
@@ -87,6 +90,24 @@ export default function Header() {
     loadCategory();
   }, []);
 
+  const languages = [
+    {
+      code: 'en',
+      name: 'English',
+      country_code: 'gb',
+    },
+    {
+      code: 'vn',
+      name: 'Việt Nam',
+      country_code: 'vn',
+    },
+    {
+      code: 'jp',
+      name: '日本語',
+      country_code: 'jp',
+    },
+  ]
+
   return (
     <div className="header">
       <div className="container">
@@ -98,25 +119,22 @@ export default function Header() {
               </a>
             </div>
           </div>
-          <div className="col-lg-8">
+          <div className="col-lg-7">
             <div className="header__nav">
               <nav className="header__menu mobile-menu">
                 <ul>
                   <li className="active">
-                    <a onClick={() => navigate("/")}>Homepage</a>
+                    <a onClick={() => navigate("/")}>{t('header.home_page_li')}</a>
                   </li>
                   <li>
-                    <a>Category</a>
+                    <a>{t('header.category_li')}</a>
                     <CategoryDropdown />
                   </li>
                   <li>
-                    <a onClick={() => navigate("/blog")}>Our Blog</a>
+                    <a onClick={() => navigate("/blog")}>{t('header.our_blog_li')}</a>
                   </li>
                   <li>
-                    <a onClick={() => navigate("/")}>Contact</a>
-                  </li>
-                  <li>
-                    <a onClick={() => navigate("/history")}>History</a>
+                    <a onClick={() => navigate("/history")}>{t('header.history_li')}</a>
                     <HistoryDropdown
                       historyToday={historyToday}
                       historyEarlier={historyEarlier}
@@ -126,12 +144,28 @@ export default function Header() {
               </nav>
             </div>
           </div>
-          <div className="col-lg-2">
+          <div className="col-lg-3">
             <div className="header__right">
               <a className="search-switch searchIcon">
-                <SearchOverlay/>
+                <SearchOverlay />
               </a>
-
+              <a className="languages">
+                <Dropdown>
+                  <Dropdown.Toggle
+                    className="icon_globe-2 text-white mb-2"
+                    variant="transparent"
+                    id="dropdown-basic"
+                  ></Dropdown.Toggle>
+                  <Dropdown.Menu className="bg-danger">
+                    {languages.map(({ code, name, country_code }) => (
+                      <Dropdown.Item onClick={() => i18next.changeLanguage(code)} key={country_code}>
+                        <span className={`flag-icon flag-icon-${country_code} mx-2`}></span>
+                        {name}
+                      </Dropdown.Item>
+                    ))}
+                  </Dropdown.Menu>
+                </Dropdown>
+              </a>
               <a className="myProfile">
                 <Dropdown>
                   <Dropdown.Toggle
@@ -150,22 +184,30 @@ export default function Header() {
                             </div>
                           </div>
                         </Dropdown.Item>
-                        <Dropdown.Item onClick={() => handleLogout()}>
+                        <Dropdown.Item className="d-flex justify-content-between" onClick={() => handleLogout()}>
+                          <i class='bx bxs-log-out bx-sm'></i>
                           Log out
                         </Dropdown.Item>
                       </React.Fragment>
                     ) : (
                       <React.Fragment>
-                        <Dropdown.Item onClick={() => navigate("/signup")}>
-                          Sign Up
+                        <Dropdown.Item className="d-flex justify-content-between" onClick={() => navigate("/signup")}>
+                          <i class='bx bx-window-open bx-sm'></i>
+                          <div>Sign Up</div>
                         </Dropdown.Item>
-                        <Dropdown.Item onClick={() => navigate("/login")}>
-                          Log In
+                        <Dropdown.Item className="d-flex justify-content-between" onClick={() => navigate("/login")}>
+                          <i class='bx bxs-log-in bx-sm'></i>
+                          <div>Log In</div>
                         </Dropdown.Item>
                       </React.Fragment>
                     )}
+                    <Dropdown.Item className="d-flex justify-content-between" onClick={() => handleLogout()}>
+                      <i class='bx bx-globe bx-sm' ></i>
+                      Language
+                    </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
+
               </a>
             </div>
           </div>
