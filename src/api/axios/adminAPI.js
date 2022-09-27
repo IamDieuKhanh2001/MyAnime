@@ -115,3 +115,14 @@ export const APIUpdateMovieCategories = (movie) => {
         .post(url, movie.category, { headers: headers })
         .catch((err) => console.log("Can't call API after 2 retries", err));
 };
+
+export const APIAddMovieCategories = (id, cateArray) => {
+    const url = `admin/category-movie/${id}`;
+    const jwt = window.sessionStorage.getItem("jwt");
+    const headers = {
+        Authorization: `Bearer ${jwt}`,
+    };
+    return axiosClient
+        .post(url, cateArray, { headers: headers })
+        .catch((err) => console.log("Can't call API after 2 retries", err));
+};
