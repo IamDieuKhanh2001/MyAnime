@@ -54,5 +54,71 @@
       "username_empty": "Empty Username!!",
       "password_empty": "Empty password!!"
     }
+  },
+  "profile": {
+    "profile_picture_title": "Profile Picture",
+    "profile_picture_require": "JPG or PNG no larger than 5 MB",
+    "btn_change_image_text": "Change Image",
+    "account_detail_title": "Account Details",
+    "username_label": "Username",
+    "fullname_label": "Full name",
+    "fullname_placeholder": "Enter your full name",
+    "email_label": "Email address",
+    "email_placeholder": "Enter your email address",
+    "btn_save_text": "Save"
+  },
+  "signup": {
+    "title": "Sign Up",
+    "username_placeholder": "Username",
+    "password_placeholder": "Password",
+    "password_retype_placeholder": "Enter Password Again",
+    "btn_signup_text": "SIGN UP",
+    "login_register_title": "Already have an account?",
+    "login_text_a": "Log In now!",
+    "third_party": {
+      "login_social_title": "Login With:",
+      "with_facebook_li": "Sign in with Facebook",
+      "with_google_li": "Sign in with Google",
+      "with_twitter_li": "Sign in with Twitter"
+    },
+    "yup": {
+      "username_max_text": "Up to 50 characters",
+      "username_empty": "Empty Username!!",
+      "password_empty": "Empty password!!"
+    }
+  },
+  "product_pageable": {
+    "title": "All series"
+  },
+  "product_detail": {
+    "studio": "Studios:",
+    "date_aired": "Date aired:",
+    "episode": "Episodes:",
+    "genre": "Genre:",
+    "views": "Views:",
+    "duration": "Duration:",
+    "quality": "Quality:",
+    "btn_follow_text": "Follow",
+    "btn_watch_now_text": "Watch Now",
+    "btn_comming_soon_text": "Comming soon ...",
+    "side_bar": {
+      "section_title": "You may love this"
+    }
+  },
+  "anime_watching": {
+    "section_episode_title": "Current Episode Released",
+    "episode_num_prefix": "Ep "
+  },
+  "anime_review": {
+    "section_review_title": "Reviews",
+    "review_noti": {
+      "title": "Please login!!",
+      "content": "Login to see other reviewer comment",
+      "a_login_text": "Click here to Login!!"
+    },
+    "section_write_review_title": "Your Comment",
+    "btn_send_text": "Send",
+    "btn_sending_text": "Sending...",
+    "content_placeholder": "Write your comment here ..."
   }
 }

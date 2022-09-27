@@ -11,10 +11,12 @@ import SignUpThirdParty from './SignUpThirdParty/SignUpThirdParty';
 import { useDispatch } from 'react-redux';
 import MessageModal from '../../global/MessageModal/MessageModal';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 function SignUp() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     const [modal, setModal] = useState(false);
     const [loading, setLoading] = useState(false); //Loading when on submit loading call API
@@ -29,9 +31,9 @@ function SignUp() {
             retypepassword: "",
         },
         validationSchema: Yup.object({
-            username: Yup.string().max(50, "Up to 50 characters").required("Empty"),
+            username: Yup.string().max(50, t("signup.yup.username_max_text")).required(t("signup.yup.username_empty")),
             password: Yup.string()
-                .required("Empty"),
+                .required(t("signup.yup.password_empty")),
             // .matches(
             //   /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
             //   "Password must contain at least 8 characters, including 1 uppercase letter, 1 number and 1 special character"
@@ -44,7 +46,7 @@ function SignUp() {
                         "Password does not match"
                     ),
                 })
-                .required("Empty"),
+                .required(t("signup.yup.password_empty")),
         }),
         onSubmit: async values => {
             setLoading(true)
@@ -67,7 +69,7 @@ function SignUp() {
                 <div className="container">
                     {loading && (
                         <MessageModal
-                            message={"Logging in, please wait!!"}
+                            message={"Registering, please wait!!"}
                             type={"loading"}
                             setModal={loading}
                         />
@@ -82,14 +84,16 @@ function SignUp() {
                     <div className="row">
                         <div className="col-lg-6">
                             <div className="login__form">
-                                <h3>Sign Up</h3>
+                                <h3>
+                                    {t("signup.title")}
+                                </h3>
                                 <form onSubmit={formik.handleSubmit}>
                                     <div>
                                         <div className="input__item">
                                             <input
                                                 type="text"
                                                 id="username"
-                                                placeholder="Username"
+                                                placeholder={t("signup.username_placeholder")}
                                                 value={formik.values.username}
                                                 onChange={formik.handleChange}
                                             />
@@ -106,7 +110,7 @@ function SignUp() {
                                             <input
                                                 type="password"
                                                 id="password"
-                                                placeholder="Password"
+                                                placeholder={t("signup.password_placeholder")}
                                                 value={formik.values.password}
                                                 onBlur={formik.handleBlur}
                                                 onChange={formik.handleChange}
@@ -120,7 +124,7 @@ function SignUp() {
                                             <input
                                                 type="password"
                                                 id="retypepassword"
-                                                placeholder="Enter Password Again"
+                                                placeholder={t("signup.password_retype_placeholder")}
                                                 onBlur={formik.handleBlur}
                                                 value={formik.values.retypepassword}
                                                 onChange={formik.handleChange}
@@ -129,9 +133,11 @@ function SignUp() {
                                         </div>
                                         <span className="error">{formik.errors.retypepassword}</span>
                                     </div>
-                                    <input type="submit" value="SIGN UP" className="site-btn" />
+                                    <input type="submit" value={t("signup.btn_signup_text")} className="site-btn" />
                                 </form>
-                                <h5>Already have an account? <a href="/login">Log In!</a></h5>
+                                <h5>{t("signup.login_register_title")}
+                                    <a href="/login">{t("signup.login_text_a")}</a>
+                                </h5>
                             </div>
                         </div>
                         <div className="col-lg-6">

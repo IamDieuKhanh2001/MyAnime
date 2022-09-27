@@ -17,8 +17,10 @@ import ProductDetailSideBar from "../../global/Product/ProductDetailSideBar/Prod
 import { APIGetCommentByEpisodeId } from "../../../api/axios/commentAPI";
 import { commentActions } from "../../../api/redux/slices/commentSlice";
 import { axiosClient } from "../../../api/axios/axiosClient";
+import { useTranslation } from "react-i18next";
 
 export default function AnimeWatching() {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const location = useLocation();
   const { seriesId } = useParams();
@@ -83,7 +85,9 @@ export default function AnimeWatching() {
                   </div>
                   <div className="anime__details__episodes">
                     <div className="section-title">
-                      <h5>Current Episode Released</h5>
+                      <h5>
+                        {t("anime_watching.section_episode_title")}
+                      </h5>
                     </div>
                     {episodeList.length === 0 &&
                       (<Alert severity="info">
@@ -93,7 +97,10 @@ export default function AnimeWatching() {
                     }
                     {
                       episodeList.map((episode, index) => (
-                        <a className={episode.id === getCurrentWatchingEpisode().id ? "episode__active" : ""} href={getCurrentPathWithoutLastPart() + `?episodeId=${episode.id}`} key={index}>Ep {episode.title}</a>
+                        <a className={episode.id === getCurrentWatchingEpisode().id ? "episode__active" : ""} href={getCurrentPathWithoutLastPart() + `?episodeId=${episode.id}`} key={index}>
+                          {t("anime_watching.episode_num_prefix")} 
+                          {episode.title}
+                        </a>
                       ))
                     }
                   </div>
@@ -105,8 +112,8 @@ export default function AnimeWatching() {
           <div className="row">
             <div className="col-lg-8 col-md-8">
               {episodeLoading === false &&
-              (<AnimeReview episodeWatching={getCurrentWatchingEpisode()} />) }
-              
+                (<AnimeReview episodeWatching={getCurrentWatchingEpisode()} />)}
+
             </div>
             <div className="col-lg-4 col-md-4">
               <ProductDetailSideBar />

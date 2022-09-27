@@ -9,9 +9,10 @@ import { useNavigate, Link, useParams } from "react-router-dom";
 import { APIGetProducts, APIGetTotalProduct } from "../../../api/axios/productAPI";
 import { productsActions } from "../../../api/redux/slices/productSlice";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function ProductList() {
-
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -50,7 +51,7 @@ export default function ProductList() {
       <Header />
       <BreadcrumbOption />
       <ProductPageable
-        productTitle="All series"
+        productTitle={t("product_pageable.title")}
         totalProduct={totalProduct}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}

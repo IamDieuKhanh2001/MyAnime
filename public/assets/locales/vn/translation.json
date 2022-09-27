@@ -54,5 +54,71 @@
       "username_empty": "Username chưa nhập!!",
       "password_empty": "Password chưa nhập!!"
     }
+  },
+  "profile": {
+    "profile_picture_title": "Ảnh đại diện",
+    "profile_picture_require": "Định dạng JPG hoặc PNG và không lớn hơn 5 MB",
+    "btn_change_image_text": "Thay đổi ảnh đại diện",
+    "account_detail_title": "Thông tin tài khoản",
+    "username_label": "Tên tài khoản",
+    "fullname_label": "Họ & Tên",
+    "fullname_placeholder": "Nhập họ và tên",
+    "email_label": "Địa chỉ mail",
+    "email_placeholder": "Nhập địa chỉ mail",
+    "btn_save_text": "Lưu thông tin"
+  },
+  "signup": {
+    "title": "Đăng kí",
+    "username_placeholder": "Tên tài khoản",
+    "password_placeholder": "Mật khẩu",
+    "password_retype_placeholder": "Nhập lại mật khẩu",
+    "btn_signup_text": "ĐĂNG KÍ",
+    "login_register_title": "Bạn đã có tài khoản?",
+    "login_text_a": "Đăng nhập ngay!",
+    "third_party": {
+      "login_social_title": "Đăng nhập bằng:",
+      "with_facebook_li": "Đăng nhập với Facebook",
+      "with_google_li": "Đăng nhập với Google",
+      "with_twitter_li": "Đăng nhập với Twitter"
+    },
+    "yup": {
+      "username_max_text": "Tối thiểu 50 kí tự",
+      "username_empty": "Tên tài khoản không được trống",
+      "password_empty": "Mật khẩu không được trống"
+    }
+  },
+  "product_pageable": {
+    "title": "Tất cả Series"
+  },
+  "product_detail": {
+    "studio": "Studios:",
+    "date_aired": "Ngày phát sóng:",
+    "episode": "Số tập:",
+    "genre": "Thể loại:",
+    "views": "Lượt xem:",
+    "duration": "Thời lượng:",
+    "quality": "Chất lượng:",
+    "btn_follow_text": "Theo dõi",
+    "btn_watch_now_text": "Xem ngay",
+    "btn_comming_soon_text": "Đang cập nhật ...",
+    "side_bar": {
+      "section_title": "Có thể bạn thích"
+    }
+  },
+  "anime_watching": {
+    "section_episode_title": "Các tập đã phát sóng",
+    "episode_num_prefix": "Tập "
+  },
+  "anime_review": {
+    "section_review_title": "Bình luận",
+    "review_noti": {
+      "title": "Hãy đăng nhập!!",
+      "content": "Đăng nhập để có thể thấy bình luận của series này",
+      "a_login_text": "Nhấn vào đây để đăng nhập!!"
+    },
+    "section_write_review_title": "Bình luận của bạn",
+    "btn_send_text": "Gửi bình luận",
+    "btn_sending_text": "Đang gửi...",
+    "content_placeholder": "Hãy viết bình luận ở đây ..."
   }
 }

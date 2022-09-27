@@ -54,5 +54,71 @@
       "username_empty": "ユーザー名があってない",
       "password_empty": "パスワードがあってない"
     }
+  },
+  "profile": {
+    "profile_picture_title": "プロフィールの写真",
+    "profile_picture_require": "JPGかかPNG、5 MB 以下",
+    "btn_change_image_text": "写真をへんかする",
+    "account_detail_title": "アカウント詳細",
+    "username_label": "ユーザー名",
+    "fullname_label": "名前",
+    "fullname_placeholder": "ここに名前をかいてください",
+    "email_label": "Eメール",
+    "email_placeholder": "ここにEメールをかいてください",
+    "btn_save_text": "保存"
+  },
+  "signup": {
+    "title": "サインアップ",
+    "username_placeholder": "ユーザー名",
+    "password_placeholder": "パスワード",
+    "password_retype_placeholder": "パスワードをもう一度かいてください",
+    "btn_signup_text": "サインアップ",
+    "login_register_title": "アカウントをもっていますか",
+    "login_text_a": "今すぐログイン！",
+    "third_party": {
+      "login_social_title": "ほかのログインの方：：",
+      "with_facebook_li": "Facebookでサインイン",
+      "with_google_li": "Googleでサインイン",
+      "with_twitter_li": "Twitterでサインイン"
+    },
+    "yup": {
+      "username_max_text": "以上50字",
+      "username_empty": "ユーザー名があってない！",
+      "password_empty": "パスワードがあってない！"
+    }
+  },
+  "product_pageable": {
+    "title": "すべての映画"
+  },
+  "product_detail": {
+    "studio": "スタジオ:",
+    "date_aired": "放送日:",
+    "episode": "エピソード:",
+    "genre": "カテゴリー:",
+    "views": "見る:",
+    "duration": "長さ:",
+    "quality": "品質:",
+    "btn_follow_text": "従う",
+    "btn_watch_now_text": "今見る",
+    "btn_comming_soon_text": "もうすぐリリース...",
+    "side_bar": {
+      "section_title": "あなも好きででしょう"
+    }
+  },
+  "anime_watching": {
+    "section_episode_title": "エピソードがリリースされています",
+    "episode_num_prefix": "エピソード "
+  },
+  "anime_review": {
+    "section_review_title": "コメント",
+    "review_noti": {
+      "title": "ログインしてください！！",
+      "content": "ログインして他のレビュアーコメントを見る",
+      "a_login_text": "ここに押すとログインページに行く"
+    },
+    "section_write_review_title": "君のコメント",
+    "btn_send_text": "コメントを送る",
+    "btn_sending_text": "コメントを送っています...",
+    "content_placeholder": "ここにあなたのコメントを書いてください ..."
   }
 }

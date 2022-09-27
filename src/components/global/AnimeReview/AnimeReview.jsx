@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { APIGetCommentByEpisodeId } from '../../../api/axios/commentAPI';
 import { commentActions } from '../../../api/redux/slices/commentSlice';
@@ -10,6 +11,7 @@ import ReviewItem from './ReviewItem/ReviewItem'
 import ReviewNotification from './ReviewNotification/ReviewNotification';
 
 function AnimeReview({ episodeWatching }) {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
 
   const jwtTokenLogin = window.sessionStorage.getItem("jwt");
@@ -39,7 +41,9 @@ function AnimeReview({ episodeWatching }) {
     <React.Fragment>
       <div className="anime__details__review">
         <div className="section-title">
-          <h5>Reviews</h5>
+          <h5>
+            {t("anime_review.section_review_title")}
+          </h5>
         </div>
 
         {jwtTokenLogin !== null &&

@@ -35,7 +35,6 @@ function App() {
                     <Route path="/profile" element={<Profile />} />
                     {/* <Route path="/login2/:preRoute" element={<Login />} /> */}
                     {/* <Route exact path="/signup2" element={<SignUp />} /> */}
-                    <Route path="/login" element={<Login />} />
                     <Route exact path="/signup" element={<SignUp />} />
                     <Route path="*" element={<Navigate to="/" />} />
                     <Route path="/series-list" element={<ProductList />} />

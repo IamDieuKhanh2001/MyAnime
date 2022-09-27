@@ -1,11 +1,13 @@
 import React from 'react'
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { APIGetAllSeriesProductById } from '../../../../api/axios/productAPI';
 import { productsActions } from '../../../../api/redux/slices/productSlice';
 
 function ProductDetailSideBar() {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -29,7 +31,9 @@ function ProductDetailSideBar() {
     return (
         <div className="anime__details__sidebar">
             <div className="section-title">
-                <h5>You also love this</h5>
+                <h5>
+                    {t("product_detail.side_bar.section_title")}
+                </h5>
             </div>
             {relateSeries.map((item, index) => (
                 <React.Fragment key={index}>

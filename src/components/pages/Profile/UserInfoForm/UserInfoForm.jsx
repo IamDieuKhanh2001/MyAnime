@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Field, Form, Formik, useFormik } from "formik";
 import * as Yup from "yup";
 import PuffLoader from "react-spinners/PuffLoader";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { APIChangeAvatar, APIUpdateInfoUserLogging } from '../../../../api/axios/customerAPI';
 import MessageModal from '../../../global/MessageModal/MessageModal';
 import VerifyEmailModal from '../../../global/VerifyEmailModal/VerifyEmailModal';
@@ -94,7 +94,9 @@ function UserInfoForm({ loadUserLogging }) {
                             <div className="row">
                                 <div className="col-xl-4">
                                     <div className="card mb-4 mb-xl-0">
-                                        <div className="card-header">Profile Picture</div>
+                                        <div className="card-header">
+                                            {t("profile.profile_picture_title")}
+                                        </div>
                                         <div className="card-body text-center">
                                             <img
                                                 className="img-account-profile rounded-circle mb-2"
@@ -103,13 +105,13 @@ function UserInfoForm({ loadUserLogging }) {
                                                 id="img"
                                             />
                                             <div className="small font-italic text-muted mb-4">
-                                                JPG or PNG no larger than 5 MB
+                                                {t("profile.profile_picture_require")}
                                             </div>
                                             <label
                                                 htmlFor="input"
                                                 className="btn btn-danger custom-file-upload"
                                             >
-                                                Change Image
+                                                {t("profile.btn_change_image_text")}
                                             </label>
                                             <input
                                                 type="file"
@@ -123,12 +125,14 @@ function UserInfoForm({ loadUserLogging }) {
                                 </div>
                                 <div className="col-xl-8">
                                     <div className="card mb-4">
-                                        <div className="card-header">Account Details</div>
+                                        <div className="card-header">
+                                            {t("profile.account_detail_title")}
+                                        </div>
                                         <div className="card-body">
                                             <div className="profileForm">
                                                 <div className="mb-3">
                                                     <label className="small mb-1" htmlFor="inputUsername">
-                                                        Username
+                                                        {t("profile.username_label")}
                                                     </label>
                                                     <input
                                                         className="form-control"
@@ -141,14 +145,14 @@ function UserInfoForm({ loadUserLogging }) {
                                                 </div>
                                                 <div className="mb-3">
                                                     <label className="small mb-1" htmlFor="inputFullname">
-                                                        Fullname
+                                                        {t("profile.fullname_label")}
                                                     </label>
                                                     <Field
                                                         className="form-control"
                                                         id="inputFullname"
                                                         type="text"
                                                         name="fullName"
-                                                        placeholder="Enter your full name"
+                                                        placeholder={t("profile.fullname_placeholder")}
                                                     />
                                                     <span className="error">
                                                         {errors.fullName && touched.fullName && (
@@ -162,14 +166,14 @@ function UserInfoForm({ loadUserLogging }) {
                                                         className="small mb-1"
                                                         htmlFor="inputEmailAddress"
                                                     >
-                                                        Email address
+                                                        {t("profile.email_label")}
                                                     </label>
                                                     <Field
                                                         className="form-control"
                                                         id="inputEmailAddress"
                                                         type="email"
                                                         name="email"
-                                                        placeholder="Enter your email address"
+                                                        placeholder={t("profile.email_placeholder")}
                                                     />
                                                     <span className="error">
                                                         {errors.email && touched.email && (
@@ -181,7 +185,7 @@ function UserInfoForm({ loadUserLogging }) {
                                                     {isSubmitting ? (
                                                         <PuffLoader color="#ffffff" size={30} />
                                                     ) : (
-                                                        "Save"
+                                                        t("profile.btn_save_text")
                                                     )}
                                                 </button>
                                             </div>

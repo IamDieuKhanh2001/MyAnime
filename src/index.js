@@ -14,12 +14,13 @@ import TimeAgo from "javascript-time-ago";
 
 import 'flag-icon-css/css/flag-icons.min.css'
 
+//i18n lib change lang
 import i18n from "i18next"
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from 'i18next-browser-languagedetector';
 import HttpApi from 'i18next-http-backend';
 i18n
-  .use(initReactI18next) // passes i18n down to react-i18next
+  .use(initReactI18next)
   .use(LanguageDetector)
   .use(HttpApi)
   .init({
@@ -34,14 +35,15 @@ i18n
     },
   });
 
+//lib react time ago
 TimeAgo.addDefaultLocale(en)
 TimeAgo.addLocale(vi)
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
     <ConfirmProvider>
       <App />
     </ConfirmProvider>
-
   </Provider>
 );

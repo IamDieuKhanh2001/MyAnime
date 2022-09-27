@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from 'react-i18next';
 
 function ProductDetail({ data }) {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const historyList = useSelector((state) => state.histories.list);
 
@@ -68,16 +70,16 @@ function ProductDetail({ data }) {
                                 <div className="col-lg-6 col-md-6">
                                     <ul>
                                         <li>
-                                            <span>Studios:</span> {data.studioName}
+                                            <span>{t("product_detail.studio")}</span> {data.studioName}
                                         </li>
                                         <li>
-                                            <span>Date aired:</span> {data.dateAired}
+                                            <span>{t("product_detail.date_aired")}</span> {data.dateAired}
                                         </li>
                                         <li>
-                                            <span>Episodes:</span> {data.currentNumberEpisode}/{data.totalEpisode}
+                                            <span>{t("product_detail.episode")}</span> {data.currentNumberEpisode}/{data.totalEpisode}
                                         </li>
                                         <li>
-                                            <span>Genre:</span>Live Action
+                                            <span>{t("product_detail.genre")}</span>Live Action
                                             {/* {data.categoryList.length !== 0 && (data.categoryList.map((category, index) => (
                                                 <React.Fragment key={index}>
                                                     {category.name},
@@ -89,19 +91,13 @@ function ProductDetail({ data }) {
                                 <div className="col-lg-6 col-md-6">
                                     <ul>
                                         <li>
-                                            <span>Scores:</span> 7.31 / 1,515
+                                            <span>{t("product_detail.duration")}</span> 24 min/ep
                                         </li>
                                         <li>
-                                            <span>Rating:</span> 8.5 / 161 times
+                                            <span>{t("product_detail.quality")}</span> HD
                                         </li>
                                         <li>
-                                            <span>Duration:</span> 24 min/ep
-                                        </li>
-                                        <li>
-                                            <span>Quality:</span> HD
-                                        </li>
-                                        <li>
-                                            <span>Views:</span> {data.views}
+                                            <span>{t("product_detail.views")}</span> {data.views}
                                         </li>
                                     </ul>
                                 </div>
@@ -109,20 +105,20 @@ function ProductDetail({ data }) {
                         </div>
                         <div className="anime__details__btn">
                             <a href="#" className="follow-btn">
-                                <i className="fa fa-heart-o" /> Follow
+                                <i className="fa fa-heart-o" /> {t("product_detail.btn_follow_text")}
                             </a>
                             {data.currentNumberEpisode !== 0 ? (
                                 <a
                                     onClick={() => handleNavigate()}
                                     className="watch-btn"
                                 >
-                                    <span>Watch Now</span> <i className="fa fa-angle-right" />
+                                    <span>{t("product_detail.btn_watch_now_text")}</span> <i className="fa fa-angle-right" />
                                 </a>
                             ) : (
                                 <a
                                     className="watch-btn disabled"
                                 >
-                                    <span>Comming soon ...</span> <i className="fa fa-angle-right" />
+                                    <span>{t("product_detail.btn_comming_soon_text")}</span> <i className="fa fa-angle-right" />
                                 </a>
                             )}
 

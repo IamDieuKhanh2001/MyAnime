@@ -1,11 +1,13 @@
 import { useFormik } from 'formik'
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { BeatLoader } from 'react-spinners';
 import { APIGetCommentByEpisodeId, APIPostCommentByEpisodeId } from '../../../../api/axios/commentAPI';
 import { commentActions } from '../../../../api/redux/slices/commentSlice';
 
 function ReviewForm({ episodeWatchingId, commentLoading, setCommentLoading }) {
+    const { t } = useTranslation();
     const dispatch = useDispatch();
 
     const [loading, setLoading] = useState(false); //Loading when on submit loading call API
@@ -40,13 +42,15 @@ function ReviewForm({ episodeWatchingId, commentLoading, setCommentLoading }) {
     return (
         <div className="anime__details__form">
             <div className="section-title">
-                <h5>Your Comment</h5>
+                <h5>
+                    {t("anime_review.section_write_review_title")}
+                </h5>
             </div>
             <form onSubmit={formik.handleSubmit}>
                 <textarea
                     type='text'
                     id='content'
-                    placeholder="Your Comment ...."
+                    placeholder={t("anime_review.content_placeholder")}
                     value={formik.values.content}
                     onChange={formik.handleChange}
                 />
@@ -61,12 +65,12 @@ function ReviewForm({ episodeWatchingId, commentLoading, setCommentLoading }) {
                                     margin={0}
                                     size={11}
                                     color="#fff"
-                                /> Sending...
+                                /> {t("anime_review.btn_sending_text")}
                             </React.Fragment>
                         ) :
                         (<React.Fragment>
                             <i className="fa fa-location-arrow" />
-                            Send
+                            {t("anime_review.btn_send_text")}
                         </React.Fragment>)
                     }
                 </button>
