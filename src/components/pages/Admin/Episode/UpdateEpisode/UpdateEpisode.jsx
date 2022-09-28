@@ -140,8 +140,10 @@ export default function UpdateEpisode() {
                                      {isSubmitting && (
                                          <span className="spinner-border spinner-border-sm mr-1"></span>
                                      )}
-                                     Add
+                                     <i className="bx bx-check mr-1"></i>Update
                                  </button>
+                                 <button className="btn btn-warning px-4 ml-2"
+                                     type="submit"><i className="bx bx-trash mr-1"></i>Delete</button>
                              </div>
                          </div>
                      </div>
