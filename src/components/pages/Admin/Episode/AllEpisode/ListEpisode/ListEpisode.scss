@@ -1,0 +1,56 @@
+.titleList {
+    color: white;
+    padding-left: 25px;
+    font-weight: 700;
+    font-size: 25px;
+    font-family: "Oswald", sans-serif;
+    margin-bottom: 30px;
+  }
+  .allEpisodeLine {
+    display: block;
+    height: 20px;
+    margin-bottom: 1rem;
+    .allEpisodeContent {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      padding: 0 2rem;
+      text-align: left;
+      z-index: 99;
+      margin-bottom: 10px;
+      .episodeItemTitle {
+        color: white;
+        padding-left: 25px;
+        font-weight: 700;
+        font-size: 15px;
+        font-family: "Oswald", sans-serif;
+        margin-bottom: 10px;
+        flex: 3;
+      }
+      .episodeItemIndex {
+        color: white;
+        font-weight: 700;
+        font-size: 15px;
+        font-family: "Oswald", sans-serif;
+        margin-bottom: 10px;
+      }
+      .episodeItem {
+        flex: 7;
+        text-align: left;
+        .episodeButton{
+          background-color: #E49B0F;
+          color: #fff;
+          font-size: 10px;
+          margin: 4px 4px 4px 0px;
+          width: 37px;
+          height: 25px;
+          text-align: center;
+          &:hover{
+            color: #FF5733;
+          }
+        }
+      }
+    }
+  }
+  
