@@ -12,7 +12,7 @@ export default function AddEpisode() {
     const [loadingMovies, setLoadingMovies] = useState();
     const movies = useSelector((state) => state.admin.movies);
     const initialValues = {
-        numberEpisode: "",
+        episode: "",
         movieName: "",
         video: "",
     };
@@ -104,11 +104,11 @@ export default function AddEpisode() {
                                                         placeholder="Enter your episode"
                                                     />
                                                     <span className="error">
-                                                        {errors.numberEpisode &&
-                                                            touched.numberEpisode && (
+                                                        {errors.episode &&
+                                                            touched.episode && (
                                                                 <div>
                                                                     {
-                                                                        errors.numberEpisode
+                                                                        errors.episode
                                                                     }
                                                                 </div>
                                                             )}
