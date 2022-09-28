@@ -19,6 +19,10 @@
       text-align: left;
       z-index: 99;
       margin-bottom: 10px;
+      .episodeItemImg {
+        width: 40px;
+        height: 50px;
+      }
       .episodeItemTitle {
         color: white;
         padding-left: 25px;

@@ -9,17 +9,15 @@ import SelectField from "../CustomEpisodeSelect/CustomEpisodeSelect";
 export default function AddEpisode() {
     const [previewImg, setPreviewImg] = useState();
     const [formValues, setFormValues] = useState(null);
-    const [loadingMovies, setLoadingMovies] = useState();
-    const movies = useSelector((state) => state.admin.movies);
     const initialValues = {
         episode: "",
-        movieName: "",
+        seriesName: "",
         video: "",
     };
 
     const validationSchema = Yup.object().shape({
         episode: Yup.string().required("Empty"),
-        movieName: Yup.object().required("Empty"),
+        seriesName: Yup.object().required("Empty"),
         video: Yup.mixed(),
     });
 
@@ -114,44 +112,30 @@ export default function AddEpisode() {
                                                             )}
                                                     </span>
                                                 </div>
-                                                {loadingMovies ? (
-                                                    <LoadingAnimation />
-                                                ) : movies ? (
-                                                    <div className="mb-3">
-                                                        <label
-                                                            className="small mb-1"
-                                                            htmlFor="inputmovieName"
-                                                        >
-                                                            Movie Name
-                                                        </label>
 
-                                                        <Field
-                                                            component={
-                                                                SelectField
-                                                            }
-                                                            name="movieName"
-                                                            options={movies.map(
-                                                                (movie) => {
-                                                                    return {
-                                                                        value: movie.id,
-                                                                        label: movie.title,
-                                                                    };
-                                                                }
+                                                <div className="mb-3">
+                                                    <label
+                                                        className="small mb-1"
+                                                        htmlFor="inputseriesName"
+                                                    >
+                                                        Series Name
+                                                    </label>
+                                                    <Field
+                                                        component={SelectField}
+                                                        name="seriesName"
+                                                        options={""}
+                                                    />
+                                                    <span className="error">
+                                                        {errors.seriesName &&
+                                                            touched.seriesName && (
+                                                                <div>
+                                                                    {
+                                                                        errors.seriesName
+                                                                    }
+                                                                </div>
                                                             )}
-                                                        />
-                                                        <span className="error">
-                                                            {errors.movieName &&
-                                                                touched.movieName && (
-                                                                    <div>
-                                                                        {
-                                                                            errors.movieName
-                                                                        }
-                                                                    </div>
-                                                                )}
-                                                        </span>
-                                                    </div>
-                                                ) : null}
-
+                                                    </span>
+                                                </div>
                                                 <button
                                                     className="btn btn-danger px-4"
                                                     type="submit"

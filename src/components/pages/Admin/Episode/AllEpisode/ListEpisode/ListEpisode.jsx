@@ -7,10 +7,14 @@ export default function ListEpisode() {
             <div className="titleList">List Episodes</div>
             <div className="allEpisodeLine">
                 <div className="allEpisodeContent">
-                    <div className="episodeItemIndex">
-                        1
-                        <br />
-                    </div>
+                    <figure className="episodeItemImg">
+                        <img
+                            src={
+                                "https://cdn.pixabay.com/photo/2017/01/25/17/35/picture-2008484_960_720.png"
+                            }
+                            alt="img"
+                        />
+                    </figure>
                     <div className="episodeItemTitle">
                         The Walking Dead
                         <br />
@@ -26,10 +30,14 @@ export default function ListEpisode() {
                 </div>
 
                 <div className="allEpisodeContent">
-                    <div className="episodeItemIndex">
-                        2
-                        <br />
-                    </div>
+                    <figure className="episodeItemImg">
+                        <img
+                            src={
+                                "https://cdn.pixabay.com/photo/2017/01/25/17/35/picture-2008484_960_720.png"
+                            }
+                            alt="movie"
+                        />
+                    </figure>
                     <div className="episodeItemTitle">
                         Game of Thrones
                         <br />
@@ -51,10 +59,14 @@ export default function ListEpisode() {
                 </div>
 
                 <div className="allEpisodeContent">
-                    <div className="episodeItemIndex">
-                        3
-                        <br />
-                    </div>
+                    <figure className="episodeItemImg">
+                        <img
+                            src={
+                                "https://cdn.pixabay.com/photo/2017/01/25/17/35/picture-2008484_960_720.png"
+                            }
+                            alt="movie"
+                        />
+                    </figure>
                     <div className="episodeItemTitle">
                         James Bond 007
                         <br />
@@ -87,10 +99,14 @@ export default function ListEpisode() {
                 </div>
 
                 <div className="allEpisodeContent">
-                    <div className="episodeItemIndex">
-                        4
-                        <br />
-                    </div>
+                    <figure className="episodeItemImg">
+                        <img
+                            src={
+                                "https://cdn.pixabay.com/photo/2017/01/25/17/35/picture-2008484_960_720.png"
+                            }
+                            alt="movie"
+                        />
+                    </figure>
                     <div className="episodeItemTitle">
                         The Amazing Spiderman
                         <br />
@@ -99,14 +115,17 @@ export default function ListEpisode() {
                         <button className="btn episodeButton">1</button>
                         <button className="btn episodeButton">2</button>
                         <button className="btn episodeButton">3</button>
-                        
                     </div>
                 </div>
                 <div className="allEpisodeContent">
-                    <div className="episodeItemIndex">
-                        5
-                        <br />
-                    </div>
+                    <figure className="episodeItemImg">
+                        <img
+                            src={
+                                "https://cdn.pixabay.com/photo/2017/01/25/17/35/picture-2008484_960_720.png"
+                            }
+                            alt="movie"
+                        />
+                    </figure>
                     <div className="episodeItemTitle">
                         Love until the end of dead
                         <br />
