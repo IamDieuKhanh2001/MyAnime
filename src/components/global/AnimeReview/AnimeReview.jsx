@@ -24,8 +24,6 @@ function AnimeReview({ episodeWatching }) {
     setCommentLoading(true)
     console.log("Calling api get comment");
     const resGetCommentEpisode = await APIGetCommentByEpisodeId(episodeWatching.id);
-    console.log(resGetCommentEpisode)
-    console.log(resGetCommentEpisode.data)
     if (resGetCommentEpisode?.status === 200) {
       const updateCommentListAction = commentActions.updateList(resGetCommentEpisode.data);
       dispatch(updateCommentListAction);

@@ -80,7 +80,7 @@ export default function AnimeWatching() {
                 <div className="col-lg-12">
                   <div className="anime__video__player">
                     {episodeList.length !== 0 &&
-                      <Film episodeWatching={getCurrentWatchingEpisode()} lastSecondExit={lastSecondExit} />
+                      <Film episodeWatching={getCurrentWatchingEpisode()} lastSecondExit={lastSecondExit} setEpisodeIdWatching={setEpisodeIdWatching} />
                     }
                   </div>
                   <div className="anime__details__episodes">

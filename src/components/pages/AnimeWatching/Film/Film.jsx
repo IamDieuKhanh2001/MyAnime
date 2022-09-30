@@ -2,15 +2,18 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import ReactPlayer from "react-player";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 import { APIHistoriesSeriesUserLoggingSave } from "../../../../api/axios/historyWatchingAPI";
-import { HistoryActions } from "../../../../api/redux/slices/HistoryWatchingSlice";
 import "./Film.scss";
 
-export default function Film({ episodeWatching, lastSecondExit }) {
-  // const dispatch = useDispatch();
-  // const historyList = useSelector((state) => state.histories.list);
+export default function Film({ episodeWatching, lastSecondExit, setEpisodeIdWatching }) {
   const loginJwt = window.sessionStorage.getItem("jwt");
+  const navigate = useNavigate();
+  const { seriesId } = useParams();
+
+  const episodeList = useSelector((state) => state.episodes.list);
+  console.log(episodeList)
 
   const videoSrc = episodeWatching.resource
   // "https://res.cloudinary.com/dpxgtmzld/video/upload/v1661585857/MyAnimeProject_TLCN/test/video1.mp4";
@@ -19,14 +22,14 @@ export default function Film({ episodeWatching, lastSecondExit }) {
   const [isReady, setIsReady] = React.useState(false);
   const [played, setPlayed] = useState(0);
 
-  const saveUserLoggingHistory = async () => {
+  const saveUserLoggingHistory = async (playedSecond, epId) => {
     console.log("Calling api save history series");
-      const resHistorySave = await APIHistoriesSeriesUserLoggingSave(played, episodeWatching.id);
+    const resHistorySave = await APIHistoriesSeriesUserLoggingSave(playedSecond, epId);
   };
 
   const onPause = () => {
-    if(loginJwt !== null) {
-      saveUserLoggingHistory()
+    if (loginJwt !== null) {
+      saveUserLoggingHistory(played, episodeWatching.id)
     }
   }
 
@@ -39,7 +42,20 @@ export default function Film({ episodeWatching, lastSecondExit }) {
   }, [isReady]);
   const onEnd = React.useCallback(() => {
     console.log("Ended");
+    let indexCurrentEp = episodeList.findIndex(episode => episodeWatching.id === episode.id);
+    let nextEp = episodeList[indexCurrentEp + 1]
+    console.log(nextEp)
+    if(nextEp !== undefined) {
+      let params = `?episodeId=${nextEp.id}&second=0`;
+      handleNavigate(`/watching/${seriesId}`, `${params}`)
+      setEpisodeIdWatching(nextEp.id)
+      saveUserLoggingHistory(0, nextEp.id)
+    }
   });
+
+  const handleNavigate = (urlPath, params) => {
+    navigate(`${urlPath}${params}`)
+  }
   const onProgress = React.useCallback((progress) => {
     setPlayed(progress.playedSeconds)
   });
@@ -63,10 +79,6 @@ export default function Film({ episodeWatching, lastSecondExit }) {
         onReady={onReady}
         onEnded={onEnd}
         onProgress={onProgress}
-        // onPause={() => {
-        //   console.log("On pause")
-        //   console.log(secondPlayed)
-        // }}
         onPause={onPause}
       />
     </div>
