@@ -59,6 +59,7 @@
 // temp
 @media only screen and (min-width: 1200px) and (max-width: 1300px) {
   .hero {
+    padding-top: 120px;
     overflow: hidden;
   }
 }
@@ -105,7 +106,7 @@
 
   .header__right {
     position: absolute;
-    right: 120px;
+    right: 10px;
     top: -42px;
     padding: 0;
   }
@@ -239,10 +240,13 @@
 
   .header__right {
     position: absolute;
-    right: 50px;
+    right: 10px;
     top: -42px;
     padding: 0;
     .searchIcon {
+      display: none;
+    }
+    .languages{
       display: none;
     }
   }
