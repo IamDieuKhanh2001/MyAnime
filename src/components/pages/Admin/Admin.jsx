@@ -9,7 +9,7 @@ export default function Admin() {
     <div
       className="admin"
       style={{
-        padding: "0px 0px 0px 340px",
+        padding: "50px 0px 0px 340px",
       }}
     >
       <SideBar setActiveIndex={setActiveIndex}
