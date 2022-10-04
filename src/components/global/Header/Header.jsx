@@ -12,7 +12,6 @@ import HistoryDropdown from "./HistoryDropdown/HistoryDropdown";
 import CategoryDropdown from "./CategoryDropdown/CategoryDropdown";
 import { APIGetAllCategory } from "../../../api/axios/categoryAPI";
 import { categorySeriesActions } from "../../../api/redux/slices/categorySeriesSlice";
-import SearchOverlay from "./SearchOverlay/SearchOverlay";
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";
 import { Table } from "react-bootstrap";
