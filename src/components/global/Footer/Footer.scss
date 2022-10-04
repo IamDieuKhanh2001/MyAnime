@@ -76,6 +76,8 @@ footer .bottom .imgFooter {
 
 footer .bottom .imgFooter img {
   display: block;
+  width: 100px;
+  margin-left: 10px;
 }
 
 footer .bottom .zionIcon {
@@ -91,6 +93,7 @@ footer .bottom .info p {
   font-size: 12px;
   font-weight: 400;
   margin-bottom: 0;
+  margin-left: 20px;
 }
 
 footer .bottom .info ul {
@@ -103,6 +106,7 @@ footer .bottom .info ul li {
   line-height: 1.8;
   font-size: 12px;
   font-weight: 400;
+  margin-left: 20px;
 }
 
 footer .bottom .info ul span {
@@ -112,6 +116,7 @@ footer .bottom .info ul span {
 
 footer .bottom .boCongThuongIcon {
   width: 130px;
+  margin-right: 15px;
 }
 
 @media screen and (max-width: 991px) {
