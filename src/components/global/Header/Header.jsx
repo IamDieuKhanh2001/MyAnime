@@ -128,7 +128,7 @@ export default function Header() {
                         </div>
                     </div>
                     <div className="col-lg-7">
-                        <div className="header__nav">
+                        <div className="header__nav ml-5">
                             <nav className="header__menu mobile-menu">
                                 <ul>
                                     <li className="active">
