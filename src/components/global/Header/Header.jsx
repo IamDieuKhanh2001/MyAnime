@@ -18,6 +18,9 @@ import i18next from "i18next";
 
 import { Table } from "react-bootstrap";
 import { debounce } from "lodash";
+import { APIGetProducts } from "../../../api/axios/productAPI";
+import { productsActions } from "../../../api/redux/slices/productSlice";
+import SearchRecomDropdown from "./SearchRecomDropdown/SearchRecomDropdown";
 
 export default function Header() {
     const navigate = useNavigate();
@@ -27,7 +30,8 @@ export default function Header() {
     const [loading, setLoading] = useState(false);
     const [historyToday, setHistoryToday] = useState([]);
     const [historyEarlier, setHistoryEarlier] = useState([]);
-    const [keyword, setKeyword] = useState(null);
+    const [keyword, setKeyword] = useState("");
+    const [searchRecom, setSearchRecom] = useState([]);
 
     const historyList = useSelector((state) => state.histories.list);
 
@@ -99,17 +103,23 @@ export default function Header() {
 
     const handleSearchDropdown = (e) => {
         setKeyword(e.target.value);
-        // debounceDropDown()
+        debounceDropDown(e.target.value)
     };
 
-    // const debounceDropDown = useCallback(
-    //     debounce((nextValue) => loadCollection(nextValue), 1000),
-    //     []
-    // );
+    const debounceDropDown = useCallback(
+        debounce((nextValue) => loadProductByKeyword(nextValue), 1000),
+        []
+    );
 
-    const loadCollection = async (keyword) => {
+    const loadProductByKeyword = async (keyword) => {
         console.log("calling api get product in search header");
-
+        setSearchRecom([])
+        if (keyword !== "") {
+            const resKeyword = await APIGetProducts(1, keyword);
+            if (resKeyword.status === 200) {
+                setSearchRecom(resKeyword.data);
+            }
+        }
     };
 
     const handleSearch = async () => {
@@ -181,7 +191,7 @@ export default function Header() {
                             <a className="search-switch searchIcon">
                                 <div className="d-flex search__field">
                                     <input
-                                        name=""
+                                        name={keyword}
                                         className="searchBar__input"
                                         id="inputEmailAddress"
                                         type="text"
@@ -195,25 +205,11 @@ export default function Header() {
                                         <span className="icon_search" />
                                     </button>
                                 </div>
-                                <div className="hearder__search__recom_dropdown">
-                                    {/* <Table responsive="xl" borderless='false' hover>
-                                        <tbody hov>
-                                            <tr>
-                                                <td><span className="icon_search" /></td>
-                                                <td>Sword art online ss1</td>
-                                            </tr>
-                                            <tr>
-                                                <td><span className="icon_search" /></td>
-                                                <td>Sword art online ss2</td>
-
-                                            </tr>
-                                            <tr>
-                                                <td><span className="icon_search" /></td>
-                                                <td>Sword art online ss111111111111111111</td>
-                                            </tr>
-                                        </tbody>
-                                    </Table> */}
-                                </div>
+                                {searchRecom.length > 0 && (
+                                    <SearchRecomDropdown
+                                        searchRecom={searchRecom}
+                                        setSearchRecom={setSearchRecom} />
+                                )}
                             </a>
                             <a className="languages">
                                 <Dropdown>
@@ -299,7 +295,7 @@ export default function Header() {
                                                         navigate("/login")
                                                     }
                                                 >
-                                                    <i class="bx bxs-log-in bx-sm"></i>
+                                                    <i className="bx bxs-log-in bx-sm"></i>
                                                     {t(
                                                         "header.profile_dropdown.login"
                                                     )}
