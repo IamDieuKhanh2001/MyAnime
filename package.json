@@ -26,6 +26,7 @@
     "i18next-http-backend": "^1.4.4",
     "javascript-time-ago": "^2.5.7",
     "lodash": "^4.17.21",
+    "lodash.debounce": "^4.0.8",
     "material-ui-confirm": "^3.0.5",
     "multiselect-react-dropdown": "^2.0.25",
     "ng-multiselect-dropdown": "^1.0.0-beta.19",

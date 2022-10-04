@@ -15,6 +15,7 @@ import { categorySeriesActions } from "../../../api/redux/slices/categorySeriesS
 import SearchOverlay from "./SearchOverlay/SearchOverlay";
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";
+import { Table } from "react-bootstrap";
 
 export default function Header() {
     const navigate = useNavigate();
@@ -24,6 +25,7 @@ export default function Header() {
     const [loading, setLoading] = useState(false);
     const [historyToday, setHistoryToday] = useState([]);
     const [historyEarlier, setHistoryEarlier] = useState([]);
+    const [keyword, setKeyword] = useState(null);
 
     const historyList = useSelector((state) => state.histories.list);
 
@@ -93,6 +95,10 @@ export default function Header() {
         loadCategory();
     }, []);
 
+    const handleSearchDropdown = (e) => {
+        setKeyword(e.target.value);
+    };
+
     const languages = [
         {
             code: "en",
@@ -115,7 +121,7 @@ export default function Header() {
         <div className="header">
             <div className="container">
                 <div className="row">
-                    <div className="col-lg-2">
+                    <div className="col-lg-1">
                         <div className="header__logo">
                             <a onClick={() => navigate("/")}>
                                 <img src="/img/logo.png" alt="true" />
@@ -153,10 +159,41 @@ export default function Header() {
                             </nav>
                         </div>
                     </div>
-                    <div className="col-lg-3">
+                    <div className="col-lg-4">
                         <div className="header__right">
                             <a className="search-switch searchIcon">
-                                <SearchOverlay />
+                                <div className="d-flex search__field">
+                                    <input
+                                        name=""
+                                        className="searchBar__input"
+                                        id="inputEmailAddress"
+                                        type="text"
+                                        placeholder="Find Series..."
+                                        onChange={handleSearchDropdown}
+                                    />
+                                    <button className="buttonSearch">
+                                        <span className="icon_search" />
+                                    </button>
+                                </div>
+                                <div className="hearder__search__recom_dropdown">
+                                    <Table responsive="xl" borderless='false' hover>
+                                        <tbody hov>
+                                            <tr>
+                                                <td><span className="icon_search" /></td>
+                                                <td>Sword art online ss1</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span className="icon_search" /></td>
+                                                <td>Sword art online ss2</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td><span className="icon_search" /></td>
+                                                <td>Sword art online ss111111111111111111</td>
+                                            </tr>
+                                        </tbody>
+                                    </Table>
+                                </div>
                             </a>
                             <a className="languages">
                                 <Dropdown>

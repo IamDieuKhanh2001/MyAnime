@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import ReactPlayer from "react-player";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { APIHistoriesSeriesUserLoggingSave } from "../../../../api/axios/historyWatchingAPI";
+import { APIHistoriesSeriesUserLoggingDelete, APIHistoriesSeriesUserLoggingSave } from "../../../../api/axios/historyWatchingAPI";
 import "./Film.scss";
 
 export default function Film({ episodeWatching, lastSecondExit, setEpisodeIdWatching }) {
@@ -13,7 +13,6 @@ export default function Film({ episodeWatching, lastSecondExit, setEpisodeIdWatc
   const { seriesId } = useParams();
 
   const episodeList = useSelector((state) => state.episodes.list);
-  console.log(episodeList)
 
   const videoSrc = episodeWatching.resource
   // "https://res.cloudinary.com/dpxgtmzld/video/upload/v1661585857/MyAnimeProject_TLCN/test/video1.mp4";
@@ -40,12 +39,11 @@ export default function Film({ episodeWatching, lastSecondExit, setEpisodeIdWatc
       setIsReady(true);
     }
   }, [isReady]);
-  const onEnd = React.useCallback(() => {
+  const onEnd = React.useCallback(async () => {
     console.log("Ended");
     let indexCurrentEp = episodeList.findIndex(episode => episodeWatching.id === episode.id);
     let nextEp = episodeList[indexCurrentEp + 1]
-    console.log(nextEp)
-    if(nextEp !== undefined) {
+    if(nextEp !== undefined) {                         //if current ep isn't last episode
       let params = `?episodeId=${nextEp.id}&second=0`;
       handleNavigate(`/watching/${seriesId}`, `${params}`)
       setEpisodeIdWatching(nextEp.id)
