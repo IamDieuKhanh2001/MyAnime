@@ -1,9 +1,13 @@
 import { axiosClient } from "./axiosClient";
 
-export const APIGetProducts = (page) => {
-  const url = `/movie-and-series?page=` + page
+export const APIGetProducts = (page, keyword) => {
+  const url = `/movie-and-series`
+  const params = {
+    page,
+    keyword
+  };
   return axiosClient
-    .get(url)
+    .get(url, {params})
     .catch((err) => console.log("Can't call API after 2 retries", err));
 };
 
@@ -21,10 +25,13 @@ export const APIGetAllSeriesProductById = (seriesId) => {
     .catch((err) => console.log("Can't call API after 2 retries", err));
 };
 
-export const APIGetTotalProduct = () => {
+export const APIGetTotalProduct = (keyword) => {
   const url = "/movie-and-series/count";
+  const params = {
+    keyword
+  };
   return axiosClient
-    .get(url)
+    .get(url, {params})
     .catch((err) => console.log("Can't call API after 2 retries", err));
 };
 

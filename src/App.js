@@ -23,6 +23,7 @@ import Series from "./components/pages/Admin/Series/Series";
 import History from "./components/pages/History/History";
 import { ToastContainer } from "react-toastify";
 import Episode from "./components/pages/Admin/Episode/Episode";
+import SearchKeyword from "./components/pages/SearchKeyword/SearchKeyword";
 
 function App() {
     return (
@@ -61,6 +62,7 @@ function App() {
                         <Route path="episodes" element={<Episode />} />
                         <Route path="customers" element={<Customer />} />
                     </Route>
+                    <Route path="/series/search/:kw" element={<SearchKeyword />} />
                     <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
             </Router>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import "./Header.scss";
 import Dropdown from "react-bootstrap/Dropdown";
 import { useNavigate } from "react-router-dom";
@@ -12,9 +12,12 @@ import HistoryDropdown from "./HistoryDropdown/HistoryDropdown";
 import CategoryDropdown from "./CategoryDropdown/CategoryDropdown";
 import { APIGetAllCategory } from "../../../api/axios/categoryAPI";
 import { categorySeriesActions } from "../../../api/redux/slices/categorySeriesSlice";
+
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";
+
 import { Table } from "react-bootstrap";
+import { debounce } from "lodash";
 
 export default function Header() {
     const navigate = useNavigate();
@@ -96,6 +99,21 @@ export default function Header() {
 
     const handleSearchDropdown = (e) => {
         setKeyword(e.target.value);
+        // debounceDropDown()
+    };
+
+    // const debounceDropDown = useCallback(
+    //     debounce((nextValue) => loadCollection(nextValue), 1000),
+    //     []
+    // );
+
+    const loadCollection = async (keyword) => {
+        console.log("calling api get product in search header");
+
+    };
+
+    const handleSearch = async () => {
+        navigate(`/series/search/${keyword}`);
     };
 
     const languages = [
@@ -170,7 +188,10 @@ export default function Header() {
                                         placeholder="Find Series..."
                                         onChange={handleSearchDropdown}
                                     />
-                                    <button className="buttonSearch">
+                                    <button
+                                        className="buttonSearch"
+                                        onClick={() => handleSearch()}
+                                    >
                                         <span className="icon_search" />
                                     </button>
                                 </div>
