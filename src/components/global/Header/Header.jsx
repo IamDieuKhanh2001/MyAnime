@@ -167,7 +167,7 @@ export default function Header() {
                                         className="searchBar__input"
                                         id="inputEmailAddress"
                                         type="text"
-                                        placeholder="Find Series..."
+                                        placeholder="Search Series..."
                                         onChange={handleSearchDropdown}
                                     />
                                     <button className="buttonSearch">
@@ -175,7 +175,7 @@ export default function Header() {
                                     </button>
                                 </div>
                                 <div className="hearder__search__recom_dropdown">
-                                    <Table responsive="xl" borderless='false' hover>
+                                    {/* <Table responsive="xl" borderless='false' hover>
                                         <tbody hov>
                                             <tr>
                                                 <td><span className="icon_search" /></td>
@@ -191,7 +191,7 @@ export default function Header() {
                                                 <td>Sword art online ss111111111111111111</td>
                                             </tr>
                                         </tbody>
-                                    </Table>
+                                    </Table> */}
                                 </div>
                             </a>
                             <a className="languages">
