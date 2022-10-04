@@ -191,10 +191,14 @@
       }
 
       .buttonSearch {
+        background-color: transparent;
         color: black;
+        border: none;
+        padding: 15px;
       }
 
     }
+
     .hearder__search__recom_dropdown {
       position: absolute;
       top: 102%;
