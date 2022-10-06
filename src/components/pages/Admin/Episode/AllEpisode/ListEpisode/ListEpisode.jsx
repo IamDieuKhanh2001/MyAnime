@@ -46,8 +46,8 @@ export default function ListEpisode() {
                     <button
                         className={
                             show
-                                ? "fa fa-eye-slash closeEye"
-                                : "fa fa-eye openEye"
+                                ? "fa fa-eye openEye"
+                                : "fa fa-eye-slash closeEye"
                         }
                         onClick={() => setShow(!show)}
                     ></button>
