@@ -2,8 +2,9 @@ import React from "react";
 import "./BreadcrumbOption.scss";
 import { useNavigate } from "react-router-dom";
 
-export default function BreadcrumbOption() {
+export default function BreadcrumbOption({ cateList, seriesName }) {
   const navigate = useNavigate();
+  console.log(cateList)
   return (
     <div className="breadcrumb-option">
       <div className="container">
@@ -13,10 +14,11 @@ export default function BreadcrumbOption() {
               <a onClick={() => navigate("/")}>
                 <i className="fa fa-home" /> Home
               </a>
-              <a onClick={() => navigate("/category")}>Categories</a>
-              <a onClick={() => navigate("/category")}>Romance</a>
-              <span onClick={() => navigate("/watching")}>
-                Fate Stay Night: Unlimited Blade
+              {cateList?.map((cate) => {
+                return (<a onClick={() => navigate(`/category/${cate?.id}`)}>{cate?.name}</a>)
+              })}
+              <span>
+                {seriesName}
               </span>
             </div>
           </div>

@@ -16,7 +16,11 @@ function ProductDetail({ data }) {
         } else {
             params = `?episodeId=-1&second=0`
         }
-        navigate(`/watching/${data.id}${params}`)
+        navigate(`/watching/${data.id}${params}`, {
+            state: {
+                product: data,
+            },
+        })
     }
     return (
         <div className="anime__details__content">
@@ -79,12 +83,13 @@ function ProductDetail({ data }) {
                                             <span>{t("product_detail.episode")}</span> {data.currentNumberEpisode}/{data.totalEpisode}
                                         </li>
                                         <li>
-                                            <span>{t("product_detail.genre")}</span>Live Action
-                                            {/* {data.categoryList.length !== 0 && (data.categoryList.map((category, index) => (
+                                            <span>{t("product_detail.genre")}</span>
+                                            {/* Live Action */}
+                                            {data?.categoryList?.length !== 0 && (data?.categoryList?.map((category, index) => (
                                                 <React.Fragment key={index}>
-                                                    {category.name},
+                                                    {category?.name},
                                                 </React.Fragment>
-                                            )))} */}
+                                            )))}
                                         </li>
                                     </ul>
                                 </div>

@@ -58,7 +58,7 @@ export default function Category() {
   return (
     <div className='category'>
       <Header/>
-      <BreadcrumbOption/>
+      <BreadcrumbOption cateList={[]} />
       <ProductPageable
         productTitle={category.name}
         totalProduct={totalProductByCategoryId}

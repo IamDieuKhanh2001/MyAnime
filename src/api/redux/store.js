@@ -7,6 +7,7 @@ import commentsReducer from "../redux/slices/commentSlice"
 import historyReducer from "../redux/slices/HistoryWatchingSlice"
 import userReducer from "../redux/slices/userSlice"
 import adminReducer from "../redux/slices/adminSlice"
+
 const rootReducer = {
   products: productReducer,
   totalProduct: totalProductReducer,
@@ -22,4 +23,5 @@ const store = configureStore({
   reducer: rootReducer,
 });
 
-export default store;
+ 
+export default store

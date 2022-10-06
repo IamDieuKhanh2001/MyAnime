@@ -13,6 +13,7 @@ import LoadingAnimation from '../../global/LoadingAnimation/LoadingAnimation';
 
 export default function AnimeDetail() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { seriesId } = useParams();
   const [product, setProduct] = useState({});
@@ -36,20 +37,20 @@ export default function AnimeDetail() {
   };
 
   useEffect(() => {
-    loadProductById();
     loadAllSeriesProductBySeriesId();
+    loadProductById();
   }, [seriesId]);
+
   return (
     <div className="animeDetail">
       <Header />
-      <BreadcrumbOption />
-      <div className="anime-details spad">
+      <BreadcrumbOption cateList={product.categoryList} seriesName={product.seriesName} />
+      <div className="anime-details">
         <div className="container">
           {loading ? (
             <LoadingAnimation />
           ) : (<React.Fragment>
             <ProductDetail data={product} />
-            
             <div className="row">
             <div className="col-lg-8 col-md-8">
               {/* <AnimeReview /> */}

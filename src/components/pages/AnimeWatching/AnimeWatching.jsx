@@ -43,7 +43,6 @@ export default function AnimeWatching() {
     setEpisodeLoading(true)
     console.log("Calling api get Episode");
     const resGetEpisode = await APIGetEpisodeBySeriesId(seriesId);
-    console.log(resGetEpisode.data)
     if (resGetEpisode?.status === 200) {
       const updateEpisodeListAction = episodeActions.updateList(resGetEpisode.data);
       dispatch(updateEpisodeListAction);
@@ -67,11 +66,10 @@ export default function AnimeWatching() {
     return location.pathname.slice(0, location.pathname.lastIndexOf('/')) + "/" + seriesId
   }
 
-
   return (
     <div className="animeWatching">
       <Header />
-      <BreadcrumbOption />
+      <BreadcrumbOption cateList={location.state?.product.categoryList} seriesName={location.state?.product.seriesName} />
       <div className="anime-details spad">
         <div className="container">
           <div className="row">
@@ -98,7 +96,7 @@ export default function AnimeWatching() {
                     {
                       episodeList.map((episode, index) => (
                         <a className={episode.id === getCurrentWatchingEpisode().id ? "episode__active" : ""} href={getCurrentPathWithoutLastPart() + `?episodeId=${episode.id}`} key={index}>
-                          {t("anime_watching.episode_num_prefix")} 
+                          {t("anime_watching.episode_num_prefix")}
                           {episode.title}
                         </a>
                       ))

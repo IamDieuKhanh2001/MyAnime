@@ -28,7 +28,7 @@ function UserInfoForm({ loadUserLogging }) {
 
     const initialValues = {
         fullName: data.fullName !== undefined ? data.fullName : "",
-        email: data.email !== undefined ? data.email : "",
+        email: data?.email !== undefined ? data?.email : "",
     };
 
     const validationSchema = Yup.object().shape({
