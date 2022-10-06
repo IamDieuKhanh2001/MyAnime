@@ -58,6 +58,25 @@
     vertical-align: middle;
     border-top: 0.5px solid transparent;
     padding: 12px 8px 12px 12px;
+    .buttonUnblock{
+      background-color: green;
+      color: #fff;
+      padding: 5px 10px;
+      width: 70px;
+      border: none;
+      border-radius: 20px;
+      text-transform: uppercase;
+    }
+    .buttonBlock{
+      background-color: #C41E3A;
+      color: #fff;
+      padding: 5px 10px;
+      width: 70px;
+      border: none;
+      border-radius: 20px;
+      text-transform: uppercase;
+
+    }
   }
   a:hover {
     text-decoration: none;

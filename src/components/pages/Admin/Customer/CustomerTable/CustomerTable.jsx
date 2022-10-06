@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import "./CustomerTable.scss";
 
 export default function CustomerTable() {
+  const [show, setShow] = useState(false);
+  const [show1, setShow1] = useState(false);
+  const [show2, setShow2] = useState(false);
   return (
     <div className="customerTable">
       <div className="container">
@@ -40,12 +43,12 @@ export default function CustomerTable() {
                         <td className="dateCreated">2022/08/12</td>
                         <td className="email">trongkhanh@gmail.com</td>
                         <td style={{ width: "20%" }}>
-                          <button className="btn text-primary">
-                            <i className="bx bx-block"></i>
-                          </button>
-                          <button className="btn text-danger">
-                            <i className="bx bx-trash"></i>
-                          </button>
+                        <button
+                        className={show?"buttonUnblock": "buttonBlock"}
+                        onClick={() => setShow(!show)}
+                    >
+                      {show ?"Unblock":"Block"}
+                    </button>
                         </td>
                       </tr>
                       <tr>
@@ -62,12 +65,12 @@ export default function CustomerTable() {
 
                         <td className="email">trongkhanh@gmail.com</td>
                         <td style={{ width: "20%" }}>
-                          <button className="btn text-primary">
-                            <i className="bx bx-block"></i>
-                          </button>
-                          <button className="btn text-danger">
-                            <i className="bx bx-trash"></i>
-                          </button>
+                        <button
+                        className={show1?"buttonUnblock": "buttonBlock"}
+                        onClick={() => setShow1(!show1)}
+                    >
+                      {show1 ?"Unblock":"Block"}
+                    </button>
                         </td>
                       </tr>
                       <tr>
@@ -84,12 +87,12 @@ export default function CustomerTable() {
 
                         <td className="email">trongkhanh@gmail.com</td>
                         <td style={{ width: "20%" }}>
-                          <button className="btn text-primary">
-                            <i className="bx bx-block"></i>
-                          </button>
-                          <button className="btn text-danger">
-                            <i className="bx bx-trash"></i>
-                          </button>
+                        <button
+                        className={show2?"buttonUnblock": "buttonBlock"}
+                        onClick={() => setShow2(!show2)}
+                    >
+                      {show2 ?"Unblock":"Block"}
+                    </button>
                         </td>
                       </tr>
                     </tbody>
