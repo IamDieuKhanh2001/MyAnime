@@ -4,6 +4,7 @@ import {
     Route,
     Navigate,
 } from "react-router-dom";
+import React from 'react';
 import { Home } from "./components/pages/Home/Home";
 import Login from "./components/pages/Login/Login";
 // import { Social } from "./components/global/Social/Social";
@@ -24,6 +25,7 @@ import History from "./components/pages/History/History";
 import { ToastContainer } from "react-toastify";
 import Episode from "./components/pages/Admin/Episode/Episode";
 import SearchKeyword from "./components/pages/SearchKeyword/SearchKeyword";
+import { Helmet } from "react-helmet";
 
 function App() {
     return (
@@ -67,6 +69,12 @@ function App() {
                 </Routes>
             </Router>
             <ToastContainer />
+            <Helmet>
+                <script src=
+                    // "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+                    "/js/jquery-3.3.1.min.js"
+                    type="text/javascript" />
+            </Helmet>
         </>
     );
 }
