@@ -25,7 +25,6 @@ export default function Product() {
       const updateListAction = productsActions.updateList(resGetProduct.data);
       dispatch(updateListAction);
     }
-    console.log(resGetProduct.data)
     setLoading(false)
   };
 

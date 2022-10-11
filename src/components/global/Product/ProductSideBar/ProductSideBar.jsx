@@ -1,9 +1,39 @@
 import React from "react";
+import { useState } from "react";
+import { useEffect } from "react";
+import { Helmet } from "react-helmet";
+import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { APIGetTopMovieSeriesViewInNumberOfDay } from "../../../../api/axios/productAPI";
+import { productsActions } from "../../../../api/redux/slices/productSlice";
 import ProductSideBarItem from "./ProductSideBarItem";
 
 export default function ProductSideBar() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { t } = useTranslation();
+  const [loading, setLoading] = useState(false)
+
+  const topProductViewInDay = useSelector((state) => state.products.topViewInDay);
+
+  const loadTopViewProduct = async () => {
+    console.log("Calling api get top view");
+    setLoading(true)
+    const resGetTopViewInDay = await APIGetTopMovieSeriesViewInNumberOfDay(1, 5);
+    console.log(resGetTopViewInDay)
+    if (resGetTopViewInDay?.status === 200) {
+      const updateTopViewInDayAction = productsActions.updateTopViewInDay(resGetTopViewInDay.data);
+      dispatch(updateTopViewInDayAction);
+    }
+    setLoading(false)
+  };
+
+  useEffect(() => {
+    loadTopViewProduct();
+
+  }, []);
+
   return (
     <div className="product__sidebar">
       <div className="product__sidebar__view">
@@ -11,15 +41,29 @@ export default function ProductSideBar() {
           <h5>Top Views</h5>
         </div>
         <ul className="filter__controls">
-          <li className="active" data-filter="*">
+          <li className="active" data-filter=".day">
             Day
           </li>
           <li data-filter=".week">Week</li>
           <li data-filter=".month">Month</li>
           <li data-filter=".years">Years</li>
+          <li data-filter="*">
+            All
+          </li>
         </ul>
         <div className="filter__gallery">
-          <div className="product__sidebar__view__item set-bg mix day years" data-setbg="img/sidebar/tv-1.jpg">
+          {/* {topProductViewInDay.map((productInDay, index) => (
+            <ProductSideBarItem data={productInDay} key={index} />
+          ))} */}
+          <ProductSideBarItem data={{
+            image: "https://res.cloudinary.com/dpxgtmzld/image/upload/v1662211584/MyAnimeProject_TLCN/movie_series/3.jpg",
+            name: "Test item 1"
+          }}/>
+          <ProductSideBarItem />
+          <ProductSideBarItem />
+          <ProductSideBarItem />
+
+          {/* <div className="product__sidebar__view__item set-bg mix day years" data-setbg="img/sidebar/tv-1.jpg">
             <div className="ep">18 / ?</div>
             <div className="view"><i className="fa fa-eye" /> 9141</div>
             <h5><a href="#">Boruto: Naruto next generations</a></h5>
@@ -43,7 +87,7 @@ export default function ProductSideBar() {
             <div className="ep">18 / ?</div>
             <div className="view"><i className="fa fa-eye" /> 9141</div>
             <h5><a href="#">Fate stay night unlimited blade works</a></h5>
-          </div>
+          </div> */}
         </div>
 
       </div>

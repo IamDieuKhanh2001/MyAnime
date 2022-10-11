@@ -35,71 +35,72 @@ export default function HeroSlider() {
   // }, []);
 
   return (
+    // <!-- Hero Section Begin -->
     <div className="hero">
       <div className="container">
-      <OwlCarousel
-            className="owl-theme hero__slider owl-carousel"
-            {...options}
+        <OwlCarousel
+          className="owl-theme hero__slider owl-carousel"
+          {...options}
+        >
+
+          <div
+            className="hero__items set-bg"
+            style={{
+              backgroundImage: 'url("/img/hero/hero-1.jpg")',
+            }}
           >
-            
-            <div
-              className="hero__items set-bg"
-              style={{
-                backgroundImage: 'url("/img/hero/hero-1.jpg")',
-              }}
-            >
-              <div className="row">
-                <div className="col-lg-6">
-                  <div className="hero__text">
-                    <div className="label">Adventure</div>
-                    <h2>Fate / Stay Night: Unlimited Blade Works</h2>
-                    <p>After 30 days of travel across the world...</p>
-                    <a onClick={() => navigate("/watching")}>
-                      <span>Watch Now</span> <i className="fa fa-angle-right" />
-                    </a>
-                  </div>
+            <div className="row">
+              <div className="col-lg-6">
+                <div className="hero__text">
+                  <div className="label">Adventure</div>
+                  <h2>Fate / Stay Night: Unlimited Blade Works</h2>
+                  <p>After 30 days of travel across the world...</p>
+                  <a onClick={() => navigate("/watching")}>
+                    <span>Watch Now</span> <i className="fa fa-angle-right" />
+                  </a>
                 </div>
               </div>
             </div>
-            <div
-              className="hero__items set-bg"
-              style={{
-                backgroundImage: 'url("/img/hero/hero-2.jpg")',
-              }}
-            >
-              <div className="row">
-                <div className="col-lg-6">
-                  <div className="hero__text">
-                    <div className="label">Adventure</div>
-                    <h2>Fate / Stay Night: Unlimited Blade Works</h2>
-                    <p>After 30 days of travel across the world...</p>
-                    <a onClick={() => navigate("/watching")}>
-                      <span>Watch Now</span> <i className="fa fa-angle-right" />
-                    </a>
-                  </div>
+          </div>
+          <div
+            className="hero__items set-bg"
+            style={{
+              backgroundImage: 'url("/img/hero/hero-2.jpg")',
+            }}
+          >
+            <div className="row">
+              <div className="col-lg-6">
+                <div className="hero__text">
+                  <div className="label">Adventure</div>
+                  <h2>Fate / Stay Night: Unlimited Blade Works</h2>
+                  <p>After 30 days of travel across the world...</p>
+                  <a onClick={() => navigate("/watching")}>
+                    <span>Watch Now</span> <i className="fa fa-angle-right" />
+                  </a>
                 </div>
               </div>
             </div>
-            <div
-              className="hero__items set-bg"
-              style={{
-                backgroundImage: 'url("/img/hero/hero-3.jpg")',
-              }}
-            >
-              <div className="row">
-                <div className="col-lg-6">
-                  <div className="hero__text">
-                    <div className="label">Adventure</div>
-                    <h2>Fate / Stay Night: Unlimited Blade Works</h2>
-                    <p>After 30 days of travel across the world...</p>
-                    <a onClick={() => navigate("/watching")}>
-                      <span>Watch Now</span> <i className="fa fa-angle-right" />
-                    </a>
-                  </div>
+          </div>
+          <div
+            className="hero__items set-bg"
+            style={{
+              backgroundImage: 'url("/img/hero/hero-3.jpg")',
+            }}
+          >
+            <div className="row">
+              <div className="col-lg-6">
+                <div className="hero__text">
+                  <div className="label">Adventure</div>
+                  <h2>Fate / Stay Night: Unlimited Blade Works</h2>
+                  <p>After 30 days of travel across the world...</p>
+                  <a onClick={() => navigate("/watching")}>
+                    <span>Watch Now</span> <i className="fa fa-angle-right" />
+                  </a>
                 </div>
               </div>
             </div>
-          </OwlCarousel>
+          </div>
+        </OwlCarousel>
       </div>
     </div>
   );

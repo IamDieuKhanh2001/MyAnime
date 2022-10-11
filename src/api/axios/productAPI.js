@@ -51,3 +51,14 @@ export const APIGetTotalProductByCategoryId = (categoryId) => {
     .get(url)
     .catch((err) => console.log("Can't call API after 2 retries", err));
 };
+
+export const APIGetTopMovieSeriesViewInNumberOfDay = (numberOfDay, size) => {
+  const url = `/statistics/top-movie-series-most-view-in-number-of-day`;
+  const params = {
+    numberOfDay,
+    size
+  };
+  return axiosClient
+    .get(url, {params})
+    .catch((err) => console.log("Can't call API after 2 retries", err));
+};

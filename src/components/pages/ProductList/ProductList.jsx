@@ -40,7 +40,7 @@ export default function ProductList() {
     setTotalProduct(resGetTotalProduct.data.totalSeries);
   };
 
-  
+
   useEffect(() => {
     loadTotalProduct();
     loadProduct();

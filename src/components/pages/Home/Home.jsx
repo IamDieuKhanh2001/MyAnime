@@ -15,6 +15,10 @@ export const Home = () => {
   return (
     <div className="home">
       <Layout>
+        {/* <!-- Page Preloder --> */}
+        {/* <div id="preloder">
+          <div className="loader" />
+        </div> */}
         <HeroSlider />
         <Product />
       </Layout>

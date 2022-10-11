@@ -8,6 +8,9 @@ export default function Footer() {
   const navigate = useNavigate();
   return (
     <footer id="footer">
+      <div className="page-up">
+        <a href="#" id="scrollToTopButton"><span className="arrow_carrot-up"></span></a>
+      </div>
       <div className="container">
         <div className="row top">
           <div className="col__left col-md-4 col-sm-12">

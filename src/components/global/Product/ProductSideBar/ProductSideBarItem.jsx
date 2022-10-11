@@ -1,14 +1,14 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 
-function ProductSideBarItem({itemSideBar}) {
+function ProductSideBarItem({ data }) {
     const navigate = useNavigate();
     return (
         <div
             onClick={() => navigate("/details")}
-            className="product__sidebar__view__item set-bg"
+            className="product__sidebar__view__item set-bg mix day years"
             style={{
-                backgroundImage: `url("/img/sidebar/comment-2.jpg")`,
+                backgroundImage: `url(${data?.image})`,
             }}
         >
             <div className="ep">18 / ?</div>
@@ -16,9 +16,24 @@ function ProductSideBarItem({itemSideBar}) {
                 <i className="fa fa-eye" /> 9141
             </div>
             <h5>
-                <a href="">Boruto: Naruto next generations</a>
+                <a href="">{data?.name}</a>
             </h5>
         </div>
+        // <div
+        //     onClick={() => navigate("/details")}
+        //     className="product__sidebar__view__item set-bg mix years"
+        //     style={{
+        //         backgroundImage: `url(./img/hero/hero-1.jpg)`,
+        //     }}
+        // >
+        //     <div className="ep">18 / ?</div>
+        //     <div className="view">
+        //         <i className="fa fa-eye" /> 9141
+        //     </div>
+        //     <h5>
+        //         <a href="">Test item 1</a>
+        //     </h5>
+        // </div>
     )
 }
 

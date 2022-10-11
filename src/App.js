@@ -74,6 +74,24 @@ function App() {
                     // "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
                     "/js/jquery-3.3.1.min.js"
                     type="text/javascript" />
+                {/* <script src=
+                    "/js/jquery.slicknav.js"
+                    type="text/javascript" />
+                <script src=
+                    "/js/owl.carousel.min.js"
+                    type="text/javascript" />
+                <script src=
+                    "/js/bootstrap.min.js"
+                    type="text/javascript" />
+                <script src=
+                    "/js/jquery.nice-select.min.js"
+                    type="text/javascript" />
+                <script src=
+                    "/js/mixitup.min.js"
+                    type="text/javascript" />
+                <script src=
+                    "/js/main.js"
+                    type="text/javascript" /> */}
             </Helmet>
         </>
     );

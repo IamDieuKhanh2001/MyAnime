@@ -1,10 +1,41 @@
 @import "../../../style/_variable.scss";
+
+/*---------------------
+  Footer
+-----------------------*/
+
 footer {
   background: $footer-color;
-  font-family: "Oswald", sans-serif;
-  padding: 50px 0;
-  cursor: pointer;
+	padding-top: 60px;
+	padding-bottom: 40px;
+	position: relative;
 }
+
+.page-up {
+  position: absolute;
+  left: 50%;
+  top: -25px;
+  margin-left: -25px;
+
+  a {
+    display: inline-block;
+    font-size: 36px;
+    color: #ffffff;
+    height: 50px;
+    width: 50px;
+    background: #e53637;
+    line-height: 50px;
+    text-align: center;
+    border-radius: 50%;
+
+    span {
+      position: relative;
+      top: 2px;
+      left: -1px;
+    }
+  }
+}
+
 
 footer .top .title {
   color: white;
@@ -123,12 +154,15 @@ footer .bottom .boCongThuongIcon {
   .hideOnMobile {
     display: none !important;
   }
+
   .top a {
     display: inline-block !important;
   }
+
   .bottom .info {
     text-align: center;
   }
+
   .bottom .imgFooter {
     padding: 0 15px !important;
   }
@@ -138,11 +172,13 @@ footer .bottom .boCongThuongIcon {
   .row {
     text-align: center;
   }
+
   .bottom .imgFooter {
     display: flex;
     justify-content: center !important;
     align-items: center;
   }
+
   .bottom .zionIcon {
     margin-bottom: 20px;
   }
@@ -153,4 +189,3 @@ footer .bottom .boCongThuongIcon {
     padding-bottom: 70px;
   }
 }
-
