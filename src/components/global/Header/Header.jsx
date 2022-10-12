@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import "./Header.scss";
 import Dropdown from "react-bootstrap/Dropdown";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { userActions } from "../../../api/redux/slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { APIGetHistoriesSeriesUserLogging } from "../../../api/axios/historyWatchingAPI";
@@ -160,22 +160,30 @@ export default function Header() {
                             <nav className="header__menu mobile-menu">
                                 <ul>
                                     <li className="active">
-                                        <a onClick={() => navigate("/")}>
-                                            {t("header.home_page_li")}
+                                        <a>
+                                            <Link to="/">
+                                                {t("header.home_page_li")}
+                                            </Link>
                                         </a>
                                     </li>
                                     <li>
-                                        <a>{t("header.category_li")}</a>
+                                        <a>
+                                            {t("header.category_li")}
+                                        </a>
                                         <CategoryDropdown />
                                     </li>
                                     <li>
-                                        <a onClick={() => navigate("/blog")}>
-                                            {t("header.our_blog_li")}
+                                        <a>
+                                            <Link to="/blog">
+                                                {t("header.our_blog_li")}
+                                            </Link>
                                         </a>
                                     </li>
                                     <li>
-                                        <a onClick={() => navigate("/history")}>
-                                            {t("header.history_li")}
+                                        <a>
+                                            <Link to="/history">
+                                                {t("header.history_li")}
+                                            </Link>
                                         </a>
                                         <HistoryDropdown
                                             historyToday={historyToday}

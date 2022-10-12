@@ -19,8 +19,8 @@ function HistoryDropdown({ historyToday, historyEarlier }) {
                                     Today
                                 </Typography>
                                 {historyToday.slice(0, 2).map((history, index) => (
-                                    <li>
-                                        <HistoryItemDropdown data={history} key={index} />
+                                    <li key={index}>
+                                        <HistoryItemDropdown data={history} />
                                     </li>
                                 ))}
                             </React.Fragment>
@@ -32,8 +32,8 @@ function HistoryDropdown({ historyToday, historyEarlier }) {
                                 Earlier
                             </Typography>
                             {historyEarlier.slice(0, 2).map((history, index) => (
-                                <li>
-                                    <HistoryItemDropdown data={history} key={index} />
+                                <li key={index}>
+                                    <HistoryItemDropdown data={history} />
                                 </li>
                             ))}
                         </React.Fragment>)

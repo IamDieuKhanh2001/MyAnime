@@ -4,7 +4,8 @@ import { useEffect } from "react";
 import ReactPlayer from "react-player";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { APIHistoriesSeriesUserLoggingDelete, APIHistoriesSeriesUserLoggingSave } from "../../../../api/axios/historyWatchingAPI";
+import { APIEpisodeIncreaseView } from "../../../../api/axios/episodeAPI";
+import {  APIHistoriesSeriesUserLoggingSave } from "../../../../api/axios/historyWatchingAPI";
 import "./Film.scss";
 
 export default function Film({ episodeWatching, lastSecondExit, setEpisodeIdWatching }) {
@@ -20,10 +21,20 @@ export default function Film({ episodeWatching, lastSecondExit, setEpisodeIdWatc
   const [isPlaying, setIsPlaying] = React.useState(true);
   const [isReady, setIsReady] = React.useState(false);
   const [played, setPlayed] = useState(0);
+  const [viewIncreased, setViewIncreased] = useState(false)
 
   const saveUserLoggingHistory = async (playedSecond, epId) => {
     console.log("Calling api save history series");
     const resHistorySave = await APIHistoriesSeriesUserLoggingSave(playedSecond, epId);
+  };
+
+  
+  const episodeIncreaseView = async () => {
+    console.log("Calling api increase view Episode");
+    const resIncreaseView = await APIEpisodeIncreaseView(episodeWatching.id);
+    if(resIncreaseView?.response?.status === 400) {
+      setViewIncreased(true)
+    }
   };
 
   const onPause = () => {
@@ -55,7 +66,12 @@ export default function Film({ episodeWatching, lastSecondExit, setEpisodeIdWatc
     navigate(`${urlPath}${params}`)
   }
   const onProgress = React.useCallback((progress) => {
+    let maxDuration = playerRef.current.getDuration()
     setPlayed(progress.playedSeconds)
+    if(played >= (maxDuration/2) && viewIncreased === false) { //if view never increase before
+      episodeIncreaseView()
+      setViewIncreased(true)
+    } 
   });
 
   useEffect(() => {

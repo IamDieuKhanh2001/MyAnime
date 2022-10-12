@@ -15,13 +15,74 @@ export default function ProductSideBar() {
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false)
 
+  let b = true
   const topProductViewInDay = useSelector((state) => state.products.topViewInDay);
+  let list = []
+  // let list = [
+  // {
+  //   id: 4,
+  //   createAt: '2022-09-03 22:21:36',
+  //   dateAired: '2022-01-19T17:00:00.000+00:00',
+  //   description: 'The best ever',
+  //   image: 'https://res.cloudinary.com/dpxgtmzld/image/upload/v1663046728/MyAnimeProject_TLCN/movie_series/4.jpg',
+  //   name: 'Tate No Juusha Ss3',
+  //   totalEpisode: 12,
+  //   movieId: 43,
+  //   movieData: {
+  //     id: 43,
+  //     title: 'Tate no Juusha',
+  //     studioName: 'Champion Japan Entertainment',
+  //     createAt: '2022-09-17 15:13:53',
+  //     categoryData: [
+  //       {
+  //         id: 2,
+  //         name: 'Hành động',
+  //         createAt: '2022-09-22 01:37:18'
+  //       },
+  //       {
+  //         id: 3,
+  //         name: 'Trinh thám',
+  //         createAt: '2022-09-22 01:37:19'
+  //       }
+  //     ]
+  //   },
+  //   statisticsViewTotal: 1
+  // },
+  // {
+  //   id: 1,
+  //   createAt: '2022-09-04 10:42:30',
+  //   dateAired: '2022-01-19T00:00:00.000+00:00',
+  //   description: 'Every human inhabiting the world of Alcia is branded by a “Count” or a number written on their body. For Hina’s mother, her total drops to 1 and she’s pulled into the Abyss',
+  //   image: 'https://res.cloudinary.com/dpxgtmzld/image/upload/v1664869349/MyAnimeProject_TLCN/movie_series/1.jpg',
+  //   name: 'Tate No Juusha Ss1',
+  //   totalEpisode: 12,
+  //   movieId: 43,
+  //   movieData: {
+  //     id: 43,
+  //     title: 'Tate no Juusha',
+  //     studioName: 'Champion Japan Entertainment',
+  //     createAt: '2022-09-17 15:13:53',
+  //     categoryData: [
+  //       {
+  //         id: 2,
+  //         name: 'Hành động',
+  //         createAt: '2022-09-22 01:37:18'
+  //       },
+  //       {
+  //         id: 3,
+  //         name: 'Trinh thám',
+  //         createAt: '2022-09-22 01:37:19'
+  //       }
+  //     ]
+  //   },
+  //   statisticsViewTotal: 1
+  // },
+  // ]
 
   const loadTopViewProduct = async () => {
     console.log("Calling api get top view");
     setLoading(true)
     const resGetTopViewInDay = await APIGetTopMovieSeriesViewInNumberOfDay(1, 5);
-    console.log(resGetTopViewInDay)
     if (resGetTopViewInDay?.status === 200) {
       const updateTopViewInDayAction = productsActions.updateTopViewInDay(resGetTopViewInDay.data);
       dispatch(updateTopViewInDayAction);
@@ -33,6 +94,7 @@ export default function ProductSideBar() {
     loadTopViewProduct();
 
   }, []);
+  console.log(list)
 
   return (
     <div className="product__sidebar">
@@ -52,13 +114,14 @@ export default function ProductSideBar() {
           </li>
         </ul>
         <div className="filter__gallery">
-          {/* {topProductViewInDay.map((productInDay, index) => (
-            <ProductSideBarItem data={productInDay} key={index} />
-          ))} */}
-          <ProductSideBarItem data={{
+          {topProductViewInDay.map((productInDay, index) => {
+            return (<ProductSideBarItem data={productInDay} key={index} />)
+          })}
+
+          {b === true && <ProductSideBarItem data={{
             image: "https://res.cloudinary.com/dpxgtmzld/image/upload/v1662211584/MyAnimeProject_TLCN/movie_series/3.jpg",
-            name: "Test item 1"
-          }}/>
+            name: "Test item 100"
+          }} />}
           <ProductSideBarItem />
           <ProductSideBarItem />
           <ProductSideBarItem />
