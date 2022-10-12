@@ -160,11 +160,9 @@ export default function Header() {
                             <nav className="header__menu mobile-menu">
                                 <ul>
                                     <li className="active">
-                                        <a>
-                                            <Link to="/">
-                                                {t("header.home_page_li")}
-                                            </Link>
-                                        </a>
+                                        <Link to="/">
+                                            {t("header.home_page_li")}
+                                        </Link>
                                     </li>
                                     <li>
                                         <a>
@@ -173,18 +171,14 @@ export default function Header() {
                                         <CategoryDropdown />
                                     </li>
                                     <li>
-                                        <a>
-                                            <Link to="/blog">
-                                                {t("header.our_blog_li")}
-                                            </Link>
-                                        </a>
+                                        <Link to="/blog">
+                                            {t("header.our_blog_li")}
+                                        </Link>
                                     </li>
                                     <li>
-                                        <a>
-                                            <Link to="/history">
-                                                {t("header.history_li")}
-                                            </Link>
-                                        </a>
+                                        <Link to="/history">
+                                            {t("header.history_li")}
+                                        </Link>
                                         <HistoryDropdown
                                             historyToday={historyToday}
                                             historyEarlier={historyEarlier}
