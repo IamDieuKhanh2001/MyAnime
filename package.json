@@ -51,6 +51,7 @@
     "react-select": "^5.4.0",
     "react-slick": "^0.29.0",
     "react-spinners": "^0.13.4",
+    "react-swipeable-views": "^0.14.0",
     "react-time-ago": "^7.2.1",
     "react-toastify": "^9.0.8",
     "redux": "^4.2.0",
