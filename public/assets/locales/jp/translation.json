@@ -4,6 +4,7 @@
     "category_li": "カテゴリー",
     "our_blog_li": "僕たちのブログ",
     "history_li": "れきし",
+    "search_placeholder": "何をさがしていますか。",
     "profile_dropdown": {
       "logout": "ログアウトする",
       "signup": "サインアップする",
@@ -29,7 +30,15 @@
     "section_popular_show_title": "人気番組",
     "btn_all_text": "すべて見る",
     "section_recently_added_show_title": "さいきんついかされた番組",
-    "section_live_action_title": "ライブアクション"
+    "section_live_action_title": "ライブアクション",
+    "side_bar": {
+      "top_view_title": "一番見ている",
+      "day": "今日",
+      "week": "今週",
+      "month": "今月",
+      "year": "今年",
+      "current_comment_title": "最近のコメント"
+    }
   },
   "breadcrumb": {
     "login": {

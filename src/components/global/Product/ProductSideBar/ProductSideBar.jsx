@@ -7,104 +7,60 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { APIGetTopMovieSeriesViewInNumberOfDay } from "../../../../api/axios/productAPI";
 import { productsActions } from "../../../../api/redux/slices/productSlice";
-import ProductSideBarItem from "./ProductSideBarItem";
+import LoadingAnimation from "../../LoadingAnimation/LoadingAnimation";
 import ViewTabPanel from "./ViewTabPanel/ViewTabPanel";
 
 export default function ProductSideBar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const [loading, setLoading] = useState(false)
-
-  const topProductViewInDay = useSelector((state) => state.products.topViewInDay);
-  let list = [
-    // {
-    //   id: 4,
-    //   createAt: '2022-09-03 22:21:36',
-    //   dateAired: '2022-01-19T17:00:00.000+00:00',
-    //   description: 'The best ever',
-    //   image: 'https://res.cloudinary.com/dpxgtmzld/image/upload/v1663046728/MyAnimeProject_TLCN/movie_series/4.jpg',
-    //   name: 'Tate No Juusha Ss3',
-    //   totalEpisode: 12,
-    //   movieId: 43,
-    //   movieData: {
-    //     id: 43,
-    //     title: 'Tate no Juusha',
-    //     studioName: 'Champion Japan Entertainment',
-    //     createAt: '2022-09-17 15:13:53',
-    //     categoryData: [
-    //       {
-    //         id: 2,
-    //         name: 'Hành động',
-    //         createAt: '2022-09-22 01:37:18'
-    //       },
-    //       {
-    //         id: 3,
-    //         name: 'Trinh thám',
-    //         createAt: '2022-09-22 01:37:19'
-    //       }
-    //     ]
-    //   },
-    //   statisticsViewTotal: 1
-    // },
-    // {
-    //   id: 1,
-    //   createAt: '2022-09-04 10:42:30',
-    //   dateAired: '2022-01-19T00:00:00.000+00:00',
-    //   description: 'Every human inhabiting the world of Alcia is branded by a “Count” or a number written on their body. For Hina’s mother, her total drops to 1 and she’s pulled into the Abyss',
-    //   image: 'https://res.cloudinary.com/dpxgtmzld/image/upload/v1664869349/MyAnimeProject_TLCN/movie_series/1.jpg',
-    //   name: 'Tate No Juusha Ss1',
-    //   totalEpisode: 12,
-    //   movieId: 43,
-    //   movieData: {
-    //     id: 43,
-    //     title: 'Tate no Juusha',
-    //     studioName: 'Champion Japan Entertainment',
-    //     createAt: '2022-09-17 15:13:53',
-    //     categoryData: [
-    //       {
-    //         id: 2,
-    //         name: 'Hành động',
-    //         createAt: '2022-09-22 01:37:18'
-    //       },
-    //       {
-    //         id: 3,
-    //         name: 'Trinh thám',
-    //         createAt: '2022-09-22 01:37:19'
-    //       }
-    //     ]
-    //   },
-    //   statisticsViewTotal: 1
-    // },
-  ]
+  const [loadingTopView, setLoadingTopView] = useState(false)
 
   const loadTopViewProduct = async () => {
     console.log("Calling api get top view");
-    setLoading(true)
+    setLoadingTopView(true)
     const resGetTopViewInDay = await APIGetTopMovieSeriesViewInNumberOfDay(1, 5);
     if (resGetTopViewInDay?.status === 200) {
       const updateTopViewInDayAction = productsActions.updateTopViewInDay(resGetTopViewInDay.data);
       dispatch(updateTopViewInDayAction);
     }
-    setLoading(false)
+    const resGetTopViewInWeek = await APIGetTopMovieSeriesViewInNumberOfDay(7, 5);
+    if (resGetTopViewInWeek?.status === 200) {
+      const updateTopViewInWeekAction = productsActions.updateTopViewInWeek(resGetTopViewInWeek.data);
+      dispatch(updateTopViewInWeekAction);
+    }
+    const resGetTopViewInMonth = await APIGetTopMovieSeriesViewInNumberOfDay(30, 5);
+    if (resGetTopViewInMonth?.status === 200) {
+      const updateTopViewInMonthAction = productsActions.updateTopViewInMonth(resGetTopViewInMonth.data);
+      dispatch(updateTopViewInMonthAction);
+    }
+    const resGetTopViewInYear = await APIGetTopMovieSeriesViewInNumberOfDay(30, 5);
+    if (resGetTopViewInYear?.status === 200) {
+      const updateTopViewInYearAction = productsActions.updateTopViewInYear(resGetTopViewInYear.data);
+      dispatch(updateTopViewInYearAction);
+    }
+    setLoadingTopView(false)
   };
 
   useEffect(() => {
     loadTopViewProduct();
   }, []);
-  console.log(list)
 
   return (
     <div className="product__sidebar">
       <div className="product__sidebar__view">
         <div className="section-title">
-          <h5>Top Views</h5>
+          <h5>{t("home.side_bar.top_view_title")}</h5>
         </div>
-        <ViewTabPanel />
+        {loadingTopView ? (
+          <LoadingAnimation />
+        ) : (
+          <ViewTabPanel />
+        )}
       </div>
       <div className="product__sidebar__comment">
         <div className="section-title">
-          <h5>Top 10 most view</h5>
+          <h5>{t("home.side_bar.current_comment_title")}</h5>
         </div>
         <div
           onClick={() => navigate("/details")}

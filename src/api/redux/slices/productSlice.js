@@ -5,6 +5,7 @@ const initialState = {
   topViewInDay: [],
   topViewInWeek: [],
   topViewInMonth: [],
+  topViewInYear: [],
 };
 
 const products = createSlice({
@@ -22,6 +23,9 @@ const products = createSlice({
     },
     updateTopViewInMonth: (state, actions) => {
       state.topViewInMonth = actions.payload;
+    },
+    updateTopViewInYear: (state, actions) => {
+      state.topViewInYear = actions.payload;
     },
   },
 });

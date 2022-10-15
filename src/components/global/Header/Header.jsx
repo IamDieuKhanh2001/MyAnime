@@ -197,7 +197,7 @@ export default function Header() {
                                         className="searchBar__input"
                                         id="inputEmailAddress"
                                         type="text"
-                                        placeholder="Search Series..."
+                                        placeholder={t("header.search_placeholder")}
                                         onChange={handleSearchDropdown}
                                     />
                                     <button

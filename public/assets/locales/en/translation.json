@@ -4,6 +4,7 @@
     "category_li": "Category",
     "our_blog_li": "Our Blog",
     "history_li": "History",
+    "search_placeholder": "Find your series here...",
     "profile_dropdown": {
       "logout": "Log out",
       "signup": "Sign Up",
@@ -29,7 +30,15 @@
     "section_popular_show_title": "Popular shows",
     "btn_all_text": "View All",
     "section_recently_added_show_title": "Recently added shows",
-    "section_live_action_title": "Live Action"
+    "section_live_action_title": "Live Action",
+    "side_bar": {
+      "top_view_title": "Top views",
+      "day": "day",
+      "week": "week",
+      "month": "month",
+      "year": "year",
+      "current_comment_title": "Current comment"
+    }
   },
   "breadcrumb": {
     "login": {

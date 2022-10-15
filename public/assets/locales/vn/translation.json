@@ -4,6 +4,7 @@
     "category_li": "Thể loại",
     "our_blog_li": "Blog",
     "history_li": "Lịch sử",
+    "search_placeholder": "Tìm kiếm phim...",
     "profile_dropdown": {
       "logout": "Đăng xuất",
       "signup": "Đăng kí tài khoản",
@@ -29,7 +30,15 @@
     "section_popular_show_title": "Các chương trình nổi tiếng",
     "btn_all_text": "Xem tất cả",
     "section_recently_added_show_title": "Mới cập nhật",
-    "section_live_action_title": "Live Action"
+    "section_live_action_title": "Live Action",
+    "side_bar": {
+      "top_view_title": "Xem nhiều nhất",
+      "day": "ngày",
+      "week": "tuần",
+      "month": "tháng",
+      "year": "năm",
+      "current_comment_title": "Comment gần đây"
+    }
   },
   "breadcrumb": {
     "login": {

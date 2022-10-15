@@ -8,6 +8,8 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import ProductSideBarItem from '../ProductSideBarItem';
+import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -44,7 +46,13 @@ function a11yProps(index) {
 
 export default function ViewTabPanel() {
     const theme = useTheme();
+    const { t } = useTranslation();
     const [value, setValue] = React.useState(0);
+
+    const topProductViewInDay = useSelector((state) => state.products.topViewInDay);
+    const topProductViewInWeek = useSelector((state) => state.products.topViewInWeek);
+    const topProductViewInMonth = useSelector((state) => state.products.topViewInMonth);
+    const topProductViewInYear = useSelector((state) => state.products.topViewInYear);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -65,10 +73,10 @@ export default function ViewTabPanel() {
                     variant="fullWidth"
                     aria-label="full width tabs example"
                 >
-                    <Tab label="Day" {...a11yProps(0)} />
-                    <Tab label="Week" {...a11yProps(1)} />
-                    <Tab label="Month" {...a11yProps(2)} />
-                    <Tab label="Year" {...a11yProps(3)} />
+                    <Tab label={t("home.side_bar.day")} {...a11yProps(0)} />
+                    <Tab label={t("home.side_bar.week")} {...a11yProps(1)} />
+                    <Tab label={t("home.side_bar.month")} {...a11yProps(2)} />
+                    <Tab label={t("home.side_bar.year")} {...a11yProps(3)} />
                 </Tabs>
             </AppBar>
             <SwipeableViews
@@ -77,24 +85,24 @@ export default function ViewTabPanel() {
                 onChangeIndex={handleChangeIndex}
             >
                 <TabPanel value={value} index={0}>
-                    <ProductSideBarItem />
-                    <ProductSideBarItem />
-                    <ProductSideBarItem />
+                    {topProductViewInDay?.map((productInday, index) => (
+                        <ProductSideBarItem data={productInday} key={index} />
+                    ))}
                 </TabPanel>
                 <TabPanel value={value} index={1} dir={theme.direction}>
-                    <ProductSideBarItem />
+                    {topProductViewInWeek?.map((productInWeek, index) => (
+                        <ProductSideBarItem data={productInWeek} key={index} />
+                    ))}
                 </TabPanel>
                 <TabPanel value={value} index={2} dir={theme.direction}>
-                    <ProductSideBarItem />
-                    <ProductSideBarItem />
-                    <ProductSideBarItem />
-                    <ProductSideBarItem />
+                    {topProductViewInMonth?.map((productInMonth, index) => (
+                        <ProductSideBarItem data={productInMonth} key={index} />
+                    ))}
                 </TabPanel>
                 <TabPanel value={value} index={3} dir={theme.direction}>
-                    <ProductSideBarItem />
-                    <ProductSideBarItem />
-                    <ProductSideBarItem />
-                    <ProductSideBarItem />
+                    {topProductViewInYear?.map((productInYear, index) => (
+                        <ProductSideBarItem data={productInYear} key={index} />
+                    ))}
                 </TabPanel>
             </SwipeableViews>
         </Box>
