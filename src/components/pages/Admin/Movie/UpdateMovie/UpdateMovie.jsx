@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import LoadingAnimation from "../../../../global/LoadingAnimation/LoadingAnimation";
 import {
     APIAddMovie,
+    APIGetMovie,
     APIGetMovieCategories,
     APIUpdateMovie,
     APIUpdateMovieCategories,
@@ -62,12 +63,7 @@ export default function UpdateMovie({ movie, hideDiaglogUpdate }) {
             });
             console.log(resUpdateCategory);
             if (resUpdate?.status === 200) {
-                const updatedMovie = resUpdate.data.data;
-                let index = _.findIndex(movies, { id: movie.id });
-                let temp = [...movies];
-                temp[index] = updatedMovie;
-                const updateMoviesAction = adminActions.updateMovies(temp);
-                dispatch(updateMoviesAction);
+                await loadMovies()
                 toast.success(`Update movie success`);
                 hideDiaglogUpdate();
             }
@@ -76,7 +72,18 @@ export default function UpdateMovie({ movie, hideDiaglogUpdate }) {
         }
         //console.log(fields);
     };
-
+    const loadMovies = async () => {
+        try {
+            console.log("Calling api get movies")
+            const resGetMovies = await APIGetMovie();
+            if (resGetMovies?.status === 200) {
+                const updateMoviesAction = adminActions.updateMovies(resGetMovies.data)
+                dispatch(updateMoviesAction);
+            }
+        } catch (e) {
+            console.log(e)
+        }
+    }
     const loadCategories = async () => {
         setLoadCategory(true);
         const resGetCategory = await APIGetMovieCategories();

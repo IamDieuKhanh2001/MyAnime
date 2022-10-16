@@ -4,6 +4,7 @@ const initialState = {
     movies: [],
     movieSeries: [],
     movieCategories:[],
+    movieSeriesEp:[],
     isShowModalUpdateMovie:false,
     isShowModalUpdateSerie:false,
     isInvalidUpdateMovie:false,
@@ -38,8 +39,10 @@ const admin = createSlice({
         },
         setIsUpdateMovie:(state,actions)=>{
             state.isUpdateMovie=actions.payload
+        },
+        setMovieSeriesEp:(state,actions)=>{
+            state.movieSeriesEp=actions.payload
         }
-        
     },
 });
 

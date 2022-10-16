@@ -7,6 +7,7 @@ import commentsReducer from "../redux/slices/commentSlice"
 import historyReducer from "../redux/slices/HistoryWatchingSlice"
 import userReducer from "../redux/slices/userSlice"
 import adminReducer from "../redux/slices/adminSlice"
+import { localStorageGetReduxState, localStorageSaveReduxState } from "../../utils/storage";
 
 const rootReducer = {
   products: productReducer,
@@ -21,7 +22,10 @@ const rootReducer = {
 
 const store = configureStore({
   reducer: rootReducer,
+   preloadedState: localStorageGetReduxState()
 });
+store.subscribe(() => {
+  localStorageSaveReduxState(store.getState())
+})
 
- 
 export default store

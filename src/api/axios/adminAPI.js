@@ -126,3 +126,60 @@ export const APIAddMovieCategories = (id, cateArray) => {
         .post(url, cateArray, { headers: headers })
         .catch((err) => console.log("Can't call API after 2 retries", err));
 };
+export const APIGetEpisodeBySeriesId=(seriesId)=>{
+    const url = `episode/series/${seriesId}`;
+    const jwt = window.sessionStorage.getItem("jwt");
+    const headers = {
+        Authorization: `Bearer ${jwt}`,
+    };
+    return axiosClient
+        .get(url, { headers: headers })
+        .catch((err) => console.log("Can't call API after 2 retries", err));
+}
+export const APIAddEpisode = (seriesId,bodyFormData) => {
+    // const url = "/movie";
+    const url = `/admin/episode/series/${seriesId}`;
+    const jwt = window.sessionStorage.getItem("jwt");
+    const headers = {
+        Authorization: `Bearer ${jwt}`,
+        "Content-Type": "multipart/form-data",
+    };
+    return axiosClient
+        .post(url, bodyFormData, { headers: headers })
+        .catch((err) => console.log("Can't call API after 2 retries", err));
+};
+export const APIUpdateEpisode = (epId,bodyFormData) => {
+    // const url = "/movie";
+    const url = `/admin/episode/${epId}`;
+    const jwt = window.sessionStorage.getItem("jwt");
+    const headers = {
+        Authorization: `Bearer ${jwt}`,
+        "Content-Type": "multipart/form-data",
+    };
+    return axiosClient
+        .put(url, bodyFormData, { headers: headers })
+        .catch((err) => console.log("Can't call API after 2 retries", err));
+};
+export const APIDeleteEpisode = (epId) => {
+    // const url = "/movie";
+    const url = `/admin/episode/${epId}`;
+    const jwt = window.sessionStorage.getItem("jwt");
+    const headers = {
+        Authorization: `Bearer ${jwt}`,
+        "Content-Type": "multipart/form-data",
+    };
+    return axiosClient
+        .delete(url, { headers: headers })
+        .catch((err) => console.log("Can't call API after 2 retries", err));
+};
+export const APIAddCategoryMovie = (movieId,categories) => {
+    // const url = "/movie";
+    const url = `/admin/category-movie/${movieId}`;
+    const jwt = window.sessionStorage.getItem("jwt");
+    const headers = {
+        Authorization: `Bearer ${jwt}`,
+    };
+    return axiosClient
+        .post(url,categories, { headers: headers })
+        .catch((err) => console.log("Can't call API after 2 retries", err));
+};

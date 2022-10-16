@@ -41,6 +41,7 @@ export default function Header() {
 
     const handleLogout = () => {
         window.sessionStorage.clear();
+        window.localStorage.clear();
         const logoutAction = userActions.resetUserInfo();
         dispatch(logoutAction);
         const clearUserHistory = HistoryActions.clearUserHistory();
@@ -103,7 +104,7 @@ export default function Header() {
 
     const handleSearchDropdown = (e) => {
         setKeyword(e.target.value);
-        debounceDropDown(e.target.value)
+        debounceDropDown(e.target.value);
     };
 
     const debounceDropDown = useCallback(
@@ -113,7 +114,7 @@ export default function Header() {
 
     const loadProductByKeyword = async (keyword) => {
         console.log("calling api get product in search header");
-        setSearchRecom([])
+        setSearchRecom([]);
         if (keyword !== "") {
             const resKeyword = await APIGetProducts(1, keyword);
             if (resKeyword.status === 200) {
@@ -165,9 +166,7 @@ export default function Header() {
                                         </Link>
                                     </li>
                                     <li>
-                                        <a>
-                                            {t("header.category_li")}
-                                        </a>
+                                        <a>{t("header.category_li")}</a>
                                         <CategoryDropdown />
                                     </li>
                                     <li>
@@ -197,7 +196,9 @@ export default function Header() {
                                         className="searchBar__input"
                                         id="inputEmailAddress"
                                         type="text"
-                                        placeholder={t("header.search_placeholder")}
+                                        placeholder={t(
+                                            "header.search_placeholder"
+                                        )}
                                         onChange={handleSearchDropdown}
                                     />
                                     <button
@@ -210,7 +211,8 @@ export default function Header() {
                                 {searchRecom.length > 0 && (
                                     <SearchRecomDropdown
                                         searchRecom={searchRecom}
-                                        setSearchRecom={setSearchRecom} />
+                                        setSearchRecom={setSearchRecom}
+                                    />
                                 )}
                             </a>
                             <a className="languages">

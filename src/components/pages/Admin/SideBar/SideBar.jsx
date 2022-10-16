@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { adminActions } from "../../../../api/redux/slices/adminSlice";
+import { userActions } from "../../../../api/redux/slices/userSlice";
 import "./SideBar.scss";
 
 export const sidebarNavItems = [
@@ -43,6 +46,7 @@ export const sidebarNavItems = [
 ];
 export default function Sidebar({ setActiveIndex, activeIndex }) {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     useEffect(() => {
         const curPath = window.location.pathname.split("/admin")[1];
         const activeItem = sidebarNavItems.findIndex(
@@ -63,7 +67,9 @@ export default function Sidebar({ setActiveIndex, activeIndex }) {
                         key={index}
                         onClick={() => {
                             if (index === sidebarNavItems.length - 1) {
+                                dispatch(userActions.resetUserInfo());
                                 window.sessionStorage.clear();
+                                localStorage.clear();
                             }
                             setActiveIndex(index);
                         }}

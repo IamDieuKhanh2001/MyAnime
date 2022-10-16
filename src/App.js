@@ -25,9 +25,13 @@ import History from "./components/pages/History/History";
 import { ToastContainer } from "react-toastify";
 import Episode from "./components/pages/Admin/Episode/Episode";
 import SearchKeyword from "./components/pages/SearchKeyword/SearchKeyword";
+import AuthenRoute from "./routes/AuthenRoute";
 import { Helmet } from "react-helmet";
+import { useSelector } from "react-redux";
+
 
 function App() {
+    const user = useSelector(state => state.users.username)
     return (
         <>
             {/* <Social /> */}
@@ -57,13 +61,18 @@ function App() {
                         element={<Category />}
                     />
                     <Route path="/history" element={<History />} />
-                    <Route path="/admin" element={<Admin />}>
-                        <Route index element={<Dashboard />} />
-                        <Route path="series" element={<Series />} />
-                        <Route path="movies" element={<Movie />} />
-                        <Route path="episodes" element={<Episode />} />
-                        <Route path="customers" element={<Customer />} />
-                    </Route>
+
+                    {
+                        user ? <Route path="/admin" element={<Admin />}>
+                            <Route index element={<Dashboard />} />
+                            <Route path="series" element={<Series />} />
+                            <Route path="movies" element={<Movie />} />
+                            <Route path="episodes" element={<Episode />} />
+                            <Route path="customers" element={<Customer />} />
+                        </Route> :
+                            <Route  path="/admin/*" element={<Login />} />
+                    }
+
                     <Route path="/series/search/:kw" element={<SearchKeyword />} />
                     <Route path="*" element={<Navigate to="/" />} />
                 </Routes>

@@ -6,8 +6,10 @@ import SelectField from "./../CustomSelect/CustomSelect";
 import { useDispatch, useSelector } from "react-redux";
 import LoadingAnimation from "../../../../global/LoadingAnimation/LoadingAnimation";
 import {
+    APIAddCategoryMovie,
     APIAddMovie,
     APIAddMovieCategories,
+    APIGetMovie,
     APIGetMovieCategories,
 } from "../../../../../api/axios/adminAPI";
 import { toast } from "react-toastify";
@@ -39,21 +41,20 @@ export default function AddMovie() {
 
     const onSubmit = async (fields, resetForm) => {
         try {
+            const categoryArray = [];
+            fields.category.map((c) => categoryArray.push(c.value));
             const resAddMovie = await APIAddMovie({
                 title: fields.name,
                 studioName: fields.studioName,
             });
             if (resAddMovie?.status === 200) {
-                movies = _.concat(movies, resAddMovie.data.data);
-                const updateMoviesAction = adminActions.updateMovies(movies);
-                const categoryArray = [];
-                fields.category.map((c) => categoryArray.push(c.value));
                 const resAddCategory = await APIAddMovieCategories(
-                    movies[0].id,
+                    resAddMovie.data.data.id,
                     categoryArray
                 );
+                await loadMovies();
                 console.log(resAddCategory);
-                dispatch(updateMoviesAction);
+
                 toast.success(`Add movie ${fields.name} success`);
                 resetForm();
                 console.log(movies);
@@ -63,7 +64,20 @@ export default function AddMovie() {
             toast.error(`Add movie fail`);
         }
     };
-
+    const loadMovies = async () => {
+        try {
+            console.log("Calling api get movies");
+            const resGetMovies = await APIGetMovie();
+            if (resGetMovies?.status === 200) {
+                const updateMoviesAction = adminActions.updateMovies(
+                    resGetMovies.data
+                );
+                dispatch(updateMoviesAction);
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    };
     const loadCategories = async () => {
         setLoadCategory(true);
         const resGetCategory = await APIGetMovieCategories();
@@ -165,7 +179,7 @@ export default function AddMovie() {
                                                                 SelectField
                                                             }
                                                             name="category"
-                                                            options={categories.map(
+                                                            options={categories?.map(
                                                                 (category) => {
                                                                     return {
                                                                         value: category.id,
