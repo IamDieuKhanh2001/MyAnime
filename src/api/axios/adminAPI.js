@@ -126,7 +126,7 @@ export const APIAddMovieCategories = (id, cateArray) => {
         .post(url, cateArray, { headers: headers })
         .catch((err) => console.log("Can't call API after 2 retries", err));
 };
-export const APIGetEpisodeBySeriesId=(seriesId)=>{
+export const APIGetEpisodeBySeriesId = (seriesId) => {
     const url = `episode/series/${seriesId}`;
     const jwt = window.sessionStorage.getItem("jwt");
     const headers = {
@@ -135,8 +135,8 @@ export const APIGetEpisodeBySeriesId=(seriesId)=>{
     return axiosClient
         .get(url, { headers: headers })
         .catch((err) => console.log("Can't call API after 2 retries", err));
-}
-export const APIAddEpisode = (seriesId,bodyFormData) => {
+};
+export const APIAddEpisode = (seriesId, bodyFormData) => {
     // const url = "/movie";
     const url = `/admin/episode/series/${seriesId}`;
     const jwt = window.sessionStorage.getItem("jwt");
@@ -148,7 +148,7 @@ export const APIAddEpisode = (seriesId,bodyFormData) => {
         .post(url, bodyFormData, { headers: headers })
         .catch((err) => console.log("Can't call API after 2 retries", err));
 };
-export const APIUpdateEpisode = (epId,bodyFormData) => {
+export const APIUpdateEpisode = (epId, bodyFormData) => {
     // const url = "/movie";
     const url = `/admin/episode/${epId}`;
     const jwt = window.sessionStorage.getItem("jwt");
@@ -172,7 +172,7 @@ export const APIDeleteEpisode = (epId) => {
         .delete(url, { headers: headers })
         .catch((err) => console.log("Can't call API after 2 retries", err));
 };
-export const APIAddCategoryMovie = (movieId,categories) => {
+export const APIAddCategoryMovie = (movieId, categories) => {
     // const url = "/movie";
     const url = `/admin/category-movie/${movieId}`;
     const jwt = window.sessionStorage.getItem("jwt");
@@ -180,6 +180,6 @@ export const APIAddCategoryMovie = (movieId,categories) => {
         Authorization: `Bearer ${jwt}`,
     };
     return axiosClient
-        .post(url,categories, { headers: headers })
+        .post(url, categories, { headers: headers })
         .catch((err) => console.log("Can't call API after 2 retries", err));
 };
