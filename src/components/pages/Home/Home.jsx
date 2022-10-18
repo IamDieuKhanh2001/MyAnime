@@ -5,23 +5,23 @@ import HeroSlider from "../../global/HeroSlider/HeroSlider";
 import Product from "../../global/Product/Product";
 
 export const Home = () => {
-  console.log(window.sessionStorage.getItem("jwt"))
+    console.log(window.sessionStorage.getItem("jwt"));
 
-  useEffect(() => {
-    document.title = "Trang chủ";
-    // window.scrollTo(0, 0);
-  }, []);
+    useEffect(() => {
+        document.title = "My Anime";
+        // window.scrollTo(0, 0);
+    }, []);
 
-  return (
-    <div className="home">
-      <Layout>
-        {/* <!-- Page Preloder --> */}
-        {/* <div id="preloder">
+    return (
+        <div className="home">
+            <Layout>
+                {/* <!-- Page Preloder --> */}
+                {/* <div id="preloder">
           <div className="loader" />
         </div> */}
-        <HeroSlider />
-        <Product />
-      </Layout>
-    </div>
-  );
+                <HeroSlider />
+                <Product />
+            </Layout>
+        </div>
+    );
 };
