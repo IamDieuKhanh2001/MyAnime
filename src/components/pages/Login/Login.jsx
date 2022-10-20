@@ -21,7 +21,7 @@ function Login() {
     const { t } = useTranslation();
 
     const [modal, setModal] = useState(false);
-    const [loading, setLoading] = useState(false); //Loading when on submit loading call API
+    const [loading, setLoading] = useState(false);
     const formik = useFormik({
         initialValues: {
             username: "",
@@ -62,7 +62,12 @@ function Login() {
                         createAt: resUserInfo.data.createAt,
                     });
                     dispatch(updateUserInfo);
-                    navigate("/admin");
+                    if (resLogin.data.authority === "ROLE_ADMIN") {
+                        navigate("/admin");
+                    }
+                    if (resLogin.data.authority === "ROLE_USER") {
+                        navigate("/");
+                    }
                 }
                 setLoading(false);
             } else if (resLogin.response.status === 400) {

@@ -32,7 +32,9 @@ import FavoriteSeries from "./components/pages/FavoriteSeries/FavoriteSeries";
 
 
 function App() {
-    const user = useSelector(state => state.users.username)
+    const user = useSelector(state => state.users.username);
+    const role = window.sessionStorage.getItem("role");
+
     return (
         <>
             {/* <Social /> */}
@@ -63,14 +65,14 @@ function App() {
                     />
                     <Route path="/history" element={<History />} />                    
                     {
-                        user ? <Route path="/admin" element={<Admin />}>
+                        user && role === "ROLE_ADMIN" ? <Route path="/admin" element={<Admin />}>
                             <Route index element={<Dashboard />} />
                             <Route path="series" element={<Series />} />
                             <Route path="movies" element={<Movie />} />
                             <Route path="episodes" element={<Episode />} />
                             <Route path="customers" element={<Customer />} />
                         </Route> :
-                            <Route  path="/admin/*" element={<Login />} />
+                            <Route path="/admin/*" element={<Login />} />
                     }
 
                     <Route path="/series/search/:kw" element={<SearchKeyword />} />
