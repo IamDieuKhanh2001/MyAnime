@@ -7,7 +7,7 @@ export const APIGetProducts = (page, keyword) => {
     keyword
   };
   return axiosClient
-    .get(url, {params})
+    .get(url, { params })
     .catch((err) => console.log("Can't call API after 2 retries", err));
 };
 
@@ -31,7 +31,7 @@ export const APIGetTotalProduct = (keyword) => {
     keyword
   };
   return axiosClient
-    .get(url, {params})
+    .get(url, { params })
     .catch((err) => console.log("Can't call API after 2 retries", err));
 };
 
@@ -59,6 +59,33 @@ export const APIGetTopMovieSeriesViewInNumberOfDay = (numberOfDay, size) => {
     size
   };
   return axiosClient
-    .get(url, {params})
+    .get(url, { params })
     .catch((err) => console.log("Can't call API after 2 retries", err));
 };
+
+export const APISaveOrDeleteUserFavoriteSeries = (movieSeriesId) => {
+  const url = `/user/favorites`;
+  const data = {
+    movieSeriesId,
+  };
+  const jwt = window.sessionStorage.getItem("jwt");
+  const headers = {
+    Authorization: `Bearer ${jwt}`,
+  };
+  return axiosClient
+    .post(url, data, { headers: headers })
+    .catch((err) => console.log("Can't call API after 2 retries", err));
+};
+
+export const APIGetAllUserFavoriteSeries = () => {
+  const url = `/user/favorites`;
+  const jwt = window.sessionStorage.getItem("jwt");
+  const headers = {
+    Authorization: `Bearer ${jwt}`,
+  };
+  return axiosClient
+    .get(url, { headers: headers })
+    .catch((err) => console.log("Can't call API after 2 retries", err));
+};
+
+

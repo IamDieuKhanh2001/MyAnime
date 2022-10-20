@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
+import { APISaveOrDeleteUserFavoriteSeries } from '../../../../api/axios/productAPI';
 
 function ProductDetail({ data }) {
     const { t } = useTranslation();
@@ -22,6 +24,24 @@ function ProductDetail({ data }) {
             },
         })
     }
+
+    const handlesaveOrUnsaveFavorite = () => {
+        saveOrUnsaveFavorite()
+    }
+
+    const saveOrUnsaveFavorite = async () => {
+        console.log("Calling api save favorite");
+        const resSaveFavorite = await APISaveOrDeleteUserFavoriteSeries(data.id);
+        console.log(resSaveFavorite)
+        if (resSaveFavorite?.status === 200) {
+            toast.success(`Saved movie ${data.seriesName} to favorite`);
+        } else if(resSaveFavorite?.status === 204) {
+            toast.success(`Remove movie ${data.seriesName} from favorite`)
+        } else {
+            toast.error(`You need to logging to use this feature!!`)
+        }
+    };
+
     return (
         <div className="anime__details__content">
             <div className="row">
@@ -109,7 +129,7 @@ function ProductDetail({ data }) {
                             </div>
                         </div>
                         <div className="anime__details__btn">
-                            <a href="#" className="follow-btn">
+                            <a onClick={() => handlesaveOrUnsaveFavorite()} className="follow-btn">
                                 <i className="fa fa-heart-o" /> {t("product_detail.btn_follow_text")}
                             </a>
                             {data.currentNumberEpisode !== 0 ? (

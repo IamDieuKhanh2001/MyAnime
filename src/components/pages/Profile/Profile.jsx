@@ -6,6 +6,8 @@ import { useDispatch } from "react-redux";
 import { APIProfileUserLoging } from "../../../api/axios/customerAPI";
 import { userActions } from "../../../api/redux/slices/userSlice";
 import UserInfoForm from "./UserInfoForm/UserInfoForm";
+import FavoriteSeries from "../FavoriteSeries/FavoriteSeries";
+import NormalBreadcrumb from "../../global/NormalBreadcrumb/NormalBreadcrumb";
 
 export default function Profile() {
   const dispatch = useDispatch();
@@ -38,7 +40,10 @@ export default function Profile() {
   return (
     <div className="profile">
       <Header />
+      <NormalBreadcrumb title={"Personal Infomation"} description={"Let us know your mail to help you secure your account."} />
       <UserInfoForm loadUserLogging={loadUserLogging} />
+      <NormalBreadcrumb title={"Your favorite series"} description={"Series saved."} />
+      <FavoriteSeries />
       <Footer />
     </div>
   );

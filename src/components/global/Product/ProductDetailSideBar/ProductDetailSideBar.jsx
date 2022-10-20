@@ -14,7 +14,7 @@ function ProductDetailSideBar() {
     const { seriesId } = useParams();
 
     const relateSeries = useSelector((state) => state.products.list);
-    
+
     const loadAllSeriesProductBySeriesId = async () => {
         console.log("Calling api get product series");
         const resGetRelateSeries = await APIGetAllSeriesProductById(seriesId);

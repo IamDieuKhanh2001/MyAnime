@@ -28,6 +28,7 @@ import SearchKeyword from "./components/pages/SearchKeyword/SearchKeyword";
 import AuthenRoute from "./routes/AuthenRoute";
 import { Helmet } from "react-helmet";
 import { useSelector } from "react-redux";
+import FavoriteSeries from "./components/pages/FavoriteSeries/FavoriteSeries";
 
 
 function App() {
@@ -60,8 +61,7 @@ function App() {
                         path="/category/:categoryId"
                         element={<Category />}
                     />
-                    <Route path="/history" element={<History />} />
-
+                    <Route path="/history" element={<History />} />                    
                     {
                         user ? <Route path="/admin" element={<Admin />}>
                             <Route index element={<Dashboard />} />

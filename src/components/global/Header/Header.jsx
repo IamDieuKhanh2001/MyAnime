@@ -274,7 +274,7 @@ export default function Header() {
                                                         handleLogout()
                                                     }
                                                 >
-                                                    <i class="bx bxs-log-out bx-sm"></i>
+                                                    <i className="bx bxs-log-out bx-sm"></i>
                                                     {t(
                                                         "header.profile_dropdown.logout"
                                                     )}
@@ -288,7 +288,7 @@ export default function Header() {
                                                         navigate("/signup")
                                                     }
                                                 >
-                                                    <i class="bx bx-window-open bx-sm"></i>
+                                                    <i className="bx bx-window-open bx-sm"></i>
                                                     {t(
                                                         "header.profile_dropdown.signup"
                                                     )}
