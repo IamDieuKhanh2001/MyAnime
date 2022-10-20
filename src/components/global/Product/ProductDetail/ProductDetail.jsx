@@ -87,7 +87,7 @@ function ProductDetail({ data }) {
                                             {/* Live Action */}
                                             {data?.categoryList?.length !== 0 && (data?.categoryList?.map((category, index) => (
                                                 <React.Fragment key={index}>
-                                                    {category?.name},
+                                                    {category?.name}&ensp;
                                                 </React.Fragment>
                                             )))}
                                         </li>
