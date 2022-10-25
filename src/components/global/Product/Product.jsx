@@ -3,7 +3,7 @@ import "./Product.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ProductSection from "./ProductSection/ProductSection";
-import { APIGetProducts } from "./../../../api/axios/productAPI";
+import { APIGetProducts, APIGetRecentlyAddedShow } from "./../../../api/axios/productAPI";
 import { productsActions } from "./../../../api/redux/slices/productSlice";
 import ProductSideBar from "./ProductSideBar/ProductSideBar";
 import LoadingAnimation from "../LoadingAnimation/LoadingAnimation";
@@ -14,8 +14,10 @@ export default function Product() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false)
+  const [recentlyProductLoading, setRecentlyProductLoading] = useState(false)
 
   const product = useSelector((state) => state.products.list);
+  const recentlyProductList = useSelector((state) => state.products.recentlyList);
 
   const loadProduct = async () => {
     console.log("Calling api get product");
@@ -28,8 +30,20 @@ export default function Product() {
     setLoading(false)
   };
 
+  const loadRecentlyProduct = async () => {
+    console.log("Calling api get recently product");
+    setRecentlyProductLoading(true)
+    const resGetRecentlyProduct = await APIGetRecentlyAddedShow(1, 9);
+    if (resGetRecentlyProduct?.status === 200) {
+      const updateListAction = productsActions.updateRecentlyList(resGetRecentlyProduct.data);
+      dispatch(updateListAction);
+    }
+    setRecentlyProductLoading(false)
+  };
+
   useEffect(() => {
     loadProduct();
+    loadRecentlyProduct();
 
   }, []);
 
@@ -90,9 +104,13 @@ export default function Product() {
                   </div>
                 </div>
                 <div className="row">
-                  {product.map((data, index) => (
-                    <ProductSection data={data} key={index} />
-                  ))}
+                  {recentlyProductLoading ?
+                    (<LoadingAnimation />) : (
+                      <React.Fragment>
+                        {recentlyProductList.map((data, index) => (
+                          <ProductSection data={data} key={index} />
+                        ))}
+                      </React.Fragment>)}
                 </div>
               </div>
               <div className="live__product">

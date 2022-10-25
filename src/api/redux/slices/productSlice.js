@@ -7,6 +7,7 @@ const initialState = {
   topViewInMonth: [],
   topViewInYear: [],
   favoriteList: [],
+  recentlyList: [],
 };
 
 const products = createSlice({
@@ -15,6 +16,9 @@ const products = createSlice({
   reducers: {
     updateList: (state, actions) => {
       state.list = actions.payload;
+    },
+    updateRecentlyList: (state, actions) => {
+      state.recentlyList = actions.payload;
     },
     updateTopViewInDay: (state, actions) => {
       state.topViewInDay = actions.payload;

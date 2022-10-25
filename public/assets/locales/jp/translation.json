@@ -85,7 +85,7 @@
     "login_register_title": "アカウントをもっていますか",
     "login_text_a": "今すぐログイン！",
     "third_party": {
-      "login_social_title": "ほかのログインの方：：",
+      "login_social_title": "ほかのログインの方:",
       "with_facebook_li": "Facebookでサインイン",
       "with_google_li": "Googleでサインイン",
       "with_twitter_li": "Twitterでサインイン"

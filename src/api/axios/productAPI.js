@@ -88,4 +88,14 @@ export const APIGetAllUserFavoriteSeries = () => {
     .catch((err) => console.log("Can't call API after 2 retries", err));
 };
 
+export const APIGetRecentlyAddedShow = (page, limit) => {
+  const url = `/movie-and-series/get-recently-added-series`;
+  const params = {
+    page,
+    limit,
+  };
+  return axiosClient
+    .get(url, { params })
+    .catch((err) => console.log("Can't call API after 2 retries", err));
+};
 
