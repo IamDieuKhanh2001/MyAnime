@@ -110,7 +110,7 @@ export default function Footer() {
                   {t("footer.mobile_app")}
                 </p>
                 <a
-                  href="https://apps.apple.com/vn/app/tix-%C4%91%E1%BA%B7t-v%C3%A9-nhanh-nh%E1%BA%A5t/id615186197"
+                  href="#"
                   title="Apple App"
                 >
                   <img
@@ -120,7 +120,7 @@ export default function Footer() {
                   />
                 </a>
                 <a
-                  href="https://play.google.com/store/apps/details?id=vn.com.vng.phim123"
+                  href="#"
                   title="Android App"
                 >
                   <img
@@ -135,7 +135,7 @@ export default function Footer() {
                   {t("footer.social_media")}
                 </p>
                 <a
-                  href="https://www.facebook.com/tix.vn/"
+                  href="#"
                   title="Facebook social"
                 >
                   <img
@@ -144,7 +144,7 @@ export default function Footer() {
                     alt="app"
                   />
                 </a>
-                <a href="https://zalo.me/tixdatve" title="Zalo social">
+                <a href="#" title="Zalo social">
                   <img className="iconApp" src="/img/zalo-logo.png" alt="app" />
                 </a>
               </div>
@@ -158,7 +158,7 @@ export default function Footer() {
               onClick={() => navigate("/")}
               className="zionIcon"
               src="/img/logo.png"
-              alt="zion"
+              alt="logo"
             />
           </div>
           <div className="col-12 col-md-9 info">
