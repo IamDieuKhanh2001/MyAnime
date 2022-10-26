@@ -107,7 +107,7 @@ export default function Product() {
                   {recentlyProductLoading ?
                     (<LoadingAnimation />) : (
                       <React.Fragment>
-                        {recentlyProductList.map((data, index) => (
+                        {recentlyProductList?.map((data, index) => (
                           <ProductSection data={data} key={index} />
                         ))}
                       </React.Fragment>)}
