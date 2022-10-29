@@ -16,29 +16,45 @@ export default function ProductSideBar() {
   const { t } = useTranslation();
   const [loadingTopView, setLoadingTopView] = useState(false)
 
-  const loadTopViewProduct = async () => {
-    console.log("Calling api get top view");
-    setLoadingTopView(true)
+  const loadTopMovieSeriesViewInDay = async () => {
     const resGetTopViewInDay = await APIGetTopMovieSeriesViewInNumberOfDay(1, 5);
     if (resGetTopViewInDay?.status === 200) {
       const updateTopViewInDayAction = productsActions.updateTopViewInDay(resGetTopViewInDay.data);
       dispatch(updateTopViewInDayAction);
     }
+  }
+
+  const loadTopMovieSeriesViewInWeek = async () => {
     const resGetTopViewInWeek = await APIGetTopMovieSeriesViewInNumberOfDay(7, 5);
     if (resGetTopViewInWeek?.status === 200) {
       const updateTopViewInWeekAction = productsActions.updateTopViewInWeek(resGetTopViewInWeek.data);
       dispatch(updateTopViewInWeekAction);
     }
+  }
+
+  const loadTopMovieSeriesViewInMonth = async () => {
     const resGetTopViewInMonth = await APIGetTopMovieSeriesViewInNumberOfDay(30, 5);
     if (resGetTopViewInMonth?.status === 200) {
       const updateTopViewInMonthAction = productsActions.updateTopViewInMonth(resGetTopViewInMonth.data);
       dispatch(updateTopViewInMonthAction);
     }
+  }
+
+  const loadTopMovieSeriesViewInYear = async () => {
     const resGetTopViewInYear = await APIGetTopMovieSeriesViewInNumberOfDay(30, 5);
     if (resGetTopViewInYear?.status === 200) {
       const updateTopViewInYearAction = productsActions.updateTopViewInYear(resGetTopViewInYear.data);
       dispatch(updateTopViewInYearAction);
     }
+  }
+
+  const loadTopViewProduct = async () => {
+    console.log("Calling api get top view");
+    setLoadingTopView(true)
+    loadTopMovieSeriesViewInDay()
+    loadTopMovieSeriesViewInWeek()
+    loadTopMovieSeriesViewInMonth()
+    loadTopMovieSeriesViewInYear()
     setLoadingTopView(false)
   };
 
