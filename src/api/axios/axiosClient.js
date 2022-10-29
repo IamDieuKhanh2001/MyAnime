@@ -2,8 +2,14 @@ import axios from "axios";
 import axiosRetry from "axios-retry";
 
 export const axiosClient = axios.create({
+
+    // Developer environment
+    baseURL: `http://localhost:8000`,
+
+    // Production environment
     // baseURL: `https://myanime-heroku.herokuapp.com`,
-    baseURL: `http://localhost:8080`,
+
+
     // headers: {
     //   'content-type': 'application/json',
     // },
