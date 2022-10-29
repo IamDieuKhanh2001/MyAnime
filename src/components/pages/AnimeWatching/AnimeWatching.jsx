@@ -60,7 +60,7 @@ export default function AnimeWatching() {
   useEffect(() => {
     loadEpisode();
     setEpisodeIdWatching(searchParams.get('episodeId'))
-  }, [episodeIdWatching]);
+  }, []);
 
   const getCurrentPathWithoutLastPart = () => {
     return location.pathname.slice(0, location.pathname.lastIndexOf('/')) + "/" + seriesId
@@ -78,7 +78,7 @@ export default function AnimeWatching() {
                 <div className="col-lg-12">
                   <div className="anime__video__player">
                     {episodeList.length !== 0 &&
-                      <Film episodeWatching={getCurrentWatchingEpisode()} lastSecondExit={lastSecondExit} setEpisodeIdWatching={setEpisodeIdWatching} />
+                      <Film episodeWatching={getCurrentWatchingEpisode()} lastSecondExit={lastSecondExit} episodeIdWatching={episodeIdWatching} setEpisodeIdWatching={setEpisodeIdWatching} />
                     }
                   </div>
                   <div className="anime__details__episodes">
@@ -110,7 +110,7 @@ export default function AnimeWatching() {
           <div className="row">
             <div className="col-lg-8 col-md-8">
               {episodeLoading === false &&
-                (<AnimeReview episodeWatching={getCurrentWatchingEpisode()} />)}
+                (<AnimeReview episodeIdWatching={episodeIdWatching} episodeWatching={getCurrentWatchingEpisode()} />)}
 
             </div>
             <div className="col-lg-4 col-md-4">

@@ -10,7 +10,7 @@ import ReviewForm from './ReviewForm/ReviewForm';
 import ReviewItem from './ReviewItem/ReviewItem'
 import ReviewNotification from './ReviewNotification/ReviewNotification';
 
-function AnimeReview({ episodeWatching }) {
+function AnimeReview({ episodeIdWatching, episodeWatching }) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
@@ -33,7 +33,7 @@ function AnimeReview({ episodeWatching }) {
 
   useEffect(() => {
     loadCommentByEpisodeId();
-  }, []);
+  }, [episodeIdWatching]);
 
   return (
     <React.Fragment>

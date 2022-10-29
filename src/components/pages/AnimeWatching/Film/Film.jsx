@@ -11,6 +11,7 @@ import "./Film.scss";
 export default function Film({
     episodeWatching,
     lastSecondExit,
+    episodeIdWatching,
     setEpisodeIdWatching,
 }) {
     const loginJwt = window.sessionStorage.getItem("jwt");
@@ -91,7 +92,7 @@ export default function Film({
         return () => {
             setIsPlaying(false);
         };
-    }, []);
+    }, [episodeIdWatching]);
     return (
         <div className="film">
             <ReactPlayer
