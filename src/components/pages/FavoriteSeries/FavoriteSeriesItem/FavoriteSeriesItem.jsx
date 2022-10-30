@@ -55,7 +55,7 @@ function FavoriteSeriesItem({ data }) {
                     <h5>
                         <a href="#">{data.name}</a>
                     </h5>
-                    <button onClick={() => { handleUnSaveSeries(data.movieSeriesId, data.name) }} type="button" className="btn btn-danger">Un Save</button>
+                    <button onClick={() => { handleUnSaveSeries(data.movieSeriesId, data.name) }} type="button" className="btn btn-danger mt-2">Unsave</button>
                 </div>
             </div>
         </div>
