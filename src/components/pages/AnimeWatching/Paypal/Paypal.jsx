@@ -80,7 +80,7 @@ export default function Paypal() {
             <button className="btn btn-warning text-white" onClick={handleClickOpen}>
                 Join the Premium
             </button>
-            <Dialog open={open} onClose={handleClose} maxWidth>
+            <Dialog open={open} onClose={handleClose} maxWidth='md'>
                 <div className="paypal">
                     <div className="firstSection">
                         <div className="title">Premium Plans</div>

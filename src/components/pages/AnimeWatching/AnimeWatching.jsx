@@ -18,6 +18,8 @@ import { APIGetCommentByEpisodeId } from "../../../api/axios/commentAPI";
 import { commentActions } from "../../../api/redux/slices/commentSlice";
 import { axiosClient } from "../../../api/axios/axiosClient";
 import { useTranslation } from "react-i18next";
+import Paypal from "./Paypal/Paypal";
+import ServerNameSection from "./ServerNameSection/ServerNameSection";
 
 export default function AnimeWatching() {
   const { t } = useTranslation();
@@ -36,6 +38,8 @@ export default function AnimeWatching() {
   const [episodeIdWatching, setEpisodeIdWatching] = useState(episodeId);
 
   const [episodeLoading, setEpisodeLoading] = useState(true)
+
+  const [serverOption, setServerOption] = useState("DO")
 
   const episodeList = useSelector((state) => state.episodes.list);
 
@@ -60,16 +64,16 @@ export default function AnimeWatching() {
   useEffect(() => {
     loadEpisode();
     setEpisodeIdWatching(searchParams.get('episodeId'))
-  }, []);
+  }, [serverOption]);
 
   const getCurrentPathWithoutLastPart = () => {
     return location.pathname.slice(0, location.pathname.lastIndexOf('/')) + "/" + seriesId
   }
-
   return (
     <div className="animeWatching">
       <Header />
       <BreadcrumbOption cateList={location.state?.product.categoryList} seriesName={location.state?.product.seriesName} />
+      <Paypal />
       <div className="anime-details spad">
         <div className="container">
           <div className="row">
@@ -78,10 +82,20 @@ export default function AnimeWatching() {
                 <div className="col-lg-12">
                   <div className="anime__video__player">
                     {episodeList.length !== 0 &&
-                      <Film episodeWatching={getCurrentWatchingEpisode()} lastSecondExit={lastSecondExit} episodeIdWatching={episodeIdWatching} setEpisodeIdWatching={setEpisodeIdWatching} />
+                      <Film
+                        episodeWatching={getCurrentWatchingEpisode()}
+                        lastSecondExit={lastSecondExit}
+                        episodeIdWatching={episodeIdWatching}
+                        setEpisodeIdWatching={setEpisodeIdWatching}
+                        serverOption={serverOption}
+                      />
                     }
                   </div>
                   <div className="anime__details__episodes">
+                    {/* select server */}
+
+                    <ServerNameSection serverOption={serverOption} setServerOption={setServerOption} />
+                    {/* select episode  */}
                     <div className="section-title">
                       <h5>
                         {t("anime_watching.section_episode_title")}
