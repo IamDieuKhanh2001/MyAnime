@@ -7,7 +7,7 @@
     "search_placeholder": "Tìm kiếm phim...",
     "profile_dropdown": {
       "logout": "Đăng xuất",
-      "signup": "Đăng kí tài khoản",
+      "signup": "Đăng ký",
       "login": "Đăng nhập"
     }
   },
@@ -30,7 +30,7 @@
     "section_popular_show_title": "Các chương trình nổi tiếng",
     "btn_all_text": "Xem tất cả",
     "section_recently_added_show_title": "Mới cập nhật",
-    "section_live_action_title": "Live Action",
+    "section_live_action_title": "Đề xuất",
     "side_bar": {
       "top_view_title": "Xem nhiều nhất",
       "day": "ngày",

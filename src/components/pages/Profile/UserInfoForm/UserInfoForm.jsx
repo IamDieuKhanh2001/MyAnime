@@ -1,13 +1,16 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { Field, Form, Formik, useFormik } from "formik";
 import * as Yup from "yup";
 import PuffLoader from "react-spinners/PuffLoader";
 import { useSelector } from "react-redux";
-import { APIChangeAvatar, APIUpdateInfoUserLogging } from '../../../../api/axios/customerAPI';
-import MessageModal from '../../../global/MessageModal/MessageModal';
-import VerifyEmailModal from '../../../global/VerifyEmailModal/VerifyEmailModal';
-import { useTranslation } from 'react-i18next';
+import {
+    APIChangeAvatar,
+    APIUpdateInfoUserLogging,
+} from "../../../../api/axios/customerAPI";
+import MessageModal from "../../../global/MessageModal/MessageModal";
+import VerifyEmailModal from "../../../global/VerifyEmailModal/VerifyEmailModal";
+import { useTranslation } from "react-i18next";
 
 function UserInfoForm({ loadUserLogging }) {
     const { t } = useTranslation();
@@ -16,14 +19,14 @@ function UserInfoForm({ loadUserLogging }) {
     );
     const data = useSelector((state) => state.users);
     const [modal, setModal] = useState(false);
-    const [updateMessage, setUpdateMessage] = useState("")
+    const [updateMessage, setUpdateMessage] = useState("");
     const [otpVerifyModal, setOtpVerifyModal] = useState(false);
 
     useEffect(() => {
         if (data.avatar) {
             setPreviewImg(data.avatar);
         }
-        console.log(data)
+        console.log(data);
     }, [data]);
 
     const initialValues = {
@@ -38,42 +41,45 @@ function UserInfoForm({ loadUserLogging }) {
         avatar: Yup.mixed(),
     });
     const onSubmit = async (fields) => {
-        console.log("call api update info")
+        console.log("call api update info");
         try {
-            const resUpdateUserInfo = await APIUpdateInfoUserLogging(fields.fullName, fields.email);
-            loadUserLogging()
-            setUpdateMessage(resUpdateUserInfo.data)
-            if (fields.email !== data.email) { //Changed email, get to OTP check
-                setUpdateMessage(resUpdateUserInfo.data)
-                setOtpVerifyModal(true)
+            const resUpdateUserInfo = await APIUpdateInfoUserLogging(
+                fields.fullName,
+                fields.email
+            );
+            loadUserLogging();
+            setUpdateMessage(resUpdateUserInfo.data);
+            if (fields.email !== data.email) {
+                //Changed email, get to OTP check
+                setUpdateMessage(resUpdateUserInfo.data);
+                setOtpVerifyModal(true);
             }
-        } catch (responseException) { //400: user email has been used
-            setUpdateMessage(responseException.response.data)
+        } catch (responseException) {
+            //400: user email has been used
+            setUpdateMessage(responseException.response.data);
         }
         setModal(true);
     };
     const changeAvatar = (file) => {
         const reschangeAvatar = APIChangeAvatar(file);
-    }
+    };
     const imageHandler = async (e) => {
         if (e.target.files[0]) {
-            console.log("call api upload avatar")
+            console.log("call api upload avatar");
             const reader = new FileReader();
             reader.addEventListener("load", () => {
                 setPreviewImg(reader.result);
             });
             reader.readAsDataURL(e.target.files[0]);
-            changeAvatar(e.target.files[0])
-            loadUserLogging()
+            changeAvatar(e.target.files[0]);
+            loadUserLogging();
         }
     };
 
     return (
         <React.Fragment>
             {otpVerifyModal && (
-                <VerifyEmailModal
-                    setOtpVerifyModal={setOtpVerifyModal}
-                />
+                <VerifyEmailModal setOtpVerifyModal={setOtpVerifyModal} />
             )}
             {modal && (
                 <MessageModal
@@ -86,7 +92,7 @@ function UserInfoForm({ loadUserLogging }) {
                 initialValues={initialValues}
                 validationSchema={validationSchema}
                 onSubmit={onSubmit}
-            // enableReinitialize
+                // enableReinitialize
             >
                 {({ errors, touched, isSubmitting }) => (
                     <Form>
@@ -105,20 +111,26 @@ function UserInfoForm({ loadUserLogging }) {
                                                 id="img"
                                             />
                                             <div className="small font-italic text-muted mb-4">
-                                                {t("profile.profile_picture_require")}
+                                                {t(
+                                                    "profile.profile_picture_require"
+                                                )}
                                             </div>
                                             <label
                                                 htmlFor="input"
                                                 className="btn btn-danger custom-file-upload"
                                             >
-                                                {t("profile.btn_change_image_text")}
+                                                {t(
+                                                    "profile.btn_change_image_text"
+                                                )}
                                             </label>
                                             <input
                                                 type="file"
                                                 accept="image/*"
                                                 className="imageBtn"
                                                 id="input"
-                                                onChange={(e) => imageHandler(e)}
+                                                onChange={(e) =>
+                                                    imageHandler(e)
+                                                }
                                             />
                                         </div>
                                     </div>
@@ -131,8 +143,13 @@ function UserInfoForm({ loadUserLogging }) {
                                         <div className="card-body">
                                             <div className="profileForm">
                                                 <div className="mb-3">
-                                                    <label className="small mb-1" htmlFor="inputUsername">
-                                                        {t("profile.username_label")}
+                                                    <label
+                                                        className="small mb-1"
+                                                        htmlFor="inputUsername"
+                                                    >
+                                                        {t(
+                                                            "profile.username_label"
+                                                        )}
                                                     </label>
                                                     <input
                                                         className="form-control"
@@ -144,20 +161,32 @@ function UserInfoForm({ loadUserLogging }) {
                                                     />
                                                 </div>
                                                 <div className="mb-3">
-                                                    <label className="small mb-1" htmlFor="inputFullname">
-                                                        {t("profile.fullname_label")}
+                                                    <label
+                                                        className="small mb-1"
+                                                        htmlFor="inputFullname"
+                                                    >
+                                                        {t(
+                                                            "profile.fullname_label"
+                                                        )}
                                                     </label>
                                                     <Field
                                                         className="form-control"
                                                         id="inputFullname"
                                                         type="text"
                                                         name="fullName"
-                                                        placeholder={t("profile.fullname_placeholder")}
+                                                        placeholder={t(
+                                                            "profile.fullname_placeholder"
+                                                        )}
                                                     />
                                                     <span className="error">
-                                                        {errors.fullName && touched.fullName && (
-                                                            <div>{errors.fullName}</div>
-                                                        )}
+                                                        {errors.fullName &&
+                                                            touched.fullName && (
+                                                                <div>
+                                                                    {
+                                                                        errors.fullName
+                                                                    }
+                                                                </div>
+                                                            )}
                                                     </span>
                                                 </div>
 
@@ -166,41 +195,61 @@ function UserInfoForm({ loadUserLogging }) {
                                                         className="small mb-1"
                                                         htmlFor="inputEmailAddress"
                                                     >
-                                                        {t("profile.email_label")}
+                                                        {t(
+                                                            "profile.email_label"
+                                                        )}
                                                     </label>
                                                     <Field
                                                         className="form-control"
                                                         id="inputEmailAddress"
                                                         type="email"
                                                         name="email"
-                                                        placeholder={t("profile.email_placeholder")}
+                                                        placeholder={t(
+                                                            "profile.email_placeholder"
+                                                        )}
                                                     />
                                                     <span className="error">
-                                                        {errors.email && touched.email && (
-                                                            <div>{errors.email}</div>
-                                                        )}
+                                                        {errors.email &&
+                                                            touched.email && (
+                                                                <div>
+                                                                    {
+                                                                        errors.email
+                                                                    }
+                                                                </div>
+                                                            )}
                                                     </span>
                                                 </div>
-                                                <button className="btn btn-danger px-4" type="submit">
+                                                <button
+                                                    className="btn btn-danger px-4"
+                                                    type="submit"
+                                                >
                                                     {isSubmitting ? (
-                                                        <PuffLoader color="#ffffff" size={30} />
+                                                        <PuffLoader
+                                                            color="#ffffff"
+                                                            size={30}
+                                                        />
                                                     ) : (
-                                                        t("profile.btn_save_text")
+                                                        t(
+                                                            "profile.btn_save_text"
+                                                        )
                                                     )}
                                                 </button>
                                             </div>
                                         </div>
                                     </div>
+                                    <p className="notice-age">
+                                        If you have not verified your age.
+                                        Please verify{" "}
+                                        <a href="/verify-age">here</a>!
+                                    </p>
                                 </div>
                             </div>
                         </div>
-
                     </Form>
                 )}
             </Formik>
         </React.Fragment>
-
-    )
+    );
 }
 
-export default UserInfoForm
+export default UserInfoForm;

@@ -29,6 +29,7 @@ import AuthenRoute from "./routes/AuthenRoute";
 import { Helmet } from "react-helmet";
 import { useSelector } from "react-redux";
 import FavoriteSeries from "./components/pages/FavoriteSeries/FavoriteSeries";
+import AuthenIdCard from "./components/pages/AuthenIdCard/AuthenIdCard";
 
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
                     <Route exact path="/" element={<Home />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/profile" element={<Profile />} />
+                    <Route path="/verify-age" element={<AuthenIdCard/>} />
                     {/* <Route path="/login2/:preRoute" element={<Login />} /> */}
                     {/* <Route exact path="/signup2" element={<SignUp />} /> */}
                     <Route exact path="/signup" element={<SignUp />} />

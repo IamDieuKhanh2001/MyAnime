@@ -1,0 +1,71 @@
+.authenId {
+    font-family: "Oswald", sans-serif;
+    margin-top: 10px;
+    margin-left: -20px;
+    .img-id-card {
+        height: 10rem;
+        width: 19.5rem;
+    }
+    .custom-file-upload {
+        cursor: pointer;
+    }
+    .imageBtn {
+        display: none;
+    }
+    .card {
+        background-color: transparent;
+        color: white;
+    }
+    .card .card-header {
+        font-weight: 700;
+        font-size: 25px;
+    }
+    .card-header:first-child {
+        border-radius: 0.35rem 0.35rem 0 0;
+    }
+    .card-header {
+        padding: 1rem 1.35rem;
+        border-bottom: 1px solid rgba(33, 40, 50, 0.125);
+    }
+
+    .input {
+        background-color: black;
+        border: none;
+        outline: none;
+        border-radius: 10px;
+        font-size: 1.5rem;
+        padding: 10px;
+        width: 100%;
+
+        &.select {
+            width: 60%;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+    }
+    .img-second{
+        margin-top: -35px;
+    }
+    .form-control,
+    .dataTable-input {
+        display: block;
+        width: 100%;
+        padding: 0.875rem 1.125rem;
+        font-size: 0.875rem;
+        font-weight: 400;
+        line-height: 1;
+        color: #69707a;
+        background-color: transparent;
+        background-clip: padding-box;
+        border: 1px solid transparent;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        border-radius: 0.35rem;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+    .error {
+        font-size: 10px;
+        color: red;
+    }
+}
