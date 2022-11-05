@@ -6,6 +6,7 @@ import PuffLoader from "react-spinners/PuffLoader";
 import { useSelector } from "react-redux";
 import {
     APIChangeAvatar,
+    APICheckIsPremiumMember,
     APIUpdateInfoUserLogging,
 } from "../../../../api/axios/customerAPI";
 import MessageModal from "../../../global/MessageModal/MessageModal";
@@ -21,8 +22,20 @@ function UserInfoForm({ loadUserLogging }) {
     const [modal, setModal] = useState(false);
     const [updateMessage, setUpdateMessage] = useState("");
     const [otpVerifyModal, setOtpVerifyModal] = useState(false);
+    const [isPremiumMember, setIsPremiumMember] = useState(false)
+
+    const checkIsPremiumMember = async () => {
+        console.log("Calling api check premium member");
+        const resCheckIsPremium = await APICheckIsPremiumMember();
+        if (resCheckIsPremium?.status === 200) {
+            if (resCheckIsPremium?.data) {
+                setIsPremiumMember(true)
+            }
+        }
+    };
 
     useEffect(() => {
+        checkIsPremiumMember()
         if (data.avatar) {
             setPreviewImg(data.avatar);
         }
@@ -92,7 +105,7 @@ function UserInfoForm({ loadUserLogging }) {
                 initialValues={initialValues}
                 validationSchema={validationSchema}
                 onSubmit={onSubmit}
-                // enableReinitialize
+            // enableReinitialize
             >
                 {({ errors, touched, isSubmitting }) => (
                     <Form>

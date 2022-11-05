@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import "./PaymentPackageModal.scss";
 import Dialog from "@mui/material/Dialog";
+import { toast } from "react-toastify";
 
 export default function PaymentPackageModal() {
     const [open, setOpen] = useState(false);
-    const [state, setState] = useState({
+    const [subscriptionPackage, setSubscriptionPackage] = useState({
         activeObject: null,
         objects: [
             {
@@ -47,10 +48,10 @@ export default function PaymentPackageModal() {
     });
 
     function toggleActive(index) {
-        setState({ ...state, activeObject: state.objects[index] });
+        setSubscriptionPackage({ ...subscriptionPackage, activeObject: subscriptionPackage.objects[index] });
     }
     function toggleActiveStyle(index) {
-        if (state.objects[index] === state.activeObject) {
+        if (subscriptionPackage.objects[index] === subscriptionPackage.activeObject) {
             return "btn package active";
         } else {
             return "btn package";
@@ -63,6 +64,17 @@ export default function PaymentPackageModal() {
 
     const handleClose = () => {
         setOpen(false);
+    };
+    function togglePayActive(index) {
+        setPay({ ...pay, activeBrand: pay.brands[index] });
+    }
+
+    const onSubmit = () => {
+        console.log("on sub")
+        alert(subscriptionPackage.activeObject.title + " " + pay.activeBrand.nameBrand)
+        if(typeof subscriptionPackage.activeObject === null || typeof pay.activeBrand === null) {
+            toast.error("You must choose payment method and package!!")
+        }
     };
     function togglePayActive(index) {
         setPay({ ...pay, activeBrand: pay.brands[index] });
@@ -85,7 +97,7 @@ export default function PaymentPackageModal() {
                     <div className="firstSection">
                         <div className="title">Premium Plans</div>
                         <div className="packages">
-                            {state.objects.map((data, index) => (
+                            {subscriptionPackage.objects.map((data, index) => (
                                 <div
                                     key={index}
                                     className={toggleActiveStyle(index)}
@@ -123,7 +135,7 @@ export default function PaymentPackageModal() {
                         </div>
                     </div>
                     <div className="buyNowSection">
-                        <button className="btn btnBuyNow">Subscribe Now</button>
+                        <button className="btn btnBuyNow" onClick={() => onSubmit()}>Subscribe Now</button>
                     </div>
                 </div>
             </Dialog>
