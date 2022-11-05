@@ -13,6 +13,7 @@ import {
 import { adminActions } from "../../../../../api/redux/slices/adminSlice";
 import { toast } from "react-toastify";
 import ServerAssetsSelect from "../CustomServerSelect/CustomServerSelect";
+import PremiumPopover from "../PremiumPopover/PremiumPopover";
 
 export default function AddEpisode() {
     const [previewImg, setPreviewImg] = useState();
@@ -35,6 +36,7 @@ export default function AddEpisode() {
         seriesName: "",
         video: "",
         serverAssets: [],
+        isPremium: false,
     };
     const movieSeries = useSelector((state) => state.admin.movieSeries);
     const validationSchema = Yup.object().shape({
@@ -91,6 +93,7 @@ export default function AddEpisode() {
                 "model",
                 JSON.stringify({
                     title: fields.episode,
+                    premiumRequired: fields.isPremium,
                 })
             );
             bodyFormData.append("sourceFile", fields.video);
@@ -249,6 +252,24 @@ export default function AddEpisode() {
                                                             )}
                                                     </span>
                                                 </div>
+
+                                                <div className="mb-3 d-flex justify-content-between">
+                                                    <div>
+                                                        <label
+                                                            className="large mb-1"
+                                                            htmlFor="inputEpisode"
+                                                        >
+                                                            For premium member only:
+                                                        </label>
+                                                        <Field
+                                                            className="premium-checkbox"
+                                                            type="checkbox"
+                                                            name="isPremium"
+                                                        />
+                                                    </div>
+                                                    <PremiumPopover />
+                                                </div>
+
                                                 <div className="mb-3">
                                                     <label
                                                         className="small mb-1"

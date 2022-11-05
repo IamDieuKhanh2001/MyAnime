@@ -111,7 +111,9 @@ export default function AnimeWatching() {
                             href={getCurrentPathWithoutLastPart() + `?episodeId=${episode.id}`} key={index}>
                             {t("anime_watching.episode_num_prefix")}
                             {episode.title}
-                            <img className="premium__icon" src="/img/icon-premium.svg" alt="true" />
+                            {episode.premiumRequired && (
+                              <img className="premium__icon" src="/img/icon-premium.svg" alt="true" />
+                            )}
                           </a>
                         </React.Fragment>
                       ))
