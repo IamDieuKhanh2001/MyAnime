@@ -15,8 +15,8 @@ import AnimeReview from "../../global/AnimeReview/AnimeReview";
 import { Alert, AlertTitle } from "@mui/material";
 import ProductDetailSideBar from "../../global/Product/ProductDetailSideBar/ProductDetailSideBar";
 import { useTranslation } from "react-i18next";
-import Paypal from "./Paypal/Paypal";
 import ServerNameSection from "./ServerNameSection/ServerNameSection";
+import { APICheckIsPremiumMember } from "../../../api/axios/customerAPI";
 
 export default function AnimeWatching() {
   const { t } = useTranslation();
@@ -35,6 +35,8 @@ export default function AnimeWatching() {
   const [episodeIdWatching, setEpisodeIdWatching] = useState(episodeId);
 
   const [episodeLoading, setEpisodeLoading] = useState(true)
+
+  const [isPremiumMember, setIsPremiumMember] = useState(false)
 
   const [serverOption, setServerOption] = useState("DO")
 
@@ -57,9 +59,19 @@ export default function AnimeWatching() {
     }
     return epCurrent
   }
+  const checkIsPremiumMember = async () => {
+    console.log("Calling api check premium member");
+    const resCheckIsPremium = await APICheckIsPremiumMember();
+    if (resCheckIsPremium?.status === 200) {
+      if(resCheckIsPremium?.data) {
+        setIsPremiumMember(true)
+      }
+    } 
+  };
 
   useEffect(() => {
     loadEpisode();
+    checkIsPremiumMember();
     setEpisodeIdWatching(searchParams.get('episodeId'))
   }, [serverOption]);
 
@@ -70,7 +82,6 @@ export default function AnimeWatching() {
     <div className="animeWatching">
       <Header />
       <BreadcrumbOption cateList={location.state?.product.categoryList} seriesName={location.state?.product.seriesName} />
-      <Paypal />
       <div className="anime-details spad">
         <div className="container">
           <div className="row">
@@ -85,6 +96,7 @@ export default function AnimeWatching() {
                         episodeIdWatching={episodeIdWatching}
                         setEpisodeIdWatching={setEpisodeIdWatching}
                         serverOption={serverOption}
+                        isPremiumMember={isPremiumMember}
                       />
                     }
                   </div>

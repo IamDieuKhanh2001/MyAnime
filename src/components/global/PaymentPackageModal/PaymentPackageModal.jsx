@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import "./Paypal.scss";
+import "./PaymentPackageModal.scss";
 import Dialog from "@mui/material/Dialog";
 
-export default function Paypal() {
+export default function PaymentPackageModal() {
     const [open, setOpen] = useState(false);
     const [state, setState] = useState({
         activeObject: null,
@@ -77,7 +77,7 @@ export default function Paypal() {
     }
     return (
         <>
-            <button className="btn btn-warning text-white" onClick={handleClickOpen}>
+            <button className="btn btn-warning open__premium__modal"  onClick={handleClickOpen}>
                 Join the Premium
             </button>
             <Dialog open={open} onClose={handleClose} maxWidth='md'>

@@ -75,3 +75,15 @@ export const APIVerifyUserEmailOTP = (otpCode) => {
         return err;
     });
 };
+
+export const APICheckIsPremiumMember = () => {
+    const url = `/user/user-detail/premium/check`;
+    const jwt = window.sessionStorage.getItem("jwt");
+    const headers = {
+        Authorization: `Bearer ${jwt}`,
+    };
+    return axiosClient.get(url, { headers: headers }).catch((err) => {
+        console.log("Can't call API after 2 retries", err);
+        return err;
+    });
+};

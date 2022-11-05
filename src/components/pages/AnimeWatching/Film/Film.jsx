@@ -9,13 +9,15 @@ import { APIEpisodeIncreaseView } from "../../../../api/axios/episodeAPI";
 import { APIHistoriesSeriesUserLoggingSave } from "../../../../api/axios/historyWatchingAPI";
 import SourceErrorPlaceholder from "../SourceErrorPlaceholder/SourceErrorPlaceholder";
 import "./Film.scss";
+import PremiumPlaceholder from "../PremiumPlaceholder/PremiumPlaceholder";
 
 export default function Film({
     episodeWatching,
     lastSecondExit,
     episodeIdWatching,
     setEpisodeIdWatching,
-    serverOption
+    serverOption,
+    isPremiumMember
 }) {
     const loginJwt = window.sessionStorage.getItem("jwt");
     const navigate = useNavigate();
@@ -36,12 +38,6 @@ export default function Film({
     }, [episodeIdWatching, serverOption]);
 
     let videoSrc
-    // if (serverOption === "DO") {
-    //     videoSrc = episodeWatching.resourceDO
-
-    // } else {
-    //     videoSrc = episodeWatching.resourceCD
-    // }
     videoSrc = serverOption === "DO" ? episodeWatching.resourceDO : episodeWatching.resourceCD
     // "https://res.cloudinary.com/dpxgtmzld/video/upload/v1661585857/MyAnimeProject_TLCN/test/video1.mp4";
 
@@ -65,6 +61,7 @@ export default function Film({
 
     const onError = () => {
         console.log("Error")
+        toast.error(`You must be premium member to watch this episode`)
     };
 
     const onPause = () => {
@@ -109,7 +106,7 @@ export default function Film({
         }
     });
 
-
+    console.log(isPremiumMember)
     return (
         <React.Fragment>
             <div className="film">
@@ -136,6 +133,9 @@ export default function Film({
                     <React.Fragment>
                         <SourceErrorPlaceholder />
                     </React.Fragment>
+                )}
+                {!isPremiumMember && episodeWatching.premiumRequired && (
+                    <PremiumPlaceholder />
                 )}
             </div >
         </React.Fragment >

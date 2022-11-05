@@ -128,7 +128,7 @@ function ProductDetail({ data }) {
                                 </div>
                             </div>
                         </div>
-                        <div className="anime__details__btn">
+                        <div className="anime__details__btn text-white">
                             <a onClick={() => handlesaveOrUnsaveFavorite()} className="follow-btn">
                                 <i className="fa fa-heart-o" /> {t("product_detail.btn_follow_text")}
                             </a>
