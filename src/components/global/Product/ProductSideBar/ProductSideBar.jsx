@@ -83,7 +83,7 @@ export default function ProductSideBar() {
           className="product__sidebar__comment__item"
         >
           <div className="product__sidebar__comment__item__pic">
-            <img src="img/sidebar/comment-1.jpg" alt />
+            <img src="img/sidebar/comment-1.jpg" alt="true" />
           </div>
           <div className="product__sidebar__comment__item__text">
             <ul>
@@ -103,7 +103,7 @@ export default function ProductSideBar() {
           className="product__sidebar__comment__item"
         >
           <div className="product__sidebar__comment__item__pic">
-            <img src="img/sidebar/comment-2.jpg" alt />
+            <img src="img/sidebar/comment-2.jpg" alt="true"  />
           </div>
           <div className="product__sidebar__comment__item__text">
             <ul>
@@ -123,7 +123,7 @@ export default function ProductSideBar() {
           className="product__sidebar__comment__item"
         >
           <div className="product__sidebar__comment__item__pic">
-            <img src="img/sidebar/comment-3.jpg" alt />
+            <img src="img/sidebar/comment-3.jpg" alt="true"  />
           </div>
           <div className="product__sidebar__comment__item__text">
             <ul>
@@ -143,7 +143,7 @@ export default function ProductSideBar() {
           className="product__sidebar__comment__item"
         >
           <div className="product__sidebar__comment__item__pic">
-            <img src="img/sidebar/comment-4.jpg" alt />
+            <img src="img/sidebar/comment-4.jpg" alt="true"  />
           </div>
           <div className="product__sidebar__comment__item__text">
             <ul>

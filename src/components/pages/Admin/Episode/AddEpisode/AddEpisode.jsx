@@ -12,23 +12,36 @@ import {
 } from "../../../../../api/axios/adminAPI";
 import { adminActions } from "../../../../../api/redux/slices/adminSlice";
 import { toast } from "react-toastify";
+import ServerAssetsSelect from "../CustomServerSelect/CustomServerSelect";
 
 export default function AddEpisode() {
     const [previewImg, setPreviewImg] = useState();
     const [uploadFile, setUploadFile] = useState();
     const [formValues, setFormValues] = useState(null);
     const [loading, setLoading] = useState();
+    const [loadServerList, setLoadServerList] = useState(false);
     const dispatch = useDispatch();
+    let isInvalidAddEpisode = useSelector(
+        (state) => state.admin.isInvalidAddEpisode
+    );
+
+    const serversAssets = [
+        { name: "Digital Ocean", id: "do" },
+        { name: "Cloudinary", id: "cd" },
+    ];
+
     const initialValues = {
         episode: "",
         seriesName: "",
         video: "",
+        serverAssets: [],
     };
     const movieSeries = useSelector((state) => state.admin.movieSeries);
     const validationSchema = Yup.object().shape({
         episode: Yup.string().required("Empty"),
         seriesName: Yup.object().required("Empty"),
         video: Yup.mixed().required("Empty"),
+        serverAssets: Yup.array().min(1, "Server must be at least 1").required("Empty"),
     });
     const loadMovieSeries = async () => {
         try {
@@ -71,6 +84,8 @@ export default function AddEpisode() {
     };
     const onSubmit = async (fields, resetForm) => {
         try {
+            const serverList = [];
+            fields.serverAssets.map((s) => serverList.push(s.value));
             let bodyFormData = new FormData();
             bodyFormData.append(
                 "model",
@@ -79,7 +94,10 @@ export default function AddEpisode() {
                 })
             );
             bodyFormData.append("sourceFile", fields.video);
-            console.log(bodyFormData);
+            bodyFormData.append(
+                "servers",
+                serverList
+            );
             const res = await APIAddEpisode(
                 fields.seriesName.value,
                 bodyFormData
@@ -144,7 +162,7 @@ export default function AddEpisode() {
                                                         )}
                                                 </span>
                                                 <div className="small font-italic text-muted mb-4">
-                                                    MP4 no larger than 15 MB
+                                                    Cloudinary server Mp4 no larger than 15mb
                                                 </div>
 
                                                 <label
@@ -231,7 +249,48 @@ export default function AddEpisode() {
                                                             )}
                                                     </span>
                                                 </div>
+                                                <div className="mb-3">
+                                                    <label
+                                                        className="small mb-1"
+                                                        htmlFor="inputServerAssets"
+                                                    >
+                                                        Server Backup
+                                                    </label>
+                                                    {loadServerList ? (
+                                                        <LoadingAnimation />
+                                                    ) : serversAssets ? (
+                                                        <Field
+                                                            component={
+                                                                ServerAssetsSelect
+                                                            }
+                                                            name="serverAssets"
+                                                            options={serversAssets?.map(
+                                                                (server) => {
+                                                                    return {
+                                                                        value: server.id,
+                                                                        label: server.name,
+                                                                    };
+                                                                }
+                                                            )}
+                                                        />
+                                                    ) : null}
+                                                    <span className="error">
+                                                        {errors.serverAssets &&
+                                                            touched.serverAssets && (
+                                                                <div
+                                                                    style={{
+                                                                        marginTop: 10,
+                                                                    }}
+                                                                >
+                                                                    {
+                                                                        errors.serverAssets
+                                                                    }
+                                                                </div>
+                                                            )}
+                                                    </span>
+                                                </div>
                                                 <button
+                                                    disabled={isInvalidAddEpisode}
                                                     className="btn btn-danger px-4"
                                                     type="submit"
                                                 >

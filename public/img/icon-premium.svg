@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>VIP_icon</title>
+    <defs>
+        <path d="M14.3982994,3.15954028 L12.2870266,0.233373651 C12.1812888,0.086823933 12.0115798,9.66004224e-16 11.8308665,0 L2.83580021,0 C2.65508689,-7.78258047e-17 2.48537785,0.086823933 2.37964004,0.233373651 L0.268001512,3.16004721 C0.111932251,3.37635496 0.129239395,3.67253218 0.309440336,3.86918995 L6.90933597,11.0718202 C7.11921323,11.3008645 7.47502943,11.3164024 7.7040737,11.1065252 C7.7159567,11.0956366 7.72736622,11.0842423 7.73827068,11.0723738 L14.3563526,3.86923664 C14.537007,3.67261197 14.5545338,3.37607685 14.3982994,3.15954028 Z" id="path-1"></path>
+        <linearGradient x1="24.7872002%" y1="21.534214%" x2="46.4950969%" y2="55.5678035%" id="linearGradient-3">
+            <stop stop-color="#FFFFFF" offset="0%"></stop>
+            <stop stop-color="#F56A8C" offset="100%"></stop>
+        </linearGradient>
+        <filter x="0.0%" y="0.0%" width="100.0%" height="100.0%" filterUnits="objectBoundingBox" id="filter-4">
+            <feGaussianBlur stdDeviation="0" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <linearGradient x1="50%" y1="11.5245453%" x2="50%" y2="100%" id="linearGradient-5">
+            <stop stop-color="#FFFFFF" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="-8.21107009%" x2="50%" y2="87.7915298%" id="linearGradient-6">
+            <stop stop-color="#FFFFFF" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" offset="100%"></stop>
+        </linearGradient>
+        <filter x="-13.7%" y="-9.9%" width="127.4%" height="119.9%" filterUnits="objectBoundingBox" id="filter-7">
+            <feGaussianBlur stdDeviation="0.5625" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <linearGradient x1="17.168703%" y1="19.1326531%" x2="76.3678047%" y2="57.5180577%" id="linearGradient-8">
+            <stop stop-color="#F56A8C" offset="0%"></stop>
+            <stop stop-color="#F56A8C" offset="59.9226968%"></stop>
+            <stop stop-color="#F56A8C" offset="100%"></stop>
+        </linearGradient>
+        <path d="M14.3982994,3.15954028 L12.2870266,0.233373651 C12.1812888,0.086823933 12.0115798,9.66004224e-16 11.8308665,0 L2.83580021,0 C2.65508689,-7.78258047e-17 2.48537785,0.086823933 2.37964004,0.233373651 L0.268001512,3.16004721 C0.111932251,3.37635496 0.129239395,3.67253218 0.309440336,3.86918995 L6.90933597,11.0718202 C7.11921323,11.3008645 7.47502943,11.3164024 7.7040737,11.1065252 C7.7159567,11.0956366 7.72736622,11.0842423 7.73827068,11.0723738 L14.3563526,3.86923664 C14.537007,3.67261197 14.5545338,3.37607685 14.3982994,3.15954028 Z" id="path-9"></path>
+    </defs>
+    <g id="看这里" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon汇总" transform="translate(-504.000000, -503.000000)">
+            <g id="VIP_icon" transform="translate(504.000000, 503.000000)">
+                <rect id="矩形" fill-opacity="0" fill="#FFFFFF" x="0" y="0" width="16" height="16"></rect>
+                <g id="路径备份-5" transform="translate(0.666667, 1.888889)">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <use id="路径备份" fill="#F56A8C" xlink:href="#path-1"></use>
+                    <polygon id="路径" fill="url(#linearGradient-3)" filter="url(#filter-4)" mask="url(#mask-2)" points="7.33333333 4.01703814 7.33333333 11.5238095 10.0672022 13.6765687 16.6716014 4.76201533 12.446438 0.885385856"></polygon>
+                    <path d="M7.33333333,3.34425461 C7.46647341,3.34425461 7.57800601,3.4367672 7.60715532,3.56101656 L7.61458333,3.62550461 L7.61458333,10.6104681 C7.61458333,10.7657982 7.48866342,10.8917181 7.33333333,10.8917181 C7.20019326,10.8917181 7.08866066,10.7992056 7.05951135,10.6749562 L7.05208333,10.6104681 L7.05208333,3.62550461 C7.05208333,3.47017452 7.17800325,3.34425461 7.33333333,3.34425461 Z" id="路径-2" fill="url(#linearGradient-5)" fill-rule="nonzero" mask="url(#mask-2)"></path>
+                    <path d="M11.8423997,0.644260883 C11.9755693,0.564302887 12.1483434,0.607439452 12.2283014,0.740609098 C12.2968368,0.854754508 12.2749354,0.997997062 12.1834173,1.08694656 L12.1319532,1.12651083 L7.42352222,3.95355674 L2.71509127,1.12651083 C2.58192162,1.04655283 2.53878506,0.873778743 2.61874305,0.740609098 C2.68727848,0.626463687 2.82400532,0.57846503 2.94553338,0.617433183 L3.00464479,0.644260883 L7.423,3.297 L11.8423997,0.644260883 Z" id="路径-3" fill="url(#linearGradient-6)" fill-rule="nonzero" mask="url(#mask-2)"></path>
+                    <polygon id="路径-4" fill="#F56A8C" filter="url(#filter-7)" mask="url(#mask-2)" points="10.1524706 -1.17213732 13.7495368 3.62550461 6.27924059 11.5238095 14.2838945 12.8919616 18.6136354 1.18291698 14.6666667 -4.08969362"></polygon>
+                    <mask id="mask-10" fill="white">
+                        <use xlink:href="#path-9"></use>
+                    </mask>
+                    <use id="路径备份-3" stroke="url(#linearGradient-8)" stroke-width="0.5" xlink:href="#path-9"></use>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

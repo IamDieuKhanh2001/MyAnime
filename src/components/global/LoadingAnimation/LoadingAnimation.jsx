@@ -5,7 +5,7 @@ function LoadingAnimation() {
     return (
         <React.Fragment>
             <div className='loading-animation col-12'>
-                <img src="/img/loading-animation/animation-1.gif" alt={true} />
+                <img src="/img/loading-animation/animation-1.gif" alt='true' />
             </div>
         </React.Fragment>
     )

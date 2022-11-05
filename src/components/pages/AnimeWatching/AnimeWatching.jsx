@@ -14,9 +14,6 @@ import { useLocation, useParams, useSearchParams } from "react-router-dom";
 import AnimeReview from "../../global/AnimeReview/AnimeReview";
 import { Alert, AlertTitle } from "@mui/material";
 import ProductDetailSideBar from "../../global/Product/ProductDetailSideBar/ProductDetailSideBar";
-import { APIGetCommentByEpisodeId } from "../../../api/axios/commentAPI";
-import { commentActions } from "../../../api/redux/slices/commentSlice";
-import { axiosClient } from "../../../api/axios/axiosClient";
 import { useTranslation } from "react-i18next";
 import Paypal from "./Paypal/Paypal";
 import ServerNameSection from "./ServerNameSection/ServerNameSection";
@@ -109,10 +106,14 @@ export default function AnimeWatching() {
                     }
                     {
                       episodeList.map((episode, index) => (
-                        <a className={episode.id === getCurrentWatchingEpisode().id ? "episode__active" : ""} href={getCurrentPathWithoutLastPart() + `?episodeId=${episode.id}`} key={index}>
-                          {t("anime_watching.episode_num_prefix")}
-                          {episode.title}
-                        </a>
+                        <React.Fragment>
+                          <a className={episode.id === getCurrentWatchingEpisode().id ? "episode__active" : ""}
+                            href={getCurrentPathWithoutLastPart() + `?episodeId=${episode.id}`} key={index}>
+                            {t("anime_watching.episode_num_prefix")}
+                            {episode.title}
+                            <img className="premium__icon" src="/img/icon-premium.svg" alt="true" />
+                          </a>
+                        </React.Fragment>
                       ))
                     }
                   </div>

@@ -10,6 +10,9 @@ const initialState = {
     isInvalidUpdateMovie: false,
     isInvalidAddMovie: false,
     isUpdateMovie: false,
+    isInvalidAddEpisode: false,
+    isInvalidUpdateEpisode: false,
+    isUpdateEpisode: false,
 };
 
 const admin = createSlice({
@@ -42,6 +45,15 @@ const admin = createSlice({
         },
         setMovieSeriesEp: (state, actions) => {
             state.movieSeriesEp = actions.payload;
+        },
+        setInvalidAddEpisode: (state, actions) => {
+            state.isInvalidAddEpisode = actions.payload;
+        },
+        setInvalidUpdateEpisode: (state, actions) => {
+            state.isInvalidUpdateEpisode = actions.payload;
+        },
+        setIsUpdateEpisode: (state, actions) => {
+            state.isUpdateEpisode = actions.payload;
         },
     },
 });
