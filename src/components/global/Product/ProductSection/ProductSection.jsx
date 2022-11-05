@@ -14,6 +14,13 @@ export default function ProductSection({ data }) {
           }}
         >
           <div className="ep">{data.currentNumberEpisode} / {data.totalEpisode}</div>
+          {data.isPremium && (
+            <div className="premium">
+              <img className="premium__icon" src="/img/icon-premium.svg" alt="true" />
+              Premium
+            </div>
+          )}
+
           <div className="comment">
             <i className="fa fa-comments" /> {data.commentTotal}
           </div>
