@@ -31,6 +31,7 @@ import { useSelector } from "react-redux";
 import FavoriteSeries from "./components/pages/FavoriteSeries/FavoriteSeries";
 import AuthenIdCard from "./components/pages/AuthenIdCard/AuthenIdCard";
 import SubscriptionRedeemHistory from "./components/pages/SubscriptionRedeemHistory/SubscriptionRedeemHistory";
+import RedeemGiftCode from "./components/pages/RedeemGiftCode/RedeemGiftCode";
 
 
 function App() {
@@ -80,6 +81,7 @@ function App() {
 
                     <Route path="/series/search/:kw" element={<SearchKeyword />} />
                     <Route path="/subscription/history" element={<SubscriptionRedeemHistory />} />
+                    <Route path="/redeem" element={<RedeemGiftCode />} />
                     <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
             </Router>
