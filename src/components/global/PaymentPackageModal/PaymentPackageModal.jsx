@@ -1,28 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./PaymentPackageModal.scss";
 import Dialog from "@mui/material/Dialog";
 import { toast } from "react-toastify";
+import { APIGetAllSubscriptionPackage } from "../../../api/axios/Subscription";
+import LoadingAnimation from "../LoadingAnimation/LoadingAnimation";
 
 export default function PaymentPackageModal() {
     const [open, setOpen] = useState(false);
+    const [loadingPackage, setLoadingPackage] = useState(false)
     const [subscriptionPackage, setSubscriptionPackage] = useState({
         activeObject: null,
         objects: [
-            {
-                id: 1,
-                title: "1-week Premium",
-                price: 50000,
-            },
-            {
-                id: 2,
-                title: "1-month Premium",
-                price: 480000,
-            },
-            {
-                id: 3,
-                title: "1-year Premium",
-                price: 1500000,
-            },
+            // {
+            //     id: 1,
+            //     title: "1-week Premium",
+            //     price: 50000,
+            // },
+            // {
+            //     id: 2,
+            //     title: "1-month Premium",
+            //     price: 480000,
+            // },
+            // {
+            //     id: 3,
+            //     title: "1-year Premium",
+            //     price: 1500000,
+            // },
         ],
     });
 
@@ -71,10 +74,12 @@ export default function PaymentPackageModal() {
 
     const onSubmit = () => {
         console.log("on sub")
-        alert(subscriptionPackage.activeObject.title + " " + pay.activeBrand.nameBrand)
-        if(typeof subscriptionPackage.activeObject === null || typeof pay.activeBrand === null) {
+        if (subscriptionPackage?.activeObject === null || pay?.activeBrand === null) {
             toast.error("You must choose payment method and package!!")
+        } else {
+            alert(subscriptionPackage.activeObject.name + " " + pay.activeBrand?.nameBrand)
         }
+
     };
     function togglePayActive(index) {
         setPay({ ...pay, activeBrand: pay.brands[index] });
@@ -87,9 +92,25 @@ export default function PaymentPackageModal() {
             return "btn pay";
         }
     }
+
+    const loadSubscriptionPackage = async () => {
+        console.log("Calling api get package");
+        setLoadingPackage(true)
+        const resGetPackage = await APIGetAllSubscriptionPackage();
+        console.log(resGetPackage)
+        if (resGetPackage?.status === 200) {
+            console.log(resGetPackage.data)
+            setSubscriptionPackage({ ...subscriptionPackage, objects: resGetPackage?.data })
+        }
+        setLoadingPackage(false)
+    };
+
+    useEffect(() => {
+        loadSubscriptionPackage()
+    }, []);
     return (
-        <>
-            <button className="btn btn-warning open__premium__modal"  onClick={handleClickOpen}>
+        <React.Fragment>
+            <button className="btn btn-warning open__premium__modal" onClick={handleClickOpen}>
                 Join the Premium
             </button>
             <Dialog open={open} onClose={handleClose} maxWidth='md'>
@@ -97,25 +118,31 @@ export default function PaymentPackageModal() {
                     <div className="firstSection">
                         <div className="title">Premium Plans</div>
                         <div className="packages">
-                            {subscriptionPackage.objects.map((data, index) => (
-                                <div
-                                    key={index}
-                                    className={toggleActiveStyle(index)}
-                                    onClick={() => {
-                                        toggleActive(index);
-                                    }}
-                                >
-                                    <p className="package-title">
-                                        {data.title}
-                                    </p>
-                                    <p className="price">${data.price}</p>
-                                </div>
-                            ))}
+                            {loadingPackage ? (
+                                <LoadingAnimation />
+                            ) : (
+                                <React.Fragment>
+                                    {subscriptionPackage.objects.map((data, index) => (
+                                        <div
+                                            key={index}
+                                            className={toggleActiveStyle(index)}
+                                            onClick={() => {
+                                                toggleActive(index);
+                                            }}
+                                        >
+                                            <p className="package-title">
+                                                {data.name}
+                                            </p>
+                                            <p className="price">${data.price}</p>
+                                        </div>
+                                    ))}
+                                </React.Fragment>
+                            )}
                         </div>
                     </div>
                     <div className="secondSection">
                         <div className="payment">
-                        Select payment method
+                            Select payment method
                         </div>
                         <div className="packages-payment">
                             {pay.brands.map((_data, index) => (
@@ -139,6 +166,6 @@ export default function PaymentPackageModal() {
                     </div>
                 </div>
             </Dialog>
-        </>
+        </React.Fragment>
     );
 }

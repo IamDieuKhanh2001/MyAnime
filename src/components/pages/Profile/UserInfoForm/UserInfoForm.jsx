@@ -12,6 +12,8 @@ import {
 import MessageModal from "../../../global/MessageModal/MessageModal";
 import VerifyEmailModal from "../../../global/VerifyEmailModal/VerifyEmailModal";
 import { useTranslation } from "react-i18next";
+import "./UserInfoForm.scss"
+import PremiumCard from "../PremiumCard/PremiumCard";
 
 function UserInfoForm({ loadUserLogging }) {
     const { t } = useTranslation();
@@ -154,6 +156,7 @@ function UserInfoForm({ loadUserLogging }) {
                                             {t("profile.account_detail_title")}
                                         </div>
                                         <div className="card-body">
+                                            <PremiumCard enable={isPremiumMember} remainTime={2} />
                                             <div className="profileForm">
                                                 <div className="mb-3">
                                                     <label
