@@ -30,6 +30,7 @@ import { Helmet } from "react-helmet";
 import { useSelector } from "react-redux";
 import FavoriteSeries from "./components/pages/FavoriteSeries/FavoriteSeries";
 import AuthenIdCard from "./components/pages/AuthenIdCard/AuthenIdCard";
+import SubscriptionRedeemHistory from "./components/pages/SubscriptionRedeemHistory/SubscriptionRedeemHistory";
 
 
 function App() {
@@ -78,6 +79,7 @@ function App() {
                     }
 
                     <Route path="/series/search/:kw" element={<SearchKeyword />} />
+                    <Route path="/subscription/history" element={<SubscriptionRedeemHistory />} />
                     <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
             </Router>

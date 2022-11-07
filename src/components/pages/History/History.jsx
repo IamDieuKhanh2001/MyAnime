@@ -2,12 +2,8 @@ import React from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { APIGetHistoriesSeriesUserLogging } from '../../../api/axios/historyWatchingAPI';
-import { HistoryActions } from '../../../api/redux/slices/HistoryWatchingSlice';
 import { Layout } from '../../global/Layout/Layout'
 import NormalBreadcrumb from '../../global/NormalBreadcrumb/NormalBreadcrumb'
-import ProductSideBar from '../../global/Product/ProductSideBar/ProductSideBar';
 import HistorySection from './HistorySection/HistorySection';
 
 function History() {
@@ -41,7 +37,6 @@ function History() {
     }
 
     useEffect(() => {
-        console.log(historyList)
         sortHistory()
     }, [])
     return (

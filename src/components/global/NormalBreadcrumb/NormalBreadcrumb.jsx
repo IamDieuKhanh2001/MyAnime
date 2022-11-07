@@ -5,7 +5,7 @@ export default function NormalBreadcrumb({ title, description }) {
     <div className="bannerBlog">
       <div
         className="normal-breadcrumb set-bg"
-        style={{ backgroundImage: "url('img/normal-breadcrumb.jpg')" }}
+        style={{ backgroundImage: "url('/img/normal-breadcrumb.jpg')" }}
       >
         <div className="container">
           <div className="row">
