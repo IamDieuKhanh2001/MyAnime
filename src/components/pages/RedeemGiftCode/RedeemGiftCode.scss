@@ -4,13 +4,10 @@
     font-family: "Oswald", sans-serif;
 
     .redeem__body {
-        background-color: $footer-color;
         padding: 50px 0 70px 0;
 
         .wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+
 
             .error {
                 font-size: 10px;
@@ -21,8 +18,7 @@
                 z-index: 5;
                 background-color: #fff;
                 border-radius: 2px;
-                width: 40%;
-                margin-left: 350px;
+                width: 500px;
                 padding: 15px 25px;
                 box-shadow: 0 0.3rem 1rem 0 #00000024;
 
@@ -71,6 +67,7 @@
                         flex: 1;
                     }
                 }
+
                 .redeem__footer {
                     h1 {
                         margin-top: 8px;
@@ -80,6 +77,7 @@
                         display: flex;
                         align-items: center;
                     }
+
                     .redeem__footer__tip {
                         font-size: 12px;
                         line-height: 15px;
@@ -88,11 +86,26 @@
                         word-wrap: break-word;
                         margin-top: 8px;
                     }
+
                     a {
                         color: blue;
                     }
                 }
             }
         }
+    }
+}
+
+// Extra small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) {
+    .container {
+        min-width: 500px !important;
+    }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .container {
+        min-width: 600px !important;
     }
 }

@@ -5,6 +5,8 @@ import * as Yup from "yup";
 import "./RedeemGiftCode.scss"
 import Header from '../../global/Header/Header';
 import Footer from '../../global/Footer/Footer';
+import { fontWeight } from '@mui/system';
+import RedeemHeader from './RedeemHeader/RedeemHeader';
 
 function RedeemGiftCode() {
     const formik = useFormik({
@@ -21,11 +23,12 @@ function RedeemGiftCode() {
     return (
         <div className="redeem">
             <Header />
-            <div className="redeem__body">
-                <div className="container">
-                    <div className="wrapper">
+            <div className="container">
+                <div className="redeem__body">
+                    <div className="wrapper row  d-flex  justify-content-center">
                         <form className="redeem__form" onSubmit={formik.handleSubmit}>
                             <p className="title">Redeem Premium</p>
+                            <RedeemHeader avatarUrl={"/img/avatar/avatar.jpg"} />
                             <div className="form-group">
                                 <input
                                     type="text"
