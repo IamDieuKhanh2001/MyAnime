@@ -87,3 +87,15 @@ export const APICheckIsPremiumMember = () => {
         return err;
     });
 };
+
+export const APIGetRemainTimePremiumMember = () => {
+    const url = `/user/user-detail/premium/remain`;
+    const jwt = window.sessionStorage.getItem("jwt");
+    const headers = {
+        Authorization: `Bearer ${jwt}`,
+    };
+    return axiosClient.get(url, { headers: headers }).catch((err) => {
+        console.log("Can't call API after 2 retries", err);
+        return err;
+    });
+};

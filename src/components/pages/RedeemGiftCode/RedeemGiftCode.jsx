@@ -1,14 +1,18 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
 import "./RedeemGiftCode.scss"
 import Header from '../../global/Header/Header';
 import Footer from '../../global/Footer/Footer';
-import { fontWeight } from '@mui/system';
 import RedeemHeader from './RedeemHeader/RedeemHeader';
+import { APIUserRedeemGiftcode } from '../../../api/axios/Subscription';
+import { toast } from 'react-toastify';
 
 function RedeemGiftCode() {
+    const avatar = window.sessionStorage.getItem("avatar");
+    const [loading, setLoading] = useState(false)
+
     const formik = useFormik({
         initialValues: {
             code: "",
@@ -17,9 +21,31 @@ function RedeemGiftCode() {
             code: Yup.string().required("Emty code"),
         }),
         onSubmit: async values => {
-
+            if(values !== "") {
+                userRedeemCode(values.code)
+            }
         }
     });
+
+    const userRedeemCode = async (redemptionCode) => {
+        console.log("Calling api redeem");
+        setLoading(true)
+        const resUserRedeemCode = await APIUserRedeemGiftcode(redemptionCode);
+        console.log(resUserRedeemCode)
+        if (resUserRedeemCode?.status === 200) {
+            toast.success("Redeem success")
+        } else {
+            toast.error("GiftCode invalid or has been used")
+        }
+        setLoading(false)
+    };
+
+
+
+    useEffect(() => {
+
+    }, [])
+
     return (
         <div className="redeem">
             <Header />
@@ -28,7 +54,7 @@ function RedeemGiftCode() {
                     <div className="wrapper row  d-flex  justify-content-center">
                         <form className="redeem__form" onSubmit={formik.handleSubmit}>
                             <p className="title">Redeem Premium</p>
-                            <RedeemHeader avatarUrl={"/img/avatar/avatar.jpg"} />
+                            <RedeemHeader avatarUrl={avatar} />
                             <div className="form-group">
                                 <input
                                     type="text"

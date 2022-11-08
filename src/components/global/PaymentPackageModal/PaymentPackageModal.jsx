@@ -4,10 +4,13 @@ import Dialog from "@mui/material/Dialog";
 import { toast } from "react-toastify";
 import { APIGetAllSubscriptionPackage } from "../../../api/axios/Subscription";
 import LoadingAnimation from "../LoadingAnimation/LoadingAnimation";
+import RedeemHeader from "../../pages/RedeemGiftCode/RedeemHeader/RedeemHeader";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function PaymentPackageModal() {
     const [open, setOpen] = useState(false);
     const [loadingPackage, setLoadingPackage] = useState(false)
+    const avatar = window.sessionStorage.getItem("avatar");
     const [subscriptionPackage, setSubscriptionPackage] = useState({
         activeObject: null,
         objects: [
@@ -115,6 +118,11 @@ export default function PaymentPackageModal() {
             </button>
             <Dialog open={open} onClose={handleClose} maxWidth='md'>
                 <div className="paypal">
+                    <RedeemHeader avatarUrl={avatar} />
+                    <Link to={"/redeem"} className="redeem__code__link">
+                    <span className="icon_puzzle_alt pr-2"></span>
+                        Redeem Premium
+                    </Link>
                     <div className="firstSection">
                         <div className="title">Premium Plans</div>
                         <div className="packages">

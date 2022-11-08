@@ -10,6 +10,19 @@
     background-color: #0b0c2a;
     padding: 30px 50px;
 
+    .redeem__code__link {
+        color: #9F5AFD;
+        font-size: 15px;
+        line-height: 15px;
+        font-weight: 400;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding-bottom: 4px;
+        padding-right: 36px;
+
+        cursor: pointer;
+    }
     .firstSection {
         .title {
             margin-top: 10px;

@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import {
     APIChangeAvatar,
     APICheckIsPremiumMember,
+    APIGetRemainTimePremiumMember,
     APIUpdateInfoUserLogging,
 } from "../../../../api/axios/customerAPI";
 import MessageModal from "../../../global/MessageModal/MessageModal";
@@ -25,6 +26,7 @@ function UserInfoForm({ loadUserLogging }) {
     const [updateMessage, setUpdateMessage] = useState("");
     const [otpVerifyModal, setOtpVerifyModal] = useState(false);
     const [isPremiumMember, setIsPremiumMember] = useState(false)
+    const [premiumHourRemain, setPremiumHourRemain] = useState(0);
 
     const checkIsPremiumMember = async () => {
         console.log("Calling api check premium member");
@@ -36,12 +38,22 @@ function UserInfoForm({ loadUserLogging }) {
         }
     };
 
+    const getRemainTimePremiumMember = async () => {
+        console.log("Calling api check premium member");
+        const resRemainTimePremium = await APIGetRemainTimePremiumMember();
+        if (resRemainTimePremium?.status === 200) {
+            if (resRemainTimePremium?.data) {
+                setPremiumHourRemain(resRemainTimePremium.data)
+            }
+        }
+    };
+
+
     useEffect(() => {
         checkIsPremiumMember()
         if (data.avatar) {
             setPreviewImg(data.avatar);
         }
-        console.log(data);
     }, [data]);
 
     const initialValues = {
@@ -156,7 +168,7 @@ function UserInfoForm({ loadUserLogging }) {
                                             {t("profile.account_detail_title")}
                                         </div>
                                         <div className="card-body">
-                                            <PremiumCard enable={isPremiumMember} remainTime={2} />
+                                            <PremiumCard enable={isPremiumMember} remainTime={premiumHourRemain} />
                                             <div className="profileForm">
                                                 <div className="mb-3">
                                                     <label
