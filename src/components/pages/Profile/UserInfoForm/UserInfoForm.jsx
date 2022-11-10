@@ -43,7 +43,10 @@ function UserInfoForm({ loadUserLogging }) {
         const resRemainTimePremium = await APIGetRemainTimePremiumMember();
         if (resRemainTimePremium?.status === 200) {
             if (resRemainTimePremium?.data) {
-                setPremiumHourRemain(resRemainTimePremium.data)
+                let date = new Date(resRemainTimePremium.data)
+
+                console.log(resRemainTimePremium.data)
+                setPremiumHourRemain(date.getTime())
             }
         }
     };
@@ -54,6 +57,7 @@ function UserInfoForm({ loadUserLogging }) {
         if (data.avatar) {
             setPreviewImg(data.avatar);
         }
+        getRemainTimePremiumMember()
     }, [data]);
 
     const initialValues = {

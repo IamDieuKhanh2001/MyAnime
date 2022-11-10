@@ -14,13 +14,14 @@ import MessageModal from "../../global/MessageModal/MessageModal";
 import { useEffect } from "react";
 import LoginThirdParty from "./LoginThirdParty/LoginThirdParty";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
+import { BeatLoader } from "react-spinners";
 
 function Login() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { t } = useTranslation();
 
-    const [modal, setModal] = useState(false);
     const [loading, setLoading] = useState(false);
     const formik = useFormik({
         initialValues: {
@@ -52,7 +53,7 @@ function Login() {
                     window.sessionStorage.setItem(
                         "avatar",
                         resUserInfo.data.avatar ||
-                            "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
                     );
                     const updateUserInfo = userActions.updateUserInfo({
                         username: resUserInfo.data.username,
@@ -70,9 +71,10 @@ function Login() {
                     }
                 }
                 setLoading(false);
+                toast.success("Welcome back " + username)
             } else if (resLogin.response.status === 400) {
                 setLoading(false);
-                setModal(true);
+                toast.error(resLogin.response.data)
             }
             //console.log(resLogin.response.status);
         },
@@ -97,20 +99,13 @@ function Login() {
             {/* Login Section Begin */}
             <section className="login spad">
                 <div className="container">
-                    {loading && (
+                    {/* {loading && (
                         <MessageModal
                             message={"Logging in, please wait!!"}
                             type={"loading"}
                             setModal={loading}
                         />
-                    )}
-                    {modal && (
-                        <MessageModal
-                            message={"Username or Password Invalid"}
-                            type={"error"}
-                            setModal={setModal}
-                        />
-                    )}
+                    )} */}
                     <div className="row">
                         <div className="col-lg-6">
                             <div className="login__form">
@@ -150,13 +145,28 @@ function Login() {
                                     </span>
 
                                     <div className="d-flex flex-row">
-                                        <input
+                                        <button
                                             type="submit"
-                                            value={t(
-                                                "login.btn_login_now_text"
-                                            )}
                                             className="site-btn mt-2"
-                                        />
+                                            disabled={loading}
+                                        >
+                                            {loading ? (
+                                                <React.Fragment>
+                                                    <BeatLoader
+                                                        speedMultiplier={0.8}
+                                                        margin={0}
+                                                        size={11}
+                                                        color="#fff"
+                                                    />
+                                                </React.Fragment>
+                                            ) : (
+                                                <React.Fragment>
+                                                    {t(
+                                                        "login.btn_login_now_text"
+                                                    )}
+                                                </React.Fragment>
+                                            )}
+                                        </button>
                                         {/* <button type="submit" className="site-btn">Login Now</button> */}
                                         <a href="/reset-password" className="forget_pass">
                                             {t("login.link_forgot_pw_text")}
