@@ -106,7 +106,6 @@ export default function Film({
         }
     });
 
-    console.log(isPremiumMember)
     return (
         <React.Fragment>
             <div className="film">

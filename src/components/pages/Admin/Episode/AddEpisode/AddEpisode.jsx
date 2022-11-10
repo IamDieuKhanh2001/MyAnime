@@ -88,6 +88,7 @@ export default function AddEpisode() {
         try {
             const serverList = [];
             fields.serverAssets.map((s) => serverList.push(s.value));
+            console.log(serverList)
             let bodyFormData = new FormData();
             bodyFormData.append(
                 "model",
@@ -108,8 +109,6 @@ export default function AddEpisode() {
             if (res.status === 200) {
                 await getEpisodeBySeriesId(fields.seriesName.value);
                 toast.success(`Add episode success`);
-                // movieSeries=_.concat(movieSeries,res.data.data)
-                // dispatch(adminActions.updateMovieSeries(movieSeries));
                 console.log(res.data);
                 resetForm();
                 setPreviewImg(null);

@@ -11,6 +11,7 @@ export default function PaymentPackageModal() {
     const [open, setOpen] = useState(false);
     const [loadingPackage, setLoadingPackage] = useState(false)
     const avatar = window.sessionStorage.getItem("avatar");
+    const username = window.sessionStorage.getItem("username");
     const [subscriptionPackage, setSubscriptionPackage] = useState({
         activeObject: null,
         objects: [
@@ -118,7 +119,7 @@ export default function PaymentPackageModal() {
             </button>
             <Dialog open={open} onClose={handleClose} maxWidth='md'>
                 <div className="paypal">
-                    <RedeemHeader avatarUrl={avatar} />
+                    <RedeemHeader avatarUrl={avatar} username={username} />
                     <Link to={"/redeem"} className="redeem__code__link">
                     <span className="icon_puzzle_alt pr-2"></span>
                         Redeem Premium

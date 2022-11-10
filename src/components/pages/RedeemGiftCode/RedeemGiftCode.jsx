@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 
 function RedeemGiftCode() {
     const avatar = window.sessionStorage.getItem("avatar");
+    const username = window.sessionStorage.getItem("username");
     const [loading, setLoading] = useState(false)
 
     const formik = useFormik({
@@ -54,7 +55,7 @@ function RedeemGiftCode() {
                     <div className="wrapper row  d-flex  justify-content-center">
                         <form className="redeem__form" onSubmit={formik.handleSubmit}>
                             <p className="title">Redeem Premium</p>
-                            <RedeemHeader avatarUrl={avatar} />
+                            <RedeemHeader avatarUrl={avatar} username={username} />
                             <div className="form-group">
                                 <input
                                     type="text"

@@ -7,23 +7,45 @@ import { useDispatch, useSelector } from "react-redux";
 import {
     APIDeleteEpisode,
     APIGetEpisodeBySeriesId,
-    APIGetMovieSeries,
     APIUpdateEpisode,
 } from "../../../../../api/axios/adminAPI";
 import { toast } from "react-toastify";
 import { adminActions } from "../../../../../api/redux/slices/adminSlice";
+import ServerAssetsSelect from "../CustomServerSelect/CustomServerSelect";
+import LoadingAnimation from "../../../../global/LoadingAnimation/LoadingAnimation";
+import PremiumPopover from "../PremiumPopover/PremiumPopover";
 
 export default function UpdateEpisode({ series, ep, hideDiaglogUpdate }) {
     const [formValues, setFormValues] = useState(null);
     const [previewImg, setPreviewImg] = useState();
     const [loadingDelete, setLoadingDelete] = useState(false);
+    const [loadServerList, setLoadServerList] = useState(false);
     const dispatch = useDispatch();
+    const movieSeries = useSelector((state) => state.admin.movieSeries);
+
+    const serversAssets = [
+        { name: "Digital Ocean", id: "do" },
+        { name: "Cloudinary", id: "cd" },
+    ];
+
+    const serversAssetsSelected = [
+        // { label: "Cloudinary", value: "cd" },
+    ];
+
     const initialValues = {
         episode: ep.title,
         seriesName: series.name,
         video: "",
+        serversAssets: [],
+        isPremium: ep.premiumRequired,
     };
-    const movieSeries = useSelector((state) => state.admin.movieSeries);
+    if(ep.resourceDO !== null) {
+        serversAssetsSelected.push({ label: "Digital Ocean", value: "do" })
+    }
+    if(ep.resourceCD !== null) {
+        serversAssetsSelected.push({ label: "Cloudinary", value: "cd" })
+    }
+    console.log(ep)
     const validationSchema = Yup.object().shape({
         episode: Yup.string().required("Empty"),
         video: Yup.mixed(),
@@ -54,14 +76,21 @@ export default function UpdateEpisode({ series, ep, hideDiaglogUpdate }) {
 
     const onSubmit = async (fields, resetForm) => {
         try {
+            const serverList = [];
+            fields.serverAssets.map((s) => serverList.push(s.value));
             let bodyFormData = new FormData();
             bodyFormData.append(
                 "model",
                 JSON.stringify({
                     title: fields.episode,
+                    premiumRequired: fields.isPremium,
                 })
             );
             bodyFormData.append("sourceFile", fields.video);
+            bodyFormData.append(
+                "servers",
+                serverList
+            );
             console.log(bodyFormData);
             const res = await APIUpdateEpisode(ep.id, bodyFormData);
             if (res.status === 200) {
@@ -203,13 +232,72 @@ export default function UpdateEpisode({ series, ep, hideDiaglogUpdate }) {
                                                         name="seriesName"
                                                         disabled={true}
                                                         className="form-control"
-                                                        // options={movieSeries?.map(series => {
-                                                        //     return {
-                                                        //         value: series.id,
-                                                        //         label: series.name,
-                                                        //     };
-                                                        // })}
+                                                        options={movieSeries?.map(
+                                                            (series) => {
+                                                                return {
+                                                                    value: series.id,
+                                                                    label: series.name,
+                                                                };
+                                                            }
+                                                        )}
                                                     />
+                                                </div>
+                                                <div className="mb-3 d-flex justify-content-between">
+                                                    <div>
+                                                        <label
+                                                            className="large mb-1"
+                                                            htmlFor="inputEpisode"
+                                                        >
+                                                            For premium member only:
+                                                        </label>
+                                                        <Field
+                                                            className="premium-checkbox"
+                                                            type="checkbox"
+                                                            name="isPremium"
+                                                        />
+                                                    </div>
+                                                    <PremiumPopover />
+                                                </div>
+                                                <div className="mb-3">
+                                                    <label
+                                                        className="small mb-1"
+                                                        htmlFor="inputServerAssets"
+                                                    >
+                                                        Server Backup
+                                                    </label>
+                                                    {loadServerList ? (
+                                                        <LoadingAnimation />
+                                                    ) : serversAssets ? (
+                                                        <Field
+                                                            component={
+                                                                ServerAssetsSelect
+                                                            }
+                                                            currentValue={serversAssetsSelected}
+                                                            name="serverAssets"
+                                                            options={serversAssets?.map(
+                                                                (server) => {
+                                                                    return {
+                                                                        value: server.id,
+                                                                        label: server.name,
+                                                                    };
+                                                                }
+                                                            )}
+                                                        />
+                                                    ) : null}
+                                                    <span className="error">
+                                                        {errors.serverAssets &&
+                                                            touched.serverAssets && (
+                                                                <div
+                                                                    style={{
+                                                                        marginTop: 10,
+                                                                    }}
+                                                                >
+                                                                    {
+                                                                        errors.serverAssets
+                                                                    }
+                                                                </div>
+                                                            )}
+                                                    </span>
                                                 </div>
                                                 <button
                                                     className="btn btn-danger px-4"

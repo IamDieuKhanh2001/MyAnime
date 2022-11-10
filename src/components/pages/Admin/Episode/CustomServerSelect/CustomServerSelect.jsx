@@ -17,7 +17,7 @@ export default function ServerAssetsSelect(props) {
         }),
     }
     const onChange = (value) => {
-        console.log(value.length)
+        console.log(value)
         if (value?.length > 2 || value?.length === 0) {
             if (isIsUpdateEpisode) {
                 dispatch(adminActions.setInvalidUpdateEpisode(true))
@@ -36,6 +36,7 @@ export default function ServerAssetsSelect(props) {
     useEffect(() => {
         console.log(field)
         console.log(state)
+        setValue(props.currentValue)
     }, [])
 
     return (
