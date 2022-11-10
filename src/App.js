@@ -32,6 +32,7 @@ import FavoriteSeries from "./components/pages/FavoriteSeries/FavoriteSeries";
 import AuthenIdCard from "./components/pages/AuthenIdCard/AuthenIdCard";
 import SubscriptionRedeemHistory from "./components/pages/SubscriptionRedeemHistory/SubscriptionRedeemHistory";
 import RedeemGiftCode from "./components/pages/RedeemGiftCode/RedeemGiftCode";
+import GiftCode from "./components/pages/Admin/GiftCode/GiftCode";
 
 
 function App() {
@@ -75,6 +76,7 @@ function App() {
                             <Route path="movies" element={<Movie />} />
                             <Route path="episodes" element={<Episode />} />
                             <Route path="customers" element={<Customer />} />
+                            <Route path="giftcode" element={<GiftCode />} />
                         </Route> :
                             <Route path="/admin/*" element={<Login />} />
                     }

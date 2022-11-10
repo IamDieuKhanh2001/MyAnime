@@ -19,7 +19,7 @@ export default function AddSeries() {
   const [previewImg, setPreviewImg] = useState();
   const dispatch = useDispatch()
   const movies = useSelector(state => state.admin.movies)
-  let movieSeries= useSelector(state=>state.admin.movieSeries)
+  let movieSeries= useSelector(state =>state.admin.movieSeries)
   const initialValues = {
     name: "",
     movieName: "",
@@ -52,8 +52,6 @@ export default function AddSeries() {
 
   const onSubmit = async (fields,resetForm) => {
     try{
-      console.log(fields);
-      console.log(previewImg)
       let bodyFormData = new FormData()
       bodyFormData.append('model', JSON.stringify({
         description: fields.description,
@@ -90,6 +88,7 @@ export default function AddSeries() {
     console.log(resGetMovies.data)
     setLoadingMovies(false)
   }
+
   useEffect(() => {
     loadMovies()
   }, [])

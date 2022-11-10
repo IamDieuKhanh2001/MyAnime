@@ -37,6 +37,13 @@ export const sidebarNavItems = [
         to: "customers",
         section: "customers",
     },
+
+    {
+        display: "Giftcode",
+        icon: <i className='bx bxs-gift'></i>,
+        to: "giftcode",
+        section: "customers",
+    },
     {
         display: "Log Out",
         icon: <i className="bx bx-log-out"></i>,

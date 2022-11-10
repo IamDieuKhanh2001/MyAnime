@@ -32,3 +32,41 @@ export const APIUserRedeemGiftcode = (redemptionCode) => {
       return err;
   });
 };
+
+export const APIGetAllGiftCoode = () => {
+  const url = `/admin/giftcode/all`
+  const jwt = window.sessionStorage.getItem("jwt");
+  const headers = {
+      Authorization: `Bearer ${jwt}`,
+  };
+  return axiosClient
+    .get(url, { headers: headers })
+    .catch((err) => console.log("Can't call API after 2 retries", err));
+};
+
+export const APIGiftCodeSpawn = (subscriptionPackageId, quantity) => {
+  const url = `/admin/giftcode/create/package/` + subscriptionPackageId;
+  const data = {
+    quantity,
+  };
+  const jwt = window.sessionStorage.getItem("jwt");
+  const headers = {
+      Authorization: `Bearer ${jwt}`,
+  };
+  return axiosClient.post(url, data, { headers: headers }).catch((err) => {
+      console.log("Can't call API after 2 retries", err);
+      return err;
+  });
+};
+
+export const APIGiftCodeDeleteById = (subscriptionPackageId) => {
+  const url = `/admin/giftcode/delete/` + subscriptionPackageId;
+  const jwt = window.sessionStorage.getItem("jwt");
+  const headers = {
+      Authorization: `Bearer ${jwt}`,
+  };
+  return axiosClient.delete(url, { headers: headers }).catch((err) => {
+      console.log("Can't call API after 2 retries", err);
+      return err;
+  });
+};
