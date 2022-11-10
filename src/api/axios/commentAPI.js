@@ -29,3 +29,11 @@ export const APIPostCommentByEpisodeId = (content, episodeId) => {
             return err;
         });
 };
+
+export const APIGetSeriesCommentRecent = (limit) => {
+    // const url = "/movie";
+    const url = `/movie-and-series/comment/recent/` + limit
+    return axiosClient
+        .get(url)
+        .catch((err) => console.log("Can't call API after 2 retries", err));
+};

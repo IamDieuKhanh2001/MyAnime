@@ -8,6 +8,7 @@ const initialState = {
   topViewInYear: [],
   favoriteList: [],
   recentlyList: [],
+  seriesCommentRecentList: [],
 };
 
 const products = createSlice({
@@ -34,6 +35,9 @@ const products = createSlice({
     },
     updateFavoriteList: (state, actions) => {
       state.favoriteList = actions.payload;
+    },
+    updateSeriesCommentRecentList: (state, actions) => {
+      state.seriesCommentRecentList = actions.payload;
     },
   },
 });

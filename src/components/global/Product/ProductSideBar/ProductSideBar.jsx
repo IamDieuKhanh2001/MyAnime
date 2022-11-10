@@ -5,9 +5,11 @@ import { Helmet } from "react-helmet";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { APIGetSeriesCommentRecent } from "../../../../api/axios/commentAPI";
 import { APIGetTopMovieSeriesViewInNumberOfDay } from "../../../../api/axios/productAPI";
 import { productsActions } from "../../../../api/redux/slices/productSlice";
 import LoadingAnimation from "../../LoadingAnimation/LoadingAnimation";
+import ProductRecentCommentItem from "./ProductRecentCommentItem";
 import ViewTabPanel from "./ViewTabPanel/ViewTabPanel";
 
 export default function ProductSideBar() {
@@ -15,6 +17,9 @@ export default function ProductSideBar() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const [loadingTopView, setLoadingTopView] = useState(false)
+  const [loadingSeriesCommentRecentList, setLoadingSeriesCommentRecentList] = useState(false)
+
+  const seriesCommentRecentList = useSelector((state) => state.products.seriesCommentRecentList);
 
   const loadTopMovieSeriesViewInDay = async () => {
     const resGetTopViewInDay = await APIGetTopMovieSeriesViewInNumberOfDay(1, 5);
@@ -58,8 +63,20 @@ export default function ProductSideBar() {
     setLoadingTopView(false)
   };
 
+  const loadSeriesCommentRecent = async () => {
+    setLoadingSeriesCommentRecentList(true)
+    const resSeries = await APIGetSeriesCommentRecent(5);
+    console.log(resSeries)
+    if (resSeries?.status === 200) {
+      const updateSeries = productsActions.updateSeriesCommentRecentList(resSeries.data);
+      dispatch(updateSeries);
+    }
+    setLoadingSeriesCommentRecentList(false)
+  }
+
   useEffect(() => {
     loadTopViewProduct();
+    loadSeriesCommentRecent();
   }, []);
 
   return (
@@ -78,86 +95,14 @@ export default function ProductSideBar() {
         <div className="section-title">
           <h5>{t("home.side_bar.current_comment_title")}</h5>
         </div>
-        <div
-          onClick={() => navigate("/details")}
-          className="product__sidebar__comment__item"
-        >
-          <div className="product__sidebar__comment__item__pic">
-            <img src="img/sidebar/comment-1.jpg" alt="true" />
-          </div>
-          <div className="product__sidebar__comment__item__text">
-            <ul>
-              <li>Active</li>
-              <li>Movie</li>
-            </ul>
-            <h5>
-              <a href="">The Seven Deadly Sins: Wrath of the Gods</a>
-            </h5>
-            <span>
-              <i className="fa fa-eye" /> 19.141 Viewes
-            </span>
-          </div>
-        </div>
-        <div
-          onClick={() => navigate("/details")}
-          className="product__sidebar__comment__item"
-        >
-          <div className="product__sidebar__comment__item__pic">
-            <img src="img/sidebar/comment-2.jpg" alt="true"  />
-          </div>
-          <div className="product__sidebar__comment__item__text">
-            <ul>
-              <li>Active</li>
-              <li>Movie</li>
-            </ul>
-            <h5>
-              <a href="#">Shirogane Tamashii hen Kouhan sen</a>
-            </h5>
-            <span>
-              <i className="fa fa-eye" /> 19.141 Viewes
-            </span>
-          </div>
-        </div>
-        <div
-          onClick={() => navigate("/details")}
-          className="product__sidebar__comment__item"
-        >
-          <div className="product__sidebar__comment__item__pic">
-            <img src="img/sidebar/comment-3.jpg" alt="true"  />
-          </div>
-          <div className="product__sidebar__comment__item__text">
-            <ul>
-              <li>Active</li>
-              <li>Movie</li>
-            </ul>
-            <h5>
-              <a href="">Kizumonogatari III: Reiket su-hen</a>
-            </h5>
-            <span>
-              <i className="fa fa-eye" /> 19.141 Viewes
-            </span>
-          </div>
-        </div>
-        <div
-          onClick={() => navigate("/details")}
-          className="product__sidebar__comment__item"
-        >
-          <div className="product__sidebar__comment__item__pic">
-            <img src="img/sidebar/comment-4.jpg" alt="true"  />
-          </div>
-          <div className="product__sidebar__comment__item__text">
-            <ul>
-              <li>Active</li>
-              <li>Movie</li>
-            </ul>
-            <h5>
-              <a href="">Monogatari Series: Second Season</a>
-            </h5>
-            <span>
-              <i className="fa fa-eye" /> 19.141 Viewes
-            </span>
-          </div>
-        </div>
+        {loadingSeriesCommentRecentList ? (<LoadingAnimation />) : (
+          <React.Fragment>
+            {seriesCommentRecentList?.map((series) => (
+              <ProductRecentCommentItem data={series} />
+            ))}
+          </React.Fragment>
+        )}
+
       </div>
     </div>
   );
