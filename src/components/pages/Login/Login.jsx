@@ -158,7 +158,7 @@ function Login() {
                                             className="site-btn mt-2"
                                         />
                                         {/* <button type="submit" className="site-btn">Login Now</button> */}
-                                        <a href="#" className="forget_pass">
+                                        <a href="/reset-password" className="forget_pass">
                                             {t("login.link_forgot_pw_text")}
                                         </a>
                                     </div>

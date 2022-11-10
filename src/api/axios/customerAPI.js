@@ -99,3 +99,27 @@ export const APIGetRemainTimePremiumMember = () => {
         return err;
     });
 };
+
+export const APIGetMailVerification = (email) => {
+    const url = "/account/forget-password";
+    const data = {
+        email,
+    };
+    return axiosClient.post(url, data).catch((err) => {
+        console.log("Can't call API after 2 retries", err);
+        return err;
+    });;
+};
+
+export const APIResetUserPassword = (email, otpCode, newPassword) => {
+    const url = "/account/reset-password";
+    const data = {
+        email,
+        code_confirmation: otpCode,
+        new_password: newPassword,
+    };
+    return axiosClient.post(url, data).catch((err) => {
+        console.log("Can't call API after 2 retries", err);
+        return err;
+    });;
+};

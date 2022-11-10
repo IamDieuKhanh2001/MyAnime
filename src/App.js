@@ -33,6 +33,7 @@ import AuthenIdCard from "./components/pages/AuthenIdCard/AuthenIdCard";
 import SubscriptionRedeemHistory from "./components/pages/SubscriptionRedeemHistory/SubscriptionRedeemHistory";
 import RedeemGiftCode from "./components/pages/RedeemGiftCode/RedeemGiftCode";
 import GiftCode from "./components/pages/Admin/GiftCode/GiftCode";
+import ForgotPassword from "./components/pages/ForgotPassword/ForgotPassword";
 
 
 function App() {
@@ -84,6 +85,7 @@ function App() {
                     <Route path="/series/search/:kw" element={<SearchKeyword />} />
                     <Route path="/subscription/history" element={<SubscriptionRedeemHistory />} />
                     <Route path="/redeem" element={<RedeemGiftCode />} />
+                    <Route path="/reset-password" element={<ForgotPassword />} />
                     <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
             </Router>
