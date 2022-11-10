@@ -8,10 +8,12 @@ import Footer from '../../global/Footer/Footer';
 import RedeemHeader from './RedeemHeader/RedeemHeader';
 import { APIUserRedeemGiftcode } from '../../../api/axios/Subscription';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 function RedeemGiftCode() {
     const avatar = window.sessionStorage.getItem("avatar");
     const username = window.sessionStorage.getItem("username");
+    const navigate = useNavigate();
     const [loading, setLoading] = useState(false)
 
     const formik = useFormik({
@@ -44,7 +46,9 @@ function RedeemGiftCode() {
 
 
     useEffect(() => {
-
+        if(username === null) {
+            navigate(`/login`)
+        }
     }, [])
 
     return (

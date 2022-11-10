@@ -12,6 +12,7 @@ export default function PaymentPackageModal() {
     const [loadingPackage, setLoadingPackage] = useState(false)
     const avatar = window.sessionStorage.getItem("avatar");
     const username = window.sessionStorage.getItem("username");
+    const navigate = useNavigate();
     const [subscriptionPackage, setSubscriptionPackage] = useState({
         activeObject: null,
         objects: [
@@ -69,6 +70,10 @@ export default function PaymentPackageModal() {
         setOpen(true);
     };
 
+    const handleLoginNavigate = () => {
+        navigate(`/login`)
+    };
+
     const handleClose = () => {
         setOpen(false);
     };
@@ -114,7 +119,9 @@ export default function PaymentPackageModal() {
     }, []);
     return (
         <React.Fragment>
-            <button className="btn btn-warning open__premium__modal" onClick={handleClickOpen}>
+            <button className="btn btn-warning open__premium__modal" onClick={
+                username !== null ? (handleClickOpen) : (handleLoginNavigate)   
+                }>
                 Join the Premium
             </button>
             <Dialog open={open} onClose={handleClose} maxWidth='md'>

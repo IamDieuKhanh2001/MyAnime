@@ -66,7 +66,7 @@ function Login() {
                         navigate("/admin");
                     }
                     if (resLogin.data.authority === "ROLE_USER") {
-                        navigate("/");
+                        navigate(-1)
                     }
                 }
                 setLoading(false);
