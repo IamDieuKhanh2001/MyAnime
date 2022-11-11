@@ -129,5 +129,26 @@
     "btn_send_text": "コメントを送る",
     "btn_sending_text": "コメントを送っています...",
     "content_placeholder": "ここにあなたのコメントを書いてください ..."
+  },
+  "forgot_password": {
+    "title": "パスワードを再設定する",
+    "email_placeholder": "Eメール",
+    "btn_sending_text": "送っている...",
+    "btn_send_text": "OTP コードを送信する",
+    "code_placeholder": "メールからのコード",
+    "password_placeholder": "新しいパスワード",
+    "password_retype_placeholder": "パスワードを再入力してください",
+    "btn_reseting_text": "送っている...",
+    "btn_reset_text": "パスワードを再設定する",
+    "yup": {
+      "invalid_mail": "無効な電子メール",
+      "mail_empty": "空メール",
+      "password_empty": "空のパスワード!!"
+    }
+  },
+  "favorite": {
+    "anime_section": "アニメ",
+    "show_section": "映画とショー",
+    "btn_unsave_series": "保存しない"
   }
 }

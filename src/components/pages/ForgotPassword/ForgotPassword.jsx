@@ -21,7 +21,7 @@ function ForgotPassword() {
             email: "",
         },
         validationSchema: Yup.object({
-            email: Yup.string().email("Invalid email").required("Empty"),
+            email: Yup.string().email(t("forgot_password.yup.invalid_mail")).required(t("forgot_password.yup.mail_empty")),
         }),
         onSubmit: async values => {
             try {
@@ -50,14 +50,14 @@ function ForgotPassword() {
 
     return (
         <Layout>
-            <NormalBreadcrumb title={"Reset password"} description={"Welcome to our world named My Anime."} />
+            <NormalBreadcrumb title={t("forgot_password.title")} description={"Welcome to our world named My Anime."} />
             <section className="signup spad">
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-6">
                             <div className="login__form">
                                 <h3>
-                                    Reset password
+                                    {t("forgot_password.title")}
                                 </h3>
                                 <form onSubmit={formik.handleSubmit}>
                                     <div>
@@ -66,7 +66,7 @@ function ForgotPassword() {
                                                 disabled={!resetFormHidden}
                                                 type="text"
                                                 id="email"
-                                                placeholder={"Email"}
+                                                placeholder={t("forgot_password.email_placeholder")}
                                                 value={formik.values.email}
                                                 onChange={formik.handleChange}
                                             />
@@ -89,12 +89,13 @@ function ForgotPassword() {
                                                         margin={0}
                                                         size={11}
                                                         color="#fff"
-                                                    /> Sending
+                                                    /> 
+                                                    {t("forgot_password.btn_sending_text")}
                                                 </React.Fragment>
                                             ) : (
                                                 <React.Fragment>
                                                     <i className="fa fa-location-arrow" />
-                                                    Send mail for me
+                                                    {t("forgot_password.btn_send_text")}
                                                 </React.Fragment>
                                             )}
                                         </button>

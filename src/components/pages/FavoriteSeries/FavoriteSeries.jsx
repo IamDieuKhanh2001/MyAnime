@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { APIGetAllUserFavoriteSeries } from '../../../api/axios/productAPI'
 import { productsActions } from '../../../api/redux/slices/productSlice'
@@ -8,6 +9,7 @@ import NormalBreadcrumb from '../../global/NormalBreadcrumb/NormalBreadcrumb'
 import FavoriteSeriesItem from './FavoriteSeriesItem/FavoriteSeriesItem'
 
 function FavoriteSeries() {
+    const { t } = useTranslation();
     const [loading, setLoading] = useState(false)
     const favoriteList = useSelector((state) => state.products.favoriteList);
     const dispatch = useDispatch();
@@ -39,7 +41,7 @@ function FavoriteSeries() {
                                     <div className="row">
                                         <div className="col-lg-8 col-md-8 col-sm-8">
                                             <div className="section-title">
-                                                <h4>Anime</h4>
+                                                <h4>{t("favorite.anime_section")}</h4>
                                             </div>
                                         </div>
                                     </div>
@@ -53,7 +55,7 @@ function FavoriteSeries() {
                                     <div className="row">
                                         <div className="col-lg-8 col-md-8 col-sm-8">
                                             <div className="section-title">
-                                                <h4>Film & Show</h4>
+                                                <h4>{t("favorite.show_section")}</h4>
                                             </div>
                                         </div>
                                     </div>

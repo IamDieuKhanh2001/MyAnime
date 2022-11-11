@@ -64,8 +64,8 @@ function ResetPasswordForm({ email }) {
                         <input
                             type="text"
                             id="codeConfirmation"
-                            placeholder={"Code from email"}
-                            value={formik.values.username}
+                            placeholder={t("forgot_password.code_placeholder")}
+                            value={formik.values.codeConfirmation}
                             onChange={formik.handleChange}
                         />
                         <span className="icon_profile" />
@@ -81,7 +81,7 @@ function ResetPasswordForm({ email }) {
                         <input
                             type="password"
                             id="password"
-                            placeholder={"Password"}
+                            placeholder={t("forgot_password.password_placeholder")}
                             value={formik.values.password}
                             onBlur={formik.handleBlur}
                             onChange={formik.handleChange}
@@ -95,7 +95,7 @@ function ResetPasswordForm({ email }) {
                         <input
                             type="password"
                             id="retypepassword"
-                            placeholder={"Retype Password"}
+                            placeholder={t("forgot_password.password_retype_placeholder")}
                             onBlur={formik.handleBlur}
                             value={formik.values.retypepassword}
                             onChange={formik.handleChange}
@@ -112,12 +112,13 @@ function ResetPasswordForm({ email }) {
                                 margin={0}
                                 size={11}
                                 color="#fff"
-                            /> Sending...
+                            />
+                            {t("forgot_password.btn_reseting_text")}
                         </React.Fragment>
                     ) : (
                         <React.Fragment>
                             <i className="fa fa-location-arrow" />
-                            Reset password
+                            {t("forgot_password.btn_reset_text")}
                         </React.Fragment>
                     )}
                 </button>

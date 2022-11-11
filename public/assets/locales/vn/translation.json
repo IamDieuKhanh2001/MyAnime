@@ -129,5 +129,26 @@
     "btn_send_text": "Gửi bình luận",
     "btn_sending_text": "Đang gửi...",
     "content_placeholder": "Hãy viết bình luận ở đây ..."
+  },
+  "forgot_password": {
+    "title": "Đặt lại mật khẩu",
+    "email_placeholder": "Email",
+    "btn_sending_text": "Đang gửi...",
+    "btn_send_text": "Gửi mã OTP",
+    "code_placeholder": "OTP nhận từ email",
+    "password_placeholder": "Mật khẩu mới",
+    "password_retype_placeholder": "Nhập lại mật khẩu mới",
+    "btn_reseting_text": "Đang reset...",
+    "btn_reset_text": "Reset mật khẩu",
+    "yup": {
+      "invalid_mail": "Email không hợp lệ!",
+      "mail_empty": "Mail Trống",
+      "password_empty": "Mật khẩu trống!!"
+    }
+  },
+  "favorite": {
+    "anime_section": "Anime",
+    "show_section": "Phim và chương trình",
+    "btn_unsave_series": "Hủy lưu"
   }
 }

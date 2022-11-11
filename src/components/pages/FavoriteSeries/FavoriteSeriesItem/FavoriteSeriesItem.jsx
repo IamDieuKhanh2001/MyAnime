@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import { useConfirm } from 'material-ui-confirm';
 import React from 'react'
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -8,6 +9,7 @@ import { APISaveOrDeleteUserFavoriteSeries } from '../../../../api/axios/product
 import { productsActions } from '../../../../api/redux/slices/productSlice';
 
 function FavoriteSeriesItem({ data }) {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const confirm = useConfirm();
     const dispatch = useDispatch();
@@ -55,7 +57,9 @@ function FavoriteSeriesItem({ data }) {
                     <h5>
                         <a href="#">{data.name}</a>
                     </h5>
-                    <button onClick={() => { handleUnSaveSeries(data.movieSeriesId, data.name) }} type="button" className="btn btn-danger mt-2">Unsave</button>
+                    <button onClick={() => { handleUnSaveSeries(data.movieSeriesId, data.name) }} type="button" className="btn btn-danger mt-2">
+                        {t("favorite.btn_unsave_series")}
+                    </button>
                 </div>
             </div>
         </div>

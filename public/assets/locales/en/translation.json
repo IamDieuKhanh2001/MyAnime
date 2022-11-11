@@ -129,5 +129,26 @@
     "btn_send_text": "Send",
     "btn_sending_text": "Sending...",
     "content_placeholder": "Write your comment here ..."
+  },
+  "forgot_password": {
+    "title": "Reset password",
+    "email_placeholder": "Email",
+    "btn_sending_text": "Sending...",
+    "btn_send_text": "Send OTP code",
+    "code_placeholder": "Code from email",
+    "password_placeholder": "New password",
+    "password_retype_placeholder": "Retype Password",
+    "btn_reseting_text": "Reseting...",
+    "btn_reset_text": "Reset Password",
+    "yup": {
+      "invalid_mail": "Invalid email",
+      "mail_empty": "Empty mail",
+      "password_empty": "Empty password!!"
+    }
+  },
+  "favorite": {
+    "anime_section": "Anime",
+    "show_section": "Film & Show",
+    "btn_unsave_series": "Unsave"
   }
 }
