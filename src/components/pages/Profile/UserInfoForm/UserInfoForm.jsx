@@ -26,7 +26,7 @@ function UserInfoForm({ loadUserLogging }) {
     const [updateMessage, setUpdateMessage] = useState("");
     const [otpVerifyModal, setOtpVerifyModal] = useState(false);
     const [isPremiumMember, setIsPremiumMember] = useState(false)
-    const [premiumHourRemain, setPremiumHourRemain] = useState(0);
+    const [premiumDayRemain, setPremiumDayRemain] = useState(0);
 
     const checkIsPremiumMember = async () => {
         console.log("Calling api check premium member");
@@ -46,7 +46,7 @@ function UserInfoForm({ loadUserLogging }) {
                 let date = new Date(resRemainTimePremium.data)
 
                 console.log(resRemainTimePremium.data)
-                setPremiumHourRemain(date.getTime())
+                setPremiumDayRemain(date.getTime())
             }
         }
     };
@@ -172,7 +172,7 @@ function UserInfoForm({ loadUserLogging }) {
                                             {t("profile.account_detail_title")}
                                         </div>
                                         <div className="card-body">
-                                            <PremiumCard enable={isPremiumMember} remainTime={premiumHourRemain} />
+                                            <PremiumCard enable={isPremiumMember} remainTime={premiumDayRemain} />
                                             <div className="profileForm">
                                                 <div className="mb-3">
                                                     <label

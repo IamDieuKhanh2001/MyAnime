@@ -2,12 +2,8 @@ import { axiosClient } from "./axiosClient";
 
 export const APIGetEpisodeBySeriesId = (seriesId) => {
   const url = `/episode/series/` + seriesId
-  const jwt = window.sessionStorage.getItem("jwt");
-  const headers = {
-      Authorization: `Bearer ${jwt}`,
-  };
   return axiosClient
-    .get(url, { headers: headers })
+    .get(url)
     .catch((err) => console.log("Can't call API after 2 retries", err));
 };
 
