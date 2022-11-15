@@ -183,3 +183,33 @@ export const APIAddCategoryMovie = (movieId, categories) => {
         .post(url, categories, { headers: headers })
         .catch((err) => console.log("Can't call API after 2 retries", err));
 };
+export const APIGetAllUser=()=>{
+    const url = `/admin/get-all-user`;
+    const jwt = window.sessionStorage.getItem("jwt");
+    const headers = {
+        Authorization: `Bearer ${jwt}`,
+    };
+    return axiosClient
+        .get(url, { headers: headers })
+        .catch((err) => console.log("Can't call API after 2 retries", err));
+}
+export const APIBlockUser=(userId)=>{
+    const url = `/admin/disable-user/${userId}`;
+    const jwt = window.sessionStorage.getItem("jwt");
+    const headers = {
+        Authorization: `Bearer ${jwt}`,
+    };
+    return axiosClient
+        .put(url,"", { headers: headers })
+        .catch((err) => console.log("Can't call API after 2 retries", err));
+}
+export const APIUnBlockUser=(userId)=>{
+    const url = `/admin/enable-user/${userId}`;
+    const jwt = window.sessionStorage.getItem("jwt");
+    const headers = {
+        Authorization: `Bearer ${jwt}`,
+    };
+    return axiosClient
+        .put(url,"", { headers: headers })
+        .catch((err) => console.log("Can't call API after 2 retries", err));
+}
