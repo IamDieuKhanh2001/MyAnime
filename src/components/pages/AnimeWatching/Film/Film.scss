@@ -2,6 +2,9 @@
 .film {
   display: block;
   position: relative;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   
   .player-wrapper {
     width: auto; // Reset width

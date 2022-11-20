@@ -4,7 +4,7 @@ import React from 'react'
 function SourceErrorPlaceholder() {
     return (
         <React.Fragment>
-            <div className='text-center col-12'>
+            <div className='w-50'>
                 <img src="/img/404.png" alt='true' />
                 <Alert severity="warning">
                     <AlertTitle><strong>Something when wrong ...</strong></AlertTitle>

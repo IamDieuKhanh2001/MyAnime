@@ -108,9 +108,8 @@ export default function Film({
 
     return (
         <React.Fragment>
-            <div className="film w-100 h-100">
-                {videoSrc !== null ? (
-                    <React.Fragment>
+            {videoSrc !== null ? (
+                <div className="film w-100 h-100">
                         <ReactPlayer
                             width={"100%"}
                             height={"100%"}
@@ -131,15 +130,14 @@ export default function Film({
                             onPause={onPause}
                             onError={onError}
                         />
-                    </React.Fragment>) : (
-                    <React.Fragment>
-                        <SourceErrorPlaceholder />
-                    </React.Fragment>
-                )}
-                {!isPremiumMember && episodeWatching.premiumRequired && (
-                    <PremiumPlaceholder />
-                )}
-            </div >
+                </div>) : (
+                <React.Fragment>
+                    <SourceErrorPlaceholder />
+                </React.Fragment>
+            )}
+            {!isPremiumMember && episodeWatching.premiumRequired && (
+                <PremiumPlaceholder />
+            )}
         </React.Fragment >
 
     );
