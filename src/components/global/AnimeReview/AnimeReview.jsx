@@ -43,16 +43,14 @@ function AnimeReview({ episodeIdWatching, episodeWatching }) {
             {t("anime_review.section_review_title")}
           </h5>
         </div>
-
-        {jwtTokenLogin !== null &&
-          (commentLoading ? (<LoadingAnimation />) : (
+        {commentLoading ? (<LoadingAnimation />) : (
             <React.Fragment>
               {commentList.map((comment, index) => (
                 <ReviewItem data={comment} key={index} />
               ))}
             </React.Fragment>
-          ))
-        }
+          )}
+
         {jwtTokenLogin === null && (
           <ReviewNotification />
         )}

@@ -10,7 +10,6 @@ function PaymentPackageDialog( {open, setOpen} ) {
     const [loadingPackage, setLoadingPackage] = useState(false)
     const avatar = window.sessionStorage.getItem("avatar");
     const username = window.sessionStorage.getItem("username");
-    const navigate = useNavigate();
     const [subscriptionPackage, setSubscriptionPackage] = useState({
         activeObject: null,
         objects: [
