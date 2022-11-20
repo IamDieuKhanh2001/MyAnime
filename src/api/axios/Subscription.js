@@ -70,3 +70,19 @@ export const APIGiftCodeDeleteById = (subscriptionPackageId) => {
       return err;
   });
 };
+
+export const APICreateOrderPremium = (method, subcriptionPackageId) => {
+  const url = `/user/premium/create/order`;
+  const data = {
+    method,
+    "subcription_package_id": subcriptionPackageId
+  };
+  const jwt = window.sessionStorage.getItem("jwt");
+  const headers = {
+      Authorization: `Bearer ${jwt}`,
+  };
+  return axiosClient.post(url, data, { headers: headers }).catch((err) => {
+      console.log("Can't call API after 2 retries", err);
+      return err;
+  });
+};
