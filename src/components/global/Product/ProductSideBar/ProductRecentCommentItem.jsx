@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 function ProductRecentCommentItem({ data }) {
     const navigate = useNavigate();
     return (
-        <div
+        <div 
             onClick={() => navigate(`/details/${data.id}`)}
             className="product__sidebar__comment__item"
         >

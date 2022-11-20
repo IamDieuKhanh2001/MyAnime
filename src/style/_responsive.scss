@@ -2,42 +2,64 @@
 @import "./_variable.scss";
 
 @mixin Responsive($canvas) {
-    @if $canvas == XXS {
+    @if $canvas ==XXS {
+
         // Small devices (landscape phones, less than 768px)
         @media (max-width: 475.98px) {
             @content;
         }
-    } @else if $canvas == XS {
+    }
+
+    @else if $canvas ==XS {
+
         // Small devices (landscape phones, less than 768px)
         @media (max-width: 575.98px) {
             @content;
         }
-    } @else if $canvas == S {
+    }
+
+    @else if $canvas ==S {
+
         // Small devices (landscape phones, less than 768px)
         @media (max-width: 767.98px) {
             @content;
         }
-    } @else if $canvas == M {
+    }
+
+    @else if $canvas ==M {
+
         // Medium devices (tablets, less than 992px)
         @media (max-width: 991.98px) {
             @content;
         }
-    } @else if $canvas == L {
+    }
+
+    @else if $canvas ==L {
+
         // Large devices (desktops, less than 1200px)
         @media (max-width: 1199.98px) {
             @content;
         }
-    } @else if $canvas == XL {
+    }
+
+    @else if $canvas ==XL {
+
         // X-Large devices (large desktops, less than 1400px)
         @media (max-width: 1399.98px) {
             @content;
         }
-    } @else if $canvas == Tablet {
+    }
+
+    @else if $canvas ==Tablet {
+
         // X-Large devices (large desktops, less than 1400px)
         @media (max-width: 1023px) {
             @content;
         }
-    } @else if $canvas == Mobile {
+    }
+
+    @else if $canvas ==Mobile {
+
         // X-Large devices (large desktops, less than 1400px)
         @media (max-width: 740px) {
             @content;
@@ -55,10 +77,24 @@
     animation: #{$str};
 }
 
-// temp
+@media only screen and (min-width: 1300px) {
+
+    .header {
+        .mobile__nav {
+            display: none;
+        }
+    }
+}
+
 @media only screen and (min-width: 1200px) and (max-width: 1300px) {
     .hero {
         overflow: hidden;
+    }
+
+    .header {
+        .mobile__nav {
+            display: none;
+        }
     }
 }
 
@@ -66,6 +102,7 @@
     body {
         padding-top: 80px;
     }
+
     .container {
         max-width: 1170px;
     }
@@ -73,6 +110,29 @@
 
 /* Medium Device = 1200px */
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
+
+    //header
+    .header {
+        
+        .header__nav {
+            display: none;
+        }
+
+        .header__right {
+            .searchIcon {
+                display: block;
+            }
+
+            .languages {
+                display: none;
+            }
+
+            .myProfile {
+                display: none;
+            }
+        }
+    }
+
     .hero {
         overflow: hidden;
     }
@@ -102,6 +162,20 @@
 
         .container {
             position: relative;
+        }
+
+        .header__right {
+            .searchIcon {
+                display: block;
+            }
+
+            .languages {
+                display: none;
+            }
+
+            .myProfile {
+                display: none;
+            }
         }
     }
 
@@ -244,10 +318,16 @@
         right: 10px;
         top: -42px;
         padding: 0;
+
         .searchIcon {
+            display: block;
+        }
+
+        .languages {
             display: none;
         }
-        .languages {
+
+        .myProfile {
             display: none;
         }
     }
@@ -450,6 +530,7 @@
     .anime__video__player .plyr__menu {
         margin-right: 60px;
     }
+
     .blog__details__title h2 {
         font-size: 30px;
         line-height: normal;
@@ -484,13 +565,16 @@
 
     .header__right a {
         margin-right: 10px;
+
         .searchIcon {
             display: none;
         }
     }
+
     .anime__review__item__text h6 span {
         font-size: 12px;
     }
+
     .anime__review__item__text {
         padding: 18px 20px 20px;
     }

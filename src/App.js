@@ -34,6 +34,7 @@ import SubscriptionRedeemHistory from "./components/pages/SubscriptionRedeemHist
 import RedeemGiftCode from "./components/pages/RedeemGiftCode/RedeemGiftCode";
 import GiftCode from "./components/pages/Admin/GiftCode/GiftCode";
 import ForgotPassword from "./components/pages/ForgotPassword/ForgotPassword";
+import Test from "./components/pages/TestPage/Test";
 
 
 function App() {
@@ -87,6 +88,8 @@ function App() {
                     <Route path="/redeem" element={<RedeemGiftCode />} />
                     <Route path="/reset-password" element={<ForgotPassword />} />
                     <Route path="*" element={<Navigate to="/" />} />
+                    {/* Test components / Will be removed when deploy */}
+                    <Route path="/test" element={<Test />} />
                 </Routes>
             </Router>
             <ToastContainer />

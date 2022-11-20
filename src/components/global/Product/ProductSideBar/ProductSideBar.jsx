@@ -66,7 +66,6 @@ export default function ProductSideBar() {
   const loadSeriesCommentRecent = async () => {
     setLoadingSeriesCommentRecentList(true)
     const resSeries = await APIGetSeriesCommentRecent(5);
-    console.log(resSeries)
     if (resSeries?.status === 200) {
       const updateSeries = productsActions.updateSeriesCommentRecentList(resSeries.data);
       dispatch(updateSeries);
@@ -98,7 +97,7 @@ export default function ProductSideBar() {
         {loadingSeriesCommentRecentList ? (<LoadingAnimation />) : (
           <React.Fragment>
             {seriesCommentRecentList?.map((series) => (
-              <ProductRecentCommentItem data={series} />
+              <ProductRecentCommentItem data={series} key={series.id} />
             ))}
           </React.Fragment>
         )}

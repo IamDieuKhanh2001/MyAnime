@@ -21,6 +21,8 @@ import { debounce } from "lodash";
 import { APIGetProducts } from "../../../api/axios/productAPI";
 import { productsActions } from "../../../api/redux/slices/productSlice";
 import SearchRecomDropdown from "./SearchRecomDropdown/SearchRecomDropdown";
+import { Avatar } from "@mui/material";
+import MobileNavBar from "../../pages/Login/MobileNavBar/MobileNavBar";
 
 export default function Header() {
     const navigate = useNavigate();
@@ -149,7 +151,8 @@ export default function Header() {
         <div className="header">
             <div className="container">
                 <div className="row">
-                    <div className="col-lg-1">
+                    <div className="col-lg-1 d-flex align-items-center">
+                        <MobileNavBar />
                         <div className="header__logo">
                             <a onClick={() => navigate("/")}>
                                 <img src="/img/logo.png" alt="true" />
@@ -258,13 +261,8 @@ export default function Header() {
                                                         navigate("/profile")
                                                     }
                                                 >
-                                                    <div className="headerUserAvatar d-flex justify-content-around">
-                                                        <div className="avatar">
-                                                            <img
-                                                                src={avatar}
-                                                                alt
-                                                            />
-                                                        </div>
+                                                    <div className="headerUserAvatar d-flex justify-content-around align-items-center">
+                                                        <Avatar alt="Remy Sharp" src={avatar} />
                                                         {username}
                                                     </div>
                                                 </Dropdown.Item>
@@ -282,17 +280,6 @@ export default function Header() {
                                             </React.Fragment>
                                         ) : (
                                             <React.Fragment>
-                                                <Dropdown.Item
-                                                    className="d-flex justify-content-around"
-                                                    onClick={() =>
-                                                        navigate("/signup")
-                                                    }
-                                                >
-                                                    <i className="bx bx-window-open bx-sm"></i>
-                                                    {t(
-                                                        "header.profile_dropdown.signup"
-                                                    )}
-                                                </Dropdown.Item>
                                                 <Dropdown.Item
                                                     className="d-flex justify-content-around "
                                                     onClick={() =>
@@ -312,7 +299,6 @@ export default function Header() {
                         </div>
                     </div>
                 </div>
-                <div id="mobile-menu-wrap" />
             </div>
         </div>
     );
