@@ -124,7 +124,7 @@ export default function Film({
                         onContextMenu={(e) => e.preventDefault()} //disable right click on video
                         controls={true}
                         volume={1}
-                        light={"/videos/thumb-bilibili.jpg"}
+                        light={"/videos/black.jpg"}
                         onReady={onReady}
                         onEnded={onEnd}
                         onProgress={onProgress}

@@ -1,11 +1,23 @@
-import { Avatar, Box, Button, Collapse, Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText, SwipeableDrawer } from '@mui/material';
-import i18next from 'i18next';
+import {
+    Avatar,
+    Box,
+    Button,
+    Collapse,
+    Divider,
+    List,
+    ListItem,
+    ListItemButton,
+    ListItemIcon,
+    ListItemText,
+    SwipeableDrawer,
+} from "@mui/material";
+import i18next from "i18next";
 import "./MobileNavBar.scss";
-import React from 'react'
-import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { userActions } from '../../../../api/redux/slices/userSlice';
-import { HistoryActions } from '../../../../api/redux/slices/HistoryWatchingSlice';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { userActions } from "../../../../api/redux/slices/userSlice";
+import { HistoryActions } from "../../../../api/redux/slices/HistoryWatchingSlice";
 
 function MobileNavBar() {
     const navigate = useNavigate();
@@ -13,8 +25,10 @@ function MobileNavBar() {
     const [state, setState] = React.useState({
         left: false,
     });
-    const [openCategoryCollapse, setOpenCategoryCollapse] = React.useState(false);
-    const [openLanguageCollapse, setOpenLanguageCollapse] = React.useState(false);
+    const [openCategoryCollapse, setOpenCategoryCollapse] =
+        React.useState(false);
+    const [openLanguageCollapse, setOpenLanguageCollapse] =
+        React.useState(false);
 
     const categoryList = useSelector((state) => state.categorySeries.list);
 
@@ -27,8 +41,8 @@ function MobileNavBar() {
     const toggleDrawer = (anchor, open) => (event) => {
         if (
             event &&
-            event.type === 'keydown' &&
-            (event.key === 'Tab' || event.key === 'Shift')
+            event.type === "keydown" &&
+            (event.key === "Tab" || event.key === "Shift")
         ) {
             return;
         }
@@ -70,58 +84,97 @@ function MobileNavBar() {
 
     const list = (anchor) => (
         <Box
-            sx={{ width: 250 }}
+            sx={{
+                width: 250,
+                height: 1000,
+                backgroundColor: "#070720",
+                color: "#fff",
+            }}
             role="presentation"
             onKeyDown={toggleDrawer(anchor, false)}
         >
-            <List>
-                <ListItem onClick={() => { navigate("/") }} disablePadding>
+            <List sx={{ mt: "1.5rem" }}>
+                <ListItem
+                    sx={{ ml: "3rem", mb: "1rem", cursor: "pointer" }}
+                    onClick={() => navigate("/")}
+                >
+                    <img src="/img/logo.png" alt="logo" />
+                </ListItem>
+                <ListItem
+                    onClick={() => {
+                        navigate("/");
+                    }}
+                    disablePadding
+                >
                     <ListItemButton>
                         <ListItemIcon>
-                            <i className='bx bx-home bx-sm'></i>
+                            <i className="bx bx-home bx-sm text-white"></i>
                         </ListItemIcon>
-                        <ListItemText primary={"Home page"} />
+                        <ListItemText primary={"Homepage"} />
                     </ListItemButton>
                 </ListItem>
 
                 <ListItem disablePadding>
                     <ListItemButton onClick={handleCategoryClick}>
                         <ListItemIcon>
-                            <i className='bx bxs-category bx-sm' ></i>
+                            <i className="bx bxs-category bx-sm text-white"></i>
                         </ListItemIcon>
                         <ListItemText primary={"Category"} />
-                        {openCategoryCollapse ? <i className='bx bxs-chevron-up' ></i> : <i className='bx bxs-chevron-down'></i>}
+                        {openCategoryCollapse ? (
+                            <i className="bx bxs-chevron-up"></i>
+                        ) : (
+                            <i className="bx bxs-chevron-down"></i>
+                        )}
                     </ListItemButton>
                 </ListItem>
-                <Collapse in={openCategoryCollapse} timeout="auto" unmountOnExit>
+                <Collapse
+                    in={openCategoryCollapse}
+                    timeout="auto"
+                    unmountOnExit
+                >
                     {categoryList?.map((c) => (
-                        <List key={c.id} component="div" disablePadding onClick={() => { navigate(`/category/${c.id}`) }}>
+                        <List
+                            key={c.id}
+                            component="div"
+                            disablePadding
+                            onClick={() => {
+                                navigate(`/category/${c.id}`);
+                            }}
+                        >
                             <ListItemButton sx={{ pl: 4 }}>
                                 <ListItemText primary={c.name} />
                             </ListItemButton>
                         </List>
                     ))}
-
                 </Collapse>
 
-                <ListItem onClick={() => { navigate("/blog") }} disablePadding>
+                <ListItem
+                    onClick={() => {
+                        navigate("/blog");
+                    }}
+                    disablePadding
+                >
                     <ListItemButton>
                         <ListItemIcon>
-                            <i className='bx bxl-blogger bx-sm'></i>
+                            <i className="bx bxl-blogger bx-sm text-white"></i>
                         </ListItemIcon>
-                        <ListItemText primary={"About"} />
+                        <ListItemText primary={"Blog"} />
                     </ListItemButton>
                 </ListItem>
 
-                <ListItem onClick={() => { navigate("/history") }} disablePadding>
+                <ListItem
+                    onClick={() => {
+                        navigate("/history");
+                    }}
+                    disablePadding
+                >
                     <ListItemButton>
                         <ListItemIcon>
-                            <i className='bx bx-history bx-sm' ></i>
+                            <i className="bx bx-history bx-sm text-white"></i>
                         </ListItemIcon>
                         <ListItemText primary={"History"} />
                     </ListItemButton>
                 </ListItem>
-
             </List>
 
             <Divider />
@@ -130,42 +183,49 @@ function MobileNavBar() {
                 <ListItem disablePadding>
                     <ListItemButton onClick={handleLanguageClick}>
                         <ListItemIcon>
-                            <i className='bx bx-globe bx-sm'></i>
+                            <i className="bx bx-globe bx-sm text-white"></i>
                         </ListItemIcon>
                         <ListItemText primary={"Language"} />
-                        {openLanguageCollapse ? <i className='bx bxs-chevron-up' ></i> : <i className='bx bxs-chevron-down'></i>}
+                        {openLanguageCollapse ? (
+                            <i className="bx bxs-chevron-up"></i>
+                        ) : (
+                            <i className="bx bxs-chevron-down"></i>
+                        )}
                     </ListItemButton>
                 </ListItem>
-                <Collapse in={openLanguageCollapse} timeout="auto" unmountOnExit>
-                    {languages.map(
-                        ({ code, name, country_code }) => (
-                            <List
-                                key={country_code}
-                                component="div" disablePadding
-                                onClick={() => {
-                                    i18next.changeLanguage(
-                                        code
-                                    )
-                                }
-                                    
-                                }>
-                                <ListItemButton sx={{ pl: 4 }}>
-                                    <ListItemIcon>
-                                        <i
-                                            className={`flag-icon flag-icon-${country_code} mx-2`}
-                                        ></i>
-                                    </ListItemIcon>
-                                    <ListItemText primary={name} />
-                                </ListItemButton>
-                            </List>
-                        )
-                    )}
-
+                <Collapse
+                    in={openLanguageCollapse}
+                    timeout="auto"
+                    unmountOnExit
+                >
+                    {languages.map(({ code, name, country_code }) => (
+                        <List
+                            key={country_code}
+                            component="div"
+                            disablePadding
+                            onClick={() => {
+                                i18next.changeLanguage(code);
+                            }}
+                        >
+                            <ListItemButton sx={{ pl: 4 }}>
+                                <ListItemIcon>
+                                    <i
+                                        className={`flag-icon flag-icon-${country_code} mx-2`}
+                                    ></i>
+                                </ListItemIcon>
+                                <ListItemText primary={name} />
+                            </ListItemButton>
+                        </List>
+                    ))}
                 </Collapse>
                 {login !== null ? (
                     <React.Fragment>
                         <ListItem disablePadding>
-                            <ListItemButton onClick={() => { navigate("/profile") }}>
+                            <ListItemButton
+                                onClick={() => {
+                                    navigate("/profile");
+                                }}
+                            >
                                 <ListItemIcon>
                                     <Avatar alt="Remy Sharp" src={avatar} />
                                 </ListItemIcon>
@@ -175,41 +235,49 @@ function MobileNavBar() {
                         <ListItem disablePadding>
                             <ListItemButton onClick={() => handleLogout()}>
                                 <ListItemIcon>
-                                    <i className='bx bx-log-out bx-sm'></i>
+                                    <i className="bx bx-log-out bx-sm text-white"></i>
                                 </ListItemIcon>
                                 <ListItemText primary={"Log out"} />
                             </ListItemButton>
                         </ListItem>
                     </React.Fragment>
                 ) : (
-                    <ListItem onClick={() => { navigate("/login") }} disablePadding>
+                    <ListItem
+                        onClick={() => {
+                            navigate("/login");
+                        }}
+                        disablePadding
+                    >
                         <ListItemButton>
                             <ListItemIcon>
-                                <i className='bx bx-log-in bx-sm'></i>
+                                <i className="bx bx-log-in bx-sm text-white"></i>
                             </ListItemIcon>
                             <ListItemText primary={"Sign in"} />
                         </ListItemButton>
                     </ListItem>
                 )}
-            </List >
-        </Box >
+            </List>
+        </Box>
     );
 
     return (
-        <div className='mobile__nav pt-2'>
-            <Button onClick={toggleDrawer('left', true)}>
-                <i style={{ color: '#e53637' }} className='bx bx-menu bx-md'></i>
+        <div className="mobile__nav pt-2">
+            <Button onClick={toggleDrawer("left", true)}>
+                <i
+                    style={{ color: "#e53637" }}
+                    className="bx bx-menu bx-md"
+                ></i>
             </Button>
             <SwipeableDrawer
-                anchor={'left'}
-                open={state['left']}
-                onClose={toggleDrawer('left', false)}
-                onOpen={toggleDrawer('left', true)}
+                anchor={"left"}
+                open={state["left"]}
+                onClose={toggleDrawer("left", false)}
+                onOpen={toggleDrawer("left", true)}
             >
-                {list('left')}
+                {list("left")}
             </SwipeableDrawer>
         </div>
-    )
+    );
 }
 
-export default MobileNavBar
+export default MobileNavBar;

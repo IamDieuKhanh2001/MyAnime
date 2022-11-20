@@ -65,7 +65,7 @@ export default function Sidebar({ setActiveIndex, activeIndex }) {
     return (
         <div className="sidebar">
             <div onClick={() => navigate("/admin")} className="sidebar__logo">
-                My Anime
+                The Anime
             </div>
             <div className="sidebar__menu">
                 {sidebarNavItems.map((item, index) => (

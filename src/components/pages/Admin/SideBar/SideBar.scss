@@ -16,7 +16,7 @@
     display: grid;
     place-items: center;
     height: 120px;
-    font-size: 50px;
+    font-size: 40px;
     font-weight: 700;
     margin-right: 40px;
     font-family: "Mochiy Pop P one", sans-serif;
@@ -38,7 +38,7 @@
       font-family: "Oswald", sans-serif;
 
       &.active {
-        color: red;
+        color: rgb(215, 0, 0);
       }
 
       &__icon {
