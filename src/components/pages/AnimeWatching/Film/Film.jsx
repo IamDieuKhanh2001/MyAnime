@@ -108,36 +108,39 @@ export default function Film({
 
     return (
         <React.Fragment>
-            {videoSrc !== null ? (
-                <div className="film w-100 h-100">
-                        <ReactPlayer
-                            width={"100%"}
-                            height={"100%"}
-                            className="col-12"
-                            ref={playerRef}
-                            playing={isPlaying}
-                            url={videoSrc}
-                            config={{
-                                file: { attributes: { controlsList: "nodownload" } },
-                            }} //disable download
-                            onContextMenu={(e) => e.preventDefault()} //disable right click on video
-                            controls={true}
-                            volume={1}
-                            light={"/videos/thumb-bilibili.jpg"}
-                            onReady={onReady}
-                            onEnded={onEnd}
-                            onProgress={onProgress}
-                            onPause={onPause}
-                            onError={onError}
-                        />
-                </div>) : (
-                <React.Fragment>
-                    <SourceErrorPlaceholder />
-                </React.Fragment>
-            )}
-            {!isPremiumMember && episodeWatching.premiumRequired && (
-                <PremiumPlaceholder />
-            )}
+            <div className="film w-100 h-100">
+
+                {videoSrc !== null ? (
+                    <ReactPlayer
+                        width={"100%"}
+                        height={"100%"}
+                        className="col-12"
+                        ref={playerRef}
+                        playing={isPlaying}
+                        url={videoSrc}
+                        config={{
+                            file: { attributes: { controlsList: "nodownload" } },
+                        }} //disable download
+                        onContextMenu={(e) => e.preventDefault()} //disable right click on video
+                        controls={true}
+                        volume={1}
+                        light={"/videos/thumb-bilibili.jpg"}
+                        onReady={onReady}
+                        onEnded={onEnd}
+                        onProgress={onProgress}
+                        onPause={onPause}
+                        onError={onError}
+                    />
+
+                ) : (
+                    <React.Fragment>
+                        <SourceErrorPlaceholder />
+                    </React.Fragment>
+                )}
+                {!isPremiumMember && episodeWatching.premiumRequired && (
+                    <PremiumPlaceholder />
+                )}
+            </div>
         </React.Fragment >
 
     );

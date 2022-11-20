@@ -2,7 +2,6 @@ import axios from "axios";
 import axiosRetry from "axios-retry";
 
 export const axiosClient = axios.create({
-
     // Developer environment
     baseURL: `http://localhost:8080`,
 

@@ -1,2 +1,70 @@
-@import "../../../style/_variable.scss";
+// @import "../../../style/_variable.scss";
 
+.payment__dialog {
+    font-family: "Oswald", sans-serif;
+    background-color: #0b0c2a;
+    color: #fff;
+    padding: 30px 50px;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    position: relative;
+    max-height: 90vh;
+
+    .payment__dialog__header {
+        position: relative;
+        padding: 52px 36px 16px;
+        text-align: left;
+        span {
+            font-weight: 700;
+            font-size: 24px;
+        }
+    }
+
+    .payment__dialog__body {
+        position: relative;
+        padding: 0 36px;
+        overflow: auto;
+        font-size: 14px;
+        line-height: 18px;
+        
+        p {
+            font-size: 14px;
+            line-height: 18px;
+            font-weight: 400;
+            color: white;
+        }
+    }
+
+    .payment__dialog__footer {
+        padding: 28px 36px 36px;
+        display: flex;
+        justify-content: center;
+
+        .payment__dialog-cancel {
+            width: 211px;
+            color: #9F5AFD;
+            border: 1px solid #9F5AFD;
+            font-weight: 700;
+            line-height: 44px;
+            font-size: 16px;
+            background: transparent;
+            display: inline-block;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .payment__dialog-success {
+            width: 211px;
+            color: white;
+            background-color: #9F5AFD;
+            border: 1px solid #9F5AFD;
+            font-weight: 700;
+            line-height: 44px;
+            font-size: 16px;
+            display: inline-block;
+            border-radius: 4px;
+            text-align: center;
+            margin-left: 16px;
+        }
+    }
+
+}
