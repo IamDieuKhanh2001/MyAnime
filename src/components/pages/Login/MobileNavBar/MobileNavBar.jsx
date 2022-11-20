@@ -86,7 +86,7 @@ function MobileNavBar() {
         <Box
             sx={{
                 width: 250,
-                height: 1000,
+                height: 5000,
                 backgroundColor: "#070720",
                 color: "#fff",
             }}
