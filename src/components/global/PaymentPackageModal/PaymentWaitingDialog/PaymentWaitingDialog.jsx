@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Dialog from "@mui/material/Dialog";
 import { Link, useNavigate } from "react-router-dom";
-import "./Test.scss";
+import "./PaymentWaitingDialog.scss";
 
 
-export default function Test({open, setOpen}) {
+export default function PaymentWaitingDialog({open, setOpen}) {
     const navigate = useNavigate();
 
     const avatar = window.sessionStorage.getItem("avatar");
@@ -16,6 +16,10 @@ export default function Test({open, setOpen}) {
 
     const handleClose = () => {
         setOpen(false);
+    };
+
+    const handleSuccess = () => {
+        window.location.reload();
     };
 
     useEffect(() => {
@@ -38,8 +42,8 @@ export default function Test({open, setOpen}) {
 
                     </div>
                     <div className="payment__dialog__footer">
-                        <button className="payment__dialog-cancel">Cancel</button>
-                        <button className="payment__dialog-success">subscribed</button>
+                        <button className="payment__dialog-cancel" onClick={() => {setOpen(false)}}>Cancel</button>
+                        <button className="payment__dialog-success" onClick={handleSuccess}>I've subscribed</button>
                     </div>
                 </div>
                 
