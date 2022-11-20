@@ -114,7 +114,7 @@ function SubscriptionRedeemHistory() {
                                             </thead>
                                             <tbody>
                                                 {subscriptionHistory.map((item) => (
-                                                    <tr>
+                                                    <tr key={item.id}>
                                                         <th scope="row">{item.id}</th>
                                                         <td>{item.subscribeDate}</td>
                                                         <td>{item.expiredAt}</td>
