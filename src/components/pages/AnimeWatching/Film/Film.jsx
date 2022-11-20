@@ -108,10 +108,13 @@ export default function Film({
 
     return (
         <React.Fragment>
-            <div className="film">
+            <div className="film w-100 h-100">
                 {videoSrc !== null ? (
                     <React.Fragment>
                         <ReactPlayer
+                            width={"100%"}
+                            height={"100%"}
+                            className="col-12"
                             ref={playerRef}
                             playing={isPlaying}
                             url={videoSrc}

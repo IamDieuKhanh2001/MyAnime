@@ -7,6 +7,7 @@ function ProductRecentCommentItem({ data }) {
         <div 
             onClick={() => navigate(`/details/${data.id}`)}
             className="product__sidebar__comment__item"
+            key={data.id}
         >
             <div className="product__sidebar__comment__item__pic">
                 <img src={data.image} alt="true" style={{ width: "100px" }} />
