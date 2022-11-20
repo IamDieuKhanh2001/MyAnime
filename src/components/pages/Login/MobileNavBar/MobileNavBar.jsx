@@ -3,6 +3,9 @@ import i18next from 'i18next';
 import "./MobileNavBar.scss";
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { userActions } from '../../../../api/redux/slices/userSlice';
+import { HistoryActions } from '../../../../api/redux/slices/HistoryWatchingSlice';
 
 function MobileNavBar() {
     const navigate = useNavigate();
@@ -10,8 +13,16 @@ function MobileNavBar() {
     const [state, setState] = React.useState({
         left: false,
     });
-    const [openCategoryCollapse, setOpenCategoryCollapse] = React.useState(true);
-    const [openLanguageCollapse, setOpenLanguageCollapse] = React.useState(true);
+    const [openCategoryCollapse, setOpenCategoryCollapse] = React.useState(false);
+    const [openLanguageCollapse, setOpenLanguageCollapse] = React.useState(false);
+
+    const categoryList = useSelector((state) => state.categorySeries.list);
+
+    const login = window.sessionStorage.getItem("jwt");
+    const username = window.sessionStorage.getItem("username");
+    const avatar = window.sessionStorage.getItem("avatar");
+
+    const dispatch = useDispatch();
 
     const toggleDrawer = (anchor, open) => (event) => {
         if (
@@ -21,7 +32,6 @@ function MobileNavBar() {
         ) {
             return;
         }
-
         setState({ ...state, [anchor]: open });
     };
     const handleCategoryClick = () => {
@@ -48,6 +58,16 @@ function MobileNavBar() {
         },
     ];
 
+    const handleLogout = () => {
+        window.sessionStorage.clear();
+        window.localStorage.clear();
+        const logoutAction = userActions.resetUserInfo();
+        dispatch(logoutAction);
+        const clearUserHistory = HistoryActions.clearUserHistory();
+        dispatch(clearUserHistory);
+        navigate("/login");
+    };
+
     const list = (anchor) => (
         <Box
             sx={{ width: 250 }}
@@ -56,8 +76,7 @@ function MobileNavBar() {
         >
             <List>
                 <ListItem onClick={() => { navigate("/") }} disablePadding>
-                    <ListItemButton onClick={
-                        toggleDrawer(anchor, false)}>
+                    <ListItemButton>
                         <ListItemIcon>
                             <i className='bx bx-home bx-sm'></i>
                         </ListItemIcon>
@@ -75,15 +94,18 @@ function MobileNavBar() {
                     </ListItemButton>
                 </ListItem>
                 <Collapse in={openCategoryCollapse} timeout="auto" unmountOnExit>
-                    <List component="div" disablePadding>
-                        <ListItemButton sx={{ pl: 4 }}>
-                            <ListItemText primary="Cate item 1" />
-                        </ListItemButton>
-                    </List>
+                    {categoryList?.map((c) => (
+                        <List key={c.id} component="div" disablePadding onClick={() => { navigate(`/category/${c.id}`) }}>
+                            <ListItemButton sx={{ pl: 4 }}>
+                                <ListItemText primary={c.name} />
+                            </ListItemButton>
+                        </List>
+                    ))}
+
                 </Collapse>
 
                 <ListItem onClick={() => { navigate("/blog") }} disablePadding>
-                    <ListItemButton onClick={toggleDrawer(anchor, false)}>
+                    <ListItemButton>
                         <ListItemIcon>
                             <i className='bx bxl-blogger bx-sm'></i>
                         </ListItemIcon>
@@ -92,7 +114,7 @@ function MobileNavBar() {
                 </ListItem>
 
                 <ListItem onClick={() => { navigate("/history") }} disablePadding>
-                    <ListItemButton onClick={toggleDrawer(anchor, false)}>
+                    <ListItemButton>
                         <ListItemIcon>
                             <i className='bx bx-history bx-sm' ></i>
                         </ListItemIcon>
@@ -120,10 +142,12 @@ function MobileNavBar() {
                             <List
                                 key={country_code}
                                 component="div" disablePadding
-                                onClick={() =>
+                                onClick={() => {
                                     i18next.changeLanguage(
                                         code
                                     )
+                                }
+                                    
                                 }>
                                 <ListItemButton sx={{ pl: 4 }}>
                                     <ListItemIcon>
@@ -138,32 +162,35 @@ function MobileNavBar() {
                     )}
 
                 </Collapse>
-
-                <ListItem onClick={() => { navigate("/login") }} disablePadding>
-                    <ListItemButton onClick={toggleDrawer(anchor, false)}>
-                        <ListItemIcon>
-                            <i className='bx bx-log-in bx-sm'></i>
-                        </ListItemIcon>
-                        <ListItemText primary={"Sign in"} />
-                    </ListItemButton>
-                </ListItem>
-
-                <ListItem disablePadding>
-                    <ListItemButton onClick={toggleDrawer(anchor, false)}>
-                        <ListItemIcon>
-                            <Avatar alt="Remy Sharp" src="/img/avatar/avatar.jpg" />
-                        </ListItemIcon>
-                        <ListItemText primary={"quachkhanh2"} />
-                    </ListItemButton>
-                </ListItem>
-                <ListItem disablePadding>
-                    <ListItemButton onClick={toggleDrawer(anchor, false)}>
-                        <ListItemIcon>
-                            <i className='bx bx-log-out bx-sm'></i>
-                        </ListItemIcon>
-                        <ListItemText primary={"Log out"} />
-                    </ListItemButton>
-                </ListItem>
+                {login !== null ? (
+                    <React.Fragment>
+                        <ListItem disablePadding>
+                            <ListItemButton onClick={() => { navigate("/profile") }}>
+                                <ListItemIcon>
+                                    <Avatar alt="Remy Sharp" src={avatar} />
+                                </ListItemIcon>
+                                <ListItemText primary={username} />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton onClick={() => handleLogout()}>
+                                <ListItemIcon>
+                                    <i className='bx bx-log-out bx-sm'></i>
+                                </ListItemIcon>
+                                <ListItemText primary={"Log out"} />
+                            </ListItemButton>
+                        </ListItem>
+                    </React.Fragment>
+                ) : (
+                    <ListItem onClick={() => { navigate("/login") }} disablePadding>
+                        <ListItemButton>
+                            <ListItemIcon>
+                                <i className='bx bx-log-in bx-sm'></i>
+                            </ListItemIcon>
+                            <ListItemText primary={"Sign in"} />
+                        </ListItemButton>
+                    </ListItem>
+                )}
             </List >
         </Box >
     );
