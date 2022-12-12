@@ -8,6 +8,7 @@ import { productsActions } from "./../../../api/redux/slices/productSlice";
 import ProductSideBar from "./ProductSideBar/ProductSideBar";
 import LoadingAnimation from "../LoadingAnimation/LoadingAnimation";
 import { useTranslation } from "react-i18next";
+import LoadingSkeletonProductAnimation from "../LoadingSkeletonProductAnimation/LoadingSkeletonProductAnimation";
 
 export default function Product() {
   const navigate = useNavigate();
@@ -73,15 +74,17 @@ export default function Product() {
                     </div>
                   </div>
                 </div>
-                <div className="row">
-                  {loading ?
-                    (<LoadingAnimation />) : (
-                      <React.Fragment>
-                        {product.map((data, index) => (
-                          <ProductSection data={data} key={index} />
-                        ))}
-                      </React.Fragment>)}
-                </div>
+
+                {loading ?
+                  (
+                    <LoadingSkeletonProductAnimation numberOfItem={3} />
+                  ) : (
+                    <div className="row">
+                      {product.map((data, index) => (
+                        <ProductSection data={data} key={index} />
+                      ))}
+                    </div>)
+                }
               </div>
               <div className="recent__product">
                 <div className="row">
@@ -103,15 +106,17 @@ export default function Product() {
                     </div>
                   </div>
                 </div>
-                <div className="row">
-                  {recentlyProductLoading ?
-                    (<LoadingAnimation />) : (
-                      <React.Fragment>
-                        {recentlyProductList?.map((data, index) => (
-                          <ProductSection data={data} key={index} />
-                        ))}
-                      </React.Fragment>)}
-                </div>
+
+                {recentlyProductLoading ?
+                  (
+                    <LoadingSkeletonProductAnimation numberOfItem={3} />
+                  ) : (
+                    <div className="row">
+                      {recentlyProductList?.map((data, index) => (
+                        <ProductSection data={data} key={index} />
+                      ))}
+                    </div>)
+                }
               </div>
               <div className="live__product">
                 <div className="row">
@@ -133,11 +138,16 @@ export default function Product() {
                     </div>
                   </div>
                 </div>
-                <div className="row">
-                  {product.map((data, index) => (
-                    <ProductSection data={data} key={index} />
-                  ))}
-                </div>
+                {loading ?
+                  (
+                    <LoadingSkeletonProductAnimation numberOfItem={3} />
+                  ) : (
+                    <div className="row">
+                      {product.map((data, index) => (
+                        <ProductSection data={data} key={index} />
+                      ))}
+                    </div>)
+                }
               </div>
             </div>
             <div className="col-lg-4 col-md-6 col-sm-8">

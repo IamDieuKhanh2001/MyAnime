@@ -1,0 +1,57 @@
+%loading-skeleton {
+    color: transparent;
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: #eee;
+    border-color: #eee;
+
+    &::placeholder {
+        color: transparent;
+    }
+}
+
+@keyframes loading-skeleton {
+    from {
+        opacity: .4;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.loading-skeleton {
+    pointer-events: none;
+    animation: loading-skeleton 1s infinite alternate;
+
+    .loading-skeleton-img {
+        filter: grayscale(100) contrast(0%) brightness(1.8);
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    li,
+    .btn,
+    label,
+    .form-control {
+        @extend %loading-skeleton;
+    }
+
+    .product__item__text {
+
+        ul,
+        li {
+            @extend %loading-skeleton;
+        }
+
+        h5,
+        a {
+            @extend %loading-skeleton;
+        }
+    }
+}

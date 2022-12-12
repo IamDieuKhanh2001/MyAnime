@@ -1,18 +1,18 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import "./ProductPageable.scss";
 import ProductSideBar from '../ProductSideBar/ProductSideBar'
 import ProductSection from "../ProductSection/ProductSection";
-import LoadingAnimation from '../../LoadingAnimation/LoadingAnimation';
 import { useTranslation } from 'react-i18next';
+import LoadingSkeletonProductAnimation from '../../LoadingSkeletonProductAnimation/LoadingSkeletonProductAnimation';
 
-function ProductPageable({ 
-  productTitle, 
-  totalProduct, 
+function ProductPageable({
+  productTitle,
+  totalProduct,
   currentPage,
-  setCurrentPage, 
-  loading, 
+  setCurrentPage,
+  loading,
   products }) {
-    const { t } = useTranslation();
+  const { t } = useTranslation();
 
   // useEffect(() => {
   //   loadTotalProduct();
@@ -44,7 +44,7 @@ function ProductPageable({
                     <div className="section-title">
                       <h4>
                         {productTitle}
-                        </h4>
+                      </h4>
                     </div>
                   </div>
                   <div className="col-lg-4 col-md-4 col-sm-6">
@@ -59,15 +59,17 @@ function ProductPageable({
                   </div>
                 </div>
               </div>
-              <div className="row">
-                {loading ?
-                  (<LoadingAnimation />) : (
-                    <React.Fragment>
-                      {products.map((data, index) => (
-                        <ProductSection data={data} key={index} />
-                      ))}
-                    </React.Fragment>)}
-              </div>
+              {loading ?
+                (
+                  <LoadingSkeletonProductAnimation numberOfItem={9} />
+                ) : (
+
+                  <div className='row'>
+                    {products.map((data, index) => (
+                      <ProductSection data={data} key={index} />
+                    ))}
+                  </div>
+                )}
             </div>
             <div className="product__pagination">
               {renderedPagginationItem.map((item) => item === currentPage ? (
