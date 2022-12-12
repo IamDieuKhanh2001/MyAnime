@@ -45,17 +45,16 @@ export default function HeroSlider() {
                     <div
                         className="hero__items set-bg"
                         style={{
-                            backgroundImage: 'url("/img/hero/batman.jpg")',
+                            backgroundImage: 'url("/img/hero/fate-stay-night.jpg")',
                         }}
                     >
                         <div className="row">
                             <div className="col-lg-6">
                                 <div className="hero__text">
                                     <div className="label">Action</div>
-                                    <h2>The Batman: Unlimited Blade Works</h2>
+                                    <h2>Fate stay night: Unlimited Blade Works</h2>
                                     <p>
-                                        The film sees Batman, who has been
-                                        fighting crime in Gotham City...
+                                    Every human inhabiting the world of Alcia ...
                                     </p>
                                     <a onClick={() => navigate("/watching")}>
                                         <span>Watch Now</span>{" "}

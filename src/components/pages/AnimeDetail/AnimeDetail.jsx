@@ -31,7 +31,7 @@ export default function AnimeDetail() {
     console.log("Calling api get product series");
     const resGetRelateSeries = await APIGetAllSeriesProductById(seriesId);
     if (resGetRelateSeries?.status === 200) {
-      const updateListAction = productsActions.updateList(resGetRelateSeries.data);
+      const updateListAction = productsActions.updateRelateSeries(resGetRelateSeries.data);
       dispatch(updateListAction);
     }  
   };

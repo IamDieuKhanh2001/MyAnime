@@ -1,31 +1,17 @@
 import React from 'react'
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { APIGetAllSeriesProductById } from '../../../../api/axios/productAPI';
-import { productsActions } from '../../../../api/redux/slices/productSlice';
 
 function ProductDetailSideBar() {
     const { t } = useTranslation();
     const navigate = useNavigate();
-    const dispatch = useDispatch();
 
-    const { seriesId } = useParams();
-
-    const relateSeries = useSelector((state) => state.products.list);
-
-    const loadAllSeriesProductBySeriesId = async () => {
-        console.log("Calling api get product series");
-        const resGetRelateSeries = await APIGetAllSeriesProductById(seriesId);
-        if (resGetRelateSeries?.status === 200) {
-            const updateListAction = productsActions.updateList(resGetRelateSeries.data);
-            dispatch(updateListAction);
-        }
-    };
+    const relateSeries = useSelector((state) => state.products.relateSeries);
 
     useEffect(() => {
-        loadAllSeriesProductBySeriesId()
+
     }, [])
 
     return (
@@ -35,7 +21,7 @@ function ProductDetailSideBar() {
                     {t("product_detail.side_bar.section_title")}
                 </h5>
             </div>
-            {relateSeries.map((item, index) => (
+            {relateSeries?.map((item, index) => (
                 <React.Fragment key={index}>
                     <div
                         className="product__sidebar__view__item set-bg"

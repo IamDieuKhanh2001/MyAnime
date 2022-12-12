@@ -75,7 +75,7 @@ export default function Product() {
                   </div>
                 </div>
 
-                {loading ?
+                {/* {loading ?
                   (
                     <LoadingSkeletonProductAnimation numberOfItem={3} />
                   ) : (
@@ -84,7 +84,12 @@ export default function Product() {
                         <ProductSection data={data} key={index} />
                       ))}
                     </div>)
-                }
+                } */}
+                <div className="row">
+                  {product.map((data, index) => (
+                    <ProductSection data={data} key={index} />
+                  ))}
+                </div>
               </div>
               <div className="recent__product">
                 <div className="row">

@@ -6,7 +6,7 @@ function LoadingSkeletonProductAnimation({numberOfItem = 9}) {
 
     const loadingSkeletionItemList = []
     for (let i = 0; i < numberOfItem; i++) {
-        loadingSkeletionItemList.push(<LoadingSkeletionItem />);
+        loadingSkeletionItemList.push(<LoadingSkeletionItem key={i} />);
     }
     return (
         <div className='row'>
