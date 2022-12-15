@@ -93,7 +93,7 @@ function GiftCodeTable() {
                                         </thead>
                                         {loading ? (<LoadingAnimation />) : (
                                             <tbody>
-                                                {giftCodeList.map((giftCode, index) => (
+                                                {giftCodeList?.map((giftCode, index) => (
                                                     <tr key={index}>
                                                         <td className='dateCreated'>
                                                             {giftCode.subcriptionPackageDTO.name}

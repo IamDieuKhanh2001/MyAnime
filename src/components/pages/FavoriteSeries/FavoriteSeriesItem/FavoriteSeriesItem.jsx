@@ -27,11 +27,11 @@ function FavoriteSeriesItem({ data }) {
                 })
 
                 dispatch(productsActions.updateFavoriteList(favoriteUpdateList))
-                toast.success(`Un save series ${name} success`)
+                toast.success(`Unsave series ${name} success`)
             }
         } catch (e) {
             console.log(e)
-            toast.error(`Un save series ${name} fail`)
+            toast.error(`Unsave series ${name} fail`)
         }
     }
 
