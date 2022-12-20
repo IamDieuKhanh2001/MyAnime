@@ -7,7 +7,7 @@ function LoadingSkeletionItem() {
                 <div
                     className="product__item__pic set-bg loading-skeleton-img"
                     style={{
-                        backgroundImage: `url("./img/recent/recent-1.jpg")`,
+                        backgroundImage: `url("/img/recent/recent-1.jpg")`,
                     }}
                 >
                     <div className="ep">9999 / 9999</div>

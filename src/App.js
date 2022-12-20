@@ -50,8 +50,6 @@ function App() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/verify-age" element={<AuthenIdCard/>} />
-                    {/* <Route path="/login2/:preRoute" element={<Login />} /> */}
-                    {/* <Route exact path="/signup2" element={<SignUp />} /> */}
                     <Route exact path="/signup" element={<SignUp />} />
                     <Route path="*" element={<Navigate to="/" />} />
                     <Route path="/series-list" element={<ProductList />} />

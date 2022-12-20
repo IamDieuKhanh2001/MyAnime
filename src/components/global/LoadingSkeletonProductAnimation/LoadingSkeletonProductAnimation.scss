@@ -2,8 +2,8 @@
     color: transparent;
     appearance: none;
     -webkit-appearance: none;
-    background-color: #eee;
-    border-color: #eee;
+    background-color: #eee !important;
+    border-color: #eee !important;
 
     &::placeholder {
         color: transparent;
@@ -54,4 +54,32 @@
             @extend %loading-skeleton;
         }
     }
+
+    .anime__details__btn {
+        a {
+            @extend %loading-skeleton;
+        }
+    }
+
+    .anime__details__text {
+        .anime__details__title {
+
+            h3,
+            span {
+                @extend %loading-skeleton;
+            }
+        }
+        p {
+            @extend %loading-skeleton;
+        }
+        .anime__details__widget {
+
+            ul,
+            span,
+            li {
+                @extend %loading-skeleton;
+            }
+        }
+    }
+
 }

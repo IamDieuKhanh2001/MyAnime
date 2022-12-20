@@ -4,13 +4,9 @@ import "./LoadingSkeletonProductAnimation.scss";
 
 function LoadingSkeletonProductAnimation({numberOfItem = 9}) {
 
-    const loadingSkeletionItemList = []
-    for (let i = 0; i < numberOfItem; i++) {
-        loadingSkeletionItemList.push(<LoadingSkeletionItem key={i} />);
-    }
     return (
         <div className='row'>
-            {loadingSkeletionItemList}
+            {Array(numberOfItem).fill(0).map((item, index) => <LoadingSkeletionItem key={index} />)}          
         </div>
     )
 }

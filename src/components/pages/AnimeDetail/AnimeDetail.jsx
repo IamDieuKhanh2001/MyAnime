@@ -9,7 +9,7 @@ import ProductDetail from '../../global/Product/ProductDetail/ProductDetail';
 import { productsActions } from '../../../api/redux/slices/productSlice';
 import { useDispatch, useSelector } from "react-redux";
 import ProductDetailSideBar from '../../global/Product/ProductDetailSideBar/ProductDetailSideBar';
-import LoadingAnimation from '../../global/LoadingAnimation/LoadingAnimation';
+import LoadingSkeletionProductDetail from '../../global/LoadingSkeletonProductAnimation/LoadingSkeletionProductDetail';
 
 export default function AnimeDetail() {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ export default function AnimeDetail() {
   const { seriesId } = useParams();
   const [product, setProduct] = useState({});
   const [loading, setLoading] = useState(false);
-  
+
   const loadProductById = async () => {
     setLoading(true);
     console.log("Calling api get product");
@@ -33,7 +33,7 @@ export default function AnimeDetail() {
     if (resGetRelateSeries?.status === 200) {
       const updateListAction = productsActions.updateRelateSeries(resGetRelateSeries.data);
       dispatch(updateListAction);
-    }  
+    }
   };
 
   useEffect(() => {
@@ -48,17 +48,17 @@ export default function AnimeDetail() {
       <div className="anime-details">
         <div className="container">
           {loading ? (
-            <LoadingAnimation />
+            <LoadingSkeletionProductDetail />
           ) : (<React.Fragment>
             <ProductDetail data={product} />
             <div className="row">
-            <div className="col-lg-8 col-md-8">
-              {/* <AnimeReview /> */}
+              <div className="col-lg-8 col-md-8">
+                {/* <AnimeReview /> */} 
+              </div>
+              <div className="col-lg-4 col-md-4">
+                <ProductDetailSideBar />
+              </div>
             </div>
-            <div className="col-lg-4 col-md-4">
-              <ProductDetailSideBar />
-            </div>
-          </div>
           </React.Fragment>)}
         </div>
       </div>
