@@ -4,10 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { APISaveOrDeleteUserFavoriteSeries } from '../../../../api/axios/productAPI';
+import { BeatLoader } from 'react-spinners';
 
 function ProductDetail({ data }) {
     const { t } = useTranslation();
     const navigate = useNavigate();
+    const [loadingSaveFavorite, setLoadingSaveFavorite] = useState(false);
     const historyList = useSelector((state) => state.histories.list);
 
     const handleNavigate = () => {
@@ -31,15 +33,20 @@ function ProductDetail({ data }) {
 
     const saveOrUnsaveFavorite = async () => {
         console.log("Calling api save favorite");
+        setLoadingSaveFavorite(true)
         const resSaveFavorite = await APISaveOrDeleteUserFavoriteSeries(data.id);
         console.log(resSaveFavorite)
         if (resSaveFavorite?.status === 200) {
             toast.success(`Saved movie ${data.seriesName} to favorite`);
-        } else if(resSaveFavorite?.status === 204) {
+            setLoadingSaveFavorite(false)
+        } else if (resSaveFavorite?.status === 204) {
             toast.success(`Remove movie ${data.seriesName} from favorite`)
+            setLoadingSaveFavorite(false)
         } else {
             toast.error(`You need to logging to use this feature!!`)
+            setLoadingSaveFavorite(false)
         }
+        setLoadingSaveFavorite(false)
     };
 
     return (
@@ -129,8 +136,24 @@ function ProductDetail({ data }) {
                             </div>
                         </div>
                         <div className="anime__details__btn text-white">
-                            <a onClick={() => handlesaveOrUnsaveFavorite()} className="follow-btn">
-                                <i className="fa fa-heart-o" /> {t("product_detail.btn_follow_text")}
+                            <a
+                                onClick={() => handlesaveOrUnsaveFavorite()}
+                                className="follow-btn">
+                                {loadingSaveFavorite ? (
+                                    <React.Fragment>
+                                        <BeatLoader
+                                            speedMultiplier={0.8}
+                                            margin={0}
+                                            size={13}
+                                            color="#fff"
+                                        />
+                                    </React.Fragment>
+                                ) : (
+                                    <React.Fragment>
+                                        <i className="fa fa-heart-o" />
+                                        {t("product_detail.btn_follow_text")}
+                                    </React.Fragment>
+                                )}
                             </a>
                             {data.currentNumberEpisode !== 0 ? (
                                 <a

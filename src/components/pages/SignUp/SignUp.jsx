@@ -12,13 +12,13 @@ import { useDispatch } from 'react-redux';
 import MessageModal from '../../global/MessageModal/MessageModal';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
+import { BeatLoader } from 'react-spinners';
 
 function SignUp() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { t } = useTranslation();
-
-    const [modal, setModal] = useState(false);
     const [loading, setLoading] = useState(false); //Loading when on submit loading call API
 
     // const phoneRegExp =
@@ -53,10 +53,11 @@ function SignUp() {
             const resRegister = await APIRegister(values.username, values.password)
             if (resRegister.data) {
                 setLoading(false)
+                toast.success("Register user " + values.username + " success, please login")
                 navigate("/login");
             } else if (resRegister.response.status === 400) {
                 setLoading(false)
-                setModal(true);
+                toast.error(resRegister?.response.data.message)
             }
         }
     });
@@ -67,20 +68,6 @@ function SignUp() {
             <NormalBreadcrumb title={"Register"} description={"Welcome to our world named My Anime."} />
             <section className="signup spad">
                 <div className="container">
-                    {loading && (
-                        <MessageModal
-                            message={"Registering, please wait!!"}
-                            type={"loading"}
-                            setModal={loading}
-                        />
-                    )}
-                    {modal && (
-                        <MessageModal
-                            message={"Username has been used"}
-                            type={"error"}
-                            setModal={setModal}
-                        />
-                    )}
                     <div className="row">
                         <div className="col-lg-6">
                             <div className="login__form">
@@ -133,7 +120,26 @@ function SignUp() {
                                         </div>
                                         <span className="error">{formik.errors.retypepassword}</span>
                                     </div>
-                                    <input type="submit" value={t("signup.btn_signup_text")} className="site-btn" />
+                                    <button
+                                        type="submit"
+                                        className="site-btn"
+                                        disabled={loading}
+                                    >
+                                        {loading ? (
+                                            <React.Fragment>
+                                                <BeatLoader
+                                                    speedMultiplier={0.8}
+                                                    margin={0}
+                                                    size={11}
+                                                    color="#fff"
+                                                />
+                                            </React.Fragment>
+                                        ) : (
+                                            <React.Fragment>
+                                                {t("signup.btn_signup_text")}
+                                            </React.Fragment>
+                                        )}
+                                    </button>
                                 </form>
                                 <h5>{t("signup.login_register_title")}
                                     <a href="/login">{t("signup.login_text_a")}</a>

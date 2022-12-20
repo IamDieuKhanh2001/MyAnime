@@ -120,11 +120,14 @@ export default function Film({
                         url={videoSrc}
                         config={{
                             file: { attributes: { controlsList: "nodownload" } },
+                            youtube: {
+                                playerVars: { showinfo: 1 }
+                              },
                         }} //disable download
                         onContextMenu={(e) => e.preventDefault()} //disable right click on video
                         controls={true}
                         volume={1}
-                        light={"/videos/black.jpg"}
+                        light={"/videos/thumb-bilibili.jpg"}
                         onReady={onReady}
                         onEnded={onEnd}
                         onProgress={onProgress}
