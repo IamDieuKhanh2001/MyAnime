@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { BeatLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
 import { APIGetCommentByEpisodeId, APIPostCommentByEpisodeId } from '../../../../api/axios/commentAPI';
 import { commentActions } from '../../../../api/redux/slices/commentSlice';
 
@@ -27,13 +28,15 @@ function ReviewForm({ episodeWatchingId, commentLoading, setCommentLoading }) {
         initialValues: {
             content: "",
         },
-        onSubmit: async ({ content }) => {
-            setLoading(true)
-            const resComment = await APIPostCommentByEpisodeId(content, episodeWatchingId)
+        onSubmit: async values => {
+            setLoading(true)   
+            const resComment = await APIPostCommentByEpisodeId(values.content, episodeWatchingId)
+            values.content = ""                                 //Set initialValues to default
             if (resComment.status === 200) {
                 loadCommentByEpisodeId()
                 setLoading(false)
             } else if (resComment.response.status === 400) {
+                toast.error("Something when wrong, try again later")
                 setLoading(false)
             }
         }
@@ -55,7 +58,7 @@ function ReviewForm({ episodeWatchingId, commentLoading, setCommentLoading }) {
                     onChange={formik.handleChange}
                 />
 
-                <button type="submit">
+                <button type="submit" disabled={loading}>
 
                     {loading ?
                         (

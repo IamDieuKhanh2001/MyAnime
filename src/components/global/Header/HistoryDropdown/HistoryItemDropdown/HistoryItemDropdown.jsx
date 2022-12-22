@@ -30,7 +30,7 @@ function HistoryItemDropdown({ data }) {
         <Card key={data.id} onClick={() => handleNavigate()} sx={{ display: 'flex', alignItems: 'center' }} >
             <CardMedia
                 component="img"
-                sx={{ width: 151, height: 110 }}
+                sx={{ maxWidth: 151, maxHeight: 110 }}
                 image={data.image}
                 alt="series img"
             />

@@ -14,6 +14,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { BeatLoader } from 'react-spinners';
+import { useEffect } from 'react';
 
 function SignUp() {
     const dispatch = useDispatch();
@@ -61,6 +62,15 @@ function SignUp() {
             }
         }
     });
+
+    useEffect(() => {
+        document.title = t("signup.title");
+        window.scrollTo(0, 0);
+
+        if (window.sessionStorage.getItem("jwt")) {
+            navigate("/");
+        }
+    }, []);
 
     return (
         <React.Fragment>

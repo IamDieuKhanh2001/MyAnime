@@ -9,6 +9,7 @@ import RedeemHeader from './RedeemHeader/RedeemHeader';
 import { APIUserRedeemGiftcode } from '../../../api/axios/Subscription';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { BeatLoader } from 'react-spinners';
 
 function RedeemGiftCode() {
     const avatar = window.sessionStorage.getItem("avatar");
@@ -24,7 +25,7 @@ function RedeemGiftCode() {
             code: Yup.string().required("Emty code"),
         }),
         onSubmit: async values => {
-            if(values !== "") {
+            if (values !== "") {
                 userRedeemCode(values.code)
             }
         }
@@ -46,7 +47,7 @@ function RedeemGiftCode() {
 
 
     useEffect(() => {
-        if(username === null) {
+        if (username === null) {
             navigate(`/login`)
         }
     }, [])
@@ -75,7 +76,26 @@ function RedeemGiftCode() {
                                     )}
                                 </span>
                             </div>
-                            <input type="submit" value="Redeem now" className="submit" />
+                            <button
+                                type="submit"
+                                className="submit"
+                                disabled={loading}>
+                                {loading ?
+                                    (
+                                        <React.Fragment>
+                                            <BeatLoader
+                                                speedMultiplier={0.8}
+                                                margin={4.3}
+                                                size={14}
+                                                color="#fff"
+                                            />
+                                        </React.Fragment>
+                                    ) :
+                                    (<React.Fragment>
+                                        Redeem now
+                                    </React.Fragment>)
+                                }
+                            </button>
                             <div className="middle">
                                 <div className="cutSection" />
                                 <div className="cutSection" />
