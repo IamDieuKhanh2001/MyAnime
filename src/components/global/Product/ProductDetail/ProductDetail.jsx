@@ -73,7 +73,7 @@ function ProductDetail({ data }) {
                             <h3>{data.seriesName}</h3>
                             <span>{data.movieTitle}</span>
                         </div>
-                        <div className="anime__details__rating">
+                        {/* <div className="anime__details__rating">
                             <div className="rating">
                                 <a href="#">
                                     <i className="fa fa-star" />
@@ -92,7 +92,7 @@ function ProductDetail({ data }) {
                                 </a>
                             </div>
                             <span>1.029 Votes</span>
-                        </div>
+                        </div> */}
                         <p>
                             {data.description}
                         </p>
@@ -122,9 +122,9 @@ function ProductDetail({ data }) {
                                 </div>
                                 <div className="col-lg-6 col-md-6">
                                     <ul>
-                                        <li>
+                                        {/* <li>
                                             <span>{t("product_detail.duration")}</span> 24 min/ep
-                                        </li>
+                                        </li> */}
                                         <li>
                                             <span>{t("product_detail.quality")}</span> HD
                                         </li>

@@ -104,10 +104,10 @@ function SubscriptionRedeemHistory() {
                                         </div>
                                     </div>
                                     <div className="row">
-                                        <table className="table table-striped bg-white">
+                                        <table className="table table-striped table-hover table-dark">
                                             <thead>
                                                 <tr>
-                                                    <th scope="col">#</th>
+                                                    <th scope="col">Payment ID</th>
                                                     <th scope="col">Subscribe Date</th>
                                                     <th scope="col">Expired At</th>
                                                 </tr>

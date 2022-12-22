@@ -4,10 +4,7 @@ import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import { useNavigate } from "react-router-dom";
-import { APIGetProducts } from "../../../api/axios/productAPI";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { productsActions } from "../../../api/redux/slices/productSlice";
 
 export default function HeroSlider() {
     const dispatch = useDispatch();
@@ -18,21 +15,6 @@ export default function HeroSlider() {
         items: 1,
         autoplay: true,
     };
-
-    // const product = useSelector((state) => state.products.list);
-
-    // const loadProduct = async () => {
-    //   console.log("Calling api get product");
-    //   const resGetProduct = await APIGetProducts();
-    //   if (resGetProduct?.status === 200) {
-    //     const updateListAction = productsActions.updateList(resGetProduct.data);
-    //     dispatch(updateListAction);
-    //   }
-    // };
-
-    // useEffect(() => {
-    //   loadProduct();
-    // }, []);
 
     return (
         // <!-- Hero Section Begin -->
@@ -56,7 +38,7 @@ export default function HeroSlider() {
                                     <p>
                                     Every human inhabiting the world of Alcia ...
                                     </p>
-                                    <a onClick={() => navigate("/watching")}>
+                                    <a onClick={() => navigate("/details/8")}>
                                         <span>Watch Now</span>{" "}
                                         <i className="fa fa-angle-right" />
                                     </a>
@@ -80,7 +62,7 @@ export default function HeroSlider() {
                                         Toretto who lives a quiet life with his
                                         family...
                                     </p>
-                                    <a onClick={() => navigate("/watching")}>
+                                    <a onClick={() => navigate("/details/8")}>
                                         <span>Watch Now</span>{" "}
                                         <i className="fa fa-angle-right" />
                                     </a>
@@ -106,7 +88,7 @@ export default function HeroSlider() {
                                         an assailant breaks and tries to attack
                                         Sato...
                                     </p>
-                                    <a onClick={() => navigate("/watching")}>
+                                    <a onClick={() => navigate("/details/8")}>
                                         <span>Watch Now</span>{" "}
                                         <i className="fa fa-angle-right" />
                                     </a>

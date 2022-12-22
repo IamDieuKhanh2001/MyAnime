@@ -48,14 +48,14 @@ function ProductPageable({
                     </div>
                   </div>
                   <div className="col-lg-4 col-md-4 col-sm-6">
-                    <div className="product__page__filter">
+                    {/* <div className="product__page__filter">
                       <p>Order by:</p>
                       <select>
                         <option value>A-Z</option>
                         <option value>1-10</option>
                         <option value>10-50</option>
                       </select>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
