@@ -65,7 +65,7 @@ export default function ProductSideBar() {
 
   const loadSeriesCommentRecent = async () => {
     setLoadingSeriesCommentRecentList(true)
-    const resSeries = await APIGetSeriesCommentRecent(5);
+    const resSeries = await APIGetSeriesCommentRecent(10);
     if (resSeries?.status === 200) {
       const updateSeries = productsActions.updateSeriesCommentRecentList(resSeries.data);
       dispatch(updateSeries);

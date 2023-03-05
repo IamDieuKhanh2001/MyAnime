@@ -9,7 +9,7 @@ export default function Admin() {
         <div
             className="admin"
             style={{
-                padding: "0px 0px 0px 340px",
+                padding: "0px 0px 0px 310px",
             }}
         >
             <SideBar

@@ -61,7 +61,7 @@ export default function Film({
 
     const onError = () => {
         console.log("Error")
-        toast.error(`You must be premium member to watch this episode`)
+        toast.error(`Something when wrong, please try again later`)
     };
 
     const onPause = () => {

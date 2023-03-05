@@ -1,5 +1,5 @@
-import React from "react";
-import "./Chart.scss";
+import React from 'react'
+import "./ViewStatisticsChart.scss";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -47,6 +47,7 @@ const labels = [
   "Nov",
   "Dec",
 ];
+
 export const data = {
   labels,
   datasets: [
@@ -62,21 +63,15 @@ export const data = {
       backgroundColor: "#fff",
       borderRadius: "3",
     },
-    {
-      label: "Previous year",
-      data: labels.map(() => Math.random({ min: 0, max: 1000 })),
-      backgroundColor: "#fff",
-      borderRadius: "3",
-    },
   ],
 };
 
-export default function Chart() {
+function ViewStatisticsChart() {
   return (
-    <div className="chart">
+    <div className="View__statistics__chart">
       <div className="chartHeading">
         <div className="headingTitle">
-          <h4 className="title">SAMPLE BAR</h4>
+          <h4 className="title">Tổng lượt xem</h4>
           <h4 className="renuve">100.000</h4>
         </div>
       </div>
@@ -84,5 +79,7 @@ export default function Chart() {
         <Bar options={options} data={data} />
       </div>
     </div>
-  );
+  )
 }
+
+export default ViewStatisticsChart

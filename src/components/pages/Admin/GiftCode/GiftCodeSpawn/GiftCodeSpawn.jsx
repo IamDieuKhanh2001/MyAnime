@@ -65,7 +65,7 @@ function GiftCodeSpawn() {
             >
                 {({ setFieldValue, errors, touched, isSubmitting }) => (
                     <Form>
-                        <div className="container-xl px-4 mt-4">
+                        <div className="container px-4 mt-4">
                             <div className="row">
                                 <div className="col-xl-7">
                                     <div className="card mb-4">

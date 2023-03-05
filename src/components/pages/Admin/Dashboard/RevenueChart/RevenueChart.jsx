@@ -1,5 +1,5 @@
 import React from "react";
-import "./Chart.scss";
+import "./RevenueChart.scss";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -47,36 +47,30 @@ const labels = [
   "Nov",
   "Dec",
 ];
+
 export const data = {
   labels,
   datasets: [
     {
       label: "Last year",
-      data: labels.map(() => Math.random({ min: 0, max: 1000 })),
+      data: [300, 50, 60 , 70, 70, 90, 10, 90, 100, 70, 80, 90],
       backgroundColor: "#9e0902",
       borderRadius: "3",
     },
     {
       label: "This year",
-      data: labels.map(() => Math.random({ min: 0, max: 1000 })),
-      backgroundColor: "#fff",
-      borderRadius: "3",
-    },
-    {
-      label: "Previous year",
-      data: labels.map(() => Math.random({ min: 0, max: 1000 })),
+      data: [300, 50, 60 , 70, 70, 90, 10, 90, 100, 70, 80, 90],
       backgroundColor: "#fff",
       borderRadius: "3",
     },
   ],
 };
-
-export default function Chart() {
+export default function RevenueChart() {
   return (
-    <div className="chart">
+    <div className="revenue__chart">
       <div className="chartHeading">
         <div className="headingTitle">
-          <h4 className="title">SAMPLE BAR</h4>
+          <h4 className="title">Tổng doanh thu</h4>
           <h4 className="renuve">100.000</h4>
         </div>
       </div>

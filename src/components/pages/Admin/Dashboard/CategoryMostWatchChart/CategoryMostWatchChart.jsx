@@ -1,5 +1,5 @@
-import React from "react";
-import "./Chart.scss";
+import React from 'react'
+import "./CategoryMostWatchChart.scss";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -34,18 +34,20 @@ export const options = {
 };
 
 const labels = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
+  "Live Action",
+  "Hành động",
+  "Trinh thám",
+  "Harem",
+  "Chuyển sinh",
+  "Hài hước",
+  "Siêu nhiên",
+  "Đời thường",
+  "Âm nhạc",
+  "Thể thao",
+  "Phiêu lưu",
+  "Lãng mạn",
+  "Học đường",
+  "Fantasy",
 ];
 export const data = {
   labels,
@@ -62,21 +64,14 @@ export const data = {
       backgroundColor: "#fff",
       borderRadius: "3",
     },
-    {
-      label: "Previous year",
-      data: labels.map(() => Math.random({ min: 0, max: 1000 })),
-      backgroundColor: "#fff",
-      borderRadius: "3",
-    },
   ],
 };
-
-export default function Chart() {
+function CategoryMostWatchChart() {
   return (
-    <div className="chart">
+    <div className="category__most__watch__chart">
       <div className="chartHeading">
         <div className="headingTitle">
-          <h4 className="title">SAMPLE BAR</h4>
+          <h4 className="title">Lượt xem theo thể loại</h4>
           <h4 className="renuve">100.000</h4>
         </div>
       </div>
@@ -84,5 +79,7 @@ export default function Chart() {
         <Bar options={options} data={data} />
       </div>
     </div>
-  );
+  )
 }
+
+export default CategoryMostWatchChart
