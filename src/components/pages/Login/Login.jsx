@@ -63,12 +63,10 @@ function Login() {
                         createAt: resUserInfo.data.createAt,
                     });
                     dispatch(updateUserInfo);
-                    if (resLogin.data.authority === "ROLE_ADMIN") {
-                        navigate("/admin");
-                    }
-                    if (resLogin.data.authority === "ROLE_USER") {
-                        navigate(-1)
-                    }
+                    resLogin.data.authority === "ROLE_ADMIN" ? //Navigate user after login
+                    (navigate("/admin")) 
+                    : 
+                    (navigate(-1))
                 }
                 setLoading(false);
                 toast.success("Welcome back " + username)
@@ -84,7 +82,7 @@ function Login() {
         document.title = t("login.title");
         window.scrollTo(0, 0);
 
-        if (window.sessionStorage.getItem("jwt")) {
+        if (window.sessionStorage.getItem("jwt")) { //When user have logined, block user when return back to login page
             navigate("/");
         }
     }, []);
@@ -99,13 +97,6 @@ function Login() {
             {/* Login Section Begin */}
             <section className="login spad">
                 <div className="container">
-                    {/* {loading && (
-                        <MessageModal
-                            message={"Logging in, please wait!!"}
-                            type={"loading"}
-                            setModal={loading}
-                        />
-                    )} */}
                     <div className="row">
                         <div className="col-lg-6">
                             <div className="login__form">
@@ -167,7 +158,6 @@ function Login() {
                                                 </React.Fragment>
                                             )}
                                         </button>
-                                        {/* <button type="submit" className="site-btn">Login Now</button> */}
                                         <a href="/reset-password" className="forget_pass">
                                             {t("login.link_forgot_pw_text")}
                                         </a>
