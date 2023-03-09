@@ -1,41 +1,97 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import "./PremiumChart.scss";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Pie } from 'react-chartjs-2';
-
-ChartJS.register(ArcElement, Tooltip, Legend);
-
-export const data = {
-    labels: ['Premium User', 'Normal User'],
-    datasets: [
-        {
-            label: 'UserExclusive',
-            data: [12, 19],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.7)',
-                'rgba(191, 191, 191, 0.7)',
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 0.7)',
-                'rgba(191, 191, 191, 0.7)',
-            ],
-            borderWidth: 1,
-        },
-    ],
-};
+import { APIGetUserStatistic } from '../../../../../api/axios/StatisticAPI';
+import PieChart from '../../../../global/Chart/PieChart/PieChart';
 
 function PremiumChart() {
+    const [loadingUserStatistic, setLoadingUserStatistic] = useState(false)
+    const [allUserNumber, setAllUserNumber] = useState(0)
+    const [dataChart, setDataChart] = useState(
+        {
+            labels: ['Premium User', 'Normal User'],
+            datasets: [
+                {
+                    label: 'UserExclusive',
+                    data: [10, 10],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.7)',
+                        'rgba(191, 191, 191, 0.7)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 0.7)',
+                        'rgba(191, 191, 191, 0.7)',
+                    ],
+                    borderWidth: 1,
+                },
+            ],
+        }
+    );
+
+    // const data = {
+    //     labels: ['Premium User', 'Normal User'],
+    //     datasets: [
+    //         {
+    //             label: 'UserExclusive',
+    //             data: [3, 10],
+    //             backgroundColor: [
+    //                 'rgba(255, 99, 132, 0.7)',
+    //                 'rgba(191, 191, 191, 0.7)',
+    //             ],
+    //             borderColor: [
+    //                 'rgba(255, 99, 132, 0.7)',
+    //                 'rgba(191, 191, 191, 0.7)',
+    //             ],
+    //             borderWidth: 1,
+    //         },
+    //     ],
+    // };
+
+    const options = { //Pie chart option 
+        //This chart use default option
+    };
+
+    const loadUserStatistic = async () => {
+        setLoadingUserStatistic(true)
+        const resGetUserStatistic = await APIGetUserStatistic();
+        if (resGetUserStatistic?.status === 200) {
+            setDataChart({
+                labels: ['Premium User', 'Normal User'],
+                datasets: [
+                    {
+                        label: 'UserExclusive',
+                        data: [
+                            resGetUserStatistic.data.premiumUserNumber,
+                            resGetUserStatistic.data.normalUserNumber
+                        ],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.7)',
+                            'rgba(191, 191, 191, 0.7)',
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 0.7)',
+                            'rgba(191, 191, 191, 0.7)',
+                        ],
+                        borderWidth: 1,
+                    },
+                ],
+            })
+            setAllUserNumber(resGetUserStatistic.data.allUserNumber)
+        }
+        setLoadingUserStatistic(false)
+    }
+
+    useEffect(() => {
+        loadUserStatistic()
+    }, [])
+
     return (
         <div className="premium__chart">
-            <div className="chartHeading">
-                <div className="headingTitle">
-                    <h4 className="title">Cấp bậc người dùng</h4>
-                    <h4 className="renuve">Total: 300</h4>
-                </div>
-            </div>
-            <div className="pie__chart">
-                <Pie data={data} />
-            </div>
+            <PieChart
+                name="Cấp bậc người dùng"
+                totalRenuve={`Tổng nhân viên ${allUserNumber}`}
+                data={dataChart}
+                options={options}
+            />
         </div>
 
     )
