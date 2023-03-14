@@ -88,7 +88,7 @@ function PremiumChart() {
         <div className="premium__chart">
             <PieChart
                 name="Cấp bậc người dùng"
-                totalRenuve={`Tổng nhân viên ${allUserNumber}`}
+                totalRenuve={`Tổng người dùng ${allUserNumber}`}
                 data={dataChart}
                 options={options}
             />
