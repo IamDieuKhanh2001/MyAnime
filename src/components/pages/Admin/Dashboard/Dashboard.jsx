@@ -16,7 +16,7 @@ export default function Dashboard() {
         <div className="col-6">
           <RevenueChart />
         </div>
-        <div className="col-6">
+        <div className="col-12">
           <CategoryMostWatchChart />
         </div>
         {/* <div class="col-6">

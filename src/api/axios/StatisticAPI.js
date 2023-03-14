@@ -10,3 +10,23 @@ export const APIGetUserStatistic = () => {
         .get(url, { headers: headers })
         .catch((err) => console.log("Can't call API after 2 retries", err));
 };
+
+export const APIGetViewStatisticByYear = (year) => {
+    const url = `/statistics/view/count-in-year`
+    const params = {
+        year,
+      };
+    return axiosClient
+        .get(url, { params: params })
+        .catch((err) => console.log("Can't call API after 2 retries", err));
+};
+
+export const APIGetTotalViewInYear = (year) => {
+    const url = `/statistics/view/count-total-in-year`
+    const params = {
+        year,
+      };
+    return axiosClient
+        .get(url, { params: params })
+        .catch((err) => console.log("Can't call API after 2 retries", err));
+};
