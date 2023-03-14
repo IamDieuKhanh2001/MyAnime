@@ -27,25 +27,6 @@ function PremiumChart() {
         }
     );
 
-    // const data = {
-    //     labels: ['Premium User', 'Normal User'],
-    //     datasets: [
-    //         {
-    //             label: 'UserExclusive',
-    //             data: [3, 10],
-    //             backgroundColor: [
-    //                 'rgba(255, 99, 132, 0.7)',
-    //                 'rgba(191, 191, 191, 0.7)',
-    //             ],
-    //             borderColor: [
-    //                 'rgba(255, 99, 132, 0.7)',
-    //                 'rgba(191, 191, 191, 0.7)',
-    //             ],
-    //             borderWidth: 1,
-    //         },
-    //     ],
-    // };
-
     const options = { //Pie chart option 
         //This chart use default option
     };

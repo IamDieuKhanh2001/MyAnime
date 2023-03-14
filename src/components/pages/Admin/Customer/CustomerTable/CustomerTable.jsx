@@ -107,15 +107,20 @@ export default function CustomerTable() {
                                                     {currentItems?.map(
                                                         (user) => {
                                                             return (
-                                                                <tr>
+                                                                <tr key={user.id}>
                                                                     <td>
                                                                         <img
+                                                                            className="rounded"
+                                                                            style={{
+                                                                                width: "50px", 
+                                                                                height: "50px"
+                                                                            }}
                                                                             src={
                                                                                 user.avatar
                                                                                     ? user.avatar
                                                                                     : "https://cdn.pixabay.com/photo/2017/01/25/17/35/picture-2008484_960_720.png"
                                                                             }
-                                                                            alt
+                                                                            alt={user.username}
                                                                         />
                                                                         <a
                                                                             href=""

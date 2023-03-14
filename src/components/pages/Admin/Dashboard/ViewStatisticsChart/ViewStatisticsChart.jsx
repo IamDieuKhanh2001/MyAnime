@@ -1,24 +1,6 @@
 import React from 'react'
 import "./ViewStatisticsChart.scss";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-} from "chart.js";
-import { Bar } from "react-chartjs-2";
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
+import BarChart from '../../../../global/Chart/BarChart/BarChart';
 
 export const options = {
   responsive: true,
@@ -48,7 +30,7 @@ const labels = [
   "Dec",
 ];
 
-export const data = {
+const data = {
   labels,
   datasets: [
     {
@@ -69,15 +51,12 @@ export const data = {
 function ViewStatisticsChart() {
   return (
     <div className="View__statistics__chart">
-      <div className="chartHeading">
-        <div className="headingTitle">
-          <h4 className="title">Tổng lượt xem</h4>
-          <h4 className="renuve">100.000</h4>
-        </div>
-      </div>
-      <div className="chartBar">
-        <Bar options={options} data={data} />
-      </div>
+      <BarChart 
+      name={"Thống kê lượt xem"}
+      totalRenuve={"Tổng: 102.000"}
+      data={data}
+      options={options}
+       />
     </div>
   )
 }
