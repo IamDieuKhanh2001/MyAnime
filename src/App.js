@@ -35,6 +35,7 @@ import RedeemGiftCode from "./components/pages/RedeemGiftCode/RedeemGiftCode";
 import GiftCode from "./components/pages/Admin/GiftCode/GiftCode";
 import ForgotPassword from "./components/pages/ForgotPassword/ForgotPassword";
 import Test from "./components/pages/TestPage/Test";
+import ScrollToTop from "./components/global/ScrollToTop/ScrollToTop";
 
 
 function App() {
@@ -45,50 +46,56 @@ function App() {
         <>
             {/* <Social /> */}
             <Router>
-                <Routes>
-                    <Route exact path="/" element={<Home />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/profile" element={<Profile />} />
-                    <Route path="/verify-age" element={<AuthenIdCard/>} />
-                    <Route exact path="/signup" element={<SignUp />} />
-                    <Route path="*" element={<Navigate to="/" />} />
-                    <Route path="/series-list" element={<ProductList />} />
-                    <Route
-                        exact
-                        path="/details/:seriesId"
-                        element={<AnimeDetail />}
-                    />
-                    <Route
-                        path="/watching/:seriesId"
-                        element={<AnimeWatching />}
-                    />
-                    <Route path="/blog" element={<Blog />} />
-                    <Route path="/blog-detail" element={<BlogDetail />} />
-                    <Route
-                        path="/category/:categoryId"
-                        element={<Category />}
-                    />
-                    <Route path="/history" element={<History />} />                    
-                    {
-                        user && role === "ROLE_ADMIN" ? <Route path="/admin" element={<Admin />}>
-                            <Route index element={<Dashboard />} />
-                            <Route path="series" element={<Series />} />
-                            <Route path="movies" element={<Movie />} />
-                            <Route path="episodes" element={<Episode />} />
-                            <Route path="customers" element={<Customer />} />
-                            <Route path="giftcode" element={<GiftCode />} />
-                        </Route> :
-                            <Route path="/admin/*" element={<Login />} />
-                    }
+            {/* reset to top page when redirect to another page */}
+                <ScrollToTop> 
+                    <Routes>
+                        <Route exact path="/" element={<Home />} />
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/profile" element={<Profile />} />
+                        <Route path="/verify-age" element={<AuthenIdCard />} />
+                        <Route exact path="/signup" element={<SignUp />} />
+                        <Route path="*" element={<Navigate to="/" />} />
+                        <Route path="/series-list" element={<ProductList />} />
+                        <Route
+                            exact
+                            path="/details/:seriesId"
+                            element={<AnimeDetail />}
+                        />
+                        <Route
+                            path="/watching/:seriesId"
+                            element={<AnimeWatching />}
+                        />
+                        <Route path="/blog" element={<Blog />} />
+                        <Route path="/blog-detail" element={<BlogDetail />} />
+                        <Route
+                            path="/category/:categoryId"
+                            element={<Category />}
+                        />
+                        <Route path="/history" element={<History />} />
 
-                    <Route path="/series/search/:kw" element={<SearchKeyword />} />
-                    <Route path="/subscription/history" element={<SubscriptionRedeemHistory />} />
-                    <Route path="/redeem" element={<RedeemGiftCode />} />
-                    <Route path="/reset-password" element={<ForgotPassword />} />
-                    <Route path="*" element={<Navigate to="/" />} />
-                    {/* Test components / Will be removed when deploy */}
-                    <Route path="/test" element={<Test />} />
-                </Routes>
+                        {/* administrator page route */}
+                        {
+                            user && role === "ROLE_ADMIN" ? <Route path="/admin" element={<Admin />}>
+                                <Route index element={<Dashboard />} />
+                                <Route path="series" element={<Series />} />
+                                <Route path="movies" element={<Movie />} />
+                                <Route path="episodes" element={<Episode />} />
+                                <Route path="customers" element={<Customer />} />
+                                <Route path="giftcode" element={<GiftCode />} />
+                            </Route> :
+                                <Route path="/admin/*" element={<Login />} />
+                        }
+
+                        <Route path="/series/search/:kw" element={<SearchKeyword />} />
+                        <Route path="/subscription/history" element={<SubscriptionRedeemHistory />} />
+                        <Route path="/redeem" element={<RedeemGiftCode />} />
+                        <Route path="/reset-password" element={<ForgotPassword />} />
+                        <Route path="*" element={<Navigate to="/" />} />
+                        {/* Test components / Will be removed when deploy */}
+                        <Route path="/test" element={<Test />} />
+                    </Routes>
+                </ScrollToTop>
+
             </Router>
             <ToastContainer />
             <Helmet>

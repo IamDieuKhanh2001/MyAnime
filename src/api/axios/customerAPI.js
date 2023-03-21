@@ -1,7 +1,7 @@
 import { axiosClient } from "./axiosClient";
 
 export const APILogin = (username, password) => {
-    const url = "/login";
+    const url = "/authentication/login";
     const userData = {
         username: username,
         password: password,
@@ -25,7 +25,7 @@ export const APIProfileUserLoging = () => {
 };
 
 export const APIRegister = (username, password) => {
-    const url = "/register";
+    const url = "/authentication/register";
     const data = {
         username,
         password,
