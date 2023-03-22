@@ -3,7 +3,9 @@ import "./ProductPageable.scss";
 import ProductSideBar from '../ProductSideBar/ProductSideBar'
 import ProductSection from "../ProductSection/ProductSection";
 import { useTranslation } from 'react-i18next';
+import { useScroll } from "react-scroll-hooks";
 import LoadingSkeletonProductAnimation from '../../LoadingSkeletonProductAnimation/LoadingSkeletonProductAnimation';
+import { useEffect } from 'react';
 
 function ProductPageable({
   productTitle,
@@ -13,11 +15,7 @@ function ProductPageable({
   loading,
   products }) {
   const { t } = useTranslation();
-
-  // useEffect(() => {
-  //   loadTotalProduct();
-  //   loadProduct();
-  // }, [currentPage]);
+  const { scrollToY } = useScroll({scrollSpeed: 50}); 
 
   const renderedPagginationItem = [];
   const renderProductPagination = () => {
@@ -32,6 +30,10 @@ function ProductPageable({
   };
 
   renderProductPagination();
+
+    useEffect(() => {
+  }, []);
+
   return (
     <section className="product-page spad">
       <div className="container">
@@ -66,7 +68,7 @@ function ProductPageable({
 
                   <div className='row'>
                     {products.map((data, index) => (
-                      <ProductSection data={data} key={index} />
+                      <ProductSection data={data} key={index}/>
                     ))}
                   </div>
                 )}

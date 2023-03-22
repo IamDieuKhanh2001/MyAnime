@@ -4,9 +4,14 @@ import { useNavigate } from "react-router-dom";
 
 export default function ProductSection({ data }) {
   const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    navigate(`/details/${data.id}`)
+  }
+
   return (
     <div className="col-lg-4 col-md-6 col-sm-6">
-      <div onClick={() => navigate(`/details/${data.id}`)} className="product__item">
+      <div onClick={() => handleNavigate()} className="product__item">
         <div
           className="product__item__pic set-bg"
           style={{

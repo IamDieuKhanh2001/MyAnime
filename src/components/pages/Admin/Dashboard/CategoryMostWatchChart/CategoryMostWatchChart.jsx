@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import "./CategoryMostWatchChart.scss";
-import { Bar } from "react-chartjs-2";
 import BarChart from '../../../../global/Chart/BarChart/BarChart';
 import { APIGetCategoriesViewStatistics } from '../../../../../api/axios/StatisticAPI';
 
