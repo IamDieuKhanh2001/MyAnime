@@ -58,8 +58,6 @@ function ViewStatisticsChart() {
     setLoadingViewStatistics(true)
     const resGetViewStatisticsInCurrentYear = await APIGetViewStatisticByYear(currentYear); //API current year
     const resGetViewStatisticsInLastYear = await APIGetViewStatisticByYear(lastYear); //API last year
-    console.log(resGetViewStatisticsInCurrentYear)
-    console.log(resGetViewStatisticsInLastYear)
     if (resGetViewStatisticsInCurrentYear?.status === 200 && resGetViewStatisticsInLastYear?.status === 200) {
       setDataChart(
         {

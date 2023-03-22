@@ -30,3 +30,10 @@ export const APIGetTotalViewInYear = (year) => {
         .get(url, { params: params })
         .catch((err) => console.log("Can't call API after 2 retries", err));
 };
+
+export const APIGetCategoriesViewStatistics = () => {
+    const url = `/statistics/view/categories`
+    return axiosClient
+        .get(url)
+        .catch((err) => console.log("Can't call API after 2 retries", err));
+};
