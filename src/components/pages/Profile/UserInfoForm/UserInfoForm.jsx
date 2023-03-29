@@ -3,27 +3,26 @@ import { useState } from "react";
 import { Field, Form, Formik, useFormik } from "formik";
 import * as Yup from "yup";
 import PuffLoader from "react-spinners/PuffLoader";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
     APIChangeAvatar,
     APICheckIsPremiumMember,
     APIGetRemainTimePremiumMember,
     APIUpdateInfoUserLogging,
 } from "../../../../api/axios/customerAPI";
-import MessageModal from "../../../global/MessageModal/MessageModal";
 import VerifyEmailModal from "../../../global/VerifyEmailModal/VerifyEmailModal";
 import { useTranslation } from "react-i18next";
 import "./UserInfoForm.scss"
 import PremiumCard from "../PremiumCard/PremiumCard";
+import { toast } from "react-toastify";
 
 function UserInfoForm({ loadUserLogging }) {
+    const dispatch = useDispatch();
     const { t } = useTranslation();
     const [previewImg, setPreviewImg] = useState(
         "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
     );
     const data = useSelector((state) => state.users);
-    const [modal, setModal] = useState(false);
-    const [updateMessage, setUpdateMessage] = useState("");
     const [otpVerifyModal, setOtpVerifyModal] = useState(false);
     const [isPremiumMember, setIsPremiumMember] = useState(false)
     const [premiumDayRemain, setPremiumDayRemain] = useState(0);
@@ -79,17 +78,16 @@ function UserInfoForm({ loadUserLogging }) {
                 fields.email
             );
             loadUserLogging();
-            setUpdateMessage(resUpdateUserInfo.data);
+            toast.success(resUpdateUserInfo.data)
             if (fields.email !== data.email) {
                 //Changed email, get to OTP check
-                setUpdateMessage(resUpdateUserInfo.data);
+                toast.success("We need verify your mail, check inbox gmail!")
                 setOtpVerifyModal(true);
             }
         } catch (responseException) {
             //400: user email has been used
-            setUpdateMessage(responseException.response.data);
+            toast.error(responseException.response.data)
         }
-        setModal(true);
     };
     const changeAvatar = (file) => {
         const reschangeAvatar = APIChangeAvatar(file);
@@ -103,6 +101,7 @@ function UserInfoForm({ loadUserLogging }) {
             });
             reader.readAsDataURL(e.target.files[0]);
             changeAvatar(e.target.files[0]);
+            toast.success("Change image success")
             loadUserLogging();
         }
     };
@@ -111,13 +110,6 @@ function UserInfoForm({ loadUserLogging }) {
         <React.Fragment>
             {otpVerifyModal && (
                 <VerifyEmailModal setOtpVerifyModal={setOtpVerifyModal} />
-            )}
-            {modal && (
-                <MessageModal
-                    message={updateMessage}
-                    type={"success"}
-                    setModal={setModal}
-                />
             )}
             <Formik
                 initialValues={initialValues}
@@ -256,10 +248,13 @@ function UserInfoForm({ loadUserLogging }) {
                                                     type="submit"
                                                 >
                                                     {isSubmitting ? (
-                                                        <PuffLoader
-                                                            color="#ffffff"
-                                                            size={30}
-                                                        />
+                                                        <React.Fragment>
+                                                            <PuffLoader
+                                                                color="#ffffff"
+                                                                size={30}
+                                                            />
+                                                            Saving your profile, please wait!
+                                                        </React.Fragment>
                                                     ) : (
                                                         t(
                                                             "profile.btn_save_text"

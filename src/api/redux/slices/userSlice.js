@@ -19,6 +19,9 @@ const users = createSlice({
       state.avatar = actions.payload.avatar;
       state.createAt = actions.payload.createAt
     },
+    updateUserAvatar: (state, actions) => {
+      state.avatar = actions.payload.avatar;
+    },
     resetUserInfo: () => initialState,
   },
 });

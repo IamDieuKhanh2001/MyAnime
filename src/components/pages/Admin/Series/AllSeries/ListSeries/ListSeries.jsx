@@ -81,7 +81,7 @@ export default function ListSeries() {
         loading ? <LoadingAnimation /> : movieSeries ?
           movieSeries.map(movieSerie => {
             return (
-              <div>
+              <div key={movieSerie.id}>
                 <div className="allMovieLine">
                   <div className="allMovieContent">
                     <figure className="movieItemImg">

@@ -33,6 +33,7 @@ export default function Profile() {
         createAt: resUserInfo.data.createAt,
       });
       dispatch(updateUserInfo);
+      sessionStorage.setItem('avatar', resUserInfo.data.avatar); //Change ava in header
     }
 
   }

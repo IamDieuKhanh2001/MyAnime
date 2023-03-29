@@ -7,11 +7,9 @@ import PuffLoader from "react-spinners/PuffLoader";
 import { APIVerifyUserEmailOTP } from "../../../api/axios/customerAPI";
 import { useState } from "react";
 import MessageModal from "../MessageModal/MessageModal";
+import { toast } from "react-toastify";
 
 export default function VerifyEmailModal({ setOtpVerifyModal }) {
-
-    const [modal, setModal] = useState(false);
-    const [updateMessage, setUpdateMessage] = useState("")
 
     const initialValues = {
         otp: "",
@@ -24,24 +22,16 @@ export default function VerifyEmailModal({ setOtpVerifyModal }) {
     const onSubmit = async (values) => {
         const resVerifyOtpCode = await APIVerifyUserEmailOTP(values.otp)
         if (resVerifyOtpCode.status === 200) {
+            toast.success(resVerifyOtpCode.data)
             setOtpVerifyModal(false)
-            setUpdateMessage(resVerifyOtpCode.data)
         }
         else if(resVerifyOtpCode.response.status === 400) {
-            setUpdateMessage(resVerifyOtpCode.response.data)
+            toast.error(resVerifyOtpCode.response.data)
         }
-        setModal(true)
     };
 
     return (
         <React.Fragment>
-            {modal && (
-                <MessageModal
-                    message={updateMessage}
-                    type={"error"}
-                    setModal={setModal}
-                />
-            )}
             <div className="verifyEmailModal">
                 <div className="modalOverlay"></div>
                 <div className="modalBody">
