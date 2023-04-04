@@ -5,7 +5,7 @@ import ListEpisode from "./ListEpisode/ListEpisode";
 export default function AllEpisode() {
     return (
         <div>
-            <ListEpisode />
+            <ListEpisode/>
         </div>
     );
 }

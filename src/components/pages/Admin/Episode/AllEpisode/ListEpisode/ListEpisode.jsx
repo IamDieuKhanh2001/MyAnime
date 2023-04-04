@@ -56,7 +56,7 @@ export default function ListEpisode() {
         setOpenUpdateEp(false);
     };
     return (
-        <>
+        <React.Fragment>
             {selectedEp ? (
                 <Dialog
                     key={selectedEp.id}
@@ -99,7 +99,7 @@ export default function ListEpisode() {
                                                 }}
                                                 className="btn episodeButton"
                                             >
-                                                {ep.title}
+                                                {ep.numEpisodes}
                                             </button>
                                         );
                                     })}
@@ -121,6 +121,6 @@ export default function ListEpisode() {
                     </div>
                 );
             })}
-        </>
+        </React.Fragment>
     );
 }

@@ -33,21 +33,23 @@ export default function UpdateEpisode({ series, ep, hideDiaglogUpdate }) {
     ];
 
     const initialValues = {
-        episode: ep.title,
+        numEpisode: ep.numEpisodes,
+        episodeName: ep.title,
         seriesName: series.name,
         video: "",
         serversAssets: [],
         isPremium: ep.premiumRequired,
     };
-    if(ep.resourceDO !== null) {
+    if (ep.resourceDO !== null) {
         serversAssetsSelected.push({ label: "Digital Ocean", value: "do" })
     }
-    if(ep.resourceCD !== null) {
+    if (ep.resourceCD !== null) {
         serversAssetsSelected.push({ label: "Cloudinary", value: "cd" })
     }
     console.log(ep)
     const validationSchema = Yup.object().shape({
-        episode: Yup.string().required("Empty"),
+        numEpisode: Yup.number().default(-1).required("Number episode must be a number"), //Number episode <= 0 server will auto numbering
+        episodeName: Yup.string().required("Empty"),
         video: Yup.mixed(),
     });
     const imageHandler = (e, setFieldValue) => {
@@ -82,8 +84,9 @@ export default function UpdateEpisode({ series, ep, hideDiaglogUpdate }) {
             bodyFormData.append(
                 "model",
                 JSON.stringify({
-                    title: fields.episode,
+                    title: fields.episodeName,
                     premiumRequired: fields.isPremium,
+                    numEpisodes: fields.numEpisode,
                 })
             );
             bodyFormData.append("sourceFile", fields.video);
@@ -170,7 +173,7 @@ export default function UpdateEpisode({ series, ep, hideDiaglogUpdate }) {
                                                     />
                                                 ) : null}
                                                 <div className="small font-italic text-muted mb-4">
-                                                    MP4 no larger than 15 MB
+                                                    Upload new video (or else skip this)
                                                 </div>
                                                 <label
                                                     htmlFor="inputUpdateVideoEp"
@@ -197,23 +200,46 @@ export default function UpdateEpisode({ series, ep, hideDiaglogUpdate }) {
                                                 <div className="mb-3">
                                                     <label
                                                         className="small mb-1"
-                                                        htmlFor="inputEpisode"
+                                                        htmlFor="inputNumberEpisode"
                                                     >
-                                                        Episode
+                                                        Number episode
                                                     </label>
                                                     <Field
                                                         className="form-control"
-                                                        id="inputEpisode"
+                                                        id="inputNumberEpisode"
                                                         type="text"
-                                                        name="episode"
-                                                        placeholder="Enter your episode"
+                                                        name="numEpisode"
+                                                        placeholder="Enter your number episode"
                                                     />
                                                     <span className="error">
-                                                        {errors.episode &&
-                                                            touched.episode && (
+                                                        {errors.numberEpisode &&
+                                                            touched.numberEpisode && (
                                                                 <div>
                                                                     {
-                                                                        errors.episode
+                                                                        errors.numberEpisode
+                                                                    }
+                                                                </div>
+                                                            )}
+                                                    </span>
+                                                    <label
+                                                        className="small mb-1"
+                                                        htmlFor="inputEpisodeName"
+                                                    >
+                                                        Episode name
+                                                    </label>
+                                                    <Field
+                                                        className="form-control"
+                                                        id="inputEpisodeName"
+                                                        type="text"
+                                                        name="episodeName"
+                                                        placeholder="Enter your episode title"
+                                                    />
+                                                    <span className="error">
+                                                        {errors.episodeName &&
+                                                            touched.episodeName && (
+                                                                <div>
+                                                                    {
+                                                                        errors.episodeName
                                                                     }
                                                                 </div>
                                                             )}
@@ -246,7 +272,7 @@ export default function UpdateEpisode({ series, ep, hideDiaglogUpdate }) {
                                                     <div>
                                                         <label
                                                             className="large mb-1"
-                                                            htmlFor="inputEpisode"
+                                                            htmlFor="inputPremiumEpisode"
                                                         >
                                                             For premium member only:
                                                         </label>
