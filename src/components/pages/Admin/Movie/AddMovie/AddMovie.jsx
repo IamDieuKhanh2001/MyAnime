@@ -214,6 +214,14 @@ export default function AddMovie() {
                                                     )}
                                                     Add
                                                 </button>
+                                                {isSubmitting && (
+                                                    <div className="alert alert-success mt-3" role="alert">
+                                                        <h4 className="alert-heading">
+                                                            <span className="spinner-border spinner-border-sm mr-1"></span>
+                                                            adding!! please wait
+                                                        </h4>
+                                                    </div>
+                                                )}
                                             </div>
                                         </div>
                                     </div>

@@ -32,7 +32,8 @@ export default function AddEpisode() {
     ];
 
     const initialValues = {
-        episode: "",
+        numEpisode: "",
+        episodeName: "",
         seriesName: "",
         video: "",
         serverAssets: [],
@@ -40,10 +41,11 @@ export default function AddEpisode() {
     };
     const movieSeries = useSelector((state) => state.admin.movieSeries);
     const validationSchema = Yup.object().shape({
-        episode: Yup.string().required("Empty"),
-        seriesName: Yup.object().required("Empty"),
-        video: Yup.mixed().required("Empty"),
-        serverAssets: Yup.array().min(1, "Server must be at least 1").required("Empty"),
+        numEpisode: Yup.number().default(-1).required("Number episode must be a number"), //Number episode <= 0 server will auto numbering
+        episodeName: Yup.string().required("Episode name can not be empty"),
+        seriesName: Yup.object().required("Series name can not be empty"),
+        video: Yup.mixed().required("Empty video file"),
+        serverAssets: Yup.array().min(1, "Server must be at least 1").required("Choose your assets server"),
     });
     const loadMovieSeries = async () => {
         try {
@@ -93,8 +95,9 @@ export default function AddEpisode() {
             bodyFormData.append(
                 "model",
                 JSON.stringify({
-                    title: fields.episode,
+                    title: fields.episodeName,
                     premiumRequired: fields.isPremium,
+                    numEpisodes: fields.numEpisode,
                 })
             );
             bodyFormData.append("sourceFile", fields.video);
@@ -115,6 +118,7 @@ export default function AddEpisode() {
                 setUploadFile(null);
             }
         } catch (e) {
+            toast.error(`Something when wrong, please try again`);
             console.log(e);
         }
     };
@@ -146,26 +150,25 @@ export default function AddEpisode() {
                                                         />
                                                     </video>
                                                 ) : (
-                                                    <img
-                                                        className="img-video mb-2"
-                                                        src={
-                                                            "https://cdn.pixabay.com/photo/2015/09/15/17/18/vector-video-player-941434_1280.png"
-                                                        }
-                                                        alt="video"
-                                                        id="img"
-                                                    />
+                                                    <div className="alert alert-warning" role="alert">
+                                                        <h4 className="alert-heading">Choose your video file !!</h4>
+                                                        <p>you haven't uploaded a video yet.</p>
+                                                        <hr />
+                                                        <p className="mb-0">File must be video/mp4,video/x-m4v,video/* format.</p>
+                                                    </div>
                                                 )}
-                                                <span className="error">
-                                                    {errors.video &&
-                                                        touched.video && (
+                                                <div className="mb-3">
+                                                    <span className="error">
+                                                        {errors.video && (
                                                             <div>
-                                                                {errors.video}
+                                                                {
+                                                                    errors.video
+                                                                }
                                                             </div>
                                                         )}
-                                                </span>
-                                                <div className="small font-italic text-muted mb-4">
-                                                    Cloudinary server Mp4 no larger than 15mb
+                                                    </span>
                                                 </div>
+
 
                                                 <label
                                                     htmlFor="input"
@@ -191,24 +194,24 @@ export default function AddEpisode() {
                                             <div className="addForm">
                                                 <div className="mb-3">
                                                     <label
-                                                        className="small mb-1"
-                                                        htmlFor="inputEpisode"
+                                                        className="medium mb-1"
+                                                        htmlFor="inputNumberEpisode"
                                                     >
-                                                        Episode
+                                                        Number episode
                                                     </label>
                                                     <Field
                                                         className="form-control"
-                                                        id="inputEpisode"
+                                                        id="inputNumberEpisode"
                                                         type="text"
-                                                        name="episode"
-                                                        placeholder="Enter your episode"
+                                                        name="numEpisode"
+                                                        placeholder="Enter your episode name (Blank will auto numbering)"
                                                     />
                                                     <span className="error">
-                                                        {errors.episode &&
-                                                            touched.episode && (
+                                                        {errors.numEpisode &&
+                                                            touched.numEpisode && (
                                                                 <div>
                                                                     {
-                                                                        errors.episode
+                                                                        errors.numEpisode
                                                                     }
                                                                 </div>
                                                             )}
@@ -217,7 +220,33 @@ export default function AddEpisode() {
 
                                                 <div className="mb-3">
                                                     <label
-                                                        className="small mb-1"
+                                                        className="medium mb-1"
+                                                        htmlFor="inputNameEpisode"
+                                                    >
+                                                        Episode name
+                                                    </label>
+                                                    <Field
+                                                        className="form-control"
+                                                        id="inputNameEpisode"
+                                                        type="text"
+                                                        name="episodeName"
+                                                        placeholder="Enter your episode name"
+                                                    />
+                                                    <span className="error">
+                                                        {errors.episodeName &&
+                                                            touched.episodeName && (
+                                                                <div>
+                                                                    {
+                                                                        errors.episodeName
+                                                                    }
+                                                                </div>
+                                                            )}
+                                                    </span>
+                                                </div>
+
+                                                <div className="mb-3">
+                                                    <label
+                                                        className="medium mb-1"
                                                         htmlFor="inputseriesName"
                                                     >
                                                         Series Name
@@ -255,8 +284,8 @@ export default function AddEpisode() {
                                                 <div className="mb-3 d-flex justify-content-between">
                                                     <div>
                                                         <label
-                                                            className="large mb-1"
-                                                            htmlFor="inputEpisode"
+                                                            className="medium mb-1"
+                                                            htmlFor="inputPremiumEpisode"
                                                         >
                                                             For premium member only:
                                                         </label>
@@ -274,7 +303,7 @@ export default function AddEpisode() {
                                                         className="small mb-1"
                                                         htmlFor="inputServerAssets"
                                                     >
-                                                        Server Backup
+                                                        Server assets
                                                     </label>
                                                     {loadServerList ? (
                                                         <LoadingAnimation />
@@ -319,6 +348,14 @@ export default function AddEpisode() {
                                                     )}
                                                     Add
                                                 </button>
+                                                {isSubmitting && (
+                                                    <div className="alert alert-success mt-3" role="alert">
+                                                        <h4 className="alert-heading">
+                                                            <span className="spinner-border spinner-border-sm mr-1"></span>
+                                                            Uploading!! please wait
+                                                        </h4>
+                                                    </div>
+                                                )}
                                             </div>
                                         </div>
                                     </div>

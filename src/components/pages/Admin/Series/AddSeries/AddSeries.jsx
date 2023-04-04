@@ -19,7 +19,7 @@ export default function AddSeries() {
   const [previewImg, setPreviewImg] = useState();
   const dispatch = useDispatch()
   const movies = useSelector(state => state.admin.movies)
-  let movieSeries= useSelector(state =>state.admin.movieSeries)
+  let movieSeries = useSelector(state => state.admin.movieSeries)
   const initialValues = {
     name: "",
     movieName: "",
@@ -50,8 +50,8 @@ export default function AddSeries() {
     }
   };
 
-  const onSubmit = async (fields,resetForm) => {
-    try{
+  const onSubmit = async (fields, resetForm) => {
+    try {
       let bodyFormData = new FormData()
       bodyFormData.append('model', JSON.stringify({
         description: fields.description,
@@ -63,16 +63,16 @@ export default function AddSeries() {
       bodyFormData.append('sourceFile', uploadFile)
       console.log(bodyFormData)
       const resAddMovieSeries = await APIAddMovieSeries(bodyFormData)
-      if(resAddMovieSeries.status===200){
+      if (resAddMovieSeries.status === 200) {
         toast.success(`Add movie series ${fields.name} success`)
-        movieSeries=_.concat(movieSeries,resAddMovieSeries.data.data)
+        movieSeries = _.concat(movieSeries, resAddMovieSeries.data.data)
         dispatch(adminActions.updateMovieSeries(movieSeries));
         console.log(resAddMovieSeries.data)
         resetForm()
         setPreviewImg(null)
         setUploadFile(null)
       }
-    }catch(e){
+    } catch (e) {
       console.log(e)
       toast.error(`Add movie series fail`)
     }
@@ -99,7 +99,7 @@ export default function AddSeries() {
       <Formik
         initialValues={initialValues || formValues}
         validationSchema={validationSchema}
-        onSubmit={(values,{resetForm})=>onSubmit(values,resetForm)}
+        onSubmit={(values, { resetForm }) => onSubmit(values, resetForm)}
         enableReinitialize
       >
         {({ setFieldValue, errors, touched, isSubmitting }) => (
@@ -222,8 +222,16 @@ export default function AddSeries() {
                           {isSubmitting && (
                             <span className="spinner-border spinner-border-sm mr-1"></span>
                           )}
-                          Add
+                          Add series
                         </button>
+                        {isSubmitting && (
+                          <div className="alert alert-success mt-3" role="alert">
+                            <h4 className="alert-heading">
+                              <span className="spinner-border spinner-border-sm mr-1"></span>
+                              adding!! please wait
+                            </h4>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -234,7 +242,7 @@ export default function AddSeries() {
                     <div className="card-body text-center">
                       <img
                         className="img-account-poster mb-2"
-                        src={previewImg?previewImg:"https://cdn.pixabay.com/photo/2017/01/25/17/35/picture-2008484_960_720.png"}
+                        src={previewImg ? previewImg : "https://cdn.pixabay.com/photo/2017/01/25/17/35/picture-2008484_960_720.png"}
                         alt="avatar"
                         id="img"
                       />

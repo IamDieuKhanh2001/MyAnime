@@ -63,10 +63,10 @@ export default function AnimeWatching() {
     console.log("Calling api check premium member");
     const resCheckIsPremium = await APICheckIsPremiumMember();
     if (resCheckIsPremium?.status === 200) {
-      if(resCheckIsPremium?.data) {
+      if (resCheckIsPremium?.data) {
         setIsPremiumMember(true)
       }
-    } 
+    }
   };
 
   useEffect(() => {
@@ -88,6 +88,14 @@ export default function AnimeWatching() {
             {episodeLoading ? (<LoadingAnimation />) : (
               <React.Fragment>
                 <div className="col-lg-12">
+                  <div className="section-title">
+                    <h5>
+                      {/* episode title name */}
+                      {/* check name null or not */}
+                      {t("anime_watching.episode_num_prefix")} {getCurrentWatchingEpisode()?.numEpisodes}
+                      : {(getCurrentWatchingEpisode()?.title !== null) ? (getCurrentWatchingEpisode()?.title) : ("Unname")} 
+                    </h5>
+                  </div>
                   <div className="anime__video__player">
                     {episodeList.length !== 0 &&
                       <Film
@@ -122,7 +130,7 @@ export default function AnimeWatching() {
                           <a className={episode.id === getCurrentWatchingEpisode().id ? "episode__active" : ""}
                             href={getCurrentPathWithoutLastPart() + `?episodeId=${episode.id}`} key={index}>
                             {t("anime_watching.episode_num_prefix")}
-                            {episode.title}
+                            {episode.numEpisodes}
                             {episode.premiumRequired && (
                               <img className="premium__icon" src="/img/icon-premium.svg" alt="true" />
                             )}
