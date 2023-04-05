@@ -188,13 +188,17 @@ export const APIGetAllUser=(page, keyword)=>{
     const params = {
         page,
         keyword
-      };
+    };
+    console.log(params)
     const jwt = window.sessionStorage.getItem("jwt");
     const headers = {
         Authorization: `Bearer ${jwt}`,
     };
     return axiosClient
-        .get(url, { headers: headers }, { params })
+        .get(url, {
+            headers,
+            params,
+        })
         .catch((err) => console.log("Can't call API after 2 retries", err));
 }
 export const APIBlockUser=(userId)=>{

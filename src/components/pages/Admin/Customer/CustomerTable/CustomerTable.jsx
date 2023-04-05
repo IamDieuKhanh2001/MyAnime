@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import {
-    APIBlockUser,
-    APIGetAllUser,
-    APIUnBlockUser,
+  APIBlockUser,
+  APIGetAllUser,
+  APIUnBlockUser,
 } from "../../../../../api/axios/adminAPI";
 import "./CustomerTable.scss";
 import ReactPaginate from "react-paginate";
@@ -11,42 +11,66 @@ import { toast } from "react-toastify";
 import { CircularProgress } from "@mui/material";
 
 export default function CustomerTable() {
+    const [page, setPage] = useState(1);
+    const [isLastPage, setIsLastPage] = useState(false);
+
     const [users, setUsers] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
+    const observer = useRef();
+
+    const lastItemRef = useCallback(
+        (node) => {
+            if (loading || isLastPage) return;
+            if (observer.current) observer.current.disconnect();
+            observer.current = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting) {
+                    setPage((prevPage) => prevPage + 1);
+                }
+            });
+            if (node) observer.current.observe(node);
+            },
+        [loading, isLastPage]
+    );
+
+    useEffect(() => {
+        setLoading(true);
+        APIGetAllUser(page)
+        .then(res => {
+            if(res.data.length === 0) {
+                setIsLastPage(true)
+            } else {
+                setUsers((curUsers) => [...curUsers, ...res.data]);
+            }
+            setLoading(false);
+        })
+        .catch(err => {
+            setError(true);
+            setLoading(false);
+        })
+    }, [page]);
+
     const [loadingAction, setLoadingAction] = useState({
         status: false,
         id: null,
     });
-    const [itemOffset, setItemOffset] = useState(0);
-    const itemsPerPage = 5;
 
-    const loadAllUsers = async () => {
-        const res = await APIGetAllUser(2);
-        console.log(res.data);
-        setUsers(res.data);
-    };
-    useEffect(() => {
-        loadAllUsers();
-    }, []);
-
-    const endOffset = itemOffset + itemsPerPage;
-    console.log(`Loading items from ${itemOffset} to ${endOffset}`);
-    const currentItems = users.slice(itemOffset, endOffset);
-    const pageCount = Math.ceil(users.length / itemsPerPage);
-    const handlePageClick = (event) => {
-        const newOffset = (event.selected * itemsPerPage) % users.length;
-        console.log(
-            `User requested page number ${event.selected}, which is offset ${newOffset}`
-        );
-        setItemOffset(newOffset);
-    };
     const blockUser = async (userId) => {
+
         try {
             setLoadingAction({
                 id: userId,
                 status: true,
             });
             const res = await APIBlockUser(userId);
-            await loadAllUsers();
+
+            const index = users.findIndex((user) => user.id === userId)
+            if (index !== -1) {
+                const newUsers = [...users];
+                newUsers[index] = { ...users[index], enable: false };
+                setUsers(newUsers);
+            }
+
             console.log(res.data.message);
             toast.success("Block user success");
         } catch (e) {
@@ -65,7 +89,14 @@ export default function CustomerTable() {
                 status: true,
             });
             const res = await APIUnBlockUser(userId);
-            await loadAllUsers();
+
+            const index = users.findIndex((user) => user.id === userId)
+            if (index !== -1) {
+                const newUsers = [...users];
+                newUsers[index] = { ...users[index], enable: true };
+                setUsers(newUsers);
+            }
+
             console.log(res.data.message);
             toast.success("Unblock user success");
         } catch (e) {
@@ -77,85 +108,51 @@ export default function CustomerTable() {
             });
         }
     };
-    return (
-        <div>
-            <div className="customerTable">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-lg-12">
-                            <div className="main-box no-header clearfix">
-                                <div className="main-box-body clearfix">
-                                    <div className="table-responsive">
-                                        {users.length > 0 ? (
-                                            <table className="table user-list">
-                                                <thead>
-                                                    <tr>
-                                                        <th>
-                                                            <span>User</span>
-                                                        </th>
-                                                        <th>
-                                                            <span>Created</span>
-                                                        </th>
-
-                                                        <th>
-                                                            <span>Email</span>
-                                                        </th>
-                                                        <th>Actions</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {currentItems?.map(
-                                                        (user) => {
-                                                            return (
-                                                                <tr key={user.id}>
-                                                                    <td>
-                                                                        <img
-                                                                            className="rounded"
-                                                                            style={{
-                                                                                width: "50px", 
-                                                                                height: "50px"
-                                                                            }}
-                                                                            src={
-                                                                                user.avatar
-                                                                                    ? user.avatar
-                                                                                    : "https://cdn.pixabay.com/photo/2017/01/25/17/35/picture-2008484_960_720.png"
-                                                                            }
-                                                                            alt={user.username}
-                                                                        />
-                                                                        <a
-                                                                            href=""
-                                                                            className="user-link"
-                                                                        >
-                                                                            {
-                                                                                user.username
-                                                                            }
-                                                                        </a>
-                                                                    </td>
-                                                                    <td className="dateCreated">
-                                                                        {
-                                                                            user.createAt
-                                                                        }
-                                                                    </td>
-                                                                    <td className="email">
-                                                                        {
-                                                                            user.email
-                                                                        }
-                                                                    </td>
-
-                                                                    <td
-                                                                        style={{
-                                                                            width: "20%",
-                                                                        }}
-                                                                    >
-                                                                        {loadingAction.status &&
-                                                                        loadingAction.id ===
-                                                                            user.id ? (
-                                                                            <CircularProgress
-                                                                                key={
-                                                                                    user.id
-                                                                                }
-                                                                            />
-                                                                        ) : user.enable ? (
+  return (
+    <>
+        <div className="customerTable">
+            <div className="container">
+                <div className="row">
+                    <div className="col-lg-12">
+                        <div className="main-box no-header clearfix">
+                            <div className="main-box-body clearfix">
+                                <div className="table-responsive">
+                                    <table className="table user-list">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    <span>User</span>
+                                                </th>
+                                                <th>
+                                                    <span>Created</span>
+                                                </th>
+                                                <th>
+                                                    <span>Email</span>
+                                                </th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {
+                                                users.map((user, index) => {
+                                                    if(users.length === index + 1) {
+                                                        return <tr key={user.id} ref={lastItemRef}>
+                                                                <td>
+                                                                    <img
+                                                                    className="rounded"
+                                                                    src={user.avatar || '../img/avatar/default.jpg'}
+                                                                    alt={user.username}
+                                                                    style={{ width: 50, height: 50 }}
+                                                                    />
+                                                                    <a href className="user-link">
+                                                                    {user.username}
+                                                                    </a>
+                                                                </td>
+                                                                <td className="dateCreated">{user.createAt}</td>
+                                                                <td className="email">{user.email}</td>
+                                                                <td style={{ width: "20%" }}>
+                                                                {
+                                                                    user.enable ? (
                                                                             <button
                                                                                 className="buttonBlock"
                                                                                 onClick={() =>
@@ -177,45 +174,72 @@ export default function CustomerTable() {
                                                                             >
                                                                                 Unblock
                                                                             </button>
-                                                                        )}
-                                                                    </td>
-                                                                </tr>
-                                                            );
-                                                        }
-                                                    )}
-                                                </tbody>
-                                            </table>
-                                        ) : (
-                                            <LoadingAnimation />
-                                        )}
-                                    </div>
+                                                                        )
+                                                                }
+                                                                </td>
+                                                            </tr>
+                                                    } else {
+                                                        return <tr key={user.id}>
+                                                                <td>
+                                                                    <img
+                                                                    className="rounded"
+                                                                    src={user.avatar || '../img/avatar/default.jpg'}
+                                                                    alt={user.username}
+                                                                    style={{ width: 50, height: 50 }}
+                                                                    />
+                                                                    <a href className="user-link">
+                                                                    {user.username}
+                                                                    </a>
+                                                                </td>
+                                                                <td className="dateCreated">{user.createAt}</td>
+                                                                <td className="email">{user.email}</td>
+                                                                <td style={{ width: "20%" }}>
+                                                                {
+                                                                    user.enable ? (
+                                                                            <button
+                                                                                className="buttonBlock"
+                                                                                onClick={() =>
+                                                                                    blockUser(
+                                                                                        user.id
+                                                                                    )
+                                                                                }
+                                                                            >
+                                                                                Block
+                                                                            </button>
+                                                                        ) : (
+                                                                            <button
+                                                                                className="buttonUnblock"
+                                                                                onClick={() =>
+                                                                                    unBlockUser(
+                                                                                        user.id
+                                                                                    )
+                                                                                }
+                                                                            >
+                                                                                Unblock
+                                                                            </button>
+                                                                        )
+                                                                }
+                                                                </td>
+                                                            </tr>
+                                                    }
+                                                })
+                                            }
+
+                                            {
+                                                loading 
+                                                && 
+                                                <LoadingAnimation />
+                                            }
+                                            {error && <div>Error loading items.</div>}
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            {/* <div className="customerPagniate">
-                <ReactPaginate
-                    breakLabel="..."
-                    nextLabel=">>"
-                    onPageChange={handlePageClick}
-                    pageRangeDisplayed={5}
-                    pageCount={pageCount}
-                    previousLabel="<<"
-                    renderOnZeroPageCount={null}
-                    breakClassName={"page-item"}
-                    breakLinkClassName={"page-link"}
-                    containerClassName={"pagination"}
-                    pageClassName={"page-item"}
-                    pageLinkClassName={"page-link"}
-                    previousClassName={"page-item"}
-                    previousLinkClassName={"page-link"}
-                    nextClassName={"page-item"}
-                    nextLinkClassName={"page-link"}
-                    activeClassName={"active"}
-                />
-            </div> */}
         </div>
-    );
+    </>
+  );
 }

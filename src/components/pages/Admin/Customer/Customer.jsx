@@ -6,6 +6,6 @@ import CustomerTable from "./CustomerTable/CustomerTable";
 export default function Customer() {
   return <div className="customer">
    <CustomerTable/>
-   <ContactUser/>
+   {/* <ContactUser/> */}
   </div>;
 }
