@@ -123,3 +123,13 @@ export const APIResetUserPassword = (email, otpCode, newPassword) => {
         return err;
     });;
 };
+
+export const APIGetTotalUsers = (keyword) => {
+    const url = "/admin/user/count";
+    const params = {
+      keyword
+    };
+    return axiosClient
+      .get(url, { params })
+      .catch((err) => console.log("Can't call API after 2 retries", err));
+  };

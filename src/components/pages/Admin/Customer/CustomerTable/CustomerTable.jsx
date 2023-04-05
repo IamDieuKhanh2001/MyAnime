@@ -20,7 +20,7 @@ export default function CustomerTable() {
     const itemsPerPage = 5;
 
     const loadAllUsers = async () => {
-        const res = await APIGetAllUser();
+        const res = await APIGetAllUser(2);
         console.log(res.data);
         setUsers(res.data);
     };
@@ -195,7 +195,7 @@ export default function CustomerTable() {
                     </div>
                 </div>
             </div>
-            <div className="customerPagniate">
+            {/* <div className="customerPagniate">
                 <ReactPaginate
                     breakLabel="..."
                     nextLabel=">>"
@@ -215,7 +215,7 @@ export default function CustomerTable() {
                     nextLinkClassName={"page-link"}
                     activeClassName={"active"}
                 />
-            </div>
+            </div> */}
         </div>
     );
 }
