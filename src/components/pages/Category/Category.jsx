@@ -1,40 +1,41 @@
 import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { APIGetCategoryByCategoryId } from '../../../api/axios/categoryAPI'
 import { APIGetProductsByCategoryId, APIGetTotalProductByCategoryId } from '../../../api/axios/productAPI'
-import { productsActions } from '../../../api/redux/slices/productSlice'
 import BreadcrumbOption from '../../global/BreadcrumbOption/BreadcrumbOption'
 import Footer from '../../global/Footer/Footer'
 import Header from '../../global/Header/Header'
 import ProductPageable from '../../global/Product/ProductPageable/ProductPageable'
+import { useScroll } from 'react-scroll-hooks'
 
 export default function Category() {
-
   const { categoryId } = useParams();
-
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  const products = useSelector((state) => state.products.list);
-
-  const [totalProductByCategoryId, setTotalProductByCategoryId] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false)
   const [category, setCategory] = useState({})
+  const [products, setProducts] = useState([])
+  const [isLastPage, setIsLastPage] = useState(false);
+  const [error, setError] = useState(false);
+  const { scrollToY } = useScroll({scrollSpeed: 50}); 
 
   const loadProductByCategoryId = async () => {
     setLoading(true);
-    console.log("Calling api get product");
-    const resGetProduct = await APIGetProductsByCategoryId(categoryId, currentPage);
-    // setProducts(resGetProduct.data)
-    if (resGetProduct?.status === 200) {
-      const updateListAction = productsActions.updateList(resGetProduct.data);
-      dispatch(updateListAction);
-    }
-    setLoading(false);
+    console.log("Calling api get product by category");
+    const resGetProduct = await APIGetProductsByCategoryId(categoryId, currentPage)
+      .then(res => {
+        if (res.data.length === 0) {
+          setIsLastPage(true)
+        } else {
+          setProducts((curProducts) => [...curProducts, ...res.data]);
+        }
+        setLoading(false);
+      })
+      .catch(err => {
+        setError(true);
+        setLoading(false);
+      })
   };
 
   const loadCategoryById = async () => {
@@ -43,30 +44,23 @@ export default function Category() {
     setCategory(resGetCategory.data)
   }
 
-  const loadTotalProductByCategoryId = async () => {
-    console.log("Calling api get total product");
-    const resGetTotalProductByCategoryId = await APIGetTotalProductByCategoryId(categoryId);
-    setTotalProductByCategoryId(resGetTotalProductByCategoryId.data.totalSeries);
-  };
-
   useEffect(() => {
     loadCategoryById()
-    loadTotalProductByCategoryId();
     loadProductByCategoryId();
   }, [currentPage]);
 
   return (
     <div className='category'>
-      <Header/>
+      <Header />
       <BreadcrumbOption cateList={[]} />
       <ProductPageable
         productTitle={category.name}
-        totalProduct={totalProductByCategoryId}
-        currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         loading={loading}
+        error={error}
+        isLastPage={isLastPage}
         products={products} />
-      <Footer/>
+      <Footer />
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 import "./ProductPageable.scss";
 import ProductSideBar from '../ProductSideBar/ProductSideBar'
 import ProductSection from "../ProductSection/ProductSection";
@@ -9,29 +9,48 @@ import { useEffect } from 'react';
 
 function ProductPageable({
   productTitle,
-  totalProduct,
-  currentPage,
   setCurrentPage,
   loading,
+  error,
+  isLastPage,
   products }) {
   const { t } = useTranslation();
-  const { scrollToY } = useScroll({scrollSpeed: 50}); 
+  const observer = useRef();
 
-  const renderedPagginationItem = [];
-  const renderProductPagination = () => {
-    let totalPage = Math.ceil(totalProduct / 9);
-    for (let i = 1; i <= totalPage; i++) {
-      renderedPagginationItem.push(i);
-    }
-  };
+  //Normal scroll
 
-  const paginate = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
+  // const renderedPagginationItem = [];
+  // const renderProductPagination = () => {
+  //   let totalPage = Math.ceil(totalProduct / 9);
+  //   for (let i = 1; i <= totalPage; i++) {
+  //     renderedPagginationItem.push(i);
+  //   }
+  // };
 
-  renderProductPagination();
+  // const paginate = (pageNumber) => {
+  //   setCurrentPage(pageNumber);
+  // };
 
-    useEffect(() => {
+  // renderProductPagination();
+
+
+  //infinite scroll product
+
+  const lastItemRef = useCallback(
+    (node) => {
+      if (loading || isLastPage) return;
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          setCurrentPage((prevPage) => prevPage + 1);
+        }
+      });
+      if (node) observer.current.observe(node);
+    },
+    [loading, isLastPage]
+  );
+
+  useEffect(() => {
   }, []);
 
   return (
@@ -61,19 +80,29 @@ function ProductPageable({
                   </div>
                 </div>
               </div>
-              {loading ?
-                (
-                  <LoadingSkeletonProductAnimation numberOfItem={9} />
-                ) : (
-
-                  <div className='row'>
-                    {products.map((data, index) => (
-                      <ProductSection data={data} key={index}/>
-                    ))}
-                  </div>
+              <div className='row'>
+                {products.map((data, index) => {
+                  if (products.length === index + 1) {
+                    return (<ProductSection data={data} key={index} lastItemRef={lastItemRef} />)
+                  } else {
+                    return (<ProductSection data={data} key={index} />)
+                  }
+                }
                 )}
+              </div>
+              {loading && <LoadingSkeletonProductAnimation numberOfItem={3} />}
+              {error &&
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <strong>Connection error!</strong>
+                  <hr></hr>
+                  Can not connect to server, check your connection and try again!!.
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              }
             </div>
-            <div className="product__pagination">
+            {/* <div className="product__pagination">
               {renderedPagginationItem.map((item) => item === currentPage ? (
                 <a key={item} className="current-page" onClick={() => {
                   paginate(item)
@@ -87,7 +116,7 @@ function ProductPageable({
               <a onClick={() => {
                 paginate(currentPage + 1)
               }}><i className="fa fa-angle-double-right" /></a>
-            </div>
+            </div> */}
           </div>
           <div className="col-lg-4 col-md-6 col-sm-8">
             <ProductSideBar />

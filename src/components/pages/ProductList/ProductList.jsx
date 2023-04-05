@@ -13,36 +13,32 @@ import { useTranslation } from "react-i18next";
 
 export default function ProductList() {
   const { t } = useTranslation();
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
 
-  const products = useSelector((state) => state.products.list);
-
-  const [totalProduct, setTotalProduct] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const [products, setProducts] = useState([])
+  const [isLastPage, setIsLastPage] = useState(false);
+  const [error, setError] = useState(false);
 
   const loadProduct = async () => {
     setLoading(true);
     console.log("Calling api get product");
-    const resGetProduct = await APIGetProducts(currentPage);
-    // setProducts(resGetProduct.data)
-    if (resGetProduct?.status === 200) {
-      const updateListAction = productsActions.updateList(resGetProduct.data);
-      dispatch(updateListAction);
-    }
-    setLoading(false);
+    const resGetProduct = await APIGetProducts(currentPage)
+      .then(res => {
+        if (res.data.length === 0) {
+          setIsLastPage(true)
+        } else {
+          setProducts((curProducts) => [...curProducts, ...res.data]);
+        }
+        setLoading(false);
+      })
+      .catch(err => {
+        setError(true);
+        setLoading(false);
+      })
   };
-
-  const loadTotalProduct = async () => {
-    console.log("Calling api get total product");
-    const resGetTotalProduct = await APIGetTotalProduct();
-    setTotalProduct(resGetTotalProduct.data.totalSeries);
-  };
-
 
   useEffect(() => {
-    loadTotalProduct();
     loadProduct();
   }, [currentPage]);
 
@@ -52,10 +48,10 @@ export default function ProductList() {
       <BreadcrumbOption />
       <ProductPageable
         productTitle={t("product_pageable.title")}
-        totalProduct={totalProduct}
-        currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         loading={loading}
+        error={error}
+        isLastPage={isLastPage}
         products={products} />
       <Footer />
     </div>

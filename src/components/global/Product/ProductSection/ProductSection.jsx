@@ -2,7 +2,7 @@ import React from "react";
 import "./ProductionSection.scss";
 import { useNavigate } from "react-router-dom";
 
-export default function ProductSection({ data }) {
+export default function ProductSection({ data, lastItemRef = null }) {
   const navigate = useNavigate();
 
   const handleNavigate = () => {
@@ -10,7 +10,7 @@ export default function ProductSection({ data }) {
   }
 
   return (
-    <div className="col-lg-4 col-md-6 col-sm-6">
+    <div className="col-lg-4 col-md-6 col-sm-6" ref={lastItemRef}>
       <div onClick={() => handleNavigate()} className="product__item">
         <div
           className="product__item__pic set-bg"

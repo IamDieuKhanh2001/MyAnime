@@ -1,14 +1,13 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import {
-  APIBlockUser,
-  APIGetAllUser,
-  APIUnBlockUser,
+    APIBlockUser,
+    APIGetAllUser,
+    APIUnBlockUser,
 } from "../../../../../api/axios/adminAPI";
 import "./CustomerTable.scss";
-import ReactPaginate from "react-paginate";
 import LoadingAnimation from "../../../../global/LoadingAnimation/LoadingAnimation";
 import { toast } from "react-toastify";
-import { CircularProgress } from "@mui/material";
+import { BeatLoader } from "react-spinners";
 
 export default function CustomerTable() {
     const [page, setPage] = useState(1);
@@ -29,25 +28,25 @@ export default function CustomerTable() {
                 }
             });
             if (node) observer.current.observe(node);
-            },
+        },
         [loading, isLastPage]
     );
 
     useEffect(() => {
         setLoading(true);
         APIGetAllUser(page)
-        .then(res => {
-            if(res.data.length === 0) {
-                setIsLastPage(true)
-            } else {
-                setUsers((curUsers) => [...curUsers, ...res.data]);
-            }
-            setLoading(false);
-        })
-        .catch(err => {
-            setError(true);
-            setLoading(false);
-        })
+            .then(res => {
+                if (res.data.length === 0) {
+                    setIsLastPage(true)
+                } else {
+                    setUsers((curUsers) => [...curUsers, ...res.data]);
+                }
+                setLoading(false);
+            })
+            .catch(err => {
+                setError(true);
+                setLoading(false);
+            })
     }, [page]);
 
     const [loadingAction, setLoadingAction] = useState({
@@ -108,138 +107,173 @@ export default function CustomerTable() {
             });
         }
     };
-  return (
-    <>
-        <div className="customerTable">
-            <div className="container">
-                <div className="row">
-                    <div className="col-lg-12">
-                        <div className="main-box no-header clearfix">
-                            <div className="main-box-body clearfix">
-                                <div className="table-responsive">
-                                    <table className="table user-list">
-                                        <thead>
-                                            <tr>
-                                                <th>
-                                                    <span>User</span>
-                                                </th>
-                                                <th>
-                                                    <span>Created</span>
-                                                </th>
-                                                <th>
-                                                    <span>Email</span>
-                                                </th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {
-                                                users.map((user, index) => {
-                                                    if(users.length === index + 1) {
-                                                        return <tr key={user.id} ref={lastItemRef}>
+    return (
+        <>
+            <div className="customerTable">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-lg-12">
+                            <div className="main-box no-header clearfix">
+                                <div className="main-box-body clearfix">
+                                    <div className="table-responsive">
+                                        <table className="table user-list">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        <span>User</span>
+                                                    </th>
+                                                    <th>
+                                                        <span>Created</span>
+                                                    </th>
+                                                    <th>
+                                                        <span>Email</span>
+                                                    </th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {
+                                                    users.map((user, index) => {
+                                                        if (users.length === index + 1) {             //Set watcher flag for last current page
+                                                            return <tr key={user.id} ref={lastItemRef}>
                                                                 <td>
                                                                     <img
-                                                                    className="rounded"
-                                                                    src={user.avatar || '../img/avatar/default.jpg'}
-                                                                    alt={user.username}
-                                                                    style={{ width: 50, height: 50 }}
+                                                                        className="rounded"
+                                                                        src={user.avatar || '../img/avatar/default.jpg'}
+                                                                        alt={user.username}
+                                                                        style={{ width: 50, height: 50 }}
                                                                     />
                                                                     <a href className="user-link">
-                                                                    {user.username}
+                                                                        {user.username}
                                                                     </a>
                                                                 </td>
                                                                 <td className="dateCreated">{user.createAt}</td>
                                                                 <td className="email">{user.email}</td>
                                                                 <td style={{ width: "20%" }}>
-                                                                {
-                                                                    user.enable ? (
-                                                                            <button
-                                                                                className="buttonBlock"
-                                                                                onClick={() =>
-                                                                                    blockUser(
-                                                                                        user.id
-                                                                                    )
-                                                                                }
-                                                                            >
-                                                                                Block
-                                                                            </button>
+                                                                    {loadingAction.status && loadingAction.id === user.id ?
+                                                                        (
+                                                                            //Animation loading when click block
+                                                                            <React.Fragment>
+                                                                                <BeatLoader
+                                                                                    speedMultiplier={0.8}
+                                                                                    margin={0}
+                                                                                    size={11}
+                                                                                    color="#fff"
+                                                                                />
+                                                                            </React.Fragment>
                                                                         ) : (
-                                                                            <button
-                                                                                className="buttonUnblock"
-                                                                                onClick={() =>
-                                                                                    unBlockUser(
-                                                                                        user.id
-                                                                                    )
-                                                                                }
-                                                                            >
-                                                                                Unblock
-                                                                            </button>
+                                                                            // Display button block
+                                                                            user.enable ? (
+                                                                                <button
+                                                                                    className="buttonBlock"
+                                                                                    onClick={() =>
+                                                                                        blockUser(
+                                                                                            user.id
+                                                                                        )
+                                                                                    }
+                                                                                >
+                                                                                    Block
+                                                                                </button>
+                                                                            ) : (
+                                                                                <button
+                                                                                    className="buttonUnblock"
+                                                                                    onClick={() =>
+                                                                                        unBlockUser(
+                                                                                            user.id
+                                                                                        )
+                                                                                    }
+                                                                                >
+                                                                                    Unblock
+                                                                                </button>
+                                                                            )
                                                                         )
-                                                                }
+                                                                    }
                                                                 </td>
                                                             </tr>
-                                                    } else {
-                                                        return <tr key={user.id}>
+                                                        } else {
+                                                            return <tr key={user.id}>
                                                                 <td>
                                                                     <img
-                                                                    className="rounded"
-                                                                    src={user.avatar || '../img/avatar/default.jpg'}
-                                                                    alt={user.username}
-                                                                    style={{ width: 50, height: 50 }}
+                                                                        className="rounded"
+                                                                        src={user.avatar || '../img/avatar/default.jpg'}
+                                                                        alt={user.username}
+                                                                        style={{ width: 50, height: 50 }}
                                                                     />
                                                                     <a href className="user-link">
-                                                                    {user.username}
+                                                                        {user.username}
                                                                     </a>
                                                                 </td>
                                                                 <td className="dateCreated">{user.createAt}</td>
                                                                 <td className="email">{user.email}</td>
                                                                 <td style={{ width: "20%" }}>
-                                                                {
-                                                                    user.enable ? (
-                                                                            <button
-                                                                                className="buttonBlock"
-                                                                                onClick={() =>
-                                                                                    blockUser(
-                                                                                        user.id
-                                                                                    )
-                                                                                }
-                                                                            >
-                                                                                Block
-                                                                            </button>
+                                                                    {loadingAction.status && loadingAction.id === user.id ?
+                                                                        (
+                                                                            //Animation loading when click block
+                                                                            <React.Fragment>
+                                                                                <BeatLoader
+                                                                                    speedMultiplier={0.8}
+                                                                                    margin={0}
+                                                                                    size={11}
+                                                                                    color="#fff"
+                                                                                />
+                                                                            </React.Fragment>
                                                                         ) : (
-                                                                            <button
-                                                                                className="buttonUnblock"
-                                                                                onClick={() =>
-                                                                                    unBlockUser(
-                                                                                        user.id
-                                                                                    )
-                                                                                }
-                                                                            >
-                                                                                Unblock
-                                                                            </button>
+                                                                            // Display button block
+                                                                            user.enable ? (
+                                                                                <button
+                                                                                    className="buttonBlock"
+                                                                                    onClick={() =>
+                                                                                        blockUser(
+                                                                                            user.id
+                                                                                        )
+                                                                                    }
+                                                                                >
+                                                                                    Block
+                                                                                </button>
+                                                                            ) : (
+                                                                                <button
+                                                                                    className="buttonUnblock"
+                                                                                    onClick={() =>
+                                                                                        unBlockUser(
+                                                                                            user.id
+                                                                                        )
+                                                                                    }
+                                                                                >
+                                                                                    Unblock
+                                                                                </button>
+                                                                            )
                                                                         )
-                                                                }
+                                                                    }
                                                                 </td>
                                                             </tr>
-                                                    }
-                                                })
-                                            }
+                                                        }
+                                                    })
+                                                }
 
-                                            {
-                                                loading 
-                                                && 
-                                                <LoadingAnimation />
-                                            }
-                                            {error && <div>Error loading items.</div>}
-                                        </tbody>
-                                    </table>
+                                                {
+                                                    loading
+                                                    &&
+                                                    <LoadingAnimation />
+                                                }
+                                                {error &&
+                                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                                        <strong>Connection error!</strong>
+                                                        <hr></hr>
+                                                        Can not connect to server, check your connection and try again!!.
+                                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </>
-  );
+        </>
+    );
 }

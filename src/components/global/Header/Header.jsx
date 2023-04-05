@@ -16,13 +16,11 @@ import { categorySeriesActions } from "../../../api/redux/slices/categorySeriesS
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";
 
-import { Table } from "react-bootstrap";
 import { debounce } from "lodash";
 import { APIGetProducts } from "../../../api/axios/productAPI";
-import { productsActions } from "../../../api/redux/slices/productSlice";
 import SearchRecomDropdown from "./SearchRecomDropdown/SearchRecomDropdown";
 import { Avatar } from "@mui/material";
-import MobileNavBar from "../../pages/Login/MobileNavBar/MobileNavBar";
+import MobileNavBar from "./MobileNavBar/MobileNavBar";
 
 export default function Header() {
     const navigate = useNavigate();

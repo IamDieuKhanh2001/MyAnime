@@ -19,6 +19,9 @@ const products = createSlice({
     updateList: (state, actions) => {
       state.list = actions.payload;
     },
+    addExtraToList: (state, actions) => {
+      state.list = state.list.concat(actions.payload);
+    },
     updateRelateSeries: (state, actions) => {
       state.relateSeries = actions.payload;
     },
