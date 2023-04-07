@@ -4,10 +4,7 @@ import BreadcrumbOption from "../../global/BreadcrumbOption/BreadcrumbOption";
 import Header from "../../global/Header/Header";
 import Footer from "../../global/Footer/Footer";
 import ProductPageable from "../../global/Product/ProductPageable/ProductPageable";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, Link, useParams } from "react-router-dom";
 import { APIGetProducts, APIGetTotalProduct } from "../../../api/axios/productAPI";
-import { productsActions } from "../../../api/redux/slices/productSlice";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 

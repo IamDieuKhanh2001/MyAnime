@@ -13,38 +13,33 @@ import ProductPageable from '../../global/Product/ProductPageable/ProductPageabl
 function SearchKeyword() {
     const { kw } = useParams();
 
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
-
-    const [totalProductByKeyword, setTotalProductByKeyword] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const [loading, setLoading] = useState(false)
-
-    const products = useSelector((state) => state.products.list);
+    const [products, setProducts] = useState([])
+    const [isLastPage, setIsLastPage] = useState(false);
+    const [error, setError] = useState(false);
 
     const loadProductByKeyword = async () => {
         setLoading(true);
         console.log("Calling api get product");
-        const resGetProduct = await APIGetProducts(currentPage, kw);
-        console.log(resGetProduct)
-        if (resGetProduct?.status === 200) {
-            const updateListAction = productsActions.updateList(resGetProduct.data);
-            dispatch(updateListAction);
-        }
-        setLoading(false);
-    };
-
-    const loadTotalProductByKeyword = async () => {
-        console.log("Calling api get total product");
-        const resGetTotalProduct = await APIGetTotalProduct(kw);
-        console.log(resGetTotalProduct)
-        setTotalProductByKeyword(resGetTotalProduct.data.totalSeries);
+        const resGetProduct = await APIGetProducts(currentPage, kw)
+            .then(res => {
+                if (res.data.length === 0) {
+                    setIsLastPage(true)
+                } else {
+                    setProducts((curProducts) => [...curProducts, ...res.data]);
+                }
+                setLoading(false);
+            })
+            .catch(err => {
+                setError(true);
+                setLoading(false);
+            })
     };
 
     useEffect(() => {
         loadProductByKeyword();
-        loadTotalProductByKeyword();
-    }, [currentPage,kw]);
+    }, [currentPage, kw]);
 
     return (
         <div className='search__kw'>
@@ -52,10 +47,10 @@ function SearchKeyword() {
             <BreadcrumbOption />
             <ProductPageable
                 productTitle={`Result for: ${kw}`}
-                totalProduct={totalProductByKeyword}
-                currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
                 loading={loading}
+                error={error}
+                isLastPage={isLastPage}
                 products={products} />
             <Footer />
         </div>
