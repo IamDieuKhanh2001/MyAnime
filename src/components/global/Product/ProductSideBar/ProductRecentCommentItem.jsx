@@ -17,14 +17,14 @@ function ProductRecentCommentItem({ data }) {
                     {data?.movieData?.categoryData?.map((c) => (
                         <li>{c.name}</li>
                     ))}
-                </ul>
+                </ul> 
                 <h5>
                     <a href={`/details/${data.id}`}>{data.name}</a>
                 </h5>
-                <span>
+                {/* <span>
                     <i className="fa fa-eye" />
                     {data.totalViewOfSeries} Viewes
-                </span>
+                </span> */}
             </div>
         </div>
     )
