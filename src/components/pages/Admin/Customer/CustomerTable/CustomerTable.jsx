@@ -118,7 +118,7 @@ export default function CustomerTable() {
         }
         const delayDebounceFn = setTimeout(() => {
             // Thực hiện tìm kiếm với searchText khi người dùng nhập vào usernmae
-            toast.success(`Searching for ${searchUsername}...`)
+            toast.success(`Result for ${searchUsername}...`)
             inputRef.current.blur(); //Xóa forcus input
             setUsers([])
             setPage(-1) //Khi TH đang trang 1 mà đổi mode, sẽ không thể gọi data do giá trị page = 1 vẫn giữ nguyên
@@ -177,12 +177,17 @@ export default function CustomerTable() {
             <div className="customerTable">
                 <div className="container">
                     {/* sort user */}
-                    <Form>
-                        <InputGroup className="mb-3">
+                    <Form
+                        style={{ maxWidth: "500px" }}
+                    >
+                        <InputGroup className="mb-3" size="lg">
+                            <InputGroup.Text id="basic-addon1">
+                                <i className="bx bx-search-alt-2" />
+                            </InputGroup.Text>
                             <FormControl
-                                placeholder="Search users"
+                                placeholder={`Type username`}
                                 aria-label="Search users"
-                                aria-describedby="basic-addon2"
+                                aria-describedby="basic-addon1"
                                 value={searchUsername}
                                 ref={inputRef}
                                 onChange={handleSearchChange}
@@ -238,7 +243,9 @@ export default function CustomerTable() {
                                                                     </a>
                                                                 </td>
                                                                 <td className="dateCreated">{user.createAt}</td>
-                                                                <td className="email">{user.email}</td>
+                                                                <td className="email">
+                                                                    {user.email}
+                                                                </td>
                                                                 <td style={{ width: "20%" }}>
                                                                     {loadingAction.status && loadingAction.id === user.id ?
                                                                         (
