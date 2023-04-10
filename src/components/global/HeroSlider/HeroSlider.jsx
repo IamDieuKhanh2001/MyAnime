@@ -38,7 +38,7 @@ export default function HeroSlider() {
                                     <p>
                                     Every human inhabiting the world of Alcia ...
                                     </p>
-                                    <a onClick={() => navigate("/details/8")}>
+                                    <a onClick={() => navigate("/details/166")}>
                                         <span>Watch Now</span>{" "}
                                         <i className="fa fa-angle-right" />
                                     </a>

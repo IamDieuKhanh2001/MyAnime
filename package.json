@@ -17,7 +17,6 @@
     "bootstrap": "^5.2.0",
     "boxicons": "^2.1.4",
     "chart.js": "^3.8.2",
-    "dexie": "^3.2.3",
     "faker": "^6.6.6",
     "flag-icon-css": "^4.1.7",
     "formik": "^2.2.9",
