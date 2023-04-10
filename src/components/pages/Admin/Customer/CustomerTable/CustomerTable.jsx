@@ -8,9 +8,7 @@ import "./CustomerTable.scss";
 import LoadingAnimation from "../../../../global/LoadingAnimation/LoadingAnimation";
 import { toast } from "react-toastify";
 import { BeatLoader } from "react-spinners";
-import { DropdownButton, Form, FormControl, InputGroup } from "react-bootstrap";
-import Dropdown from "@restart/ui/esm/Dropdown";
-import { debounce } from "lodash";
+import { Form, FormControl, InputGroup } from "react-bootstrap";
 
 export default function CustomerTable() {
     const [page, setPage] = useState(1);
@@ -22,6 +20,7 @@ export default function CustomerTable() {
     //sort user
     const [mode, setMode] = useState('FindAll') //FindAll, FindByUsername 
     const [searchUsername, setSearchUsername] = useState('');
+    const inputRef = useRef(null);
 
     const observer = useRef();
 
@@ -104,21 +103,27 @@ export default function CustomerTable() {
         setSearchUsername(newSearchText);
     };
 
+    const handleClearClick = () => {
+        setSearchUsername('');
+    };
+
     //Thay đổi chế độ dựa trên searchUsername có được gán giá trị chưa 
     useEffect(() => {
         if (searchUsername === '') {
             setUsers([])
             setMode('FindAll')
+            setPage(-1) //Khi TH đang trang 1 mà đổi mode, sẽ không thể gọi data do giá trị page = 1 vẫn giữ nguyên
             console.log('empty name')
             return;
         }
         const delayDebounceFn = setTimeout(() => {
             // Thực hiện tìm kiếm với searchText khi người dùng nhập vào usernmae
             toast.success(`Searching for ${searchUsername}...`)
+            inputRef.current.blur(); //Xóa forcus input
             setUsers([])
             setPage(-1) //Khi TH đang trang 1 mà đổi mode, sẽ không thể gọi data do giá trị page = 1 vẫn giữ nguyên
             setMode('FindByUsername')
-        }, 1500);
+        }, 1000); //Xử lí sau 1 s khi người dùng ngưng nhập
         return () => clearTimeout(delayDebounceFn);
     }, [searchUsername]);
 
@@ -179,7 +184,9 @@ export default function CustomerTable() {
                                 aria-label="Search users"
                                 aria-describedby="basic-addon2"
                                 value={searchUsername}
+                                ref={inputRef}
                                 onChange={handleSearchChange}
+                                onClick={handleClearClick}
                             />
                         </InputGroup>
                     </Form>
@@ -332,24 +339,23 @@ export default function CustomerTable() {
                                                         }
                                                     })
                                                 }
-
-                                                {/* {
-                                                    loading
-                                                    &&
-                                                    <LoadingAnimation />
-                                                } */}
-                                                {error &&
-                                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                                        <strong>Connection error!</strong>
-                                                        <hr></hr>
-                                                        Can not connect to server, check your connection and try again!!.
-                                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                }
                                             </tbody>
                                         </table>
+                                        {
+                                            loading
+                                            &&
+                                            <LoadingAnimation />
+                                        }
+                                        {error &&
+                                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                                <strong>Connection error!</strong>
+                                                <hr></hr>
+                                                Can not connect to server, check your connection and try again!!.
+                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                        }
                                     </div>
                                 </div>
                             </div>
