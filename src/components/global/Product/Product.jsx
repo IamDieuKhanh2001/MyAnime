@@ -3,7 +3,7 @@ import "./Product.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ProductSection from "./ProductSection/ProductSection";
-import { APIGetProducts, APIGetRecentlyAddedShow } from "./../../../api/axios/productAPI";
+import { APIGetProducts, APIGetProductsByCategoryId, APIGetRecentlyAddedShow } from "./../../../api/axios/productAPI";
 import { productsActions } from "./../../../api/redux/slices/productSlice";
 import ProductSideBar from "./ProductSideBar/ProductSideBar";
 import LoadingAnimation from "../LoadingAnimation/LoadingAnimation";
@@ -16,6 +16,8 @@ export default function Product() {
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false)
   const [recentlyProductLoading, setRecentlyProductLoading] = useState(false)
+  const [liveActionProductLoading, setLiveActionProductLoading] = useState(false)
+  const [liveActionProduct, setLiveActionProduct] = useState([])
 
   const product = useSelector((state) => state.products.list);
   const recentlyProductList = useSelector((state) => state.products.recentlyList);
@@ -42,10 +44,19 @@ export default function Product() {
     setRecentlyProductLoading(false)
   };
 
+  const loadLiveActionProduct = async () => {
+    console.log("Calling api get live action product");
+    setLiveActionProductLoading(true)
+    const resGetLiveActionProduct = await APIGetProductsByCategoryId(1, 1);
+    console.log(resGetLiveActionProduct)
+    setLiveActionProduct(resGetLiveActionProduct.data)
+    setLiveActionProductLoading(false)
+  };
+
   useEffect(() => {
     loadProduct();
     loadRecentlyProduct();
-
+    loadLiveActionProduct();
   }, []);
 
   return (
@@ -143,12 +154,12 @@ export default function Product() {
                     </div>
                   </div>
                 </div>
-                {loading ?
+                {loadLiveActionProduct === true ?
                   (
                     <LoadingSkeletonProductAnimation numberOfItem={3} />
                   ) : (
                     <div className="row">
-                      {product.map((data, index) => (
+                      {liveActionProduct.map((data, index) => (
                         <ProductSection data={data} key={index} />
                       ))}
                     </div>)
