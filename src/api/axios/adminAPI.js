@@ -183,7 +183,7 @@ export const APIAddCategoryMovie = (movieId, categories) => {
         .post(url, categories, { headers: headers })
         .catch((err) => console.log("Can't call API after 2 retries", err));
 };
-export const APIGetAllUser=(page, keyword)=>{
+export const APIGetAllUser=(page, keyword = undefined)=>{
     const url = `/admin/get-all-user`;
     const params = {
         page,

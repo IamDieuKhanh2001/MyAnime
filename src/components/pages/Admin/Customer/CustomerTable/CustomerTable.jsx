@@ -8,6 +8,9 @@ import "./CustomerTable.scss";
 import LoadingAnimation from "../../../../global/LoadingAnimation/LoadingAnimation";
 import { toast } from "react-toastify";
 import { BeatLoader } from "react-spinners";
+import { DropdownButton, Form, FormControl, InputGroup } from "react-bootstrap";
+import Dropdown from "@restart/ui/esm/Dropdown";
+import { debounce } from "lodash";
 
 export default function CustomerTable() {
     const [page, setPage] = useState(1);
@@ -16,6 +19,10 @@ export default function CustomerTable() {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
+    //sort user
+    const [mode, setMode] = useState('FindAll') //FindAll, FindByUsername 
+    const [searchUsername, setSearchUsername] = useState('');
+
     const observer = useRef();
 
     const lastItemRef = useCallback(
@@ -32,27 +39,11 @@ export default function CustomerTable() {
         [loading, isLastPage]
     );
 
-    useEffect(() => {
-        setLoading(true);
-        APIGetAllUser(page)
-            .then(res => {
-                if (res.data.length === 0) {
-                    setIsLastPage(true)
-                } else {
-                    setUsers((curUsers) => [...curUsers, ...res.data]);
-                }
-                setLoading(false);
-            })
-            .catch(err => {
-                setError(true);
-                setLoading(false);
-            })
-    }, [page]);
-
     const [loadingAction, setLoadingAction] = useState({
         status: false,
         id: null,
     });
+
 
     const blockUser = async (userId) => {
 
@@ -107,10 +98,102 @@ export default function CustomerTable() {
             });
         }
     };
+
+    const handleSearchChange = (event) => {
+        const newSearchText = event.target.value;
+        setSearchUsername(newSearchText);
+    };
+
+    //Thay đổi chế độ dựa trên searchUsername có được gán giá trị chưa 
+    useEffect(() => {
+        if (searchUsername === '') {
+            setUsers([])
+            setMode('FindAll')
+            console.log('empty name')
+            return;
+        }
+        const delayDebounceFn = setTimeout(() => {
+            // Thực hiện tìm kiếm với searchText khi người dùng nhập vào usernmae
+            toast.success(`Searching for ${searchUsername}...`)
+            setUsers([])
+            setPage(-1) //Khi TH đang trang 1 mà đổi mode, sẽ không thể gọi data do giá trị page = 1 vẫn giữ nguyên
+            setMode('FindByUsername')
+        }, 1500);
+        return () => clearTimeout(delayDebounceFn);
+    }, [searchUsername]);
+
+    // //Khi đã Thay đổi chế độ
+    useEffect(() => {
+        //Reset lại state
+        setError(false)
+        setPage(1)
+        setLoading(false)
+        setIsLastPage(false)
+    }, [mode]);
+
+    // //Thay đổi data khi page đổi
+    useEffect(() => {
+        setLoading(true);
+        if (page > 0) {
+            if (mode === 'FindByUsername') {
+                APIGetAllUser(page, searchUsername)
+                    .then(res => {
+                        if (res.data.length === 0) {
+                            setIsLastPage(true)
+                        } else {
+                            setUsers((curUsers) => [...curUsers, ...res.data]);
+                        }
+                        setLoading(false);
+                    })
+                    .catch(err => {
+                        setError(true);
+                        setLoading(false);
+                    })
+            } else {
+                APIGetAllUser(page)
+                    .then(res => {
+                        if (res.data.length === 0) {
+                            setIsLastPage(true)
+                        } else {
+                            setUsers((curUsers) => [...curUsers, ...res.data]);
+                        }
+                        setLoading(false);
+                    })
+                    .catch(err => {
+                        setError(true);
+                        setLoading(false);
+                    })
+            }
+        }
+    }, [page]);
+
     return (
         <>
             <div className="customerTable">
                 <div className="container">
+                    {/* sort user */}
+                    <Form>
+                        <InputGroup className="mb-3">
+                            <FormControl
+                                placeholder="Search users"
+                                aria-label="Search users"
+                                aria-describedby="basic-addon2"
+                                value={searchUsername}
+                                onChange={handleSearchChange}
+                            />
+                        </InputGroup>
+                    </Form>
+
+                    {/* end sort user */}
+
+                    {/* <CustomerRow
+                        users={users}
+                        setUsers={setUsers}
+                        isLastPage={isLastPage}
+                        setPage={setPage}
+                        loading={loading}
+                        error={error}
+                    /> */}
                     <div className="row">
                         <div className="col-lg-12">
                             <div className="main-box no-header clearfix">
@@ -143,7 +226,7 @@ export default function CustomerTable() {
                                                                         alt={user.username}
                                                                         style={{ width: 50, height: 50 }}
                                                                     />
-                                                                    <a href className="user-link">
+                                                                    <a className="user-link">
                                                                         {user.username}
                                                                     </a>
                                                                 </td>
@@ -199,7 +282,7 @@ export default function CustomerTable() {
                                                                         alt={user.username}
                                                                         style={{ width: 50, height: 50 }}
                                                                     />
-                                                                    <a href className="user-link">
+                                                                    <a className="user-link">
                                                                         {user.username}
                                                                     </a>
                                                                 </td>
@@ -250,11 +333,11 @@ export default function CustomerTable() {
                                                     })
                                                 }
 
-                                                {
+                                                {/* {
                                                     loading
                                                     &&
                                                     <LoadingAnimation />
-                                                }
+                                                } */}
                                                 {error &&
                                                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                                         <strong>Connection error!</strong>
