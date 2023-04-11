@@ -45,7 +45,7 @@ export default function UpdateMovie({ movie, hideDiaglogUpdate }) {
         studioName: Yup.string()
             .max(50, "Up to 50 characters")
             .required("Empty"),
-        //category: Yup.array().max(3, "Max category is 3").required("Empty")
+        // category: Yup.array().max(3, "Max category is 3").required("Empty")
     });
 
     const onSubmit = async (fields) => {
@@ -96,13 +96,13 @@ export default function UpdateMovie({ movie, hideDiaglogUpdate }) {
     };
     useEffect(() => {
         loadCategories();
-        dispatch(adminActions.setIsUpdateMovie(true));
+        dispatch(adminActions.setIsUpdateMovie(true)); //Bật chế độ update
         return () => {
-            dispatch(adminActions.setIsUpdateMovie(false));
+            dispatch(adminActions.setIsUpdateMovie(false)); //Tắt chế độ update
         };
     }, []);
     const handleClose = () => {
-        dispatch(adminActions.setShowModalUpdateMovie(false));
+        dispatch(adminActions.setShowModalUpdateMovie(false)); //redux state này không dùng đến
     };
     return (
         <>

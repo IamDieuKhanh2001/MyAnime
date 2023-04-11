@@ -6,11 +6,11 @@ const initialState = {
     movieCategories: [],
     movieSeriesEp: [],
     giftcodeList: [],
-    isShowModalUpdateMovie: false,
+    isShowModalUpdateMovie: false,  //ko dùng đến
     isShowModalUpdateSerie: false,
-    isInvalidUpdateMovie: false,
-    isInvalidAddMovie: false,
-    isUpdateMovie: false,
+    isInvalidUpdateMovie: false, //true: phim ko thể chỉnh sửa, false: phim có thể chỉnh sửa
+    isInvalidAddMovie: false, //true: phim ko thể add, false: phim có thể add
+    isUpdateMovie: false, //true: đang chế độ update, false: đang ko trong update (add, delete)
     isInvalidAddEpisode: false,
     isInvalidUpdateEpisode: false,
     isUpdateEpisode: false,

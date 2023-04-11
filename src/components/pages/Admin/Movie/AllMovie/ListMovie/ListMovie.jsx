@@ -14,7 +14,7 @@ export default function ListMovie() {
   const [loading, setLoading] = useState()
   const [open, setOpen] = useState()
   const [loadingDelete, setLoadingDelete] = useState({status:false})
-  const [selectedMovie, setSelectedMovie] = useState()
+  const [selectedMovie, setSelectedMovie] = useState()         //object phim muốn sửa
   const dispatch = useDispatch();
   const movies = useSelector(state => state.admin.movies)
   const confirm = useConfirm();
@@ -64,8 +64,8 @@ export default function ListMovie() {
     dispatch(adminActions.setShowModalUpdateMovie(true))
   }
   const handleOpenUpdateDialog = (movie) => {
-    setOpen(true)
-    setSelectedMovie(movie)
+    setOpen(true)                 //Mở dialog chỉnh sửa
+    setSelectedMovie(movie)       //Lấy object phim muốn sửa
   }
   const handleButtonDeleteMovie=(id,title)=>{
     confirm({}).then(()=>{
