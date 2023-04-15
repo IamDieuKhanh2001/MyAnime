@@ -48,7 +48,6 @@ export default function Product() {
     console.log("Calling api get live action product");
     setLiveActionProductLoading(true)
     const resGetLiveActionProduct = await APIGetProductsByCategoryId(1, 1);
-    console.log(resGetLiveActionProduct)
     setLiveActionProduct(resGetLiveActionProduct.data)
     setLiveActionProductLoading(false)
   };

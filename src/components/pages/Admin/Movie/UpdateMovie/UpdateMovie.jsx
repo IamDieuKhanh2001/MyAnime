@@ -8,6 +8,7 @@ import LoadingAnimation from "../../../../global/LoadingAnimation/LoadingAnimati
 import {
     APIAddMovie,
     APIGetMovie,
+    APIGetMovieById,
     APIGetMovieCategories,
     APIUpdateMovie,
     APIUpdateMovieCategories,
@@ -17,7 +18,7 @@ import { adminActions } from "../../../../../api/redux/slices/adminSlice";
 import _ from "lodash";
 import { Dialog } from "@mui/material";
 
-export default function UpdateMovie({ movie, hideDiaglogUpdate }) {
+export default function UpdateMovie({ movie, hideDiaglogUpdate, setMovies }) {
     const [loadCategory, setLoadCategory] = useState();
     const [formValues, setFormValues] = useState(null);
     const dispatch = useDispatch();
@@ -28,7 +29,6 @@ export default function UpdateMovie({ movie, hideDiaglogUpdate }) {
     let isInvalidUpdateMovie = useSelector(
         (state) => state.admin.isInvalidUpdateMovie
     );
-    let movies = useSelector((state) => state.admin.movies);
     const initialValues = {
         name: movie?.title,
         studioName: movie?.studioName,
@@ -61,28 +61,33 @@ export default function UpdateMovie({ movie, hideDiaglogUpdate }) {
                 category: categoryArray,
                 id: movie.id,
             });
-            console.log(resUpdateCategory);
             if (resUpdate?.status === 200) {
-                await loadMovies()
-                toast.success(`Update movie success`);
+                getAfterUpdateMovieById()
                 hideDiaglogUpdate();
+                toast.success(`Update movie ${movie.id} success`);
             }
         } catch (e) {
             console.log(e);
+            toast.success(`Update movie fail, please try again`);
         }
-        //console.log(fields);
     };
-    const loadMovies = async () => {
-        try {
-            console.log("Calling api get movies")
-            const resGetMovies = await APIGetMovie();
-            if (resGetMovies?.status === 200) {
-                const updateMoviesAction = adminActions.updateMovies(resGetMovies.data)
-                dispatch(updateMoviesAction);
-            }
-        } catch (e) {
-            console.log(e)
-        }
+
+    const getAfterUpdateMovieById = () => {
+        APIGetMovieById(movie.id)
+            .then(res => {
+                setMovies(prevMovies => {
+                    return prevMovies.map(item => {
+                        if (item.id === res.data.id) {
+                            return { ...item, ...res.data };
+                        } else {
+                            return item;
+                        }
+                    });
+                });
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     }
     const loadCategories = async () => {
         setLoadCategory(true);

@@ -1,16 +1,31 @@
 import { axiosClient } from "./axiosClient";
 
-export const APIGetMovie = (id) => {
-    // const url = "/movie";
+export const APIGetMovie = (page, keyword = undefined) => {
     const jwt = window.sessionStorage.getItem("jwt");
     const headers = {
         Authorization: `Bearer ${jwt}`,
     };
+    const params = {
+        page,
+        keyword
+    };
     const url = `/admin/movie`;
+    return axiosClient
+        .get(url, { headers: headers, params: params })
+        .catch((err) => console.log("Can't call API after 2 retries", err));
+};
+
+export const APIGetMovieById = (movieId) => {
+    const jwt = window.sessionStorage.getItem("jwt");
+    const headers = {
+        Authorization: `Bearer ${jwt}`,
+    };
+    const url = `/admin/movie/${movieId}`;
     return axiosClient
         .get(url, { headers: headers })
         .catch((err) => console.log("Can't call API after 2 retries", err));
 };
+
 export const APIAddMovie = (movie) => {
     // const url = "/movie";
     const url = `/admin/movie`;
