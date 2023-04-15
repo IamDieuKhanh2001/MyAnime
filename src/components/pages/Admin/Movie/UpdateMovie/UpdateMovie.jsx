@@ -18,14 +18,11 @@ import { adminActions } from "../../../../../api/redux/slices/adminSlice";
 import _ from "lodash";
 import { Dialog } from "@mui/material";
 
-export default function UpdateMovie({ movie, hideDiaglogUpdate, setMovies }) {
+export default function UpdateMovie({ movie, hideDiaglogUpdate }) {
     const [loadCategory, setLoadCategory] = useState();
     const [formValues, setFormValues] = useState(null);
     const dispatch = useDispatch();
     const categories = useSelector((state) => state.admin.movieCategories);
-    const isShowModalUpdateMovie = useSelector(
-        (state) => state.admin.isShowModalUpdateMovie
-    );
     let isInvalidUpdateMovie = useSelector(
         (state) => state.admin.isInvalidUpdateMovie
     );
@@ -68,22 +65,15 @@ export default function UpdateMovie({ movie, hideDiaglogUpdate, setMovies }) {
             }
         } catch (e) {
             console.log(e);
-            toast.success(`Update movie fail, please try again`);
+            toast.error(`Update movie fail, please try again`);
         }
     };
 
     const getAfterUpdateMovieById = () => {
         APIGetMovieById(movie.id)
             .then(res => {
-                setMovies(prevMovies => {
-                    return prevMovies.map(item => {
-                        if (item.id === res.data.id) {
-                            return { ...item, ...res.data };
-                        } else {
-                            return item;
-                        }
-                    });
-                });
+                const updateMoviesAction = adminActions.replaceItemInListMovies(res.data)
+                dispatch(updateMoviesAction)
             })
             .catch((err) => {
                 console.log(err)

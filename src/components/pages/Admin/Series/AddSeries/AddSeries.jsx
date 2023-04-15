@@ -81,10 +81,10 @@ export default function AddSeries() {
     console.log("Calling api get movies")
     setLoadingMovies(true)
     const resGetMovies = await APIGetMovie();
-    if (resGetMovies?.status === 200) {
-      const updateMoviesAction = adminActions.updateMovies(resGetMovies.data)
-      dispatch(updateMoviesAction);
-    }
+    // if (resGetMovies?.status === 200) {
+    //   const updateMoviesAction = adminActions.updateMovies(resGetMovies.data)
+    //   dispatch(updateMoviesAction);
+    // }
     console.log(resGetMovies.data)
     setLoadingMovies(false)
   }

@@ -24,7 +24,7 @@ export default function ListMovie() {
   //pageable
   const [page, setPage] = useState(1);
   const [isLastPage, setIsLastPage] = useState(false);
-  const [movies, setMovies] = useState([]);
+  let movieList = useSelector((state) => state.admin.movies);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const observer = useRef();
@@ -50,15 +50,13 @@ export default function ListMovie() {
       })
       console.log("Calling api delete movie")
       const resDeleteMovie = await APIDeleteMovie(id);
-      if (resDeleteMovie?.status === 200) {
-        let moviesTemp = [...movies];
-        const test = _.remove(moviesTemp, (movie) => {
-          return movie.id === id;
-        })
-        dispatch(adminActions.updateMovies(moviesTemp))
-        toast.success(`Delete movie ${title} success`)
+      if (resDeleteMovie.status == 200) { //update new redux data
+        const updateMoviesAction = adminActions.deleteItemInListMovies(id)
+        dispatch(updateMoviesAction)
+        toast.success(`Delete movie id: ${id} title: ${title} success`)
       }
-    } catch (e) {
+    }
+    catch (e) {
       console.log(e)
       toast.error(`Delete movie ${title} fail`)
     } finally {
@@ -93,7 +91,9 @@ export default function ListMovie() {
         if (res.data.length === 0) {
           setIsLastPage(true)
         } else {
-          setMovies((curMovie) => [...curMovie, ...res.data]);
+          // setMovies((curMovie) => [...curMovie, ...res.data]);
+          const updateMoviesAction = adminActions.addExtraToListMovies(res.data)
+          dispatch(updateMoviesAction)
         }
         setLoading(false);
       })
@@ -103,6 +103,15 @@ export default function ListMovie() {
       })
   }, [page]);
 
+  //Chuyển trang xóa redux movie list
+  useEffect(() => {
+
+    // Return a cleanup list redux
+    return () => {
+      dispatch(adminActions.updateMovies([]))
+    };
+  }, [])
+
   return (
     <>
       {
@@ -111,7 +120,6 @@ export default function ListMovie() {
             <UpdateMovie
               hideDiaglogUpdate={hideDiaglogUpdate}
               movie={selectedMovie}
-              setMovies={setMovies}
             />
           </Dialog> : null
       }
@@ -140,8 +148,8 @@ export default function ListMovie() {
       {/* end sort user */}
       <div className="allMovieLine">
         {
-          movies.map((movie, index) => {
-            if (movies.length === index + 1) {
+          movieList.map((movie, index) => {
+            if (movieList.length === index + 1) {
               return (
                 <div key={movie.id} className="allMovieContent" ref={lastItemRef}>
                   <div className="movieItemIndex">
@@ -175,8 +183,6 @@ export default function ListMovie() {
                         </div>
                     }
                   </div>
-
-
                 </div>
               )
             } else {
@@ -213,8 +219,6 @@ export default function ListMovie() {
                         </div>
                     }
                   </div>
-
-
                 </div>
               )
             }

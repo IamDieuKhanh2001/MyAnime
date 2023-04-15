@@ -20,9 +20,34 @@ const admin = createSlice({
     name: "products",
     initialState,
     reducers: {
+        //Action for movie list
         updateMovies: (state, actions) => {
             state.movies = actions.payload;
         },
+        addExtraToListMovies: (state, actions) => {
+            state.movies = state.movies.concat(actions.payload);
+        },
+        addFirstListMovies: (state, action) => {
+            const newMovies = [action.payload, ...state.movies];
+            state.movies = newMovies;
+        },
+        replaceItemInListMovies: (state, actions) => {
+            state.movies = state.movies.map(item => {
+                if (item.id === actions.payload.id) {
+                    return { ...item, ...actions.payload };
+                } else {
+                    return item;
+                }
+            })
+        },
+        deleteItemInListMovies: (state, actions) => {
+            const idToRemove = actions.payload;
+            state.movies = state.movies.filter(movie => movie.id !== idToRemove);
+        },
+        setIsUpdateMovie: (state, actions) => {
+            state.isUpdateMovie = actions.payload;
+        },
+        //Action for movie list
         updateMovieSeries: (state, actions) => {
             state.movieSeries = actions.payload;
         },
@@ -40,9 +65,6 @@ const admin = createSlice({
         },
         setInvalidAddMovie: (state, actions) => {
             state.isInvalidAddMovie = actions.payload;
-        },
-        setIsUpdateMovie: (state, actions) => {
-            state.isUpdateMovie = actions.payload;
         },
         setMovieSeriesEp: (state, actions) => {
             state.movieSeriesEp = actions.payload;
