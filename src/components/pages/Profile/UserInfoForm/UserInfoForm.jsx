@@ -8,6 +8,7 @@ import {
     APIChangeAvatar,
     APICheckIsPremiumMember,
     APIGetRemainTimePremiumMember,
+    APIProfileUserLoging,
     APIUpdateInfoUserLogging,
 } from "../../../../api/axios/customerAPI";
 import VerifyEmailModal from "../../../global/VerifyEmailModal/VerifyEmailModal";
@@ -15,14 +16,14 @@ import { useTranslation } from "react-i18next";
 import "./UserInfoForm.scss"
 import PremiumCard from "../PremiumCard/PremiumCard";
 import { toast } from "react-toastify";
+import { Dialog } from "@mui/material";
 
-function UserInfoForm({ loadUserLogging }) {
+function UserInfoForm({ data, setData }) {
     const dispatch = useDispatch();
     const { t } = useTranslation();
     const [previewImg, setPreviewImg] = useState(
         "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
     );
-    const data = useSelector((state) => state.users);
     const [otpVerifyModal, setOtpVerifyModal] = useState(false);
     const [isPremiumMember, setIsPremiumMember] = useState(false)
     const [premiumDayRemain, setPremiumDayRemain] = useState(0);
@@ -52,46 +53,48 @@ function UserInfoForm({ loadUserLogging }) {
 
 
     useEffect(() => {
+        console.log(data)
         checkIsPremiumMember()
         if (data.avatar) {
             setPreviewImg(data.avatar);
         }
         getRemainTimePremiumMember()
-    }, [data]);
+    }, []);
 
     const initialValues = {
-        fullName: data.fullName !== undefined ? data.fullName : "",
-        email: data?.email !== undefined ? data?.email : "",
+        fullName: data?.fullName,
+        email: data?.email,
     };
 
     const validationSchema = Yup.object().shape({
         //username: Yup.string().max(50, "Up to 50 characters").required("Empty"),
-        fullName: Yup.string().max(50, "Up to 50 characters").required("Empty"),
+        fullName: Yup.string().trim().max(50, "Up to 50 characters").nullable().required("Empty"),
         email: Yup.string().email("Invalid email").required("Empty"),
         avatar: Yup.mixed(),
     });
     const onSubmit = async (fields) => {
         console.log("call api update info");
+        console.log(fields.fullName)
         try {
             const resUpdateUserInfo = await APIUpdateInfoUserLogging(
                 fields.fullName,
                 fields.email
             );
-            loadUserLogging();
             toast.success(resUpdateUserInfo.data)
             if (fields.email !== data.email) {
                 //Changed email, get to OTP check
                 toast.success("We need verify your mail, check inbox gmail!")
                 setOtpVerifyModal(true);
             }
+            loadUserLogging();
         } catch (responseException) {
             //400: user email has been used
             toast.error(responseException.response.data)
         }
     };
-    const changeAvatar = (file) => {
-        const reschangeAvatar = APIChangeAvatar(file);
-    };
+    // const changeAvatar = (file) => {
+    //     const reschangeAvatar =;
+    // };
     const imageHandler = async (e) => {
         if (e.target.files[0]) {
             console.log("call api upload avatar");
@@ -100,24 +103,45 @@ function UserInfoForm({ loadUserLogging }) {
                 setPreviewImg(reader.result);
             });
             reader.readAsDataURL(e.target.files[0]);
-            changeAvatar(e.target.files[0]);
-            toast.success("Change image success")
-            loadUserLogging();
+            APIChangeAvatar(e.target.files[0])
+            .then((res) => {
+                toast.success("Change image success")
+                loadUserLogging();
+            })
+            .catch((err) => {
+                console.log(err)
+                toast.error("Change image fail")
+            })
         }
     };
 
+    const loadUserLogging = async () => {
+        console.log("calling api my profile");
+        const resUserInfo = await APIProfileUserLoging();
+        console.log(resUserInfo)
+        if (resUserInfo?.status === 200) {
+            setData(resUserInfo.data)
+            sessionStorage.setItem('avatar', resUserInfo.data.avatar); //Change ava in header
+        }
+    }
+    
     return (
         <React.Fragment>
-            {otpVerifyModal && (
+            <Dialog maxWidth="sm" fullWidth={false} open={otpVerifyModal} onClose={() => { setOtpVerifyModal(false) }}>
+                <VerifyEmailModal setOtpVerifyModal={setOtpVerifyModal} />
+            </Dialog>
+
+            {/* {otpVerifyModal && (
                 <VerifyEmailModal setOtpVerifyModal={setOtpVerifyModal} />
             )}
+            <VerifyEmailModal setOtpVerifyModal={setOtpVerifyModal} /> */}
             <Formik
                 initialValues={initialValues}
                 validationSchema={validationSchema}
                 onSubmit={onSubmit}
             // enableReinitialize
             >
-                {({ errors, touched, isSubmitting }) => (
+                {({ errors, touched, isSubmitting, formik }) => (
                     <Form>
                         <div className="container-xl px-4 mt-4">
                             <div className="row">
@@ -246,6 +270,7 @@ function UserInfoForm({ loadUserLogging }) {
                                                 <button
                                                     className="btn btn-danger px-4"
                                                     type="submit"
+                                                    disabled={isSubmitting}
                                                 >
                                                     {isSubmitting ? (
                                                         <React.Fragment>

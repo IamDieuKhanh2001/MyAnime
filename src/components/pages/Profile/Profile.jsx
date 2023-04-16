@@ -4,48 +4,43 @@ import Header from "./../../global/Header/Header";
 import Footer from "./../../global/Footer/Footer";
 import { useDispatch } from "react-redux";
 import { APIProfileUserLoging } from "../../../api/axios/customerAPI";
-import { userActions } from "../../../api/redux/slices/userSlice";
 import UserInfoForm from "./UserInfoForm/UserInfoForm";
 import FavoriteSeries from "../FavoriteSeries/FavoriteSeries";
 import NormalBreadcrumb from "../../global/NormalBreadcrumb/NormalBreadcrumb";
+import { useState } from "react";
+import LoadingAnimation from "../../global/LoadingAnimation/LoadingAnimation";
 
 export default function Profile() {
   const dispatch = useDispatch();
-
-
+  const [dataUser, setDataUser] = useState({})
+  const [loading, setLoading] = useState(false)
   useEffect(() => {
     loadUserLogging()
-    // if (data.avatar) {
-    //   setPreviewImg(data.avatar);
-    // }
-
   }, []);
 
   const loadUserLogging = async () => {
     console.log("calling api my profile");
+    setLoading(true)
     const resUserInfo = await APIProfileUserLoging();
-    if (resUserInfo.data) {
-      const updateUserInfo = userActions.updateUserInfo({
-        username: resUserInfo.data.username,
-        fullName: resUserInfo.data.fullName,
-        email: resUserInfo.data.email,
-        avatar: resUserInfo.data.avatar,
-        createAt: resUserInfo.data.createAt,
-      });
-      dispatch(updateUserInfo);
+    console.log(resUserInfo)
+    if (resUserInfo?.status === 200) {
+      setDataUser(resUserInfo.data)
       sessionStorage.setItem('avatar', resUserInfo.data.avatar); //Change ava in header
+      setLoading(false)
     }
-
   }
 
   return (
     <div className="profile">
       <Header />
-      <NormalBreadcrumb title={"Personal Infomation"} description={"Let us know your mail to help you secure your account."} />
-      <UserInfoForm
-        loadUserLogging={loadUserLogging}
-
-      />
+      <NormalBreadcrumb title={dataUser.username ? dataUser.username : "Anonymous user"} description={"Let us know your mail to help you secure your account."} />
+      {loading ?
+        <LoadingAnimation />
+        :
+        <UserInfoForm
+          data={dataUser}
+          setData={setDataUser}
+        />}
       <NormalBreadcrumb title={"Your favorite series"} description={"Series saved."} />
       <FavoriteSeries />
       <Footer />
