@@ -16,7 +16,6 @@ import {
 import { toast } from "react-toastify";
 import { adminActions } from "../../../../../api/redux/slices/adminSlice";
 import _ from "lodash";
-import { Dialog } from "@mui/material";
 
 export default function UpdateMovie({ movie, hideDiaglogUpdate }) {
     const [loadCategory, setLoadCategory] = useState();

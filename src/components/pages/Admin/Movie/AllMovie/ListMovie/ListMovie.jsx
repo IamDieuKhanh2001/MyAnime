@@ -88,10 +88,10 @@ export default function ListMovie() {
     setLoading(true);
     APIGetMovie(page)
       .then(res => {
+        console.log(res)
         if (res.data.length === 0) {
           setIsLastPage(true)
         } else {
-          // setMovies((curMovie) => [...curMovie, ...res.data]);
           const updateMoviesAction = adminActions.addExtraToListMovies(res.data)
           dispatch(updateMoviesAction)
         }

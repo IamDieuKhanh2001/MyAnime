@@ -1,13 +1,14 @@
 import { axiosClient } from "./axiosClient";
 
-export const APIGetMovie = (page, keyword = undefined) => {
+export const APIGetMovie = (page, keyword = undefined, limit = 9) => {
     const jwt = window.sessionStorage.getItem("jwt");
     const headers = {
         Authorization: `Bearer ${jwt}`,
     };
     const params = {
         page,
-        keyword
+        keyword,
+        limit,
     };
     const url = `/admin/movie`;
     return axiosClient
@@ -59,15 +60,20 @@ export const APIDeleteMovie = (id) => {
         .delete(url, { headers: headers })
         .catch((err) => console.log("Can't call API after 2 retries", err));
 };
-export const APIGetMovieSeries = () => {
+export const APIGetMovieSeries = (page, keyword = undefined, limit = 9) => {
     // const url = "/movie";
     const url = `/admin/movie-series`;
     const jwt = window.sessionStorage.getItem("jwt");
     const headers = {
         Authorization: `Bearer ${jwt}`,
     };
+    const params = {
+        page,
+        keyword,
+        limit,
+    };
     return axiosClient
-        .get(url, { headers: headers })
+        .get(url, { headers: headers, params: params })
         .catch((err) => console.log("Can't call API after 2 retries", err));
 };
 export const APIGetMovieSerieById = () => {

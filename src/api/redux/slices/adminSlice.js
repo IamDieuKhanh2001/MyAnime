@@ -22,16 +22,23 @@ const admin = createSlice({
     reducers: {
         //Action for movie list
         updateMovies: (state, actions) => {
+            //update with new array 
             state.movies = actions.payload;
         },
-        addExtraToListMovies: (state, actions) => {
-            state.movies = state.movies.concat(actions.payload);
+        addExtraToListMovies: (state, action) => {
+            const newMovies = action.payload.filter((movie) => { //Remove duplicated item
+                return !state.movies.find((existingMovie) => existingMovie.id === movie.id);
+            });
+            state.movies = state.movies.concat(newMovies);
         },
+
         addFirstListMovies: (state, action) => {
+            //Add item to first index
             const newMovies = [action.payload, ...state.movies];
             state.movies = newMovies;
         },
         replaceItemInListMovies: (state, actions) => {
+            //Replace item in list with new
             state.movies = state.movies.map(item => {
                 if (item.id === actions.payload.id) {
                     return { ...item, ...actions.payload };
@@ -41,16 +48,45 @@ const admin = createSlice({
             })
         },
         deleteItemInListMovies: (state, actions) => {
+            //Remove item in list with id
             const idToRemove = actions.payload;
             state.movies = state.movies.filter(movie => movie.id !== idToRemove);
         },
         setIsUpdateMovie: (state, actions) => {
             state.isUpdateMovie = actions.payload;
         },
-        //Action for movie list
+        //Action for movie series list
         updateMovieSeries: (state, actions) => {
             state.movieSeries = actions.payload;
         },
+        addExtraToListMovieSeries: (state, actions) => {
+            const newSeries = actions.payload.filter((item) => { //Remove duplicated item
+                return !state.movieSeries.find((existingItem) => existingItem.id === item.id);
+            });
+            state.movieSeries = state.movieSeries.concat(newSeries);
+        },
+
+        addFirstListMovieSeries: (state, action) => {
+            //Add item to first index
+            const newMovieSeries = [action.payload, ...state.movieSeries];
+            state.movieSeries = newMovieSeries;
+        },
+        replaceItemInListMovieSeries: (state, actions) => {
+            //Replace item in list with new
+            state.movieSeries = state.movieSeries.map(item => {
+                if (item.id === actions.payload.id) {
+                    return { ...item, ...actions.payload };
+                } else {
+                    return item;
+                }
+            })
+        },
+        deleteItemInListMovieSeries: (state, actions) => {
+            //Remove item in list with id
+            const idToRemove = actions.payload;
+            state.movieSeries = state.movieSeries.filter(movie => movie.id !== idToRemove);
+        },
+        //Action for movie Categories list
         updateMovieCategories: (state, actions) => {
             state.movieCategories = actions.payload;
         },

@@ -13,21 +13,11 @@ import _ from "lodash";
 
 
 export default function UpdateSeries({series,hideDiaglogUpdate}) {
-  const [loadingMovies, setLoadingMovies] = useState()
   const [uploadFile, setUploadFile] = useState()
   const [formValues, setFormValues] = useState(null);
   const [previewImg, setPreviewImg] = useState();
   const dispatch = useDispatch()
-  const movies = useSelector(state => state.admin.movies)
-  const seriesArray=useSelector(state=>state.admin.movieSeries)
-  const convertDateAired=(dateAired)=>{
-    let date=new Date(dateAired);
-    const year= date.getFullYear();
-    const month=date.getUTCMonth()+1;
-    const day=date.getDay();
-    console.log(year+"/"+month+"/"+day)
-    return new Date(year+"-"+month+"-"+day)
-  }
+
   const initialValues = {
     name: series?.name,
     description: series?.description,
@@ -59,8 +49,6 @@ export default function UpdateSeries({series,hideDiaglogUpdate}) {
 
   const onSubmit = async (fields) => {
     try{
-      console.log(fields);
-      console.log(previewImg)
       let bodyFormData = new FormData()
       bodyFormData.append('model', JSON.stringify({
         description: fields.description,
@@ -69,16 +57,12 @@ export default function UpdateSeries({series,hideDiaglogUpdate}) {
         totalEpisode: fields.totalEp,
       }))
       bodyFormData.append('sourceFile', uploadFile)
-      console.log(bodyFormData)
       const resUpdateMovieSeries = await APIUpdateMovieSeries(series.id,bodyFormData)
       console.log(resUpdateMovieSeries)
       if(resUpdateMovieSeries.status===200){
-        console.log(resUpdateMovieSeries.data.data)
         const updateSeries = resUpdateMovieSeries.data.data
-        let index = _.findIndex(seriesArray, { id: series.id })
-        let temp = [...seriesArray];
-        temp[index] = updateSeries;
-        dispatch(adminActions.updateMovieSeries(temp))
+        const updateMovieSeriesAction = adminActions.replaceItemInListMovieSeries(updateSeries) //Update redux
+        dispatch(updateMovieSeriesAction)
         toast.success(`Update movie series ${fields.name} success`)
         hideDiaglogUpdate()
       }
@@ -86,18 +70,8 @@ export default function UpdateSeries({series,hideDiaglogUpdate}) {
       toast.error(`Update movie series fail`)
     }
   };
-  const loadMovies = async () => {
-    console.log("Calling api get movies")
-    setLoadingMovies(true)
-    const resGetMovies = await APIGetMovie();
-    if (resGetMovies?.status === 200) {
-      const updateMoviesAction = adminActions.updateMovies(resGetMovies.data)
-      dispatch(updateMoviesAction);
-    }
-    setLoadingMovies(false)
-  }
+
   useEffect(() => {
-    loadMovies()
     setPreviewImg(series?.image)
   }, [])
 
@@ -153,37 +127,6 @@ export default function UpdateSeries({series,hideDiaglogUpdate}) {
                             )}
                           </span>
                         </div>
-                        {/* {
-                          loadingMovies ?
-                            <LoadingAnimation />
-                            : movies ?
-                              <div className="mb-3">
-                                <label
-                                  className="small mb-1"
-                                  htmlFor="inputmovieName"
-                                >
-                                  Movie Name
-                                </label>
-
-
-                                <Field
-                                  component={SelectField}
-                                  name="movieName"
-                                  options={movies.map(movie => {
-                                    return ({
-                                      value: movie.id,
-                                      label: movie.title
-                                    })
-                                  })}
-                                />
-                                <span className="error">
-                                  {errors.movieName && touched.movieName && (
-                                    <div>{errors.movieName}</div>
-                                  )}
-                                </span>
-                              </div> : null
-                        } */}
-
                         <div className="mb-3">
                           <label className="small mb-1" htmlFor="inputTotalEp">
                             Total Eposide
