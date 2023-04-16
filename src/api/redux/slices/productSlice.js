@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   list: [],
-  relateSeries: [],
   topViewInDay: [],
   topViewInWeek: [],
   topViewInMonth: [],
@@ -21,9 +20,6 @@ const products = createSlice({
     },
     addExtraToList: (state, actions) => {
       state.list = state.list.concat(actions.payload);
-    },
-    updateRelateSeries: (state, actions) => {
-      state.relateSeries = actions.payload;
     },
     updateRecentlyList: (state, actions) => {
       state.recentlyList = actions.payload;

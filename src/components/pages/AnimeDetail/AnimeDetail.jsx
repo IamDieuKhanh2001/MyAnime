@@ -12,9 +12,6 @@ import ProductDetailSideBar from '../../global/Product/ProductDetailSideBar/Prod
 import LoadingSkeletionProductDetail from '../../global/LoadingSkeletonProductAnimation/LoadingSkeletionProductDetail';
 
 export default function AnimeDetail() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
   const { seriesId } = useParams();
   const [product, setProduct] = useState({});
   const [loading, setLoading] = useState(false);
@@ -27,17 +24,7 @@ export default function AnimeDetail() {
     setLoading(false);
   };
 
-  const loadAllSeriesProductBySeriesId = async () => {
-    console.log("Calling api get product series");
-    const resGetRelateSeries = await APIGetAllSeriesProductById(seriesId);
-    if (resGetRelateSeries?.status === 200) {
-      const updateListAction = productsActions.updateRelateSeries(resGetRelateSeries.data);
-      dispatch(updateListAction);
-    }
-  };
-
   useEffect(() => {
-    loadAllSeriesProductBySeriesId();
     loadProductById();
   }, [seriesId]);
 

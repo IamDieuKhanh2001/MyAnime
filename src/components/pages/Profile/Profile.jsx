@@ -12,7 +12,7 @@ import NormalBreadcrumb from "../../global/NormalBreadcrumb/NormalBreadcrumb";
 export default function Profile() {
   const dispatch = useDispatch();
 
-  
+
   useEffect(() => {
     loadUserLogging()
     // if (data.avatar) {
@@ -42,7 +42,10 @@ export default function Profile() {
     <div className="profile">
       <Header />
       <NormalBreadcrumb title={"Personal Infomation"} description={"Let us know your mail to help you secure your account."} />
-      <UserInfoForm loadUserLogging={loadUserLogging} />
+      <UserInfoForm
+        loadUserLogging={loadUserLogging}
+
+      />
       <NormalBreadcrumb title={"Your favorite series"} description={"Series saved."} />
       <FavoriteSeries />
       <Footer />
