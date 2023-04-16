@@ -10,6 +10,7 @@ import {
     APIAddMovie,
     APIAddMovieCategories,
     APIGetMovie,
+    APIGetMovieById,
     APIGetMovieCategories,
 } from "../../../../../api/axios/adminAPI";
 import { toast } from "react-toastify";
@@ -21,7 +22,6 @@ export default function AddMovie() {
     const [formValues, setFormValues] = useState(null);
     const dispatch = useDispatch();
     const categories = useSelector((state) => state.admin.movieCategories);
-    let movies = useSelector((state) => state.admin.movies);
     let isInvalidAddMovie = useSelector(
         (state) => state.admin.isInvalidAddMovie
     );
@@ -52,32 +52,27 @@ export default function AddMovie() {
                     resAddMovie.data.data.id,
                     categoryArray
                 );
-                await loadMovies();
-                console.log(resAddCategory);
-
+                getAfterAddedMovieById(resAddMovie.data.data.id)
                 toast.success(`Add movie ${fields.name} success`);
                 resetForm();
-                console.log(movies);
             }
         } catch (e) {
             console.log(e);
             toast.error(`Add movie fail`);
         }
     };
-    const loadMovies = async () => {
-        try {
-            console.log("Calling api get movies");
-            const resGetMovies = await APIGetMovie();
-            if (resGetMovies?.status === 200) {
-                const updateMoviesAction = adminActions.updateMovies(
-                    resGetMovies.data
-                );
-                dispatch(updateMoviesAction);
-            }
-        } catch (e) {
-            console.log(e);
-        }
-    };
+
+    const getAfterAddedMovieById = (id) => {
+        APIGetMovieById(id)
+            .then(res => {
+                const updateMoviesAction = adminActions.addFirstListMovies(res.data)
+                dispatch(updateMoviesAction)
+            })
+            .catch((err) => {
+                toast.error(`Add movie fail`);
+                console.log(err)
+            })
+    }
     const loadCategories = async () => {
         setLoadCategory(true);
         const resGetCategory = await APIGetMovieCategories();

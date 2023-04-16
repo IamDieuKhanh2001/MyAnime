@@ -8,6 +8,7 @@ import LoadingAnimation from "../../../../global/LoadingAnimation/LoadingAnimati
 import {
     APIAddMovie,
     APIGetMovie,
+    APIGetMovieById,
     APIGetMovieCategories,
     APIUpdateMovie,
     APIUpdateMovieCategories,
@@ -15,20 +16,15 @@ import {
 import { toast } from "react-toastify";
 import { adminActions } from "../../../../../api/redux/slices/adminSlice";
 import _ from "lodash";
-import { Dialog } from "@mui/material";
 
 export default function UpdateMovie({ movie, hideDiaglogUpdate }) {
     const [loadCategory, setLoadCategory] = useState();
     const [formValues, setFormValues] = useState(null);
     const dispatch = useDispatch();
     const categories = useSelector((state) => state.admin.movieCategories);
-    const isShowModalUpdateMovie = useSelector(
-        (state) => state.admin.isShowModalUpdateMovie
-    );
     let isInvalidUpdateMovie = useSelector(
         (state) => state.admin.isInvalidUpdateMovie
     );
-    let movies = useSelector((state) => state.admin.movies);
     const initialValues = {
         name: movie?.title,
         studioName: movie?.studioName,
@@ -45,7 +41,7 @@ export default function UpdateMovie({ movie, hideDiaglogUpdate }) {
         studioName: Yup.string()
             .max(50, "Up to 50 characters")
             .required("Empty"),
-        //category: Yup.array().max(3, "Max category is 3").required("Empty")
+        // category: Yup.array().max(3, "Max category is 3").required("Empty")
     });
 
     const onSubmit = async (fields) => {
@@ -61,28 +57,26 @@ export default function UpdateMovie({ movie, hideDiaglogUpdate }) {
                 category: categoryArray,
                 id: movie.id,
             });
-            console.log(resUpdateCategory);
             if (resUpdate?.status === 200) {
-                await loadMovies()
-                toast.success(`Update movie success`);
+                getAfterUpdateMovieById()
                 hideDiaglogUpdate();
+                toast.success(`Update movie ${movie.id} success`);
             }
         } catch (e) {
             console.log(e);
+            toast.error(`Update movie fail, please try again`);
         }
-        //console.log(fields);
     };
-    const loadMovies = async () => {
-        try {
-            console.log("Calling api get movies")
-            const resGetMovies = await APIGetMovie();
-            if (resGetMovies?.status === 200) {
-                const updateMoviesAction = adminActions.updateMovies(resGetMovies.data)
-                dispatch(updateMoviesAction);
-            }
-        } catch (e) {
-            console.log(e)
-        }
+
+    const getAfterUpdateMovieById = () => {
+        APIGetMovieById(movie.id)
+            .then(res => {
+                const updateMoviesAction = adminActions.replaceItemInListMovies(res.data)
+                dispatch(updateMoviesAction)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     }
     const loadCategories = async () => {
         setLoadCategory(true);
@@ -96,13 +90,13 @@ export default function UpdateMovie({ movie, hideDiaglogUpdate }) {
     };
     useEffect(() => {
         loadCategories();
-        dispatch(adminActions.setIsUpdateMovie(true));
+        dispatch(adminActions.setIsUpdateMovie(true)); //Bật chế độ update
         return () => {
-            dispatch(adminActions.setIsUpdateMovie(false));
+            dispatch(adminActions.setIsUpdateMovie(false)); //Tắt chế độ update
         };
     }, []);
     const handleClose = () => {
-        dispatch(adminActions.setShowModalUpdateMovie(false));
+        dispatch(adminActions.setShowModalUpdateMovie(false)); //redux state này không dùng đến
     };
     return (
         <>

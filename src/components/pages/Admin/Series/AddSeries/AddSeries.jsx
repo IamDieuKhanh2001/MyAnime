@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./AddSeries.scss";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
@@ -19,7 +19,7 @@ export default function AddSeries() {
   const [previewImg, setPreviewImg] = useState();
   const dispatch = useDispatch()
   const movies = useSelector(state => state.admin.movies)
-  let movieSeries = useSelector(state => state.admin.movieSeries)
+
   const initialValues = {
     name: "",
     movieName: "",
@@ -61,13 +61,12 @@ export default function AddSeries() {
         movieId: fields.movieName.value
       }))
       bodyFormData.append('sourceFile', uploadFile)
-      console.log(bodyFormData)
       const resAddMovieSeries = await APIAddMovieSeries(bodyFormData)
       if (resAddMovieSeries.status === 200) {
+        const updateMovieSeriesAction = adminActions.addFirstListMovieSeries(resAddMovieSeries.data.data) //add item added in first list
+        dispatch(updateMovieSeriesAction)
         toast.success(`Add movie series ${fields.name} success`)
-        movieSeries = _.concat(movieSeries, resAddMovieSeries.data.data)
-        dispatch(adminActions.updateMovieSeries(movieSeries));
-        console.log(resAddMovieSeries.data)
+        //Reset new form
         resetForm()
         setPreviewImg(null)
         setUploadFile(null)
@@ -77,22 +76,23 @@ export default function AddSeries() {
       toast.error(`Add movie series fail`)
     }
   };
+
+  //Fix for pageable movie later
   const loadMovies = async () => {
     console.log("Calling api get movies")
     setLoadingMovies(true)
-    const resGetMovies = await APIGetMovie();
+    const resGetMovies = await APIGetMovie(1, undefined, 99999);   //Fix for pageable movie later
     if (resGetMovies?.status === 200) {
       const updateMoviesAction = adminActions.updateMovies(resGetMovies.data)
       dispatch(updateMoviesAction);
     }
-    console.log(resGetMovies.data)
     setLoadingMovies(false)
   }
 
+  //Chuyển trang xóa redux movie list
   useEffect(() => {
     loadMovies()
   }, [])
-
 
   return (
     <div className="addSeries">
@@ -139,8 +139,6 @@ export default function AddSeries() {
                                 >
                                   Movie Name
                                 </label>
-
-
                                 <Field
                                   component={SelectField}
                                   name="movieName"

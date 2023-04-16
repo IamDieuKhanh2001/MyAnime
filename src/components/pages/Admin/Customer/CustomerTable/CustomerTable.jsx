@@ -13,7 +13,6 @@ import { Form, FormControl, InputGroup } from "react-bootstrap";
 export default function CustomerTable() {
     const [page, setPage] = useState(1);
     const [isLastPage, setIsLastPage] = useState(false);
-
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
@@ -197,15 +196,6 @@ export default function CustomerTable() {
                     </Form>
 
                     {/* end sort user */}
-
-                    {/* <CustomerRow
-                        users={users}
-                        setUsers={setUsers}
-                        isLastPage={isLastPage}
-                        setPage={setPage}
-                        loading={loading}
-                        error={error}
-                    /> */}
                     <div className="row">
                         <div className="col-lg-12">
                             <div className="main-box no-header clearfix">
