@@ -55,6 +55,12 @@ const admin = createSlice({
         setIsUpdateMovie: (state, actions) => {
             state.isUpdateMovie = actions.payload;
         },
+        setInvalidUpdateMovie: (state, actions) => {
+            state.isInvalidUpdateMovie = actions.payload;
+        },
+        setInvalidAddMovie: (state, actions) => {
+            state.isInvalidAddMovie = actions.payload;
+        },
         //Action for movie series list
         updateMovieSeries: (state, actions) => {
             state.movieSeries = actions.payload;
@@ -96,12 +102,7 @@ const admin = createSlice({
         setShowModalUpdateSerie: (state, actions) => {
             state.isShowModalUpdateSerie = actions.payload;
         },
-        setInvalidUpdateMovie: (state, actions) => {
-            state.isInvalidUpdateMovie = actions.payload;
-        },
-        setInvalidAddMovie: (state, actions) => {
-            state.isInvalidAddMovie = actions.payload;
-        },
+        //Episode 
         setMovieSeriesEp: (state, actions) => {
             state.movieSeriesEp = actions.payload;
         },
@@ -114,6 +115,7 @@ const admin = createSlice({
         setIsUpdateEpisode: (state, actions) => {
             state.isUpdateEpisode = actions.payload;
         },
+        //Giftcode
         updateGiftcodeList: (state, actions) => {
             state.giftcodeList = actions.payload;
         },
