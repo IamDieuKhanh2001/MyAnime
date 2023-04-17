@@ -14,6 +14,7 @@ import { adminActions } from "../../../../../api/redux/slices/adminSlice";
 import ServerAssetsSelect from "../CustomServerSelect/CustomServerSelect";
 import LoadingAnimation from "../../../../global/LoadingAnimation/LoadingAnimation";
 import PremiumPopover from "../PremiumPopover/PremiumPopover";
+import { useConfirm } from "material-ui-confirm";
 
 export default function UpdateEpisode({ series, ep, hideDiaglogUpdate }) {
     const [formValues, setFormValues] = useState(null);
@@ -22,10 +23,12 @@ export default function UpdateEpisode({ series, ep, hideDiaglogUpdate }) {
     const [loadServerList, setLoadServerList] = useState(false);
     const dispatch = useDispatch();
     const movieSeries = useSelector((state) => state.admin.movieSeries);
+    //confirm action
+    const confirm = useConfirm();
 
     const serversAssets = [
         { name: "Digital Ocean", id: "do" },
-        { name: "Cloudinary", id: "cd" },
+        // { name: "Cloudinary", id: "cd" },
     ];
 
     const serversAssetsSelected = [
@@ -43,10 +46,9 @@ export default function UpdateEpisode({ series, ep, hideDiaglogUpdate }) {
     if (ep.resourceDO !== null) {
         serversAssetsSelected.push({ label: "Digital Ocean", value: "do" })
     }
-    if (ep.resourceCD !== null) {
-        serversAssetsSelected.push({ label: "Cloudinary", value: "cd" })
-    }
-    console.log(ep)
+    // if (ep.resourceCD !== null) {
+    //     serversAssetsSelected.push({ label: "Cloudinary", value: "cd" })
+    // }
     const validationSchema = Yup.object().shape({
         numEpisode: Yup.number().default(-1).required("Number episode must be a number"), //Number episode <= 0 server will auto numbering
         episodeName: Yup.string().required("Empty"),
@@ -62,19 +64,27 @@ export default function UpdateEpisode({ series, ep, hideDiaglogUpdate }) {
             reader.readAsDataURL(e.target.files[0]);
         }
     };
-    const onDeleteEpisode = async () => {
+    const onDeleteEpisode = () => {
+        confirm({}).then(() => {
+            deleteEpisode(ep.id, series.id)
+        })
+
+    };
+
+    const deleteEpisode = async (episodeId, seriesId) => {
         try {
             setLoadingDelete(true);
-            const res = await APIDeleteEpisode(ep.id);
-            await getEpisodeBySeriesId(series.id);
+            const res = await APIDeleteEpisode(episodeId);
+            await getEpisodeBySeriesId(seriesId);
             toast.success("Delete episode success");
             hideDiaglogUpdate();
         } catch (e) {
+            toast.error("Delete episode fail");
             console.log(e);
         } finally {
             setLoadingDelete(false);
         }
-    };
+    }
 
     const onSubmit = async (fields, resetForm) => {
         try {

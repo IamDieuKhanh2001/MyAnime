@@ -28,7 +28,7 @@ export default function AddEpisode() {
 
     const serversAssets = [
         { name: "Digital Ocean", id: "do" },
-        { name: "Cloudinary", id: "cd" },
+        // { name: "Cloudinary", id: "cd" },
     ];
 
     const initialValues = {
@@ -40,6 +40,7 @@ export default function AddEpisode() {
         isPremium: false,
     };
     const movieSeries = useSelector((state) => state.admin.movieSeries);
+    let [movieSeriesList, setMovieSeriesList] = useState([])
     const validationSchema = Yup.object().shape({
         numEpisode: Yup.number().default(-1).required("Number episode must be a number"), //Number episode <= 0 server will auto numbering
         episodeName: Yup.string().required("Episode name can not be empty"),
@@ -47,22 +48,26 @@ export default function AddEpisode() {
         video: Yup.mixed().required("Empty video file"),
         serverAssets: Yup.array().min(1, "Server must be at least 1").required("Choose your assets server"),
     });
+
+    //Select option cho movie series sẽ được xử lí sau để tối ưu 
     const loadMovieSeries = async () => {
         try {
             setLoading(true);
-            const resGetMovieSeries = await APIGetMovieSeries();
+            const resGetMovieSeries = await APIGetMovieSeries(1, undefined, 99999); //Tạm 
             if (resGetMovieSeries?.status === 200) {
-                const updateMovieSeriesAction = adminActions.updateMovieSeries(
-                    resGetMovieSeries.data
-                );
-                dispatch(updateMovieSeriesAction);
+                setMovieSeriesList(resGetMovieSeries.data)
             }
         } catch (e) {
+            toast.error("series select, some thing when wrong, please try again!")
             console.log(e);
         } finally {
             setLoading(false);
         }
     };
+    useEffect(() => {
+        loadMovieSeries();
+    }, []);
+    //Select option cho movie series
 
     const imageHandler = (e, setFieldValue) => {
         if (e.target.files[0]) {
@@ -74,23 +79,11 @@ export default function AddEpisode() {
             reader.readAsDataURL(e.target.files[0]);
         }
     };
-    useEffect(() => {
-        loadMovieSeries();
-    }, []);
-    const getEpisodeBySeriesId = async (seriesId) => {
-        try {
-            dispatch(adminActions.setMovieSeriesEp([]));
-            const res = await APIGetEpisodeBySeriesId(seriesId);
-            dispatch(adminActions.setMovieSeriesEp(res.data));
-        } catch (e) {
-            console.log(e);
-        }
-    };
+
     const onSubmit = async (fields, resetForm) => {
         try {
             const serverList = [];
             fields.serverAssets.map((s) => serverList.push(s.value));
-            console.log(serverList)
             let bodyFormData = new FormData();
             bodyFormData.append(
                 "model",
@@ -110,9 +103,8 @@ export default function AddEpisode() {
                 bodyFormData
             );
             if (res.status === 200) {
-                await getEpisodeBySeriesId(fields.seriesName.value);
                 toast.success(`Add episode success`);
-                console.log(res.data);
+                //Reset form 
                 resetForm();
                 setPreviewImg(null);
                 setUploadFile(null);
@@ -259,7 +251,7 @@ export default function AddEpisode() {
                                                                 SelectField
                                                             }
                                                             name="seriesName"
-                                                            options={movieSeries?.map(
+                                                            options={movieSeriesList?.map(
                                                                 (series) => {
                                                                     return {
                                                                         value: series.id,
@@ -339,7 +331,7 @@ export default function AddEpisode() {
                                                     </span>
                                                 </div>
                                                 <button
-                                                    disabled={isInvalidAddEpisode}
+                                                    disabled={isInvalidAddEpisode || isSubmitting}
                                                     className="btn btn-danger px-4"
                                                     type="submit"
                                                 >
