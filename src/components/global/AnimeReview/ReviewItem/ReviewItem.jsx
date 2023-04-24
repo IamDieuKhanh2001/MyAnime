@@ -1,9 +1,9 @@
 import React from 'react'
 import ReactTimeAgo from 'react-time-ago'
 
-function ReviewItem({ data }) {
+function ReviewItem({ data, lastItemRef = null }) {
     return (
-        <div className="anime__review__item">
+        <div className="anime__review__item" ref={lastItemRef}>
             {data.avatar !== null ? (
                 <div className="anime__review__item__pic">
                     <img src={`${data.avatar}`} alt={data.username} />

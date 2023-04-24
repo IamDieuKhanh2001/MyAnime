@@ -344,12 +344,12 @@ export default function CustomerTable() {
                                             <LoadingAnimation />
                                         }
                                         {error &&
-                                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            <div className="alert alert-danger alert-dismissible fade show" role="alert">
                                                 <strong>Connection error!</strong>
-                                                <hr></hr>
+                                                <hr />
                                                 Can not connect to server, check your connection and try again!!.
-                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
+                                                <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
                                                 </button>
                                             </div>
                                         }

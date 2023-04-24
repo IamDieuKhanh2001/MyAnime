@@ -1,10 +1,14 @@
 import { axiosClient } from "./axiosClient";
 
-export const APIGetCommentByEpisodeId = (epId) => {
+export const APIGetCommentByEpisodeId = (epId, page = 1, limit = 9) => {
     // const url = "/movie";
     const url = `/comment/episode/${epId}`
+    const params = {
+        page,
+        limit
+    };
     return axiosClient
-        .get(url)
+        .get(url, { params: params })
         .catch((err) => console.log("Can't call API after 2 retries", err));
 };
 

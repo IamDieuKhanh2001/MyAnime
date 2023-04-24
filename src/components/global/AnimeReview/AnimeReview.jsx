@@ -9,31 +9,65 @@ import LoadingAnimation from '../LoadingAnimation/LoadingAnimation';
 import ReviewForm from './ReviewForm/ReviewForm';
 import ReviewItem from './ReviewItem/ReviewItem'
 import ReviewNotification from './ReviewNotification/ReviewNotification';
+import { useRef } from 'react';
+import { useCallback } from 'react';
 
-function AnimeReview({ episodeIdWatching, episodeWatching }) {
+function AnimeReview({ episodeWatching }) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
   const jwtTokenLogin = window.sessionStorage.getItem("jwt");
 
+
+  //pageable
+  const [page, setPage] = useState(1);
+  const [isLastPage, setIsLastPage] = useState(false);
   const [commentLoading, setCommentLoading] = useState(false)
+  const [error, setError] = useState(false);
+  const observer = useRef();
 
   const commentList = useSelector((state) => state.comments.list);
 
-  const loadCommentByEpisodeId = async () => {
-    setCommentLoading(true)
-    console.log("Calling api get comment");
-    const resGetCommentEpisode = await APIGetCommentByEpisodeId(episodeWatching.id);
-    if (resGetCommentEpisode?.status === 200) {
-      const updateCommentListAction = commentActions.updateList(resGetCommentEpisode.data);
-      dispatch(updateCommentListAction);
-    }
-    setCommentLoading(false)
-  };
+  const lastItemRef = useCallback(
+    (node) => {
+      if (commentLoading || isLastPage) return;
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          setPage((prevPage) => prevPage + 1);
+        }
+      });
+      if (node) observer.current.observe(node);
+    },
+    [commentLoading, isLastPage]
+  );
 
   useEffect(() => {
-    loadCommentByEpisodeId();
-  }, [episodeIdWatching]);
+    setCommentLoading(true);
+    APIGetCommentByEpisodeId(episodeWatching.id, page)
+      .then(res => {
+        if (res.data.length === 0) {
+          setIsLastPage(true)
+        } else {
+          const updateCommentAction = commentActions.addExtraToListComments(res.data)
+          dispatch(updateCommentAction)
+        }
+        setCommentLoading(false);
+      })
+      .catch(err => {
+        setError(true);
+        setCommentLoading(false);
+      })
+  }, [page]);
+
+  //Chuyển trang xóa redux comment list
+  useEffect(() => {
+
+    // Return a cleanup list redux
+    return () => {
+      dispatch(commentActions.updateList([]))
+    };
+  }, [])
 
   return (
     <React.Fragment>
@@ -50,14 +84,28 @@ function AnimeReview({ episodeIdWatching, episodeWatching }) {
             {t("anime_review.section_review_title")}
           </h5>
         </div>
-        {commentLoading ? (<LoadingAnimation />) : (
-          <React.Fragment>
-            {commentList.map((comment, index) => (
-              <ReviewItem data={comment} key={index} />
-            ))}
-          </React.Fragment>
-        )}
+        {commentList.map((comment, index) => {
+          if (commentList.length === index + 1) {
+            return <ReviewItem data={comment} key={index} lastItemRef={lastItemRef} />
+          } else {
+            return <ReviewItem data={comment} key={index} />
+          }
+        })}
+        {/* loading comment*/}
+        {commentLoading && (<LoadingAnimation />)}
 
+        {/* Error notice when loading comment fail  */}
+        {error &&
+          <div className="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Connection error!</strong>
+            <hr />
+            Can not connect to server, check your connection and try again!!.
+            <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+        }
+        {/* Notice when not login */}
         {jwtTokenLogin === null && (
           <ReviewNotification />
         )}

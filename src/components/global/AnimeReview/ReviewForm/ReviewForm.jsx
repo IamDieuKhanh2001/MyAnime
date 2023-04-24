@@ -14,24 +14,16 @@ function ReviewForm({ episodeWatchingId, commentLoading, setCommentLoading }) {
 
     const [loading, setLoading] = useState(false); //Loading when on submit loading call API
 
-
-    // const additionalBadWords = ["cặc", "lồn", "cac", "lon", "clgt", "trẻ trâu", "óc chó", "oc cho", "cức"];
-    // const customBadWords = new Filtẻ({ list: additionalBadWords });
-
-    // const filterContent = (content) => {
-    //     return customBadWords.clean(content);
-    // }
-
-    const loadCommentByEpisodeId = async () => {
-        setCommentLoading(true)
-        console.log("Calling api get comment");
-        const resGetCommentEpisode = await APIGetCommentByEpisodeId(episodeWatchingId);
-        if (resGetCommentEpisode?.status === 200) {
-            const updateCommentListAction = commentActions.updateList(resGetCommentEpisode.data);
-            dispatch(updateCommentListAction);
-        }
-        setCommentLoading(false)
-    };
+    // const loadCommentByEpisodeId = async () => {
+    //     setCommentLoading(true)
+    //     console.log("Calling api get comment");
+    //     const resGetCommentEpisode = await APIGetCommentByEpisodeId(episodeWatchingId);
+    //     if (resGetCommentEpisode?.status === 200) {
+    //         const updateCommentListAction = commentActions.updateList(resGetCommentEpisode.data);
+    //         dispatch(updateCommentListAction);
+    //     }
+    //     setCommentLoading(false)
+    // };
 
     const formik = useFormik({
         initialValues: {
@@ -43,7 +35,9 @@ function ReviewForm({ episodeWatchingId, commentLoading, setCommentLoading }) {
             const resComment = await APIPostCommentByEpisodeId(filteredComment, episodeWatchingId)
             values.content = ""                                 //Set initialValues to default
             if (resComment.status === 200) {
-                loadCommentByEpisodeId()
+                // loadCommentByEpisodeId()
+                const updateCommentAction = commentActions.addFirstListComments(resComment.data)
+                dispatch(updateCommentAction)
                 setLoading(false)
             } else if (resComment.response.status === 400) {
                 toast.error("Something when wrong, try again later")
