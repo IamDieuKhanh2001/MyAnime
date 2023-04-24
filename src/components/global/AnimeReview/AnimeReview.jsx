@@ -37,26 +37,6 @@ function AnimeReview({ episodeIdWatching, episodeWatching }) {
 
   return (
     <React.Fragment>
-      <div className="anime__details__review">
-        <div className="section-title">
-          <h5>
-            {t("anime_review.section_review_title")}
-          </h5>
-        </div>
-        {commentLoading ? (<LoadingAnimation />) : (
-            <React.Fragment>
-              {commentList.map((comment, index) => (
-                <ReviewItem data={comment} key={index} />
-              ))}
-            </React.Fragment>
-          )}
-
-        {jwtTokenLogin === null && (
-          <ReviewNotification />
-        )}
-
-      </div>
-
       {jwtTokenLogin !== null && (
         <ReviewForm
           episodeWatchingId={episodeWatching.id}
@@ -64,7 +44,25 @@ function AnimeReview({ episodeIdWatching, episodeWatching }) {
           setCommentLoading={setCommentLoading}
         />
       )}
+      <div className="anime__details__review">
+        <div className="section-title">
+          <h5>
+            {t("anime_review.section_review_title")}
+          </h5>
+        </div>
+        {commentLoading ? (<LoadingAnimation />) : (
+          <React.Fragment>
+            {commentList.map((comment, index) => (
+              <ReviewItem data={comment} key={index} />
+            ))}
+          </React.Fragment>
+        )}
 
+        {jwtTokenLogin === null && (
+          <ReviewNotification />
+        )}
+
+      </div>
     </React.Fragment>
   )
 }

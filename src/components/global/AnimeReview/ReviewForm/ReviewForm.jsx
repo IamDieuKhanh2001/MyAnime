@@ -6,12 +6,21 @@ import { BeatLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
 import { APIGetCommentByEpisodeId, APIPostCommentByEpisodeId } from '../../../../api/axios/commentAPI';
 import { commentActions } from '../../../../api/redux/slices/commentSlice';
+import { filterContent } from '../../../../utils/filterContent';
 
 function ReviewForm({ episodeWatchingId, commentLoading, setCommentLoading }) {
     const { t } = useTranslation();
     const dispatch = useDispatch();
 
     const [loading, setLoading] = useState(false); //Loading when on submit loading call API
+
+
+    // const additionalBadWords = ["cặc", "lồn", "cac", "lon", "clgt", "trẻ trâu", "óc chó", "oc cho", "cức"];
+    // const customBadWords = new Filtẻ({ list: additionalBadWords });
+
+    // const filterContent = (content) => {
+    //     return customBadWords.clean(content);
+    // }
 
     const loadCommentByEpisodeId = async () => {
         setCommentLoading(true)
@@ -29,8 +38,9 @@ function ReviewForm({ episodeWatchingId, commentLoading, setCommentLoading }) {
             content: "",
         },
         onSubmit: async values => {
-            setLoading(true)   
-            const resComment = await APIPostCommentByEpisodeId(values.content, episodeWatchingId)
+            setLoading(true)
+            const filteredComment = filterContent(values.content) // filter bad words
+            const resComment = await APIPostCommentByEpisodeId(filteredComment, episodeWatchingId)
             values.content = ""                                 //Set initialValues to default
             if (resComment.status === 200) {
                 loadCommentByEpisodeId()
@@ -43,7 +53,7 @@ function ReviewForm({ episodeWatchingId, commentLoading, setCommentLoading }) {
     })
 
     return (
-        <div className="anime__details__form">
+        <div className="anime__details__form pb-4">
             <div className="section-title">
                 <h5>
                     {t("anime_review.section_write_review_title")}
