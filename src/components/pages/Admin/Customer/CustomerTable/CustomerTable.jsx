@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import {
     APIBlockUser,
+    APIGetAllNormalUser,
+    APIGetAllPremiumUser,
     APIGetAllUser,
     APIUnBlockUser,
 } from "../../../../../api/axios/adminAPI";
@@ -8,7 +10,8 @@ import "./CustomerTable.scss";
 import LoadingAnimation from "../../../../global/LoadingAnimation/LoadingAnimation";
 import { toast } from "react-toastify";
 import { BeatLoader } from "react-spinners";
-import { Form, FormControl, InputGroup } from "react-bootstrap";
+import { Form, FormControl, InputGroup, ButtonGroup, Button } from "react-bootstrap";
+import ResultNotFound from "../../../../global/ResultNotFound/ResultNotFound";
 
 export default function CustomerTable() {
     const [page, setPage] = useState(1);
@@ -16,9 +19,16 @@ export default function CustomerTable() {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
-    //sort user
-    const [mode, setMode] = useState('FindAll') //FindAll, FindByUsername 
+    //sort users
+    // const [mode, setMode] = useState('FindAll') //FindAll, FindByUsername 
     const [searchUsername, setSearchUsername] = useState('');
+    const [searchUsernameInput, setSearchUsernameInput] = useState('');
+    //Sort list type users
+    const [isCheckedAll, setIsCheckedAll] = useState(true);
+    const [isCheckedNormal, setIsCheckedNormal] = useState(false);
+    const [isCheckedPremium, setIsCheckedPremium] = useState(false);
+
+
     const inputRef = useRef(null);
 
     const observer = useRef();
@@ -42,6 +52,24 @@ export default function CustomerTable() {
         id: null,
     });
 
+
+    const handleCheckAll = () => {
+        setIsCheckedAll(true);
+        setIsCheckedNormal(false);
+        setIsCheckedPremium(false);
+    };
+
+    const handleCheckNormal = () => {
+        setIsCheckedAll(false);
+        setIsCheckedNormal(true);
+        setIsCheckedPremium(false);
+    };
+
+    const handleCheckPremium = () => {
+        setIsCheckedAll(false);
+        setIsCheckedNormal(false);
+        setIsCheckedPremium(true);
+    };
 
     const blockUser = async (userId) => {
 
@@ -99,47 +127,48 @@ export default function CustomerTable() {
 
     const handleSearchChange = (event) => {
         const newSearchText = event.target.value;
-        setSearchUsername(newSearchText);
+        setSearchUsernameInput(newSearchText);
     };
 
     const handleClearClick = () => {
         setSearchUsername('');
+        setSearchUsernameInput('');
+        setPage(-1) //Khi TH đang trang 2 trở đi mà xóa search
     };
 
     //Thay đổi chế độ dựa trên searchUsername có được gán giá trị chưa 
     useEffect(() => {
-        if (searchUsername === '') {
-            setUsers([])
-            setMode('FindAll')
-            setPage(-1) //Khi TH đang trang 1 mà đổi mode, sẽ không thể gọi data do giá trị page = 1 vẫn giữ nguyên
+        if (searchUsernameInput === '') {
+            // setUsers([])
+            // setMode('FindAll')
             console.log('empty name')
             return;
         }
         const delayDebounceFn = setTimeout(() => {
             // Thực hiện tìm kiếm với searchText khi người dùng nhập vào usernmae
-            toast.success(`Result for ${searchUsername}...`)
             inputRef.current.blur(); //Xóa forcus input
-            setUsers([])
-            setPage(-1) //Khi TH đang trang 1 mà đổi mode, sẽ không thể gọi data do giá trị page = 1 vẫn giữ nguyên
-            setMode('FindByUsername')
+            setSearchUsername(searchUsernameInput)
+            toast.success(`Result for ${searchUsernameInput}...`)
+            // setUsers([])
+            // setPage(-1) //Khi TH đang trang 1 mà đổi mode, sẽ không thể gọi data do giá trị page = 1 vẫn giữ nguyên
+            // setMode('FindByUsername')
         }, 1000); //Xử lí sau 1 s khi người dùng ngưng nhập
         return () => clearTimeout(delayDebounceFn);
-    }, [searchUsername]);
+    }, [searchUsernameInput]);
 
     // //Khi đã Thay đổi chế độ
     useEffect(() => {
         //Reset lại state
+        setUsers([])
         setError(false)
         setPage(1)
         setLoading(false)
         setIsLastPage(false)
-    }, [mode]);
+    }, [isCheckedAll, isCheckedNormal, isCheckedPremium, searchUsername]);
 
-    // //Thay đổi data khi page đổi
-    useEffect(() => {
-        setLoading(true);
-        if (page > 0) {
-            if (mode === 'FindByUsername') {
+    const getListUser = () => {
+        if (isCheckedAll) {
+            if (searchUsername !== '') {
                 APIGetAllUser(page, searchUsername)
                     .then(res => {
                         if (res.data.length === 0) {
@@ -169,7 +198,77 @@ export default function CustomerTable() {
                     })
             }
         }
-    }, [page]);
+        if (isCheckedPremium) {
+            if (searchUsername !== '') {
+                APIGetAllPremiumUser(page, searchUsername)
+                    .then(res => {
+                        if (res.data.length === 0) {
+                            setIsLastPage(true)
+                        } else {
+                            setUsers((curUsers) => [...curUsers, ...res.data]);
+                        }
+                        setLoading(false);
+                    })
+                    .catch(err => {
+                        setError(true);
+                        setLoading(false);
+                    })
+            } else {
+                APIGetAllPremiumUser(page)
+                    .then(res => {
+                        if (res.data.length === 0) {
+                            setIsLastPage(true)
+                        } else {
+                            setUsers((curUsers) => [...curUsers, ...res.data]);
+                        }
+                        setLoading(false);
+                    })
+                    .catch(err => {
+                        setError(true);
+                        setLoading(false);
+                    })
+            }
+        }
+        if (isCheckedNormal) {
+            if (searchUsername !== '') {
+                APIGetAllNormalUser(page, searchUsername)
+                    .then(res => {
+                        if (res.data.length === 0) {
+                            setIsLastPage(true)
+                        } else {
+                            setUsers((curUsers) => [...curUsers, ...res.data]);
+                        }
+                        setLoading(false);
+                    })
+                    .catch(err => {
+                        setError(true);
+                        setLoading(false);
+                    })
+            } else {
+                APIGetAllNormalUser(page)
+                    .then(res => {
+                        if (res.data.length === 0) {
+                            setIsLastPage(true)
+                        } else {
+                            setUsers((curUsers) => [...curUsers, ...res.data]);
+                        }
+                        setLoading(false);
+                    })
+                    .catch(err => {
+                        setError(true);
+                        setLoading(false);
+                    })
+            }
+        }
+    }
+
+    // //Thay đổi data khi page đổi
+    useEffect(() => {
+        setLoading(true);
+        if (page > 0) {
+            getListUser()
+        }
+    }, [page, searchUsername, isCheckedAll, isCheckedNormal, isCheckedPremium]);
 
     return (
         <>
@@ -187,14 +286,34 @@ export default function CustomerTable() {
                                 placeholder={`Type username`}
                                 aria-label="Search users"
                                 aria-describedby="basic-addon1"
-                                value={searchUsername}
+                                value={searchUsernameInput}
                                 ref={inputRef}
                                 onChange={handleSearchChange}
                                 onClick={handleClearClick}
                             />
                         </InputGroup>
                     </Form>
-
+                    {/* sort list type  */}
+                    <ButtonGroup style={{ paddingBottom: '20px' }}>
+                        <Button
+                            variant={isCheckedAll ? "primary" : "secondary"}
+                            onClick={handleCheckAll}
+                        >
+                            All User
+                        </Button>
+                        <Button
+                            variant={isCheckedNormal ? "primary" : "secondary"}
+                            onClick={handleCheckNormal}
+                        >
+                            Normal User
+                        </Button>
+                        <Button
+                            variant={isCheckedPremium ? "primary" : "secondary"}
+                            onClick={handleCheckPremium}
+                        >
+                            Premium User
+                        </Button>
+                    </ButtonGroup>
                     {/* end sort user */}
                     <div className="row">
                         <div className="col-lg-12">
@@ -338,6 +457,8 @@ export default function CustomerTable() {
                                                 }
                                             </tbody>
                                         </table>
+                                        {/* Notice empty list */}
+                                        {users.length === 0 && loading === false && <ResultNotFound />}
                                         {
                                             loading
                                             &&
