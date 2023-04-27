@@ -222,6 +222,24 @@ export const APIGetAllUser=(page, keyword = undefined)=>{
         })
         .catch((err) => console.log("Can't call API after 2 retries", err));
 }
+export const APIGetAllPremiumUser=(page, keyword = undefined)=>{
+    const url = `/admin/get-all-premium-user`;
+    const params = {
+        page,
+        keyword
+    };
+    console.log(params)
+    const jwt = window.sessionStorage.getItem("jwt");
+    const headers = {
+        Authorization: `Bearer ${jwt}`,
+    };
+    return axiosClient
+        .get(url, {
+            headers,
+            params,
+        })
+        .catch((err) => console.log("Can't call API after 2 retries", err));
+}
 export const APIBlockUser=(userId)=>{
     const url = `/admin/disable-user/${userId}`;
     const jwt = window.sessionStorage.getItem("jwt");
