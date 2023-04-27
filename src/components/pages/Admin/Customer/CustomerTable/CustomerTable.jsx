@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import {
     APIBlockUser,
+    APIGetAllNormalUser,
     APIGetAllPremiumUser,
     APIGetAllUser,
     APIUnBlockUser,
@@ -228,6 +229,37 @@ export default function CustomerTable() {
                     })
             }
         }
+        if (isCheckedNormal) {
+            if (searchUsername !== '') {
+                APIGetAllNormalUser(page, searchUsername)
+                    .then(res => {
+                        if (res.data.length === 0) {
+                            setIsLastPage(true)
+                        } else {
+                            setUsers((curUsers) => [...curUsers, ...res.data]);
+                        }
+                        setLoading(false);
+                    })
+                    .catch(err => {
+                        setError(true);
+                        setLoading(false);
+                    })
+            } else {
+                APIGetAllNormalUser(page)
+                    .then(res => {
+                        if (res.data.length === 0) {
+                            setIsLastPage(true)
+                        } else {
+                            setUsers((curUsers) => [...curUsers, ...res.data]);
+                        }
+                        setLoading(false);
+                    })
+                    .catch(err => {
+                        setError(true);
+                        setLoading(false);
+                    })
+            }
+        }
     }
 
     // //Thay đổi data khi page đổi
@@ -261,6 +293,7 @@ export default function CustomerTable() {
                             />
                         </InputGroup>
                     </Form>
+                    {/* sort list type  */}
                     <ButtonGroup style={{ paddingBottom: '20px' }}>
                         <Button
                             variant={isCheckedAll ? "primary" : "secondary"}
