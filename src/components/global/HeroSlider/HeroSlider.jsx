@@ -56,7 +56,7 @@ export default function HeroSlider() {
                             <div className="col-lg-6">
                                 <div className="hero__text">
                                     <div className="label">Adventure</div>
-                                    <h2>Kimetsu no yaiba session 3</h2>
+                                    <h2>Kimetsu no yaiba seasion 3</h2>
                                     <p>
                                         Cuộc hành trình của Tanjiro đã dẫn cậu đến Làng Thợ rèn, nơi cậu gặp lại hai Trụ Cột, thành viên của ...
                                     </p>
@@ -71,22 +71,21 @@ export default function HeroSlider() {
                     <div
                         className="hero__items set-bg"
                         style={{
-                            backgroundImage: 'url("/img/hero/conan.jpg")',
+                            backgroundImage: 'url("/img/hero/Tate-no-Yusha-no-Nariagari.jpg")',
                         }}
                     >
                         <div className="row">
                             <div className="col-lg-6">
                                 <div className="hero__text">
-                                    <div className="label">Detective</div>
+                                    <div className="label">Isekai</div>
                                     <h2>
-                                        Detective Conan: Halloween Bride 2022
+                                        Tate no Yusha no Nariagari seasion 2
                                     </h2>
                                     <p>
-                                        During the wedding of Takagi and Sato,
-                                        an assailant breaks and tries to attack
-                                        Sato...
+                                        Iwatani Naofumi bị triệu hồi vào thế giới song song cùng 
+                                        với 3 người khác được trang bị 4 thanh Huyền Khí khi được triệu hồi...
                                     </p>
-                                    <a onClick={() => navigate("/details/8")}>
+                                    <a onClick={() => navigate("/details/138")}>
                                         <span>Watch Now</span>{" "}
                                         <i className="fa fa-angle-right" />
                                     </a>
