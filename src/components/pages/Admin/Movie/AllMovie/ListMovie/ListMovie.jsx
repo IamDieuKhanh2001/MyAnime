@@ -126,7 +126,7 @@ export default function ListMovie() {
 
       <div className="titleList">List Movies</div>
       {/* sort user */}
-      <Form
+      {/* <Form
         style={{ maxWidth: "500px" }}
       >
         <InputGroup className="mb-3" size="lg">
@@ -143,7 +143,7 @@ export default function ListMovie() {
           // onClick={handleClearClick}
           />
         </InputGroup>
-      </Form>
+      </Form> */}
 
       {/* end sort user */}
       <div className="allMovieLine">

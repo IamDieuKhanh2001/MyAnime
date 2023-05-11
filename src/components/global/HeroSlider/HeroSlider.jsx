@@ -36,7 +36,7 @@ export default function HeroSlider() {
                                     <div className="label">Action</div>
                                     <h2>Fate stay night: Unlimited Blade Works</h2>
                                     <p>
-                                    Every human inhabiting the world of Alcia ...
+                                        Every human inhabiting the world of Alcia ...
                                     </p>
                                     <a onClick={() => navigate("/details/166")}>
                                         <span>Watch Now</span>{" "}
@@ -49,20 +49,18 @@ export default function HeroSlider() {
                     <div
                         className="hero__items set-bg"
                         style={{
-                            backgroundImage: 'url("/img/hero/faf.jpg")',
+                            backgroundImage: 'url("/img/hero/demon-slayer-season-3.jpg")',
                         }}
                     >
                         <div className="row">
                             <div className="col-lg-6">
                                 <div className="hero__text">
                                     <div className="label">Adventure</div>
-                                    <h2>Fast &amp; Furious 9</h2>
+                                    <h2>Kimetsu no yaiba session 3</h2>
                                     <p>
-                                        The film tells the story of Dominic
-                                        Toretto who lives a quiet life with his
-                                        family...
+                                        Cuộc hành trình của Tanjiro đã dẫn cậu đến Làng Thợ rèn, nơi cậu gặp lại hai Trụ Cột, thành viên của ...
                                     </p>
-                                    <a onClick={() => navigate("/details/8")}>
+                                    <a onClick={() => navigate("/details/237")}>
                                         <span>Watch Now</span>{" "}
                                         <i className="fa fa-angle-right" />
                                     </a>

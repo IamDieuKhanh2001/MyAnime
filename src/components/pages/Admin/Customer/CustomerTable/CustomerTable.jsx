@@ -20,7 +20,6 @@ export default function CustomerTable() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     //sort users
-    // const [mode, setMode] = useState('FindAll') //FindAll, FindByUsername 
     const [searchUsername, setSearchUsername] = useState('');
     const [searchUsernameInput, setSearchUsernameInput] = useState('');
     //Sort list type users
@@ -52,19 +51,19 @@ export default function CustomerTable() {
         id: null,
     });
 
-
+    //Chỉ được chọn 1 trong 3 check box
     const handleCheckAll = () => {
         setIsCheckedAll(true);
         setIsCheckedNormal(false);
         setIsCheckedPremium(false);
     };
-
+    //Chỉ được chọn 1 trong 3 check box
     const handleCheckNormal = () => {
         setIsCheckedAll(false);
         setIsCheckedNormal(true);
         setIsCheckedPremium(false);
     };
-
+    //Chỉ được chọn 1 trong 3 check box
     const handleCheckPremium = () => {
         setIsCheckedAll(false);
         setIsCheckedNormal(false);
@@ -136,23 +135,17 @@ export default function CustomerTable() {
         setPage(-1) //Khi TH đang trang 2 trở đi mà xóa search
     };
 
-    //Thay đổi chế độ dựa trên searchUsername có được gán giá trị chưa 
+    //Thay đổi state searchUsername khi input nhưng nhập sau 3 giây
     useEffect(() => {
         if (searchUsernameInput === '') {
-            // setUsers([])
-            // setMode('FindAll')
             console.log('empty name')
             return;
         }
         const delayDebounceFn = setTimeout(() => {
-            // Thực hiện tìm kiếm với searchText khi người dùng nhập vào usernmae
             inputRef.current.blur(); //Xóa forcus input
             setSearchUsername(searchUsernameInput)
             toast.success(`Result for ${searchUsernameInput}...`)
-            // setUsers([])
-            // setPage(-1) //Khi TH đang trang 1 mà đổi mode, sẽ không thể gọi data do giá trị page = 1 vẫn giữ nguyên
-            // setMode('FindByUsername')
-        }, 1000); //Xử lí sau 1 s khi người dùng ngưng nhập
+        }, 2000); //Xử lí sau 2 s khi người dùng ngưng nhập
         return () => clearTimeout(delayDebounceFn);
     }, [searchUsernameInput]);
 
@@ -262,7 +255,7 @@ export default function CustomerTable() {
         }
     }
 
-    // //Thay đổi data khi page đổi
+    // //Goi api Thay đổi data khi page đổi và chế độ đổi
     useEffect(() => {
         setLoading(true);
         if (page > 0) {
