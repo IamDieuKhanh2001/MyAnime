@@ -3,7 +3,10 @@ import axiosRetry from "axios-retry";
 
 export const axiosClient = axios.create({
     // Developer environment
-    baseURL: `http://localhost:8080`,
+    baseURL: `https://4de5-2402-800-63eb-f115-f8ad-a75a-2a3-ca2c.ngrok-free.app`,
+    headers: {
+        "ngrok-skip-browser-warning": "69420"
+    }
 
     // Production environment
     //  baseURL: `https://myanime-heroku.herokuapp.com`,
