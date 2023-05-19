@@ -272,9 +272,6 @@ export default function CustomerTable() {
                         style={{ maxWidth: "500px" }}
                     >
                         <InputGroup className="mb-3" size="lg">
-                            <InputGroup.Text id="basic-addon1">
-                                <i className="bx bx-search-alt-2" />
-                            </InputGroup.Text>
                             <FormControl
                                 placeholder={`Type username`}
                                 aria-label="Search users"
